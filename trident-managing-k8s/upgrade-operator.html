@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-01 19:35:31 +0000">12/01/2022</time>
     
   
 
@@ -1627,7 +1627,7 @@ Wenn Sie das Upgrade von Trident mithilfe des Betreibers für OpenShift Containe
 <h2 id="upgrade-einer-cluster-scoped-operator-installation">Upgrade einer Cluster-Scoped Operator-Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Für ein Upgrade von <strong>Trident 21.01 und höher</strong>, hier sind die Schritte zu folgen.</p>
+<p>Führen Sie die folgenden Schritte aus, um ein Upgrade von <strong>Trident 21.01 und höher</strong> durchzuführen.</p>
 </div>
 <div class="olist arabic">
 <div class="title">Schritte</div>
@@ -1636,25 +1636,49 @@ Wenn Sie das Upgrade von Trident mithilfe des Betreibers für OpenShift Containe
 <p>Löschen Sie den Trident-Operator, der zur Installation der aktuellen Astra Trident-Instanz verwendet wurde. Wenn Sie beispielsweise ein Upgrade von 21.01 durchführen, führen Sie den folgenden Befehl aus:</p>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl delete -f 22.01/trident-installer/deploy/bundle.yaml -n trident</pre>
+<pre>kubectl delete -f 22.01/trident-installer/deploy/BUNDLE.YAML -n trident</pre>
 </div>
 </div>
 </li>
 <li>
-<p>(Optional) Wenn Sie die Installationsparameter ändern möchten, bearbeiten Sie das <code>TridentOrchestrator</code> Objekt, das Sie beim Installieren von Trident erstellt haben. Dies kann Änderungen umfassen, z. B. das Ändern des benutzerdefinierten Trident Images, die private Image-Registrierung zum Ziehen von Container-Images, das Aktivieren von Debug-Protokollen oder die Angabe von Pull-Secrets für Images.</p>
+<p>Optional können Sie den bearbeiten <code>TridentOrchestrator</code> Objekt, das Sie beim Installieren von Trident erstellt haben, um die Installationsparameter zu ändern. Dies kann Änderungen umfassen, z. B. das Ändern des benutzerdefinierten Trident-Images, die private Image-Registrierung zum Übertragen von Container-Images, das Aktivieren von Debug-Protokollen oder die Angabe von Pull-Secrets für Bilder.</p>
 </li>
 <li>
-<p>Installieren Sie Astra Trident mit dem <code>bundle.yaml</code> Datei, die den Trident-Operator für die neue Version eingerichtet hat. Führen Sie den folgenden Befehl aus:</p>
+<p>Installieren Sie Astra Trident mit der richtigen Paket-YAML-Datei für Ihre Umgebung und Astra Trident-Version von <code>https://github.com/NetApp/trident/tree/stable/<em>vXX.XX</em>/deploy/<em>BUNDLE.YAML</em></code> Wo <code><em>vXX.XX</em></code> Ist die Versionsnummer (zum Beispiel <code>v22.10</code>) Und <code><em>BUNDLE.YAML</em></code> Ist der Name der Paket-YAML-Datei.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Anmerkung">
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Verwenden Sie für Cluster mit Kubernetes 1.24 oder älter <a href="https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_pre_1_25.yaml" target="_blank" rel="noopener">"Bundle_pre_1_25.yaml"</a>.</p>
+</li>
+<li>
+<p>Verwenden Sie für Cluster mit Kubernetes 1.25 oder höher <a href="https://github.com/NetApp/trident/tree/stable/v22.10/deploy/bundle_post_1_25.yaml" target="_blank" rel="noopener">"Bundle_Post_1_25.yaml"</a>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Wenn Sie beispielsweise Astra Trident 22.10 für Kubernetes 1.25 installieren, führen Sie den folgenden Befehl aus:</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre>kubectl create -f 22.10.0/trident-installer/deploy/bundle.yaml -n trident</pre>
+<pre>kubectl create -f 22.10.0/trident-installer/deploy/bundle_post_1_25.yaml -n trident</pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p>In diesem Schritt identifiziert der Trident-Operator eine bestehende Astra Trident-Installation und aktualisiert sie auf die gleiche Version wie der Operator.</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1705,7 +1729,7 @@ kubectl create -f deploy/crds/trident.netapp.io_tridentorchestrators_crd_post1.1
 </div>
 </li>
 <li>
-<p>Löschen Sie den Operator Namespace-Scoped mithilfe des Manifests. Um diesen Schritt abzuschließen, benötigen Sie die <code>bundle.yaml</code> Datei, die für die Bereitstellung des Operatoren für Namespace-Scoped verwendet wird. Sie erhalten können <code>bundle.yaml</code> Von <a href="https://github.com/NetApp/trident/blob/stable/v20.10/deploy/bundle.yaml" target="_blank" rel="noopener">"Trident Repository"</a>. Stellen Sie sicher, dass Sie den entsprechenden Zweig verwenden.</p>
+<p>Löschen Sie den Operator Namespace-Scoped mithilfe des Manifests. Um diesen Schritt abzuschließen, benötigen Sie die Paket-YAML-Datei, die zum Bereitstellen des Namespace-Scoped-Operators von verwendet wird <code>https://github.com/NetApp/trident/tree/stable/<em>vXX.XX</em>/deploy/<em>BUNDLE.YAML</em></code> Wo <code><em>vXX.XX</em></code> Ist die Versionsnummer (zum Beispiel <code>v22.10</code>) Und <code><em>BUNDLE.YAML</em></code> Ist der Name der Paket-YAML-Datei.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1725,7 +1749,7 @@ pwd
 /root/20.10.1/trident-installer
 
 #Delete the namespace-scoped operator
-kubectl delete -f deploy/bundle.yaml
+kubectl delete -f deploy/&lt;BUNDLE.YAML&gt;
 serviceaccount "trident-operator" deleted
 clusterrole.rbac.authorization.k8s.io "trident-operator" deleted
 clusterrolebinding.rbac.authorization.k8s.io "trident-operator" deleted
@@ -1798,7 +1822,7 @@ pwd
 /root/22.10.0/trident-installer
 
 #Install the cluster-scoped operator in the **same namespace**
-kubectl create -f deploy/bundle.yaml
+kubectl create -f deploy/&lt;BUNDLE.YAML&gt;
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created
@@ -1934,7 +1958,7 @@ cd trident-installer</pre>
 <div class="listingblock">
 <div class="content">
 <pre>#Install the cluster-scoped operator in the **same namespace**
-kubectl create -f deploy/bundle.yaml
+kubectl create -f deploy/&lt;BUNDLE.YAML&gt;
 serviceaccount/trident-operator created
 clusterrole.rbac.authorization.k8s.io/trident-operator created
 clusterrolebinding.rbac.authorization.k8s.io/trident-operator created

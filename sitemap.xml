@@ -15,7 +15,7 @@
     <url>
       <loc>https://docs.netapp.com/de-de/trident/trident-use/anf-examples.html</loc>
       
-      <lastmod>2022-11-16T23:12:54+00:00</lastmod>
+      <lastmod>2022-12-01T19:35:31+00:00</lastmod>
       
     </url>
   
@@ -106,7 +106,7 @@
     <url>
       <loc>https://docs.netapp.com/de-de/trident/trident-managing-k8s/downgrade-trident.html</loc>
       
-      <lastmod>2022-11-16T23:12:54+00:00</lastmod>
+      <lastmod>2022-12-01T19:35:31+00:00</lastmod>
       
     </url>
   
@@ -197,14 +197,14 @@
     <url>
       <loc>https://docs.netapp.com/de-de/trident/trident-get-started/kubernetes-customize-deploy.html</loc>
       
-      <lastmod>2022-11-16T23:12:54+00:00</lastmod>
+      <lastmod>2022-12-01T19:35:31+00:00</lastmod>
       
     </url>
   
     <url>
       <loc>https://docs.netapp.com/de-de/trident/trident-get-started/kubernetes-deploy-operator.html</loc>
       
-      <lastmod>2022-11-16T23:12:54+00:00</lastmod>
+      <lastmod>2022-12-01T19:35:31+00:00</lastmod>
       
     </url>
   
@@ -365,7 +365,7 @@
     <url>
       <loc>https://docs.netapp.com/de-de/trident//search.html</loc>
       
-      <lastmod>2022-11-16T23:13:10+00:00</lastmod>
+      <lastmod>2022-12-01T19:35:45+00:00</lastmod>
       
     </url>
   
@@ -442,7 +442,7 @@
     <url>
       <loc>https://docs.netapp.com/de-de/trident/trident-managing-k8s/upgrade-operator.html</loc>
       
-      <lastmod>2022-11-16T23:12:54+00:00</lastmod>
+      <lastmod>2022-12-01T19:35:31+00:00</lastmod>
       
     </url>
   

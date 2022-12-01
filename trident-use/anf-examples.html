@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-01 19:35:31 +0000">12/01/2022</time>
     
   
 
@@ -1836,8 +1836,8 @@ Bei allen Volumes, die auf einem ANF-Backend erstellt wurden, kopiert Astra Trid
 <div class="sect1">
 <h2 id="beispielkonfigurationen">Beispielkonfigurationen</h2>
 <div class="sectionbody">
-<div class="exampleblock">
-<div class="title">Beispiel 1. Beispiel 1: Minimale Konfiguration</div>
+<details open>
+<summary class="title">Beispiel 1: Minimale Konfiguration</summary>
 <div class="content">
 <div class="paragraph">
 <p>Dies ist die absolute minimale Backend-Konfiguration. Mit dieser Konfiguration erkennt Astra Trident alle Ihre NetApp Konten, Kapazitäts-Pools und Subnetze, die an ANF am konfigurierten Speicherort delegiert wurden, und setzt zufällig neue Volumes auf einen dieser Pools und Subnetze. Weil <code>nasType</code> Wird weggelassen, das <code>nfs</code> Standard gilt und das Backend wird für NFS-Volumes bereitgestellt.</p>
@@ -1859,9 +1859,9 @@ Bei allen Volumes, die auf einem ANF-Backend erstellt wurden, kopiert Astra Trid
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Beispiel 2. Beispiel 2: Spezifische Service Level-Konfiguration mit Kapazitätspool-Filtern</div>
+</details>
+<details open>
+<summary class="title">Beispiel 2: Spezifische Service Level-Konfiguration mit Kapazitätspool-Filtern</summary>
 <div class="content">
 <div class="paragraph">
 <p>Bei dieser Back-End-Konfiguration werden Volumes in Azure platziert <code>eastus</code> Standort in einem <code>Ultra</code> Kapazitäts-Pool: Astra Trident erkennt automatisch alle an ANF delegierten Subnetze und legt ein neues Volume zufällig auf einen davon ab.</p>
@@ -1885,9 +1885,9 @@ Bei allen Volumes, die auf einem ANF-Backend erstellt wurden, kopiert Astra Trid
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Beispiel 3. Beispiel 3: Erweiterte Konfiguration</div>
+</details>
+<details open>
+<summary class="title">Beispiel 3: Erweiterte Konfiguration</summary>
 <div class="content">
 <div class="paragraph">
 <p>Diese Back-End-Konfiguration reduziert den Umfang der Volume-Platzierung auf ein einzelnes Subnetz und ändert auch einige Standardwerte für die Volume-Bereitstellung.</p>
@@ -1922,9 +1922,9 @@ Bei allen Volumes, die auf einem ANF-Backend erstellt wurden, kopiert Astra Trid
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Beispiel 4. Beispiel 4: Konfiguration des virtuellen Speicherpools</div>
+</details>
+<details open>
+<summary class="title">Beispiel 4: Konfiguration des virtuellen Speicherpools</summary>
 <div class="content">
 <div class="paragraph">
 <p>Diese Back-End-Konfiguration definiert mehrere Storage-Pools in einer einzelnen Datei. Dies ist nützlich, wenn Sie über mehrere Kapazitäts-Pools verfügen, die unterschiedliche Service-Level unterstützen, und Sie Storage-Klassen in Kubernetes erstellen möchten, die diese unterstützen.</p>
@@ -1975,7 +1975,7 @@ Bei allen Volumes, die auf einem ANF-Backend erstellt wurden, kopiert Astra Trid
 </div>
 </div>
 </div>
-</div>
+</details>
 </div>
 </div>
 <div class="sect1">
@@ -2025,8 +2025,8 @@ allowVolumeExpansion: true</pre>
 <div class="paragraph">
 <p>Wird Verwendet <code>nasType</code>, <code>node-stage-secret-name</code>, und  <code>node-stage-secret-namespace</code>, Sie können ein SMB-Volume angeben und die erforderlichen Active Directory-Anmeldeinformationen angeben.</p>
 </div>
-<div class="exampleblock">
-<div class="title">Beispiel 5. Beispiel 1: Grundlegende Konfiguration im Standard-Namespace</div>
+<details open>
+<summary class="title">Beispiel 1: Grundlegende Konfiguration im Standard-Namespace</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2043,9 +2043,9 @@ parameters:
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Beispiel 6. Beispiel 2: Unterschiedliche Geheimnisse pro Namespace verwenden</div>
+</details>
+<details open>
+<summary class="title">Beispiel 2: Unterschiedliche Geheimnisse pro Namespace verwenden</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2062,9 +2062,9 @@ parameters:
 </div>
 </div>
 </div>
-</div>
-<div class="exampleblock">
-<div class="title">Beispiel 7. Beispiel 3: Verschiedene Geheimnisse pro Volumen</div>
+</details>
+<details open>
+<summary class="title">Beispiel 3: Verschiedene Geheimnisse pro Volumen</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -2081,7 +2081,7 @@ parameters:
 </div>
 </div>
 </div>
-</div>
+</details>
 <div class="admonitionblock note">
 <table>
 <tr>

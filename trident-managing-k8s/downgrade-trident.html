@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-01 19:35:31 +0000">12/01/2022</time>
     
   
 
@@ -1649,10 +1649,10 @@
 <div class="title">Schritte</div>
 <ol class="arabic">
 <li>
-<p><a href="uninstall-trident.html" target="_blank" rel="noopener">"Deinstallieren Sie Astra Trident"</a>. <strong>Die CRDs dürfen nicht gelöscht werden, es sei denn, Sie möchten eine vorhandene Installation vollständig entfernen.</strong></p>
+<p><a href="uninstall-trident.html" target="_blank" rel="noopener">"Deinstallieren Sie Astra Trident"</a>. <strong>Löschen Sie die CRDs nicht, es sei denn, Sie möchten eine vorhandene Installation vollständig entfernen.</strong></p>
 </li>
 <li>
-<p>Löschen Sie den Operator Cluster-Scoped. Dazu benötigen Sie das Manifest, das für die Bereitstellung des Operators verwendet wird. Sie können es vom beziehen <a href="https://github.com/NetApp/trident/blob/stable/v21.07/deploy/bundle.yaml" target="_blank" rel="noopener">"Trident GitHub Repo"</a>. Vergewissern Sie sich, dass Sie in den erforderlichen Zweig wechseln.</p>
+<p>Der Trident-Operator kann mithilfe des Operator-Manifests gelöscht werden, das mit Ihrer Trident-Version verknüpft ist. Beispiel: <code>https://github.com/NetApp/trident/tree/stable/<em>vXX.XX</em>/deploy/<em>bundle.yaml</em></code> Wo <code><em>vXX.XX</em></code> Ist die Versionsnummer (zum Beispiel <code>v22.10</code>) Und <code><em>bundle.yaml</em></code> Ist der Name der Paket-YAML-Datei.</p>
 </li>
 <li>
 <p>Fahren Sie mit der Installation der gewünschten Version von Astra Trident fort. Befolgen Sie die Dokumentation für das gewünschte Release.</p>
@@ -1684,7 +1684,7 @@ tridentorchestrator.trident.netapp.io "trident" deleted</pre>
 </div>
 </li>
 <li>
-<p>Löschen Sie den Operator Cluster-Scoped. Dazu benötigen Sie das Manifest, das für die Bereitstellung des Operators verwendet wird. Sie können es hier von der erhalten <a href="https://github.com/NetApp/trident/blob/stable/v21.07/deploy/bundle.yaml" target="_blank" rel="noopener">"Trident GitHub Repo"</a>. Vergewissern Sie sich, dass Sie in den erforderlichen Zweig wechseln.</p>
+<p>Der Trident-Operator kann mithilfe des Operator-Manifests gelöscht werden, das mit Ihrer Trident-Version verknüpft ist. Beispiel: <code>https://github.com/NetApp/trident/tree/stable/<em>vXX.XX</em>/deploy/<em>bundle.yaml</em></code> Wo <code><em>vXX.XX</em></code> Ist die Versionsnummer (zum Beispiel <code>v22.10</code>) Und <code><em>bundle.yaml</em></code> Ist der Name der Paket-YAML-Datei.</p>
 </li>
 <li>
 <p>Löschen Sie die <code>tridentorchestrator</code> CRD.-</p>
