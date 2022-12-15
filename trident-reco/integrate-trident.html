@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-15 17:49:03 +0000">12/15/2022</time>
     
   
 
@@ -1589,16 +1589,19 @@
 <div class="sect1">
 <h2 id="auswahl-und-implementierung-der-treiber">Auswahl und Implementierung der Treiber</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="wählen-sie-einen-back-end-treiber-für-ontap">Wählen Sie einen Back-End-Treiber für ONTAP</h3>
 <div class="paragraph">
-<p>Für ONTAP-Systeme stehen vier verschiedene Backend-Treiber zur Verfügung. Diese Treiber unterscheiden sich durch das verwendete Protokoll und die Art und Weise der Volumes im Storage-System. Daher sollten Sie sorgfältig prüfen, welcher Treiber eingesetzt werden soll.</p>
+<p>Wählen Sie einen Back-End-Treiber für Ihr Speichersystem aus und implementieren Sie ihn.</p>
+</div>
+<div class="sect2">
+<h3 id="back-end-treiber-für-ontap">Back-End-Treiber für ONTAP</h3>
+<div class="paragraph">
+<p>Die Back-End-Treiber für ONTAP unterscheiden sich durch das verwendete Protokoll und die Art und Weise, wie die Volumes im Storage-System bereitgestellt werden. Daher sollten Sie bei der Entscheidung, welchen Treiber eingesetzt werden soll, sorgfältig überlegen.</p>
 </div>
 <div class="paragraph">
 <p>Auf einer höheren Ebene, wenn Ihre Applikation Komponenten hat, die gemeinsamen Storage benötigen (mehrere Pods, die auf dasselbe PVC zugreifen), sind NAS-basierte Treiber die erste Wahl, während die blockbasierten iSCSI-Treiber die Anforderungen von nicht gemeinsam genutztem Storage erfüllen. Wählen Sie das Protokoll basierend auf den Anforderungen der Applikation und der Komfort-Ebene der Storage- und Infrastrukturteams. Generell besteht für die meisten Applikationen kein Unterschied zwischen ihnen. Oftmals basiert die Entscheidung darauf, ob gemeinsam genutzter Storage (wo mehr als ein POD den gleichzeitigen Zugriff benötigen) benötigt wird.</p>
 </div>
 <div class="paragraph">
-<p>Die folgenden fünf Treiber für ONTAP-Back-Ends sind aufgeführt:</p>
+<p>Die verfügbaren Back-End-Treiber für ONTAP sind:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1753,19 +1756,19 @@ Der <code>solidfire-san</code> Der Treiber ist auch in der Lage, PVCs zu klonen.
 </div>
 </div>
 <div class="sect2">
-<h3 id="wählen-sie-einen-back-end-treiber-für-cloud-volumes-ontap">Wählen Sie einen Back-End-Treiber für Cloud Volumes ONTAP</h3>
+<h3 id="back-end-treiber-für-cloud-volumes-ontap">Back-End-Treiber für Cloud Volumes ONTAP</h3>
 <div class="paragraph">
 <p>Cloud Volumes ONTAP bietet Datenkontrolle und Storage-Funktionen der Enterprise-Klasse für verschiedene Anwendungsfälle, einschließlich Dateifreigaben und Storage-Funktionen auf Blockebene für NAS- und SAN-Protokolle (NFS, SMB/CIFS und iSCSI). Die kompatiblen Treiber für Cloud Volume ONTAP sind <code>ontap-nas</code>, <code>ontap-nas-economy</code>, <code>ontap-san</code> Und <code>ontap-san-economy</code>. Diese gelten für Cloud Volume ONTAP für Azure, Cloud Volume ONTAP für GCP.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wählen-sie-einen-backend-treiber-für-amazon-fsx-for-ontap">Wählen Sie einen Backend-Treiber für Amazon FSX for ONTAP</h3>
+<h3 id="back-end-treiber-für-amazon-fsx-for-ontap">Back-End-Treiber für Amazon FSX for ONTAP</h3>
 <div class="paragraph">
 <p>Amazon FSX für ONTAP ermöglicht es Kunden, bereits bekannte NetApp Funktionen, Performance und Administration zu nutzen und gleichzeitig die Einfachheit, Agilität, Sicherheit und Skalierbarkeit beim Speichern von Daten in AWS zu nutzen. FSX für ONTAP unterstützt viele ONTAP Dateisystemfunktionen und Administrations-APIs. Die kompatiblen Treiber für Cloud Volume ONTAP sind <code>ontap-nas</code>, <code>ontap-nas-economy</code>, <code>ontap-nas-flexgroup</code>, <code>ontap-san</code> Und <code>ontap-san-economy</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="wählen-sie-einen-back-end-treiber-für-netapp-hcisolidfire">Wählen Sie einen Back-End-Treiber für NetApp HCI/SolidFire</h3>
+<h3 id="back-end-treiber-für-netapp-hcisolidfire">Back-End-Treiber für NetApp HCI/SolidFire</h3>
 <div class="paragraph">
 <p>Der <code>solidfire-san</code> Der mit den NetApp HCI/SolidFire Plattformen verwendete Treiber unterstützt den Administrator bei der Konfiguration eines Element-Backend für Trident anhand der QoS-Limits. Falls Sie Ihr Backend so entwerfen möchten, dass die spezifischen QoS-Limits für die Volumes gesetzt werden, die durch Trident bereitgestellt werden, verwenden Sie das <code>type</code> Parameter in der Backend-Datei. Der Administrator kann auch die Volume-Größe beschränken, die mithilfe von auf dem Storage erstellt werden könnte <code>limitVolumeSize</code> Parameter. Momentan werden Element Storage-Funktionen wie die Größenanpassung von Volumes und die Volume-Replizierung von nicht vom unterstützt <code>solidfire-san</code> Treiber. Diese Vorgänge sollten manuell über die Web-UI von Element Software durchgeführt werden.</p>
 </div>
@@ -1810,7 +1813,7 @@ Der <code>solidfire-san</code> Der Treiber ist auch in der Lage, PVCs zu klonen.
 </div>
 </div>
 <div class="sect2">
-<h3 id="wählen-sie-einen-back-end-treiber-für-azure-netapp-files">Wählen Sie einen Back-End-Treiber für Azure NetApp Files</h3>
+<h3 id="back-end-treiber-für-azure-netapp-files">Back-End-Treiber für Azure NetApp Files</h3>
 <div class="paragraph">
 <p>Astra Trident verwendet den <code>azure-netapp-files</code> Treiber für die Verwaltung des <a href="https://azure.microsoft.com/en-us/services/netapp/" target="_blank" rel="noopener">"Azure NetApp Dateien"</a> Service:</p>
 </div>
@@ -1855,7 +1858,7 @@ Der <code>solidfire-san</code> Der Treiber ist auch in der Lage, PVCs zu klonen.
 </div>
 </div>
 <div class="sect2">
-<h3 id="wählen-sie-einen-back-end-treiber-für-cloud-volumes-service-mit-gcp">Wählen Sie einen Back-End-Treiber für Cloud Volumes Service mit GCP</h3>
+<h3 id="cloud-volumes-service-mit-gcp-backend-treibern">Cloud Volumes Service mit GCP-Backend-Treibern</h3>
 <div class="paragraph">
 <p>Astra Trident verwendet den <code>gcp-cvs</code> Der mit dem Cloud Volumes Service auf dem GCP-Backend verknüpft wird. Zur Konfiguration des GCP-Backend auf Trident ist angegeben erforderlich <code>projectNumber</code>, <code>apiRegion</code>, und <code>apiKey</code> In der Backend-Datei. Die Projektnummer kann im GCP Webportal gefunden werden. Der API-Schlüssel muss jedoch aus der privaten Schlüssel-Datei der Service-Konten stammen, die Sie beim Einrichten eines API-Zugriffs für Cloud Volumes auf GCP erstellt haben. Astra Trident kann CVS Volumes in einem von zwei erstellen <a href="https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types" target="_blank" rel="noopener">"Servicetypen"</a>:</p>
 </div>
@@ -1871,18 +1874,6 @@ Der <code>solidfire-san</code> Der Treiber ist auch in der Lage, PVCs zu klonen.
 </div>
 <div class="paragraph">
 <p>Die minimale Volume-Größe von CVS und CVS-Performance beträgt 100 gib.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<img src="/us-en/trident/images/caution.svg" alt="Achtung">
-</td>
-<td class="content">
-Bei der Bereitstellung von Back-Ends mithilfe des standardmäßigen CVS-Servicetyps [<code>storageClass=software</code>], Benutzer * müssen Zugriff auf die Sub-1tib-Volume-Funktion auf GCP für die betreffenden Projektnummern und Projekt-IDs erhalten. Dies ist für Trident zur Bereitstellung von Sub-1-tib-Volumes erforderlich. Andernfalls schlägt die Volumenkreationen * bei VES mit &lt;600 gib fehl. Nutzung <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform" target="_blank" rel="noopener">"Dieses Formular"</a> Um Zugriff auf Sub-1-tib-Volumes zu erhalten.
-</td>
-</tr>
-</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1933,7 +1924,7 @@ Bei der Bereitstellung von Back-Ends mithilfe des standardmäßigen CVS-Servicet
 <p>Individuelle Storage-Klassen müssen konfiguriert und angewendet werden, um ein Kubernetes Storage Class-Objekt zu erstellen. Dieser Abschnitt erläutert, wie Sie eine Storage-Klasse für Ihre Applikation entwerfen.</p>
 </div>
 <div class="sect2">
-<h3 id="storage-class-design-für-spezifische-backend-auslastung">Storage Class-Design für spezifische Backend-Auslastung</h3>
+<h3 id="spezifische-back-end-auslastung">Spezifische Back-End-Auslastung</h3>
 <div class="paragraph">
 <p>Die Filterung kann innerhalb eines bestimmten Storage-Klassenobjekts verwendet werden, um festzulegen, welcher Storage-Pool bzw. welche Pools für die jeweilige Storage-Klasse verwendet werden sollen. In der Storage-Klasse können drei Filtersätze eingestellt werden: <code>storagePools</code>, <code>additionalStoragePools</code>, Und/oder <code>excludeStoragePools</code>.</p>
 </div>
@@ -1945,19 +1936,19 @@ Bei der Bereitstellung von Back-Ends mithilfe des standardmäßigen CVS-Servicet
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage-klassen-design-zur-emulation-von-qos-richtlinien">Storage-Klassen-Design zur Emulation von QoS-Richtlinien</h3>
+<h3 id="qos-richtlinien-emulieren">QoS-Richtlinien emulieren</h3>
 <div class="paragraph">
 <p>Wenn Sie Storage-Klassen zur Emulation der Quality of Service-Richtlinien entwerfen möchten, erstellen Sie mit dem eine Storage Class <code>media</code> Attribut als <code>hdd</code> Oder <code>ssd</code>. Auf der Grundlage von <code>media</code> Attribut, das in der Storage-Klasse erwähnt wird, wählt Trident das entsprechende Back-End aus, das bedient <code>hdd</code> Oder <code>ssd</code> Aggregate passen das Medienattribut an und leiten die Bereitstellung der Volumes an das spezifische Aggregat weiter. Deshalb können wir eine Storageklasse PREMIUM schaffen, die hätte <code>media</code> Attribut festgelegt als <code>ssd</code> Was als PREMIUM-QoS-Richtlinie klassifiziert werden kann. Wir können einen weiteren STANDARD der Storage-Klasse erstellen, bei dem das Medienattribut auf `hdd gesetzt wäre. Dieser Standard könnte die QoS-Richtlinie SEIN. Darüber hinaus könnten wir das Attribut ``IOPS' in der Storage-Klasse verwenden, um die Bereitstellung zu einer Element Appliance umzuleiten, die als QoS-Richtlinie definiert werden kann.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage-class-design-zur-verwendung-von-backend-auf-basis-bestimmter-funktionen">Storage-Class-Design zur Verwendung von Backend auf Basis bestimmter Funktionen</h3>
+<h3 id="nutzung-von-backend-basierend-auf-bestimmten-funktionen">Nutzung von Backend basierend auf bestimmten Funktionen</h3>
 <div class="paragraph">
 <p>Storage-Klassen ermöglichen die direkte Volume-Bereitstellung an einem bestimmten Back-End, bei dem Funktionen wie Thin Provisioning und Thick Provisioning, Snapshots, Klone und Verschlüsselung aktiviert sind. Um festzulegen, welchen Speicher verwendet werden soll, erstellen Sie Speicherklassen, die das entsprechende Back-End mit aktivierter Funktion angeben.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage-class-design-für-virtuelle-storage-pools">Storage-Class-Design für virtuelle Storage Pools</h3>
+<h3 id="virtuelle-storage-pools">Virtuelle Storage-Pools</h3>
 <div class="paragraph">
 <p>Virtual Storage Pools sind für alle Astra Trident Back-Ends verfügbar. Sie können virtuelle Storage-Pools für jedes Backend mit jedem Treiber von Astra Trident definieren.</p>
 </div>
@@ -1986,13 +1977,13 @@ Bei der Definition von virtuellen Speicherpools wird empfohlen, nicht zu versuch
 </table>
 </div>
 <div class="sect2">
-<h3 id="virtual-storage-pools-zur-emulation-verschiedener-service-levelqos-entwerfen">Virtual Storage Pools zur Emulation verschiedener Service-Level/QoS entwerfen</h3>
+<h3 id="emulation-verschiedener-service-levelqos">Emulation verschiedener Service-Level/QoS</h3>
 <div class="paragraph">
 <p>Es ist möglich, virtuelle Speicherpools für die Emulation von Serviceklassen zu entwerfen. Untersuchen wir mit der Implementierung des virtuellen Pools für den Cloud Volume Service für Azure NetApp Files, wie wir verschiedene Serviceklassen einrichten können. Konfigurieren Sie das ANF-Backend mit mehreren Etiketten, die unterschiedliche Leistungsstufen darstellen. Einstellen <code>servicelevel</code> Dem entsprechenden Leistungslevel hinzuzufügen und unter jeder Beschriftung weitere erforderliche Aspekte hinzuzufügen. Erstellen Sie nun verschiedene Kubernetes Storage-Klassen, die verschiedenen virtuellen Storage-Pools zugeordnet werden würden. Verwenden der <code>parameters.selector</code> Feld, jede StorageClass ruft auf, welche virtuellen Pools zum Hosten eines Volumes verwendet werden dürfen.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="virtuelle-pools-für-die-zuweisung-spezifischer-aspekte-entwerfen">Virtuelle Pools für die Zuweisung spezifischer Aspekte entwerfen</h3>
+<h3 id="zuweisen-eines-spezifischen-satzes-von-aspekten">Zuweisen eines spezifischen Satzes von Aspekten</h3>
 <div class="paragraph">
 <p>Mehrere Virtual Storage Pools mit bestimmten Aspekten können über ein einzelnes Storage-Back-End entwickelt werden. Konfigurieren Sie dazu das Backend mit mehreren Beschriftungen und legen Sie die erforderlichen Aspekte unter jedem Etikett fest. Erstellen Sie jetzt mit dem verschiedene Kubernetes-Storage-Klassen <code>parameters.selector</code> Feld, das verschiedenen virtuellen Speicherpools zugeordnet werden würde. Die Volumes, die im Backend bereitgestellt werden, werden im ausgewählten virtuellen Storage-Pool über die Aspekte definiert.</p>
 </div>
