@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:16:28 +0000">12/14/2022</time>
     
   
 
@@ -1597,7 +1597,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="managen-sie-tridentctl-back-ends-mit-tridentbackendconfig">Managen Sie tridentctl Back-Ends mit TridentBackendConfig</h2>
+<h2 id="managen-tridentctl-back-ends-mit-tridentbackendconfig">Managen <code>tridentctl</code> Back-Ends mit <code>TridentBackendConfig</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In diesem Abschnitt werden die Schritte aufgeführt, die für das Management von Back-Ends erforderlich sind, die mit erstellt wurden <code>tridentctl</code> Erstellen Sie direkt über die Kubernetes Schnittstelle <code>TridentBackendConfig</code> Objekte:</p>
@@ -1721,7 +1721,7 @@ secret/backend-tbc-ontap-san-secret created</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="schritt-2-erstellen-sie-einen-tridentbackendconfig-cr">Schritt 2: Erstellen Sie einen tridentBackendConfig CR</h3>
+<h3 id="schritt-2-erstellen-sie-ein-tridentbackendconfig-cr">Schritt 2: Erstellen Sie ein <code>TridentBackendConfig</code> CR</h3>
 <div class="paragraph">
 <p>Im nächsten Schritt wird ein erstellt <code>TridentBackendConfig</code> CR, das automatisch an die bereits vorhandene bindet <code>ontap-nas-backend</code> (Wie in diesem Beispiel). Stellen Sie sicher, dass folgende Anforderungen erfüllt sind:</p>
 </div>
@@ -1790,7 +1790,7 @@ tridentbackendconfig.trident.netapp.io/tbc-ontap-nas-backend created</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="schritt-3-überprüfen-sie-den-status-des-tridentbackendconfig-cr">Schritt 3: Überprüfen Sie den Status des TridentBackendConfig CR</h3>
+<h3 id="schritt-3-überprüfen-sie-den-status-des-tridentbackendconfig-cr">Schritt 3: Überprüfen Sie den Status des <code>TridentBackendConfig</code> CR</h3>
 <div class="paragraph">
 <p>Nach dem <code>TridentBackendConfig</code> Wurde erstellt, seine Phase muss sein <code>Bound</code>. Sie sollte außerdem den gleichen Backend-Namen und die gleiche UUID wie das vorhandene Backend widerspiegeln.</p>
 </div>
@@ -1816,7 +1816,7 @@ tridentctl get backend -n trident
 </div>
 </div>
 <div class="sect1">
-<h2 id="managen-sie-tridentbackendconfig-back-ends-mit-tridentctl">Managen Sie tridentBackendConfig-Back-Ends mit tridentctl</h2>
+<h2 id="managen-tridentbackendconfig-back-ends-mit-tridentctl">Managen <code>TridentBackendConfig</code> Back-Ends mit <code>tridentctl</code></h2>
 <div class="sectionbody">
 <div class="literalblock">
 <div class="content">
@@ -1847,7 +1847,7 @@ tridentctl get backend ontap-san-backend -n trident
 </div>
 </div>
 <div class="sect2">
-<h3 id="schritt-1-bestätigen-sie-dass-die-deletionpolicy-auf-beibehalten-eingestellt-ist">Schritt 1: Bestätigen Sie, dass die deletionPolicy auf beibehalten eingestellt ist</h3>
+<h3 id="schritt-1-bestätigen-deletionpolicy-ist-auf-festgelegt-retain">Schritt 1: Bestätigen <code>deletionPolicy</code> Ist auf festgelegt <code>retain</code></h3>
 <div class="paragraph">
 <p>Lassen Sie uns den Wert von betrachten <code>deletionPolicy</code>. Dies muss eingestellt werden <code>retain</code>. Dadurch wird sichergestellt, dass, wenn ein <code>TridentBackendConfig</code> CR wird gelöscht, die Backend-Definition ist weiterhin vorhanden und kann mit verwaltet werden <code>tridentctl</code>.</p>
 </div>
@@ -1881,7 +1881,7 @@ Fahren Sie nur mit dem nächsten Schritt fort <code>deletionPolicy</code> Ist au
 </div>
 </div>
 <div class="sect2">
-<h3 id="schritt-2-löschen-sie-die-tridentbackendconfig-cr">Schritt 2: Löschen Sie die tridentBackendConfig CR</h3>
+<h3 id="schritt-2-löschen-sie-den-tridentbackendconfig-cr">Schritt 2: Löschen Sie den <code>TridentBackendConfig</code> CR</h3>
 <div class="paragraph">
 <p>Der letzte Schritt besteht darin, den zu löschen <code>TridentBackendConfig</code> CR. Nach Bestätigung des <code>deletionPolicy</code> Ist auf festgelegt <code>retain</code>, Sie können mit der Löschung fortfahren:</p>
 </div>

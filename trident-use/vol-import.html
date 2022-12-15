@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:16:28 +0000">12/14/2022</time>
     
   
 
@@ -1713,7 +1713,7 @@ spec:
 </div>
 </div>
 <div class="sect1">
-<h2 id="importe-von-ontap-nas-und-ontap-nas-flexgroup">importe von ontap-nas und ontap-nas-Flexgroup</h2>
+<h2 id="ontap-nas-und-ontap-nas-flexgroup-importe"><code>ontap-nas</code> Und <code>ontap-nas-flexgroup</code> Importe</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Jedes Volume wurde mit erstellt <code>ontap-nas</code> Treiber ist ein FlexVol auf dem ONTAP Cluster. Importieren von FlexVols mit dem <code>ontap-nas</code> Der Treiber funktioniert genauso. Eine FlexVol, die bereits auf einem ONTAP Cluster vorhanden ist, kann als importiert werden <code>ontap-nas</code> PVC: Ebenso können FlexGroup Volumes importiert werden als <code>ontap-nas-flexgroup</code> VES.</p>
@@ -1788,7 +1788,7 @@ Ein zuvor vorhandener Fehler beim Importieren von Volumes mit benutzerdefinierte
 </div>
 </div>
 <div class="sect1">
-<h2 id="ontap-san-import">ontap-san Import</h2>
+<h2 id="ontap-san-importieren"><code>ontap-san</code> Importieren</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Astra Trident kann auch ONTAP SAN FlexVols importieren, die eine einzelne LUN enthalten. Dies entspricht dem <code>ontap-san</code> Treiber, der für jede PVC und eine LUN innerhalb der FlexVol eine FlexVol erstellt. Sie können das verwenden <code>tridentctl import</code> Befehl in gleicher Weise wie in anderen Fällen:</p>
@@ -1868,7 +1868,7 @@ Ein ONTAP-Volume muss vom Typ rw sein, um von Astra Trident importiert werden zu
 </div>
 </div>
 <div class="sect1">
-<h2 id="elementimport">Elementimport</h2>
+<h2 id="element-importieren"><code>element</code> Importieren</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Mit Trident können Sie NetApp Element Software/NetApp HCI Volumes in Ihr Kubernetes Cluster importieren. Sie brauchen den Namen Ihres Astra Trident Backend, und den eindeutigen Namen des Volumes und der PVC-Datei als Argumente für die <code>tridentctl import</code> Befehl.</p>
@@ -1899,7 +1899,7 @@ Der Elementtreiber unterstützt doppelte Volume-Namen. Wenn es doppelte Volume-N
 </div>
 </div>
 <div class="sect1">
-<h2 id="gcp-cvs-import">gcp-cvs-Import</h2>
+<h2 id="gcp-cvs-importieren"><code>gcp-cvs</code> Importieren</h2>
 <div class="sectionbody">
 <div class="admonitionblock tip">
 <table>
@@ -1942,7 +1942,7 @@ Der Volume-Pfad ist der Teil des Exportpfads des Volumes nach dem :/. Beispiel: 
 </div>
 </div>
 <div class="sect1">
-<h2 id="import-von-azure-netapp-files">import von azure-netapp-Files</h2>
+<h2 id="azure-netapp-files-importieren"><code>azure-netapp-files</code> Importieren</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Um einen zu importieren <code>azure-netapp-files</code> Datenträger auf dem Back-End aufgerufen <code>azurenetappfiles_40517</code> Mit dem Volume-Pfad <code>importvol1</code>, Ausführen des folgenden Befehls:</p>

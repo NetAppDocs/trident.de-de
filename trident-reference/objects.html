@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2022-12-14 18:16:28 +0000">12/14/2022</time>
     
   
 
@@ -1638,7 +1638,7 @@ Für weitere Informationen über Kubernetes-Objekte empfehlen wir Ihnen, die zu 
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-persistenzvolumeclaim-objekte">Kubernetes PersistenzVolumeClaim Objekte</h2>
+<h2 id="kubernetes-persistentvolumeclaim-objekte">Kubernetes <code>PersistentVolumeClaim</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ein Kubernetes <code>PersistentVolumeClaim</code> Objekt ist eine Storage-Anfrage von einem Kubernetes Cluster-Benutzer.</p>
@@ -1758,7 +1758,7 @@ Sie können das verwenden <code>cloneFromPVC</code> Und <code>splitOnClone</code
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-persistenzvolume-objekte">Kubernetes PersistenzVolume Objekte</h2>
+<h2 id="kubernetes-persistentvolume-objekte">Kubernetes <code>PersistentVolume</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ein Kubernetes <code>PersistentVolume</code> Objekt stellt eine Storage-Komponente dar, die dem Kubernetes-Cluster zur Verfügung gestellt wird. Es weist einen Lebenszyklus auf, der unabhängig vom POD ist, der ihn nutzt.</p>
@@ -1791,7 +1791,7 @@ Trident erstellt <code>PersistentVolume</code> Objekte werden beim Kubernetes Cl
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-storageclass-objekte">Kubernetes StorageClass-Objekte</h2>
+<h2 id="kubernetes-storageclass-objekte">Kubernetes <code>StorageClass</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kubernetes <code>StorageClass</code> Objekte werden in mit Namen angegeben <code>PersistentVolumeClaims</code> So stellen Sie Speicher mit einer Reihe von Eigenschaften bereit. Die Storage-Klasse selbst gibt die zu verwendenden bereitstellungsunternehmen an und definiert die Eigenschaftengruppe in Bezug auf die provisionierung von.</p>
@@ -2069,7 +2069,7 @@ volumeBindingMode: Immediate</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-volumesnapshotclass-objekte">Kubernetes VolumeSnapshotClass-Objekte</h2>
+<h2 id="kubernetes-volumesnapshotclass-objekte">Kubernetes <code>VolumeSnapshotClass</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kubernetes <code>VolumeSnapshotClass</code> Objekte sind analog <code>StorageClasses</code>. Sie helfen, mehrere Speicherklassen zu definieren und werden von Volume-Snapshots referenziert, um den Snapshot der erforderlichen Snapshot-Klasse zuzuordnen. Jeder Volume Snapshot ist einer einzelnen Volume-Snapshot-Klasse zugeordnet.</p>
@@ -2093,7 +2093,7 @@ deletionPolicy: Delete</pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-volumesnapshot-objekte">Kubernetes VolumeSnapshot-Objekte</h2>
+<h2 id="kubernetes-volumesnapshot-objekte">Kubernetes <code>VolumeSnapshot</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ein Kubernetes <code>VolumeSnapshot</code> Objekt ist eine Anforderung zur Erstellung eines Snapshots eines Volumes. So wie eine PVC eine von einem Benutzer erstellte Anfrage für ein Volume darstellt, besteht bei einem Volume-Snapshot die Anforderung eines Benutzers, einen Snapshot eines vorhandenen PVC zu erstellen.</p>
@@ -2117,7 +2117,7 @@ Der Lebenszyklus eines VolumeSnapshots ist unabhängig von der Quelle PVC: Ein S
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-volumesnapshotcontent-objekte">Kubernetes VolumeSnapshotContent-Objekte</h2>
+<h2 id="kubernetes-volumesnapshotcontent-objekte">Kubernetes <code>VolumeSnapshotContent</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Ein Kubernetes <code>VolumeSnapshotContent</code> Objekt stellt einen Snapshot dar, der von einem bereits bereitgestellten Volume entnommen wurde. Es ist analog zu einem <code>PersistentVolume</code> Und bedeutet einen bereitgestellten Snapshot auf dem Storage-Cluster. Ähnlich <code>PersistentVolumeClaim</code> Und <code>PersistentVolume</code> Objekte, wenn ein Snapshot erstellt wird, das <code>VolumeSnapshotContent</code> Objekt verwaltet eine 1:1-Zuordnung zum <code>VolumeSnapshot</code> Objekt, das die Snapshot-Erstellung angefordert hatte.</p>
@@ -2143,7 +2143,7 @@ Trident erstellt <code>VolumeSnapshotContent</code> Objekte werden beim Kubernet
 </div>
 </div>
 <div class="sect1">
-<h2 id="kubernetes-customresourcedefinition-objekte">Kubernetes CustomResourceDefinition-Objekte</h2>
+<h2 id="kubernetes-customresourcedefinition-objekte">Kubernetes <code>CustomResourceDefinition</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Kubernetes Custom Ressourcen sind Endpunkte in der Kubernetes API, die vom Administrator definiert werden und zum Gruppieren ähnlicher Objekte verwendet werden. Kubernetes unterstützt das Erstellen individueller Ressourcen zum Speichern einer Sammlung von Objekten. Sie erhalten diese Ressourcen-Definitionen, indem Sie ausführen <code>kubectl get crds</code>.</p>
@@ -2176,7 +2176,7 @@ Trident erstellt <code>VolumeSnapshotContent</code> Objekte werden beim Kubernet
 </div>
 </div>
 <div class="sect1">
-<h2 id="trident-storageclass-objekte">Trident StorageClass-Objekte</h2>
+<h2 id="trident-storageclass-objekte">Trident <code>StorageClass</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Trident erstellt passende Storage-Klassen für Kubernetes <code>StorageClass</code> Objekte, die angeben <code>csi.trident.netapp.io</code>/<code>netapp.io/trident</code> In ihrem Feld für die bereitstellung. Der Name der Storage-Klasse stimmt mit der der von Kubernetes überein <code>StorageClass</code> Objekt, das es repräsentiert.</p>
@@ -2225,7 +2225,7 @@ Dies ist einer der beiden Objekttypen, die Sie selbst erstellen und verwalten. D
 </div>
 </div>
 <div class="sect1">
-<h2 id="trident-storage-pool-objekte">Trident Storage Pool Objekte</h2>
+<h2 id="trident-storagepool-objekte">Trident <code>StoragePool</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Storage-Pools stellen die verschiedenen Standorte dar, die für die Provisionierung an jedem Back-End verfügbar sind. Für ONTAP entsprechen diese Aggregaten in SVMs. Bei NetApp HCI/SolidFire entsprechen diese den vom Administrator festgelegten QoS-Bands. Für Cloud Volumes Service entsprechen diese Regionen Cloud-Provider. Jeder Storage-Pool verfügt über eine Reihe individueller Storage-Attribute, die seine Performance-Merkmale und Datensicherungsmerkmale definieren.</p>
@@ -2236,7 +2236,7 @@ Dies ist einer der beiden Objekttypen, die Sie selbst erstellen und verwalten. D
 </div>
 </div>
 <div class="sect1">
-<h2 id="trident-volume-objekte">Trident Volume-Objekte</h2>
+<h2 id="trident-volume-objekte">Trident <code>Volume</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Volumes sind die grundlegende Bereitstellungseinheit, die Back-End-Endpunkte umfasst, wie NFS-Freigaben und iSCSI-LUNs. In Kubernetes entsprechen diese direkt <code>PersistentVolumes</code>. Wenn Sie ein Volume erstellen, stellen Sie sicher, dass es über eine Storage-Klasse verfügt, die bestimmt, wo das Volume zusammen mit einer Größe bereitgestellt werden kann.</p>
@@ -2385,7 +2385,7 @@ Wenn Sie ein PV mit den zugehörigen Snapshots löschen, wird das entsprechende 
 </div>
 </div>
 <div class="sect1">
-<h2 id="trident-snapshot-objekte">Trident Snapshot Objekte</h2>
+<h2 id="trident-snapshot-objekte">Trident <code>Snapshot</code> Objekte</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Snapshots sind eine zeitpunktgenaue Kopie von Volumes, die zur Bereitstellung neuer Volumes oder für Restores verwendet werden kann. In Kubernetes entsprechen diese direkt <code>VolumeSnapshotContent</code> Objekte: Jeder Snapshot ist einem Volume zugeordnet, das die Quelle der Daten für den Snapshot ist.</p>
@@ -2469,7 +2469,7 @@ In Kubernetes werden diese Objekte automatisch gemanagt. Sie können sich anzeig
 </div>
 </div>
 <div class="sect1">
-<h2 id="astra-trident-resourcequota-objekt">Astra Trident ResourceQuota Objekt</h2>
+<h2 id="astra-trident-resourcequota-objekt">Astra Trident <code>ResourceQuota</code> Objekt</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Das Trident-Eintreten verbraucht einen <code>system-node-critical</code> Priority Class – die in Kubernetes verfügbare Class mit höchster Priorität, damit Astra Trident Volumes beim ordnungsgemäßen Shutdown von Nodes identifizieren und bereinigen kann und Trident Demonset-Pods zulassen kann, dass Workloads mit niedriger Priorität in Clustern mit hohen Ressourcenbelastungen vorbeugen.</p>
@@ -2503,7 +2503,7 @@ spec:
 <p>Weitere Informationen zu Ressourcenkontingenten finden Sie unter <a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/" target="_blank" rel="noopener">"Kubernetes: Ressourcenkontingente"</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="bereinigen-von-resourcequota-falls-die-installation-fehlschlägt">Bereinigen von ResourceQuota, falls die Installation fehlschlägt</h3>
+<h3 id="bereinigung-resourcequota-wenn-die-installation-fehlschlägt">Bereinigung <code>ResourceQuota</code> Wenn die Installation fehlschlägt</h3>
 <div class="paragraph">
 <p>In seltenen Fällen, in denen die Installation nach dem fehlschlägt <code>ResourceQuota</code> Das Objekt wird erstellt, versuchen Sie es zuerst <a href="../trident-managing-k8s/uninstall-trident.html">"Deinstallation"</a> Und installieren Sie dann neu.</p>
 </div>
@@ -2512,7 +2512,7 @@ spec:
 </div>
 </div>
 <div class="sect2">
-<h3 id="entfernen-sie-resourcequota">Entfernen Sie ResourceQuota</h3>
+<h3 id="entfernen-resourcequota">Entfernen <code>ResourceQuota</code></h3>
 <div class="paragraph">
 <p>Wenn Sie die eigene Ressourcenzuweisung steuern möchten, können Sie den Astra Trident entfernen <code>ResourceQuota</code> Objekt mit dem Befehl:</p>
 </div>
