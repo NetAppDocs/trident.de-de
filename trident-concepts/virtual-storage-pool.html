@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2023-01-03 18:23:04 +0000">01/03/2023</time>
     
   
 
@@ -1616,7 +1616,7 @@ Versuchen Sie bei der Definition von virtuellen Speicherpools nicht, die Reihenf
 <p>Die meisten Aspekte werden Backend-spezifisch angegeben. Entscheidend ist, dass die Aspect-Werte nicht außerhalb des Back-End-Treibers angezeigt werden und nicht für die Abstimmung in verfügbar sind <code>StorageClasses</code>. Stattdessen definiert der Administrator eine oder mehrere Labels für jeden virtuellen Pool. Jedes Etikett ist ein Schlüssel:Wert-Paar, und Etiketten können häufig über eindeutige Back-Ends hinweg verwendet werden. Wie Aspekte können auch Labels pro Pool oder global zum Backend angegeben werden. Im Gegensatz zu Aspekten, die vordefinierte Namen und Werte haben, hat der Administrator volle Entscheidungsbefugnis, Beschriftungsschlüssel und -Werte nach Bedarf zu definieren.</p>
 </div>
 <div class="paragraph">
-<p>A <code>StorageClass</code> Identifiziert den virtuellen Pool, der verwendet werden soll, indem auf die Beschriftungen in einem Auswahlparameter Bezug gesetzt wird. Virtuelle Pool-Selektoren unterstützen sechs Operatoren:</p>
+<p>A <code>StorageClass</code> Identifiziert den virtuellen Pool, der verwendet werden soll, indem auf die Beschriftungen in einem Auswahlparameter Bezug gesetzt wird. Virtuelle Pool-Selektoren unterstützen folgende Operatoren:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1628,29 +1628,39 @@ Versuchen Sie bei der Definition von virtuellen Speicherpools nicht, die Reihenf
 <tr>
 <th class="tableblock halign-left valign-top">Operator</th>
 <th class="tableblock halign-left valign-top">Beispiel</th>
-<th class="tableblock halign-left valign-top">Beschreibung</th>
+<th class="tableblock halign-left valign-top">Der Wert für die Bezeichnung eines Pools muss:</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>=</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance=Premium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Der Wert für die Bezeichnung eines Pools muss übereinstimmen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Übereinstimmung</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>!=</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance!=extrem</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Der Wert für die Bezeichnung eines Pools darf nicht übereinstimmen</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keine Übereinstimmung</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>in</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Lage in (Osten, Westen)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Der Wert für die Bezeichnung eines Pools muss im Wertungssatz enthalten sein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Werden Sie im Satz von Werten</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>notin</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Performance-Dose (Silber, Bronze)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Der Wert für die Bezeichnung eines Pools darf nicht b sein</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nicht im Wertungsset sein</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;key&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Darstellt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mit einem beliebigen Wert existieren</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>!&lt;key&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">!Schutz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nicht vorhanden</p></td>
 </tr>
 </tbody>
 </table>
