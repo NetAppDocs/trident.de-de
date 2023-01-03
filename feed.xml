@@ -8,16 +8,16 @@
     <description>The latest updates from NetApp Documentation</description>
     <language>de-de</language>
     <ttl>60</ttl>
-    <pubDate>Tue, 03 Jan 2023 18:25:19 +0000</pubDate>
-    <lastBuildDate>Tue, 03 Jan 2023 18:25:19 +0000</lastBuildDate>
+    <pubDate>Tue, 03 Jan 2023 19:43:55 +0000</pubDate>
+    <lastBuildDate>Tue, 03 Jan 2023 19:43:55 +0000</lastBuildDate>
     
     
     
     <item>
-      <title>Versionshinweise (14 Dec 2022)</title>
-      <pubDate>Wed, 14 Dec 2022 18:16:28 +0000</pubDate>
-      <link>https://docs.netapp.com/de-de/trident/trident-rn.html?time=1671041788</link>
-      <guid isPermaLink="false">Wed, 14 Dec 2022 18:16:28 +0000</guid>
+      <title>Versionshinweise (3 Jan 2023)</title>
+      <pubDate>Tue, 03 Jan 2023 19:41:01 +0000</pubDate>
+      <link>https://docs.netapp.com/de-de/trident/trident-rn.html?time=1672774861</link>
+      <guid isPermaLink="false">Tue, 03 Jan 2023 19:41:01 +0000</guid>
       <description><![CDATA[ NetApp verbessert seine Produkte und Services kontinuierlich. Im Folgenden finden Sie einige der neuesten Funktionen, Verbesserungen und Bugfixes in der neuesten Version von Astra Trident. ]]></description>
     </item>
     

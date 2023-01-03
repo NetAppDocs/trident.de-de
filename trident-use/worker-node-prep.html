@@ -1569,7 +1569,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-11-16 23:12:54 +0000">11/16/2022</time>
+    <time datetime="2023-01-03 19:41:01 +0000">01/03/2023</time>
     
   
 
@@ -1697,7 +1697,7 @@ Sie sollten sicherstellen, dass der NFS-Dienst während des Startvorgangs gestar
 <p>Jeder Node im Kubernetes-Cluster muss über einen eindeutigen IQN verfügen. <strong>Dies ist eine notwendige Voraussetzung</strong>.</p>
 </li>
 <li>
-<p>Bei Verwendung von RHCOS Version 4.5 oder höher oder einer anderen RHEL-kompatiblen Linux-Distribution mit dem <code>solidfire-san</code> Treiber: Stellen Sie sicher, dass der CHAP-Authentifizierungsalgorithmus auf MD5 in gesetzt ist <code>/etc/iscsi/iscsid.conf</code>.</p>
+<p>Bei Verwendung von RHCOS Version 4.5 oder höher oder einer anderen RHEL-kompatiblen Linux-Distribution mit dem <code>solidfire-san</code> Treiber und Element OS 12.5 oder früher: Stellen Sie sicher, dass der CHAP-Authentifizierungsalgorithmus auf MD5 in eingestellt ist <code>/etc/iscsi/iscsid.conf</code>. Sichere, FIPS-konforme CHAP-Algorithmen SHA1, SHA-256 und SHA3-256 sind mit Element 12.7 erhältlich.</p>
 <div class="listingblock">
 <div class="content">
 <pre>sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf</pre>
