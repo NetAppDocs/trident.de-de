@@ -43,7 +43,7 @@ NOTE: Achten Sie darauf, dass Sie die für Amazon Linux und Ubuntu erforderliche
 +
 ** SMB Volumes werden mit unterstützt `ontap-nas` Nur Treiber.
 ** SMB-Volumes werden mit dem Astra Trident EKS Add-on nicht unterstützt.
-** Astra Trident unterstützt SMB Volumes, die nur auf Windows Nodes laufenden Pods gemountet werden. Siehe <<Vorbereitung zur Bereitstellung von SMB Volumes>> Entsprechende Details.
+** Astra Trident unterstützt SMB Volumes, die nur auf Windows Nodes laufenden Pods gemountet werden. Weitere Informationen finden Sie unter link:../trident-use/trident-fsx-storage-backend.html#prepare-to-provision-smb-volumes["Vorbereitung zur Bereitstellung von SMB Volumes"] .
 
 
 * Vor Astra Trident 24.02 konnten auf Amazon FSX-Dateisystemen erstellte Volumes mit aktivierten automatischen Backups nicht von Trident gelöscht werden. Um dieses Problem in Astra Trident 24.02 oder höher zu vermeiden, geben Sie den an `fsxFilesystemID`, AWS `apiRegion`, AWS `apikey`Und AWS `secretKey` In der Back-End-Konfigurationsdatei für AWS FSX für ONTAP.
