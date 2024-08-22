@@ -119,6 +119,9 @@ Dieser Parameter ist für Amazon FSX for ONTAP-Back-Ends erforderlich und darf n
 
 
 | `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST` Bei Einstellung auf `true`verwendet Astra Trident ONTAP REST APIs zur Kommunikation mit dem Backend; bei Einstellung auf `false`verwendet Astra Trident ONTAP ZAPI Aufrufe zur Kommunikation mit dem Backend. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Astra Trident 24.06-Version und ONTAP 9.15.1 oder höher `userREST` ist standardmäßig auf eingestellt `true` . Wechseln Sie zu ONTAP ZAPI-Aufrufe. `useREST` `false` | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
+
+
+| `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von qtrees im ONTAP-nas-Economy-Backend. | „“ (nicht standardmäßig durchgesetzt) 
 |===
 
 

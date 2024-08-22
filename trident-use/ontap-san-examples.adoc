@@ -163,6 +163,9 @@ LUKS-Verschlüsselung wird für NVMe/TCP nicht unterstützt. | „“
 
 
 | `nameTemplate` | Vorlage zum Erstellen benutzerdefinierter Volume-Namen. | „“ 
+
+
+| `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von LUNs im ONTAP-san-Economy-Backend. | „“ (nicht standardmäßig durchgesetzt) 
 |===
 
 

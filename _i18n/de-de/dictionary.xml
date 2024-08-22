@@ -475,7 +475,6 @@
   <block id="876885770cf58d20ef5672cc5594e85d" category="inline-link">Siehe Informationen zur NFS-Host-Konfiguration hier</block>
   <block id="0a19ca3d1db7e5bc24b58f73b91c3f49" category="paragraph">Feingranulare Steuerung der NFS-Mount-Optionen; standardmäßig „-o nfsvers=3“. *Nur für die verfügbar<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> Und<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Fahrer*.<block ref="71f7a3f48cfd3876cffba401813b7db0" category="inline-link-rx"></block>.</block>
   <block id="3b890f58db76bb3003ada171cd18c4db" category="cell"><block ref="9d8592d88bbb76c68c01d830f091dacc" prefix="" category="inline-code"></block></block>
-  <block id="5c5adadf8175fd69d4af9bfdb608c42c" category="paragraph">Maximale anforderbare Volume-Größe und übergeordnete qtree Volume-Größe * Für die<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> Treiber, diese Option schränkt zusätzlich die Größe der FlexVols ein, die es erstellt*.</block>
   <block id="07f6b23cad3d6da54012935ff972affe" category="cell"><block ref="8b08152c170e621ffcc8bfac7c4d6785" prefix="" category="inline-code"></block></block>
   <block id="3890063556e337d458019437f027030b" category="paragraph">Es stehen Standardoptionen zur Verfügung, um zu vermeiden, dass sie auf jedem von Ihnen erstellten Volume angegeben werden müssen:</block>
   <block id="a6bddf19eed00dbe2199864dee8454ce" category="cell"><block ref="cae77b049bf504af7afc43b99b6c5213" prefix="" category="inline-code"></block></block>
@@ -4325,4 +4324,11 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="23fa813a6884f33dc0d2070ae5260e6a" category="section-title">Treiberdetails zu Google Cloud NetApp Volumes</block>
   <block id="5fb193ca50759ba375397b4085f1116f" category="paragraph">Astra Trident stellt den<block ref="94594b2ccbc8e0d220ad37504461650b" prefix=" " category="inline-code"></block> Treiber für die Kommunikation mit dem Cluster bereit. Unterstützte Zugriffsmodi sind: _ReadWriteOnce_ (RWO), _ReadOnly Many_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).</block>
   <block id="5ab9649a1218ec1b35bfb38efbeaea76" category="cell"><block ref="94594b2ccbc8e0d220ad37504461650b" prefix="" category="inline-code"></block></block>
+  <block id="74d08e13aea757b8172499f067668443" category="paragraph">Maximale anforderbare Volume-Größe.</block>
+  <block id="f14a3ef36727dfbbea91c1d6b3fdbede" category="cell"><block ref="c8f83e727d4a4255a6485c24776e86bb" prefix="" category="inline-code"></block></block>
+  <block id="33fefa32caf35cd4691465f3592a0539" category="cell">*<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block><block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block>Nur für und Treiber unterstützt.* Begrenzung der FlexVol-Größe bei den wirtschaftlichen Faktoren ONTAP ONTAP-nas und ONTAP-SAN</block>
+  <block id="1b75c146ff0568d5fc11072b08cfe580" category="section-title">Beschränkt die maximale Größe von FlexVols, die von Trident erstellt werden</block>
+  <block id="913d5950907a31c9d3ea6cd0a3b6a524" category="paragraph">Um die maximale Größe für FlexVols zu konfigurieren, die als Pools für ONTAP-san-Economy- und ONTAP-nas-Economy-Treiber verwendet werden, verwenden Sie den<block ref="c8f83e727d4a4255a6485c24776e86bb" prefix=" " category="inline-code"></block> Parameter in Ihrer<block ref="9c15d32711e9ef8c6f76deda35452e13" prefix=" " category="inline-code"></block> Definition.</block>
+  <block id="ae7be78c2d3d933d426bc82820accfae" category="cell">Maximale anforderbare FlexVol-Größe bei Verwendung von qtrees im ONTAP-nas-Economy-Backend.</block>
+  <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">Maximale anforderbare FlexVol-Größe bei Verwendung von LUNs im ONTAP-san-Economy-Backend.</block>
 </blocks>
