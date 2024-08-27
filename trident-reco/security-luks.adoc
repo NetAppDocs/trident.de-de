@@ -115,6 +115,29 @@ defaults:
 ----
 
 
+== PVC-Konfiguration für den Import von LUKS-Volumes
+
+Um LUKS-Volumes dynamisch zu importieren, setzen Sie die Beschriftung `trident.netapp.io/luksEncryption` auf `true` und fügen Sie eine LUKS-fähige Storage-Klasse in die PVC ein, wie in diesem Beispiel gezeigt.
+
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: luks-pvc
+  namespace: trident
+  annotations:
+    trident.netapp.io/luksEncryption: "true"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: luks-sc
+----
+
+
 == Eine LUKS-Passphrase drehen
 
 Sie können die LUKS-Passphrase drehen und die Drehung bestätigen.
