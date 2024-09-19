@@ -112,6 +112,13 @@ NOTE: Wenn beispielsweise CHAP-Schlüssel auf dem Speicher-Controller gedreht wu
 * LUNs sind nicht vorhanden
 
 
+*Punkte, die Sie vor dem Upgrade von Trident beachten sollten*
+
+* Wenn nur Initiatorgruppen pro Node (eingeführt in 23.04+) verwendet werden, initiiert iSCSI Self-Healing SCSI-Rescans für alle Geräte im SCSI-Bus.
+* Wenn nur Back-End-scoped-Initiatorgruppen (veraltet ab 23.04) verwendet werden, initiiert iSCSI-Selbstreparatur SCSI-Rescans für exakte LUN-IDs im SCSI-Bus.
+* Wenn eine Kombination von Initiatorgruppen pro Node und mit Back-End-Scoped-Initiatorgruppen verwendet wird, initiiert iSCSI Self-Healing SCSI-Rescans für exakte LUN-IDs im SCSI-Bus.
+
+
 
 
 === Installieren Sie die iSCSI-Tools

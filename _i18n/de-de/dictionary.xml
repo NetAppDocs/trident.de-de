@@ -4330,4 +4330,8 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="d981d675ba14b9478a2c2da5c7df780b" category="cell">Maximale anforderbare FlexVol-Größe bei Verwendung von LUNs im ONTAP-san-Economy-Backend.</block>
   <block id="64049136ec90cc479c7521e9b6e172eb" category="section-title">PVC-Konfiguration für den Import von LUKS-Volumes</block>
   <block id="b49b86551096c421a3bc5d3b79eede84" category="paragraph">Um LUKS-Volumes dynamisch zu importieren, setzen Sie die Beschriftung<block ref="36720d50814e4335401b2047257bfedf" prefix=" " category="inline-code"></block> auf<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> und fügen Sie eine LUKS-fähige Storage-Klasse in die PVC ein, wie in diesem Beispiel gezeigt.</block>
+  <block id="eb80be396693610ba21c23b6b222bb73" category="paragraph">*Punkte, die Sie vor dem Upgrade von Trident beachten sollten*</block>
+  <block id="b100864b32a36993557470c9854e7e3a" category="list-text">Wenn nur Initiatorgruppen pro Node (eingeführt in 23.04+) verwendet werden, initiiert iSCSI Self-Healing SCSI-Rescans für alle Geräte im SCSI-Bus.</block>
+  <block id="284bb2f9d2596017aa72985df760fdb3" category="list-text">Wenn nur Back-End-scoped-Initiatorgruppen (veraltet ab 23.04) verwendet werden, initiiert iSCSI-Selbstreparatur SCSI-Rescans für exakte LUN-IDs im SCSI-Bus.</block>
+  <block id="0d6cf1de077f00140ee25c03f94e4805" category="list-text">Wenn eine Kombination von Initiatorgruppen pro Node und mit Back-End-Scoped-Initiatorgruppen verwendet wird, initiiert iSCSI Self-Healing SCSI-Rescans für exakte LUN-IDs im SCSI-Bus.</block>
 </blocks>
