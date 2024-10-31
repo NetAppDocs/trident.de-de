@@ -18,7 +18,7 @@ Sie können vorhandene Storage Volumes mit als Kubernetes PV importieren `triden
 
 == Überblick und Überlegungen
 
-Ein Volume kann in Astra Trident importiert werden, um:
+Sie können ein Volume in Trident importieren, um:
 
 * Containerisierung einer Applikation und Wiederverwendung des vorhandenen Datensatzes
 * Verwenden Sie einen Klon eines Datensatzes für eine kurzlebige Applikation
@@ -29,20 +29,20 @@ Ein Volume kann in Astra Trident importiert werden, um:
 .Überlegungen
 Lesen Sie vor dem Importieren eines Volumes die folgenden Überlegungen durch.
 
-* Astra Trident kann nur ONTAP Volumes vom Typ RW (Lese-/Schreibzugriff) importieren. Volumes im DP-Typ (Datensicherung) sind SnapMirror Ziel-Volumes. Sie sollten die Spiegelungsbeziehung unterbrechen, bevor Sie das Volume in Astra Trident importieren.
+* Trident kann nur ONTAP-Volumes vom Typ RW (Lesen/Schreiben) importieren. Volumes im DP-Typ (Datensicherung) sind SnapMirror Ziel-Volumes. Sie sollten die Spiegelungsbeziehung unterbrechen, bevor Sie das Volume in Trident importieren.
 * Wir empfehlen, Volumes ohne aktive Verbindungen zu importieren. Um ein aktiv verwendetes Volume zu importieren, klonen Sie das Volume, und führen Sie dann den Import durch.
 +
 
 WARNING: Dies ist besonders für Block-Volumes wichtig, da Kubernetes die vorherige Verbindung nicht mitbekommt und problemlos ein aktives Volume an einen Pod anbinden kann. Dies kann zu Datenbeschädigungen führen.
 
-* Aber `StorageClass` Muss auf einer PVC angegeben werden, Astra Trident verwendet diesen Parameter während des Imports nicht. Während der Volume-Erstellung werden Storage-Klassen eingesetzt, um basierend auf den Storage-Merkmalen aus verfügbaren Pools auszuwählen. Da das Volume bereits vorhanden ist, ist beim Import keine Poolauswahl erforderlich. Daher schlägt der Import auch dann nicht fehl, wenn das Volume auf einem Back-End oder Pool vorhanden ist, das nicht mit der in der PVC angegebenen Speicherklasse übereinstimmt.
+* Obwohl `StorageClass` auf einer PVC angegeben werden muss, verwendet Trident diesen Parameter beim Import nicht. Während der Volume-Erstellung werden Storage-Klassen eingesetzt, um basierend auf den Storage-Merkmalen aus verfügbaren Pools auszuwählen. Da das Volume bereits vorhanden ist, ist beim Import keine Poolauswahl erforderlich. Daher schlägt der Import auch dann nicht fehl, wenn das Volume auf einem Back-End oder Pool vorhanden ist, das nicht mit der in der PVC angegebenen Speicherklasse übereinstimmt.
 * Die vorhandene Volumegröße wird in der PVC ermittelt und festgelegt. Nachdem das Volumen vom Speichertreiber importiert wurde, wird das PV mit einem ClaimRef an die PVC erzeugt.
 +
 ** Die Rückgewinnungsrichtlinie ist zunächst auf festgelegt `retain` Im PV. Nachdem Kubernetes die PVC und das PV erfolgreich bindet, wird die Zurückgewinnungsrichtlinie aktualisiert und an die Zurückgewinnungsrichtlinie der Storage-Klasse angepasst.
 ** Wenn die Richtlinie zur Zurückgewinnung der Storage-Klasse lautet `delete`, Das Speichervolumen wird gelöscht, wenn das PV gelöscht wird.
 
 
-* Astra Trident verwaltet standardmäßig die PVC und benennt die FlexVol und die LUN auf dem Backend um. Sie können die passieren `--no-manage` Flag zum Importieren eines nicht verwalteten Volumes. Wenn Sie verwenden `--no-manage`, Astra Trident führt keine zusätzlichen Operationen auf der PVC oder PV für den Lebenszyklus der Objekte. Das Speicher-Volume wird nicht gelöscht, wenn das PV gelöscht wird und andere Vorgänge wie Volume-Klon und Volume-Größe ebenfalls ignoriert werden.
+* Standardmäßig verwaltet Trident die PVC und benennt die FlexVol und die LUN auf dem Backend um. Sie können das Flag übergeben `--no-manage`, um ein nicht verwaltetes Volume zu importieren. Wenn Sie verwenden `--no-manage`, führt Trident keine zusätzlichen Operationen auf der PVC oder PV für den Lebenszyklus der Objekte aus. Das Speicher-Volume wird nicht gelöscht, wenn das PV gelöscht wird und andere Vorgänge wie Volume-Klon und Volume-Größe ebenfalls ignoriert werden.
 +
 
 TIP: Diese Option ist nützlich, wenn Sie Kubernetes für Workloads in Containern verwenden möchten, aber ansonsten den Lebenszyklus des Storage Volumes außerhalb von Kubernetes managen möchten.
@@ -78,7 +78,7 @@ spec:
 
 WARNING: Verwenden Sie keine zusätzlichen Parameter wie den PV-Namen oder die Volume-Größe. Dies kann dazu führen, dass der Importbefehl fehlschlägt.
 
-. Verwenden Sie die `tridentctl import` Befehl zur Angabe des Namens des Astra Trident Back-End, das das Volume enthält, sowie des Namens, der das Volume auf dem Storage eindeutig identifiziert (z. B. ONTAP FlexVol, Element Volume, Cloud Volumes Service-Pfad). Der `-f` Argument ist erforderlich, um den Pfad zur PVC-Datei anzugeben.
+. Verwenden Sie den `tridentctl import` Befehl, um den Namen des Trident-Backends mit dem Volume sowie den Namen anzugeben, der das Volume auf dem Storage eindeutig identifiziert (z. B. ONTAP FlexVol, Element Volume, Cloud Volumes Service-Pfad). Das `-f` Argument ist erforderlich, um den Pfad zur PVC-Datei anzugeben.
 +
 [listing]
 ----
@@ -96,7 +96,7 @@ Lesen Sie die folgenden Beispiele für den Import von Volumes für unterstützte
 
 === ONTAP NAS und ONTAP NAS FlexGroup
 
-Astra Trident unterstützt den Volume-Import mithilfe von `ontap-nas` Und `ontap-nas-flexgroup` Treiber.
+Trident unterstützt den Import von Volumes mit den `ontap-nas` Treibern und `ontap-nas-flexgroup`.
 
 [NOTE]
 ====
@@ -129,7 +129,7 @@ tridentctl import volume ontap_nas managed_volume -f <path-to-pvc-file>
 --
 .Nicht verwaltetes Volume
 --
-Bei Verwendung des `--no-manage` Argument, Astra Trident benennt das Volume nicht um.
+Bei Verwendung des `--no-manage` Arguments benennt Trident das Volume nicht um.
 
 Das folgende Beispiel importiert `unmanaged_volume` Auf dem `ontap_nas` Back-End:
 
@@ -149,9 +149,9 @@ tridentctl import volume nas_blog unmanaged_volume -f <path-to-pvc-file> --no-ma
 
 === ONTAP SAN
 
-Astra Trident unterstützt den Volume-Import mithilfe von `ontap-san` Treiber. Der Import von Volumes wird nicht unterstützt `ontap-san-economy` Treiber.
+Trident unterstützt den Import von Volumes mit den `ontap-san` Treibern und `ontap-san-economy`.
 
-Astra Trident kann ONTAP SAN FlexVols importieren, die eine einzige LUN enthalten. Dies entspricht dem `ontap-san` Treiber, der für jede PVC und eine LUN innerhalb der FlexVol eine FlexVol erstellt. Astra Trident importiert die FlexVol und ordnet sie der PVC-Definition zu.
+Trident kann ONTAP SAN FlexVols importieren, die eine einzige LUN enthalten. Dies ist mit dem Treiber konsistent `ontap-san`, der für jede PVC und eine LUN in der FlexVol eine FlexVol erstellt. Trident importiert die FlexVol und ordnet sie der PVC-Definition zu.
 
 .Beispiele für ONTAP SAN
 Die folgende Darstellung zeigt ein Beispiel für ein verwaltetes Volume und einen nicht verwalteten Volume-Import.
@@ -160,7 +160,7 @@ Die folgende Darstellung zeigt ein Beispiel für ein verwaltetes Volume und eine
 ====
 .Gemanagtes Volume
 --
-Für gemanagte Volumes benennt Astra Trident die FlexVol in den um `pvc-<uuid>` Formatieren Sie und die LUN innerhalb der FlexVol bis `lun0`.
+Für verwaltete Volumes benennt Trident die FlexVol in das Format und die LUN in der FlexVol in `lun0` um `pvc-<uuid>`.
 
 Im folgenden Beispiel wird der importiert `ontap-san-managed` FlexVol, die auf dem vorhanden ist `ontap_san_default` Back-End:
 
@@ -201,10 +201,10 @@ image:./san-import-igroup.png["Image der LUNS, die iqn und Cluster-iqn zugeordne
 
 === Element
 
-Astra Trident unterstützt die NetApp Element Software und den NetApp HCI Volume-Import über die `solidfire-san` Treiber.
+Trident unterstützt NetApp Element-Software und NetApp HCI-Volume-Import mit dem `solidfire-san` Treiber.
 
 
-NOTE: Der Elementtreiber unterstützt doppelte Volume-Namen. Astra Trident gibt jedoch einen Fehler zurück, wenn es doppelte Volume-Namen gibt. Um dies zu umgehen, klonen Sie das Volume, geben Sie einen eindeutigen Volume-Namen ein und importieren Sie das geklonte Volume.
+NOTE: Der Elementtreiber unterstützt doppelte Volume-Namen. Trident gibt jedoch einen Fehler zurück, wenn es doppelte Volume-Namen gibt. Um dies zu umgehen, klonen Sie das Volume, geben Sie einen eindeutigen Volume-Namen ein und importieren Sie das geklonte Volume.
 
 .Beispiel für ein Element
 Im folgenden Beispiel wird ein importiert `element-managed` Volume am Backend `element_default`.
@@ -223,7 +223,7 @@ tridentctl import volume element_default element-managed -f pvc-basic-import.yam
 
 === Google Cloud Platform
 
-Astra Trident unterstützt den Volume-Import mithilfe von `gcp-cvs` Treiber.
+Trident unterstützt den Import von Volumes mithilfe des `gcp-cvs` Treibers.
 
 
 NOTE: Um ein Volume zu importieren, das von NetApp Cloud Volumes Service in die Google Cloud Platform unterstützt wird, identifizieren Sie das Volume anhand seines Volume-Pfads. Der Volume-Pfad ist der Teil des Exportpfades des Volumes nach dem `:/`. Beispiel: Wenn der Exportpfad lautet `10.0.0.1:/adroit-jolly-swift`, Der Volume-Pfad ist `adroit-jolly-swift`.
@@ -245,7 +245,7 @@ tridentctl import volume gcpcvs_YEppr adroit-jolly-swift -f <path-to-pvc-file> -
 
 === Azure NetApp Dateien
 
-Astra Trident unterstützt den Volume-Import mithilfe von `azure-netapp-files` Treiber.
+Trident unterstützt den Import von Volumes mithilfe des `azure-netapp-files` Treibers.
 
 
 NOTE: Um ein Azure NetApp Files-Volume zu importieren, identifizieren Sie das Volume anhand seines Volume-Pfads. Der Volume-Pfad ist der Teil des Exportpfades des Volumes nach dem `:/`. Beispiel: Wenn der Mount-Pfad lautet `10.0.0.2:/importvol1`, Der Volume-Pfad ist `importvol1`.

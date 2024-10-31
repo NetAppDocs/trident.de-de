@@ -32,14 +32,14 @@ kubectl get storageclass
 ----
 kubectl get storageclass <storage-class> -o json
 ----
-* Führen Sie den folgenden Befehl aus, um die synchronisierten Storage-Klassen von Astra Trident anzuzeigen:
+* Führen Sie den folgenden Befehl aus, um die synchronisierten Storage-Klassen von Trident anzuzeigen:
 
 
 [listing]
 ----
 tridentctl get storageclass
 ----
-* Um die synchronisierten Storage-Klassendetails von Astra Trident anzuzeigen, führen Sie den folgenden Befehl aus:
+* Führen Sie den folgenden Befehl aus, um Details zur synchronisierten Storage-Klasse von Trident anzuzeigen:
 
 
 [listing]
@@ -76,7 +76,7 @@ NOTE: Ihr Cluster sollte immer nur eine Standard-Storage-Klasse aufweisen. Kuber
 
 == Das Backend für eine Storage-Klasse ermitteln
 
-Dies ist ein Beispiel für die Art von Fragen, die Sie mit der JSON beantworten können `tridentctl` Ausgänge für Astra Trident Backend-Objekte. Dazu wird der verwendet `jq` Dienstprogramm, das Sie möglicherweise zuerst installieren müssen.
+Dies ist ein Beispiel für die Art von Fragen, die Sie mit der JSON beantworten können, die `tridentctl` für Trident-Backend-Objekte ausgegeben wird. Hierbei wird das Dienstprogramm verwendet `jq`, das Sie möglicherweise zuerst installieren müssen.
 
 [listing]
 ----
@@ -94,7 +94,7 @@ kubectl delete storageclass <storage-class>
 ----
 `<storage-class>` Sollten durch Ihre Storage-Klasse ersetzt werden.
 
-Alle persistenten Volumes, die durch diese Storage-Klasse erstellt wurden, werden unverändert beibehalten und Astra Trident wird sie weiterhin managen.
+Alle persistenten Volumes, die über diese Storage-Klasse erstellt wurden, bleiben unverändert und Trident managt sie weiterhin.
 
 
-NOTE: Astra Trident setzt ein Leereinschub um `fsType` Für die von ihm erstellten Volumes. Bei iSCSI-Back-Ends wird die Durchsetzung empfohlen `parameters.fsType` In der StorageClass. Sie sollten vorhandene StorageClasses löschen und mit neu erstellen `parameters.fsType` Angegeben.
+NOTE: Trident erzwingt ein Leerzeichen `fsType` für die von ihm erstellten Volumes. Für iSCSI-Back-Ends wird empfohlen, in der StorageClass durchzusetzen `parameters.fsType`. Sie sollten vorhandene StorageClasses löschen und mit den angegebenen neu erstellen `parameters.fsType`.

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-get-started/requirements.html 
 keywords: trident requirements, supported front ends, supported backends, kubernetes cluster, cluster requirements, version requirements, supported versions, host configuration, host os, system configuration, host operating system, fsx, ports, csi, images, orchestrators, storage systems, feature, kubernetes 
-summary: Vor der Installation von Astra Trident sollten Sie diese allgemeinen Systemanforderungen überprüfen. Spezifische Back-Ends können zusätzliche Anforderungen haben. 
+summary: Vor der Installation von Trident sollten Sie die folgenden allgemeinen Systemanforderungen überprüfen. Spezifische Back-Ends können zusätzliche Anforderungen haben. 
 ---
 = Anforderungen
 :hardbreaks:
@@ -12,55 +12,60 @@ summary: Vor der Installation von Astra Trident sollten Sie diese allgemeinen Sy
 
 
 [role="lead"]
-Vor der Installation von Astra Trident sollten Sie diese allgemeinen Systemanforderungen überprüfen. Spezifische Back-Ends können zusätzliche Anforderungen haben.
+Vor der Installation von Trident sollten Sie die folgenden allgemeinen Systemanforderungen überprüfen. Spezifische Back-Ends können zusätzliche Anforderungen haben.
 
 
 
-== Kritische Informationen zu Astra Trident
+== Wichtige Informationen über Trident
 
-*Sie müssen die folgenden wichtigen Informationen über Astra Trident lesen.*
+*Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 
-.<strong> Informationen über Astra TripereIT </strong>
+.<strong>-Informationen über Trident </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.31 wird jetzt in Astra Trident unterstützt. Aktualisieren Sie Astra Trident vor dem Upgrade von Kubernetes.
-* Astra Trident setzt die Verwendung von Multipathing-Konfiguration in SAN-Umgebungen strikt um und empfiehlt den Nutzen von `find_multipaths: no` In Multipath.conf Datei.
+[]
+=====
+* Kubernetes 1.31 wird jetzt in Trident unterstützt. Upgrade von Trident vor dem Upgrade von Kubernetes.
+* Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
-Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Astra Trident hat die Verwendung von empfohlen `find_multipaths: no` Seit der Version 21.07.
+Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
 
 
 
+=====
 ====
 
 
 == Unterstützte Frontends (Orchestrators)
 
-Astra Trident unterstützt mehrere Container-Engines und Orchestrierungslösungen. Dazu gehören:
+Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, darunter:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.24–1.31
+* Kubernetes 1.25–1.31
 * OpenShift 4.10 - 4.16
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1
 
 
 Der Trident-Operator wird durch folgende Versionen unterstützt:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.24–1.31
+* Kubernetes 1.25–1.31
 * OpenShift 4.10 - 4.16
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1
 
 
-Astra Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbstverwalteter Kubernetes-Angebote eingesetzt werden, wie z. B. Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE), Rancher und VMware Tanzu Portfolio.
+Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbst gemanagter Kubernetes-Angebote eingesetzt werden, wie z. B. Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) und VMware Tanzu Portfolio.
 
-Astra Trident und ONTAP können als Storage-Provider für verwendet werden link:https://kubevirt.io/["KubeVirt"].
+Trident und ONTAP können als Speicheranbieter für verwendet werdenlink:https://kubevirt.io/["KubeVirt"].
 
 
-WARNING: Informationen zum Upgrade eines Kubernetes-Clusters von 1.24 auf 1.25 oder höher, auf dem Astra Trident installiert ist, finden Sie unter link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["Aktualisieren einer Helm-Installation"].
+WARNING: Lesen Sie, bevor Sie ein Kubernetes-Cluster von 1.24 auf 1.25 oder höher aktualisieren, auf dem Trident installiert link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["Aktualisieren einer Helm-Installation"]ist.
 
 
 
 == Unterstützte Back-Ends (Storage)
 
-Zur Verwendung von Astra Trident benötigen Sie ein oder mehrere der folgenden unterstützten Back-Ends:
+Um Trident verwenden zu können, benötigen Sie eines oder mehrere der folgenden unterstützten Back-Ends:
 
 * Amazon FSX für NetApp ONTAP
 * Azure NetApp Dateien
@@ -75,64 +80,64 @@ Zur Verwendung von Astra Trident benötigen Sie ein oder mehrere der folgenden u
 
 == Anforderungen an die Funktionen
 
-Die nachfolgende Tabelle enthält einen Überblick über die Funktionen dieser Version von Astra Trident und die von ihm unterstützten Versionen von Kubernetes.
+Die folgende Tabelle bietet einen Überblick über die mit dieser Version von Trident verfügbaren Funktionen und die unterstützten Versionen von Kubernetes.
 
 [cols="3"]
 |===
 | Merkmal | Kubernetes-Version | Funktionstore erforderlich? 
 
 
-| Astra Trident  a| 
-1.24 - 1.31
+| Trident  a| 
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | Volume Snapshots  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | PVC aus Volume Snapshots  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | ISCSI PV-Größe  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | Bidirektionales ONTAP-CHAP  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | Dynamische Exportrichtlinien  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | Trident Operator  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
 
 
 | CSI-Topologie  a| 
-1.24 - 1.31
+1.25 - 1.31
  a| 
 Nein
 
@@ -141,7 +146,7 @@ Nein
 
 == Getestete Host-Betriebssysteme
 
-Der Astra Trident unterstützt zwar bestimmte Betriebssysteme offiziell nicht, doch ist es bekannt, dass folgende Betriebssysteme funktionieren:
+Trident unterstützt zwar offiziell keine bestimmten Betriebssysteme, aber dafür ist bekannt, dass Folgendes funktioniert:
 
 * Redhat CoreOS (RHCOS) Versionen, die von OpenShift Container Platform (AMD64 und ARM64) unterstützt werden
 * RHEL 8 ODER HÖHER (AMD64 UND ARM64)
@@ -153,7 +158,7 @@ NOTE: Für NVMe/TCP ist RHEL 9 oder höher erforderlich.
 * Windows Server 2022
 
 
-Standardmäßig wird Astra Trident in einem Container ausgeführt und läuft daher auf jedem Linux-Mitarbeiter. Diese Mitarbeiter müssen jedoch in der Lage sein, die Volumes, die Astra Trident bietet, je nach den von Ihnen verwendeten Back-Ends mit dem standardmäßigen NFS-Client oder iSCSI-Initiator zu mounten.
+Standardmäßig wird Trident in einem Container ausgeführt und wird daher auf jedem Linux-Worker ausgeführt. Diese Mitarbeiter müssen jedoch in der Lage sein, die Volumes, die Trident bietet, mit dem standardmäßigen NFS-Client oder iSCSI-Initiator zu mounten, je nach den von Ihnen verwendeten Back-Ends.
 
 Der `tridentctl` Utility läuft auch auf jeder dieser Linux-Distributionen.
 
@@ -169,38 +174,38 @@ link:../trident-use/worker-node-prep.html["Bereiten Sie den Knoten „Worker“ 
 
 == Konfiguration des Storage-Systems
 
-Astra Trident erfordert möglicherweise Änderungen an einem Storage-System, bevor es mit einer Backend-Konfiguration verwendet werden kann.
+Trident erfordert möglicherweise Änderungen am Storage-System, bevor es von einer Backend-Konfiguration verwendet werden kann.
 
 link:../trident-use/backends.html["Back-Ends konfigurieren"]
 
 
 
-== Astra Trident-Ports
+== Trident-Ports
 
-Astra Trident erfordert Zugriff auf spezifische Ports für die Kommunikation.
+Trident erfordert für die Kommunikation den Zugriff auf bestimmte Ports.
 
-link:../trident-reference/ports.html["Astra Trident-Ports"]
+link:../trident-reference/ports.html["Trident-Ports"]
 
 
 
 == Container-Images und entsprechende Kubernetes-Versionen
 
-Bei luftvergaschten Installationen ist die folgende Liste eine Referenz für Container-Images, die für die Installation von Astra Trident erforderlich sind. Verwenden Sie die `tridentctl images` Befehl zum Überprüfen der Liste der erforderlichen Container-Images.
+Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz für Container-Images, die zur Installation von Trident erforderlich sind. Überprüfen Sie mit dem `tridentctl images` Befehl die Liste der erforderlichen Container-Images.
 
 [cols="2"]
 |===
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.24.0, v1.25.0, v1.26.0, v1.27.0, v1.28.0 v1.29.0, v1.30.0, v1.31.0  a| 
-* docker.io/netapp/Trident:24.06.0
-* docker.io/netapp/Trident-AutoSupport:24.06
-* Registry.k8s.io/SIG-Storage/csi-provisioner:v4.0.1
-* Registry.k8s.io/SIG-Storage/csi-Attacher:v4.6.0
-* Registry.k8s.io/SIG-Storage/csi-resizer:v1.11.0
-* Registry.k8s.io/SIG-Storage/csi-snapshotter:v7.0.2
-* Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.10.0
-* docker.io/netapp/Trident-Operator:24.06.0 (optional)
+| v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0  a| 
+* docker.io/netapp/Trident:24.10.0
+* docker.io/netapp/Trident-AutoSupport:24.10
+* Registry.k8s.io/SIG-Storage/csi-provisioner:v5.1.0
+* Registry.k8s.io/SIG-Storage/csi-Attacher:v4.7.0
+* Registry.k8s.io/SIG-Storage/csi-resizer:v1.12.0
+* Registry.k8s.io/SIG-Storage/csi-snapshotter:v8.1.0
+* Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.12.0
+* docker.io/netapp/Trident-Operator:24.10.0 (optional)
 
 
 |===

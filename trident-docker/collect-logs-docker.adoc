@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-docker/collect-logs-docker.html 
-keywords: deploy, astra trident, trident for docker, docker, logs, binary, managed plugin 
+keywords: deploy, Trident, trident for docker, docker, logs, binary, managed plugin 
 summary: Sie können Protokolle erfassen, um Hilfe bei der Fehlerbehebung zu erhalten. Die Methode zur Erfassung der Protokolle variiert je nach Ausführung des Docker Plug-ins. 
 ---
 = Sammelt Protokolle
@@ -19,7 +19,7 @@ Sie können Protokolle erfassen, um Hilfe bei der Fehlerbehebung zu erhalten. Di
 == Sammelt Protokolle für die Fehlerbehebung
 
 .Schritte
-. Wenn Sie Astra Trident mit der empfohlenen Managed Plugin-Methode ausführen (d. h. mit `docker plugin` Befehle), zeigen Sie sie wie folgt an:
+. Wenn Sie Trident mit der empfohlenen Managed-Plugin-Methode ausführen (z. B. mit `docker plugin` Befehlen), zeigen Sie diese wie folgt an:
 +
 [listing]
 ----

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/trident-cl.html 
 keywords: command-line, options, logging, kubernetes, docker, ports 
-summary: Astra Trident legt verschiedene Befehlszeilenoptionen für den Trident-Orchestrator vor und kommuniziert über bestimmte Ports. 
+summary: Trident stellt mehrere Befehlszeilenoptionen für den Trident Orchestrator bereit und kommuniziert über bestimmte Ports. 
 ---
 = Befehlszeilenoptionen
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident legt verschiedene Befehlszeilenoptionen für den Trident-
 
 
 [role="lead"]
-Astra Trident stellt verschiedene Befehlszeilenoptionen für den Trident Orchestrator bereit. Sie können diese Optionen verwenden, um Ihre Bereitstellung zu ändern.
+Trident bietet mehrere Befehlszeilenoptionen für den Trident Orchestrator. Sie können diese Optionen verwenden, um Ihre Bereitstellung zu ändern.
 
 
 
@@ -27,7 +27,7 @@ Astra Trident stellt verschiedene Befehlszeilenoptionen für den Trident Orchest
 == Kubernetes
 
 `-k8s_pod`:: Verwenden Sie diese Option oder `-k8s_api_server` Um die Kubernetes-Unterstützung zu aktivieren. Durch diese Einstellung verwendet Trident die Zugangsdaten für das Kubernetes-Servicekonto eines Pods, um den API-Server zu kontaktieren. Dies funktioniert nur, wenn Trident als Pod in einem Kubernetes-Cluster mit aktivierten Service-Konten ausgeführt wird.
-`-k8s_api_server <insecure-address:insecure-port>`:: Verwenden Sie diese Option oder `-k8s_pod` Um die Kubernetes-Unterstützung zu aktivieren. Bei Angabe von stellt Trident über die angegebene unsichere Adresse und den angegebenen Port eine Verbindung zum Kubernetes-API-Server her. Dadurch kann Trident außerhalb eines Pods implementiert werden; es unterstützt jedoch nur unsichere Verbindungen zum API-Server. Mit der können Sie Trident sicher in einem Pod implementieren `-k8s_pod` Option.
+`-k8s_api_server <insecure-address:insecure-port>`:: Verwenden Sie diese Option oder `-k8s_pod`, um den Kubernetes-Support zu aktivieren. Bei Angabe von stellt Trident über die angegebene unsichere Adresse und den angegebenen Port eine Verbindung zum Kubernetes-API-Server her. Dadurch kann Trident außerhalb eines Pods bereitgestellt werden. Es werden jedoch nur unsichere Verbindungen zum API-Server unterstützt. Um eine sichere Verbindung herzustellen, implementieren Sie Trident in einem Pod mit der `-k8s_pod` Option.
 
 
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/trident-fsx-iam-role.html 
 keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident 
-summary: 'Durch den Einsatz von Astra Trident mit Amazon FSX for NetApp ONTAP stellen Sie sicher, dass Ihre Kubernetes-Cluster, die in Amazon Elastic Kubernetes Service (EKS) ausgeführt werden, persistente Block- und dateibasierte Volumes mit ONTAP bereitstellen können.' 
+summary: 'Durch den Einsatz von Trident mit Amazon FSX for NetApp ONTAP kann sichergestellt werden, dass Ihre Kubernetes-Cluster, die im Amazon Elastic Kubernetes Service (EKS) ausgeführt werden, persistente Block- und dateibasierte Volumes mit ONTAP bereitstellen können.' 
 ---
 = IAM-Rolle und AWS Secret erstellen
 :hardbreaks:
@@ -21,7 +21,7 @@ NOTE: Um sich mit einer AWS IAM-Rolle zu authentifizieren, müssen Sie über ein
 
 == Erstellen Sie den AWS Secret Manager-Schlüssel
 
-Dieses Beispiel erstellt einen AWS Secret Manager Secret, um die Astra Trident CSI-Anmeldedaten zu speichern:
+Dieses Beispiel erstellt einen AWS Secret Manager-Schlüssel, um Trident-CSI-Anmeldedaten zu speichern:
 
 `aws secretsmanager create-secret --name trident-secret --description "Trident CSI credentials" --secret-string "{"user":"vsadmin","password":"<svmpassword>"}"`
 

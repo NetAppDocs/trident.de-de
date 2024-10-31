@@ -2,11 +2,11 @@
 section: trident-get-started
 title: Los geht's
 entries:
-- title: Erfahren Sie mehr über Astra Trident
+- title: Erfahren Sie mehr über Trident
   entries:
-  - title: Astra Trident – Überblick
+  - title: Übersicht über Trident
     url: "/trident-get-started/intro.html"
-  - title: Die Architektur von Astra Trident
+  - title: Architektur von Trident
     url: "/trident-get-started/architecture.html"
   - title: Konzepte
     entries:

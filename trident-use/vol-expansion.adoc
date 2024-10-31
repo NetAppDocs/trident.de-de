@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-expansion.html 
 keywords: volumes, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion 
-summary: Astra Trident bietet Kubernetes-Benutzern die Möglichkeit, ihre Volumes nach Erstellung zu erweitern. Hier finden Sie Informationen zu den erforderlichen Konfigurationen zum erweitern von iSCSI- und NFS-Volumes. 
+summary: Trident bietet Kubernetes-Benutzern die Möglichkeit, ihre Volumes nach der Erstellung zu erweitern. Hier finden Sie Informationen zu den erforderlichen Konfigurationen zum erweitern von iSCSI- und NFS-Volumes. 
 ---
 = Erweitern Sie Volumes
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Astra Trident bietet Kubernetes-Benutzern die Möglichkeit, ihre Volume
 
 
 [role="lead"]
-Astra Trident bietet Kubernetes-Benutzern die Möglichkeit, ihre Volumes nach Erstellung zu erweitern. Hier finden Sie Informationen zu den erforderlichen Konfigurationen zum erweitern von iSCSI- und NFS-Volumes.
+Trident bietet Kubernetes-Benutzern die Möglichkeit, ihre Volumes nach der Erstellung zu erweitern. Hier finden Sie Informationen zu den erforderlichen Konfigurationen zum erweitern von iSCSI- und NFS-Volumes.
 
 
 
@@ -65,7 +65,7 @@ spec:
       storage: 1Gi
   storageClassName: ontap-san
 ----
-Astra Trident erstellt ein persistentes Volume (PV) und verknüpft es mit dieser Persistent Volume Claim (PVC).
+Trident erstellt ein persistentes Volume (PV) und verknüpft es mit diesem Persistent Volume Claim (PVC).
 
 [listing]
 ----
@@ -83,8 +83,8 @@ pvc-8a814d62-bd58-4253-b0d1-82f2885db671   1Gi        RWO            Delete     
 
 Schließen Sie das PV an einen Pod an, um die Größe zu ändern. Beim Ändern der Größe eines iSCSI-PV gibt es zwei Szenarien:
 
-* Wenn das PV an einen POD angeschlossen ist, erweitert Astra Trident das Volume auf dem Storage-Back-End, setzt das Gerät neu ein und vergrößert das Dateisystem neu.
-* Bei dem Versuch, die Größe eines nicht angeschlossenen PV zu ändern, erweitert Astra Trident das Volume auf dem Storage-Backend. Nachdem die PVC an einen Pod gebunden ist, lässt Trident das Gerät neu in die Größe des Dateisystems einarbeiten. Kubernetes aktualisiert dann die PVC-Größe, nachdem der Expand-Vorgang erfolgreich abgeschlossen ist.
+* Wenn das PV mit einem Pod verbunden ist, erweitert Trident das Volume im Storage-Back-End, scannt das Gerät erneut und skaliert das Dateisystem.
+* Beim Versuch, die Größe eines nicht verbundenen PV zu ändern, erweitert Trident das Volume auf dem Speicher-Back-End. Nachdem die PVC an einen Pod gebunden ist, lässt Trident das Gerät neu in die Größe des Dateisystems einarbeiten. Kubernetes aktualisiert dann die PVC-Größe, nachdem der Expand-Vorgang erfolgreich abgeschlossen ist.
 
 
 In diesem Beispiel wird ein POD erstellt, der die verwendet `san-pvc`.
@@ -151,7 +151,7 @@ spec:
 
 === Schritt 5: Validieren Sie die Erweiterung
 
-Sie können die korrekte Ausführung der Erweiterung überprüfen, indem Sie die Größe der PVC, PV und des Astra Trident Volume überprüfen:
+Sie können die korrekt bearbeitete Erweiterung validieren, indem Sie die Größe der PVC, des PV und des Trident Volume überprüfen:
 
 [listing]
 ----
@@ -172,7 +172,7 @@ tridentctl get volumes -n trident
 
 == Erweitern Sie ein NFS-Volume
 
-Astra Trident unterstützt die Volume-Erweiterung für auf bereitgestellte NFS PVS `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `gcp-cvs`, und `azure-netapp-files` Back-Ends:
+Trident unterstützt Volume-Erweiterung für NFS PVS, die auf, `ontap-nas-economy`, `ontap-nas-flexgroup`, `gcp-cvs` und `azure-netapp-files` Back-Ends bereitgestellt `ontap-nas` werden.
 
 
 
@@ -213,7 +213,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Astra Trident sollte ein 20MiB NFS PV für diese PVC erstellen:
+Trident sollte ein 20MiB NFS PV für die folgende PVC erstellen:
 
 [listing]
 ----
@@ -265,7 +265,7 @@ spec:
 
 === Schritt 4: Validieren Sie die Erweiterung
 
-Sie können die korrekte Größenänderung validieren, indem Sie die Größe des PVC, des PV und des Astra Trident Volume überprüfen:
+Sie können die Größe der korrekt bearbeiteten Größe validieren, indem Sie die Größe der PVC, des PV und des Trident Volume überprüfen:
 
 [listing]
 ----

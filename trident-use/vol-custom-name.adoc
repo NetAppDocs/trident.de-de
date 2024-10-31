@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/vol-custom-name.html 
 keywords: volumes, volume name, custom volume name, on-demand volume snapshots, expand volumes, iscsci volumes, nfs volumes, expand, expansion, 
-summary: 'Astra Trident unterstützt das Zuweisen aussagekräftiger Namen und Labels zu den erstellten Volumes. Dadurch können Volumes einfacher identifiziert und überwacht werden und lassen sich einfach den entsprechenden Kubernetes-Ressourcen (PVCs) zuordnen.' 
+summary: 'Trident unterstützt das Zuweisen aussagekräftiger Namen und Labels zu den erstellten Volumes, sodass sich Volumes leichter identifizieren und überwachen und problemlos den entsprechenden Kubernetes-Ressourcen (PVCs) zuordnen lassen.' 
 ---
 = Passen Sie Volume-Namen und -Beschriftungen an
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Astra Trident unterstützt das Zuweisen aussagekräftiger Namen und La
 
 
 [role="lead"]
-Mit Astra Trident können Sie erstellten Volumes aussagekräftige Namen und Labels zuweisen. So können Sie Volumes leichter identifizieren und ihren jeweiligen Kubernetes-Ressourcen (PVCs) zuweisen. Sie können auch Vorlagen auf Backend-Ebene definieren, um benutzerdefinierte Volume-Namen und benutzerdefinierte Labels zu erstellen. Alle Volumes, die Sie erstellen, importieren oder klonen, werden an die Vorlagen angepasst.
+Mit Trident können Sie Volumes, die Sie erstellen, aussagekräftige Namen und Labels zuweisen. So können Sie Volumes leichter identifizieren und ihren jeweiligen Kubernetes-Ressourcen (PVCs) zuweisen. Sie können auch Vorlagen auf Backend-Ebene definieren, um benutzerdefinierte Volume-Namen und benutzerdefinierte Labels zu erstellen. Alle Volumes, die Sie erstellen, importieren oder klonen, werden an die Vorlagen angepasst.
 
 
 
@@ -117,7 +117,7 @@ Benutzerdefinierte Namensvorlagen können auf Root- und/oder Poolebene definiert
 
 . Bei Volumenimporten werden die Etiketten nur aktualisiert, wenn das vorhandene Volume über Etiketten in einem bestimmten Format verfügt. Zum Beispiel: `{"provisioning":{"Cluster":"ClusterA", "PVC": "pvcname"}}`.
 . Im Fall des Imports von verwalteten Volumes folgt der Name des Volumes der Namensvorlage, die in der Backend-Definition auf Root-Ebene definiert wurde.
-. Astra Trident unterstützt nicht die Verwendung eines Slice-Operators mit dem Storage-Präfix.
-. Wenn die Vorlagen nicht zu eindeutigen Volume-Namen führen, fügt Astra Trident einige zufällige Zeichen an, um eindeutige Volume-Namen zu erstellen.
-. Wenn der benutzerdefinierte Name für ein NAS-Economy-Volume 64 Zeichen lang ist, benennt Astra Trident die Volumes entsprechend der bestehenden Namenskonvention. Bei allen anderen ONTAP-Treibern schlägt die Erstellung des Volumes fehl, wenn der Datenträgername das Limit für den Namen überschreitet.
+. Trident unterstützt die Verwendung eines Slice-Operators mit dem Speicherpräfix nicht.
+. Wenn die Vorlagen nicht zu eindeutigen Volume-Namen führen, fügt Trident einige zufällige Zeichen an, um eindeutige Volume-Namen zu erstellen.
+. Wenn der benutzerdefinierte Name für ein NAS-Economy-Volume 64 Zeichen lang ist, benennt Trident die Volumes entsprechend der bestehenden Namenskonvention. Bei allen anderen ONTAP-Treibern schlägt die Erstellung des Volumes fehl, wenn der Datenträgername das Limit für den Namen überschreitet.
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reference/pod-security.html 
 keywords: psp, pss, scc, pod security, pod security standards, pod security policies, security context constraints 
-summary: 'Kubernetes Pod Security Standards (PSS) und Pod Security Policies (PSP) definieren Berechtigungsebenen und schränken das Verhalten von Pods ein. OpenShift Security Context Constraints (SCC) definieren ebenfalls die Pod-Einschränkung speziell für die OpenShift Kubernetes Engine. Zur Bereitstellung dieser Anpassung ermöglicht Astra Trident während der Installation bestimmte Berechtigungen.' 
+summary: 'Kubernetes Pod Security Standards (PSS) und Pod Security Policies (PSP) definieren Berechtigungsebenen und schränken das Verhalten von Pods ein. OpenShift Security Context Constraints (SCC) definieren ebenfalls die Pod-Einschränkung speziell für die OpenShift Kubernetes Engine. Um diese Anpassung zu ermöglichen, aktiviert Trident bestimmte Berechtigungen während der Installation.' 
 ---
 = Pod Security Standards (PSS) und Security Context Constraints (SCC)
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: 'Kubernetes Pod Security Standards (PSS) und Pod Security Policies (PSP
 
 
 [role="lead"]
-Kubernetes Pod Security Standards (PSS) und Pod Security Policies (PSP) definieren Berechtigungsebenen und schränken das Verhalten von Pods ein. OpenShift Security Context Constraints (SCC) definieren ebenfalls die Pod-Einschränkung speziell für die OpenShift Kubernetes Engine. Zur Bereitstellung dieser Anpassung ermöglicht Astra Trident während der Installation bestimmte Berechtigungen. In den folgenden Abschnitten werden die Berechtigungen von Astra Trident erläutert.
+Kubernetes Pod Security Standards (PSS) und Pod Security Policies (PSP) definieren Berechtigungsebenen und schränken das Verhalten von Pods ein. OpenShift Security Context Constraints (SCC) definieren ebenfalls die Pod-Einschränkung speziell für die OpenShift Kubernetes Engine. Um diese Anpassung zu ermöglichen, aktiviert Trident bestimmte Berechtigungen während der Installation. In den folgenden Abschnitten werden die von Trident festgelegten Berechtigungen beschrieben.
 
 
 NOTE: PSS ersetzt Pod Security Policies (PSP). PSP war in Kubernetes v1.21 veraltet und wird in v1.25 entfernt. Weitere Informationen finden Sie unter link:https://kubernetes.io/docs/concepts/security/["Kubernetes: Sicherheit"].
@@ -35,7 +35,7 @@ NOTE: PSS ersetzt Pod Security Policies (PSP). PSP war in Kubernetes v1.21 veral
 | Host-IPC | NFS nutzt Prozesskommunikation (IPC) mit dem NFSD. 
 
 
-| Host-PID | Muss gestartet werden `rpc-statd` Für NFS. Astra Trident fragt die Host-Prozesse ab, um festzustellen, ob `rpc-statd` Wird vor dem Mounten von NFS-Volumes ausgeführt. 
+| Host-PID | Erforderlich für den Start `rpc-statd` von NFS. Trident fragt Hostprozesse ab, um festzustellen, ob `rpc-statd` vor dem Mounten von NFS-Volumes ausgeführt wird. 
 
 
 | Sorgen | Der `SYS_ADMIN` Diese Funktion wird als Teil der Standardfunktionen für privilegierte Container bereitgestellt. Docker legt beispielsweise die folgenden Funktionen für privilegierte Container fest:
@@ -43,10 +43,10 @@ NOTE: PSS ersetzt Pod Security Policies (PSP). PSP war in Kubernetes v1.21 veral
 `CapEff: 0000003fffffffff` 
 
 
-| Abt | Seccomp-Profil ist in privilegierten Containern immer „unbegrenzt“; daher kann es in Astra Trident nicht aktiviert werden. 
+| Abt | Seccomp-Profil ist in privilegierten Containern immer „unbeschränkt“; daher kann es in Trident nicht aktiviert werden. 
 
 
-| SELinux | Auf OpenShift werden privilegierte Container im betrieben `spc_t` („Super Privileged Container“)-Domain, und unprivilegierte Container werden im ausgeführt `container_t` Domäne. Ein `containerd`, Mit `container-selinux` Installiert, alle Container werden im ausgeführt `spc_t` Domain, die SELinux effektiv deaktiviert. Aus diesem Grund wird Astra Trident nicht hinzugefügt `seLinuxOptions` Zusammen mit Containern. 
+| SELinux | Auf OpenShift werden privilegierte Container in der Domäne („Super Privileged Container“) ausgeführt `spc_t`, und nicht privilegierte Container werden in der Domäne ausgeführt `container_t`. Auf `containerd`, bei `container-selinux` installed werden alle Container in der Domain ausgeführt `spc_t`, was SELinux effektiv deaktiviert. Aus diesem Grund wird Trident den Containern nicht hinzugefügt `seLinuxOptions`. 
 
 
 | DAC | Privilegierte Container müssen als Root ausgeführt werden. Nicht privilegierte Container werden als Root ausgeführt, um auf unix-Sockets zuzugreifen, die von CSI benötigt werden. 

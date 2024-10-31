@@ -32,24 +32,31 @@ link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nvm
 
 NOTE: Wir empfehlen ONTAP 9.12 oder höher für NVMe/TCP.
 
+.SCSI-über-FC-Tools
+*SCSI over Fibre Channel (FC) ist ein Tech Preview Feature in der Trident 24.10 Version.*
+
+link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#install-the-iscsi-tools["Installieren Sie die iSCSI-Tools"] Wenn Sie mit sanType `fcp` (SCSI über FC) verwenden `ontap-san`.
+
+Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap/san-config/configure-fc-nvme-hosts-ha-pairs-reference.html["Möglichkeiten zur Konfiguration von FC-  FC-NVMe SAN-Hosts"] .
+
 
 
 == Ermittlung des Node-Service
 
-Astra Trident versucht automatisch zu erkennen, ob der Node iSCSI- oder NFS-Services ausführen kann.
+Trident versucht automatisch zu erkennen, ob auf dem Node iSCSI- oder NFS-Services ausgeführt werden können.
 
 
 NOTE: Die Ermittlung des Node-Service erkennt erkannte Services, gewährleistet jedoch nicht, dass Services ordnungsgemäß konfiguriert wurden. Umgekehrt kann das Fehlen eines entdeckten Service nicht garantieren, dass die Volume-Bereitstellung fehlschlägt.
 
 .Überprüfen Sie Ereignisse
-Astra Trident erstellt Ereignisse für den Node zur Identifizierung der erkannten Services. Um diese Ereignisse zu überprüfen, führen Sie folgende Schritte aus:
+Trident erstellt Ereignisse für den Node, um die erkannten Services zu identifizieren. Um diese Ereignisse zu überprüfen, führen Sie folgende Schritte aus:
 
 [listing]
 ----
 kubectl get event -A --field-selector involvedObject.name=<Kubernetes node name>
 ----
 .Überprüfen Sie erkannte Services
-Astra Trident erkennt aktivierte Services für jeden Knoten auf der Trident Node CR. Um die ermittelten Dienste anzuzeigen, führen Sie folgende Schritte aus:
+Trident erkennt Dienste, die für jeden Knoten auf dem Trident-Knoten CR aktiviert sind. Um die ermittelten Dienste anzuzeigen, führen Sie folgende Schritte aus:
 
 [listing]
 ----
@@ -85,25 +92,25 @@ WARNING: Starten Sie die Worker-Nodes nach der Installation der NFS-Tools neu, u
 
 == ISCSI-Volumes
 
-Astra Trident kann automatisch eine iSCSI-Sitzung einrichten, LUNs scannen und Multipath-Geräte erkennen, sie formatieren und auf einem Pod mounten.
+Trident kann automatisch eine iSCSI-Sitzung einrichten, LUNs scannen, Multipath-Geräte erkennen, formatieren und in einen Pod einbinden.
 
 
 
 === ISCSI-Funktionen zur Selbstreparatur
 
-Bei ONTAP Systemen führt Astra Trident alle fünf Minuten iSCSI-Selbstheilung aus und bietet folgende Vorteile:
+Bei ONTAP Systemen führt Trident die iSCSI-Selbstreparatur alle fünf Minuten aus, um folgende Vorteile zu nutzen:
 
 . * Identifizieren Sie den gewünschten iSCSI-Sitzungsstatus und den aktuellen iSCSI-Sitzungsstatus.
-. *Vergleichen* der gewünschte Zustand mit dem aktuellen Zustand, um notwendige Reparaturen zu identifizieren. Astra Trident ermittelt Reparaturprioritäten und wann Maßnahmen ergriffen werden müssen.
+. *Vergleichen* der gewünschte Zustand mit dem aktuellen Zustand, um notwendige Reparaturen zu identifizieren. Trident bestimmt die Reparaturprioritäten und den Zeitpunkt, an dem Reparaturen vorbeugen müssen.
 . *Durchführung von Reparaturen* erforderlich, um den aktuellen iSCSI-Sitzungsstatus auf den gewünschten iSCSI-Sitzungsstatus zurückzusetzen.
 
 
 
-NOTE: Protokolle der Selbstheilungsaktivität befinden sich im `trident-main` Behälter auf dem jeweiligen Demonset Pod. Um Protokolle anzuzeigen, müssen Sie festgelegt haben `debug` Auf „true“ bei der Installation von Astra Trident zu setzen.
+NOTE: Protokolle der Selbstheilungsaktivität befinden sich im `trident-main` Container auf dem jeweiligen Demonset-Pod. Um Protokolle anzuzeigen, müssen Sie während der Trident-Installation auf „true“ gesetzt haben `debug`.
 
-Astra Trident iSCSI-Funktionen zur Selbstheilung verhindern:
+Trident iSCSI-Funktionen zur Selbstheilung verhindern Folgendes:
 
-* Veraltete oder ungesunde iSCSI-Sitzungen, die nach einem Problem mit der Netzwerkverbindung auftreten können Im Falle einer veralteten Sitzung wartet Astra Trident sieben Minuten vor der Anmeldung, um die Verbindung mit einem Portal wiederherzustellen.
+* Veraltete oder ungesunde iSCSI-Sitzungen, die nach einem Problem mit der Netzwerkverbindung auftreten können Im Falle einer veralteten Sitzung wartet Trident sieben Minuten, bevor er sich abmeldet, um die Verbindung zu einem Portal wiederherzustellen.
 +
 
 NOTE: Wenn beispielsweise CHAP-Schlüssel auf dem Speicher-Controller gedreht wurden und die Verbindung zum Netzwerk unterbrochen wird, können die alten (_Inated_) CHAP-Schlüssel bestehen bleiben. Selbstheilung kann dies erkennen und die Sitzung automatisch wiederherstellen, um die aktualisierten CHAP-Schlüssel anzuwenden.
@@ -144,19 +151,13 @@ sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.c
 +
 [listing]
 ----
-sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
+sudo yum install -y lsscsi iscsi-initiator-utils device-mapper-multipath
 ----
 . Überprüfen Sie, ob die Version von iscsi-Initiator-utils 6.2.0.874-2.el7 oder höher ist:
 +
 [listing]
 ----
 rpm -q iscsi-initiator-utils
-----
-. Scannen auf manuell einstellen:
-+
-[listing]
-----
-sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
 ----
 . Multipathing aktivieren:
 +
@@ -240,7 +241,7 @@ NOTE: Für Ubuntu 18.04, müssen Sie Ziel-Ports mit erkennen `iscsiadm` Vor dem 
 
 === Konfigurieren oder deaktivieren Sie die iSCSI-Selbstheilung
 
-Sie können die folgenden Selbstreparatureinstellungen von Astra Trident iSCSI konfigurieren, um veraltete Sitzungen zu beheben:
+Sie können die folgenden Trident iSCSI-Selbstreparatureinstellungen konfigurieren, um veraltete Sitzungen zu beheben:
 
 * *ISCSI-Selbstheilungsintervall*: Bestimmt die Häufigkeit, mit der iSCSI-Selbstheilung aufgerufen wird (Standard: 5 Minuten). Sie können ihn so konfigurieren, dass er häufiger ausgeführt wird, indem Sie eine kleinere Zahl oder weniger häufig einstellen, indem Sie eine größere Zahl einstellen.
 
@@ -263,7 +264,7 @@ Im folgenden Beispiel wird das iSCSI-Intervall für die Selbstheilung auf 3 Minu
 
 [listing]
 ----
-helm install trident trident-operator-100.2406.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
+helm install trident trident-operator-100.2410.0.tgz --set iscsiSelfHealingInterval=3m0s --set iscsiSelfHealingWaitTime=6m0s -n trident
 ----
 --
 .Tridentctl
@@ -323,4 +324,4 @@ sudo modprobe nvme-tcp
 cat /etc/nvme/hostnqn
 ----
 
-WARNING: Astra Trident ändert die `ctrl_device_tmo` Nutzen, um zu gewährleisten, dass NVMe bei einem Ausfall nicht auf dem Weg bleibt. Ändern Sie diese Einstellung nicht.
+WARNING: Trident ändert den `ctrl_device_tmo` Wert, um zu gewährleisten, dass NVMe bei einem Ausfall nicht auf dem Pfad aufgibt. Ändern Sie diese Einstellung nicht.

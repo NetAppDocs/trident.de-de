@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/volume-share.html 
 keywords: volref, volume reference, share, pvc, pv, nfs, namespace, cvna, cross-namespace, sharing 
-summary: Mit Astra Trident können Sie ein Volume in einem primären Namespace erstellen und es in einem oder mehreren sekundären Namespaces teilen. 
+summary: Mit Trident können Sie ein Volume in einem primären Namespace erstellen und es in einem oder mehreren sekundären Namespaces teilen. 
 ---
 = Ein NFS-Volume kann über Namespaces hinweg genutzt werden
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Mit Astra Trident können Sie ein Volume in einem primären Namespace e
 
 
 [role="lead"]
-Mit Astra Trident können Sie ein Volume in einem primären Namespace erstellen und es in einem oder mehreren sekundären Namespaces teilen.
+Mit Trident können Sie ein Volume in einem primären Namespace erstellen und es in einem oder mehreren sekundären Namespaces teilen.
 
 
 
 == Funktionen
 
-Mit dem Astra TridentVolumeReference CR können Sie ReadWriteManche (RWX) NFS-Volumes sicher über einen oder mehrere Kubernetes-Namespaces teilen. Diese native Kubernetes-Lösung bietet folgende Vorteile:
+Mit dem TridentVolumeReference CR können Sie ReadWriteMany (RWX) NFS-Volumes sicher über einen oder mehrere Kubernetes-Namespaces freigeben. Diese native Kubernetes-Lösung bietet folgende Vorteile:
 
 * Mehrere Stufen der Zugriffssteuerung zur Sicherstellung der Sicherheit
 * Funktioniert mit allen Trident NFS-Volume-Treibern
@@ -78,7 +78,7 @@ spec:
       storage: 100Gi
 ----
 +
-Astra Trident erstellt das PV und das Back-End NFS Storage Volume.
+Trident erstellt das PV und das dazugehörige Backend-NFS-Storage-Volume.
 
 +
 [NOTE]
@@ -129,13 +129,13 @@ NOTE: Die Größe der Ziel-PVC muss kleiner oder gleich der Quelle PVC sein.
 
 
 .Ergebnisse
-Astra Trident liest den `shareFromPVC` Anmerkung auf dem Ziel-PVC und erstellt das Ziel-PV als untergeordnetes Volumen ohne eigene Speicherressource, die auf das Quell-PV verweist und die PV-Quellressource teilt. Die Ziel-PVC und das PV erscheinen wie normal gebunden.
+Trident liest die `shareFromPVC` Annotation auf der Ziel-PVC und erstellt das Ziel-PV als ein untergeordnetes Volume ohne eigene Speicherressource, die auf das Quell-PV verweist und die Quell-PV-Speicherressource gemeinsam nutzt. Die Ziel-PVC und das PV erscheinen wie normal gebunden.
 
 
 
 == Löschen eines freigegebenen Volumes
 
-Sie können ein Volume löschen, das über mehrere Namespaces hinweg gemeinsam genutzt wird. Astra Trident entfernt den Zugriff auf das Volume im Quell-Namespace und behält auch andere Namespaces, die das Volume gemeinsam nutzen. Wenn alle Namespaces entfernt werden, die auf dem Volume verweisen, löscht Astra Trident das Volume.
+Sie können ein Volume löschen, das über mehrere Namespaces hinweg gemeinsam genutzt wird. Trident entfernt den Zugriff auf das Volume im Quell-Namespace und hat auch Zugriff auf andere Namespaces, die das Volume gemeinsam nutzen. Wenn alle Namespaces, die auf das Volume verweisen, entfernt werden, löscht Trident das Volume.
 
 
 
@@ -159,7 +159,7 @@ Markierungen:
 
 == Einschränkungen
 
-* Astra Trident kann nicht verhindern, dass Ziel-Namespaces auf dem Shared Volume schreiben. Sie sollten Dateisperren oder andere Prozesse verwenden, um das Überschreiben von gemeinsam genutzten Volume-Daten zu verhindern.
+* Trident kann nicht verhindern, dass Zielnamepaces auf das gemeinsam genutzte Volume schreiben. Sie sollten Dateisperren oder andere Prozesse verwenden, um das Überschreiben von gemeinsam genutzten Volume-Daten zu verhindern.
 * Sie können den Zugriff auf die Quelle PVC nicht widerrufen, indem Sie die entfernen `shareToNamespace` Oder `shareFromNamespace` Anmerkungen oder Löschen des `TridentVolumeReference` CR. Um den Zugriff zu widerrufen, müssen Sie das untergeordnete PVC löschen.
 * Snapshots, Klone und Spiegelungen sind auf untergeordneten Volumes nicht möglich.
 

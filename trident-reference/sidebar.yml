@@ -2,13 +2,13 @@
 section: trident-reference
 title: Referenz
 entries:
-- title: Astra Trident-Ports
+- title: Trident-Ports
   url: "/trident-reference/ports.html"
-- title: Astra Trident REST-API
+- title: Trident REST-API
   url: "/trident-reference/rest-api.html"
 - title: Befehlszeilenoptionen
   url: "/trident-reference/trident-cl.html"
-- title: Kubernetes und Astra Trident Objekte
+- title: Kubernetes und Trident Objekte
   url: "/trident-reference/objects.html"
 - title: Pod Security Standards (PSS) und Security Context Constraints (SCC)
   url: "/trident-reference/pod-security.html"

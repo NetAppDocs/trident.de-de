@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-use/ontap-san-examples.html 
 keywords: map backends, storage classes, trident backend, ontap san, ontap san economy, options, storageclasses, fsx, metrocluster 
-summary: Erfahren Sie, wie Sie mit Ihrer Installation von Astra Trident ONTAP SAN-Treiber erstellen und verwenden. Dieser Abschnitt enthält Beispiele für die Back-End-Konfiguration und Details zur Zuordnung von Back-Ends zu StorageClasses. 
+summary: Erfahren Sie, wie Sie ONTAP-SAN-Treiber mit Ihrer Trident-Installation erstellen und verwenden. Dieser Abschnitt enthält Beispiele für die Back-End-Konfiguration und Details zur Zuordnung von Back-Ends zu StorageClasses. 
 ---
 = ONTAP SAN-Konfigurationsoptionen und -Beispiele
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Erfahren Sie, wie Sie mit Ihrer Installation von Astra Trident ONTAP SA
 
 
 [role="lead"]
-Erfahren Sie, wie Sie ONTAP SAN Treiber für Ihre Astra Trident Installation erstellen und verwenden. Dieser Abschnitt enthält Beispiele und Details zur Back-End-Konfiguration für die Zuordnung von Back-Ends zu StorageClasses.
+Erfahren Sie, wie Sie ONTAP-SAN-Treiber mit Ihrer Trident-Installation erstellen und verwenden. Dieser Abschnitt enthält Beispiele und Details zur Back-End-Konfiguration für die Zuordnung von Back-Ends zu StorageClasses.
 
 
 
@@ -34,20 +34,10 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `backendName` | Benutzerdefinierter Name oder das Storage-Backend | Treibername + „_“ + DatenLIF 
 
 
-| `managementLIF` | Die IP-Adresse einer Cluster- oder SVM-Management-LIF.
-
-Es kann ein vollständig qualifizierter Domänenname (FQDN) angegeben werden.
-
-Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Astra Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`.
-
-Informationen zur nahtlosen MetroCluster-Umschaltung finden Sie im <<mcc-best>>. | „10.0.0.1“, „[2001:1234:abcd::fefe]“ 
+| `managementLIF` | Die IP-Adresse einer Cluster- oder SVM-Management-LIF. Es kann ein vollständig qualifizierter Domänenname (FQDN) angegeben werden. Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`. Informationen über die nahtlose MetroCluster-Umschaltung finden Sie im <<mcc-best>>. | „10.0.0.1“, „[2001:1234:abcd::fefe]“ 
 
 
-| `dataLIF` | IP-Adresse des LIF-Protokolls.
-
-*Nicht für iSCSI angeben.* Astra Trident verwendet link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP selektive LUN-Zuordnung"^] Um die iSCI LIFs zu ermitteln, die für die Einrichtung einer Multi-Path-Sitzung erforderlich sind. Wenn eine Warnung erzeugt wird `dataLIF` Ist explizit definiert.
-
-*Für MetroCluster weglassen.* Siehe <<mcc-best>>. | Abgeleitet von SVM 
+| `dataLIF` | IP-Adresse des LIF-Protokolls. *Nicht für iSCSI angeben.* Trident verwendetlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP selektive LUN-Zuordnung"^], um die für die Einrichtung einer Multi-Path-Sitzung erforderlichen iSCI LIFs zu ermitteln. Eine Warnung wird erzeugt, wenn `dataLIF` explizit definiert ist. *Für MetroCluster weglassen.* Siehe <<mcc-best>>. | Abgeleitet von SVM 
 
 
 | `svm` | Zu verwendende Storage Virtual Machine
@@ -55,7 +45,7 @@ Informationen zur nahtlosen MetroCluster-Umschaltung finden Sie im <<mcc-best>>.
 *Für MetroCluster weglassen.* Siehe <<mcc-best>>. | Abgeleitet wenn eine SVM `managementLIF` Angegeben ist 
 
 
-| `useCHAP` | Verwenden Sie CHAP, um iSCSI für ONTAP-SAN-Treiber zu authentifizieren [Boolesch]. Auf einstellen `true` Damit Astra Trident bidirektionales CHAP als Standardauthentifizierung für die im Backend angegebene SVM konfiguriert und verwendet. Siehe link:ontap-san-prep.html["Vorbereiten der Konfiguration des Back-End mit ONTAP-SAN-Treibern"] Entsprechende Details. | `false` 
+| `useCHAP` | Verwenden Sie CHAP, um iSCSI für ONTAP-SAN-Treiber zu authentifizieren [Boolesch]. Legen Sie für Trident fest `true`, um bidirektionales CHAP als Standardauthentifizierung für die im Backend angegebene SVM zu konfigurieren und zu verwenden. Weitere Informationen finden Sie unter link:ontap-san-prep.html["Vorbereiten der Konfiguration des Back-End mit ONTAP-SAN-Treibern"] . | `false` 
 
 
 | `chapInitiatorSecret` | CHAP-Initiatorschlüssel. Erforderlich, wenn `useCHAP=true` | „“ 
@@ -94,7 +84,17 @@ Informationen zur nahtlosen MetroCluster-Umschaltung finden Sie im <<mcc-best>>.
 | `storagePrefix` | Das Präfix wird beim Bereitstellen neuer Volumes in der SVM verwendet. Kann später nicht mehr geändert werden. Um diesen Parameter zu aktualisieren, müssen Sie ein neues Backend erstellen. | `trident` 
 
 
-| `limitAggregateUsage` | Bereitstellung fehlgeschlagen, wenn die Nutzung über diesem Prozentsatz liegt. Wenn Sie ein Amazon FSX für das NetApp ONTAP-Back-End verwenden, geben Sie diese bitte nicht an  `limitAggregateUsage`. Die vorhanden `fsxadmin` Und `vsadmin` Enthalten Sie nicht die erforderlichen Berechtigungen, um die Aggregatnutzung abzurufen und sie mit Astra Trident zu begrenzen. | „“ (nicht standardmäßig durchgesetzt) 
+| `aggregate`  a| 
+Aggregat für die Bereitstellung (optional, wenn eingestellt, muss der SVM zugewiesen werden) Für den `ontap-nas-flexgroup` Treiber wird diese Option ignoriert. Falls nicht,  können alle verfügbaren Aggregate verwendet werden, um ein FlexGroup Volume bereitzustellen.
+
+
+NOTE: Wenn das Aggregat in einer SVM aktualisiert wird, wird es automatisch in Trident aktualisiert, indem es die SVM abfragt, ohne den Trident Controller neu starten zu müssen. Wenn Sie ein bestimmtes Aggregat in Trident für die Bereitstellung von Volumes konfiguriert haben, wird das Back-End Trident bei der Abfrage des SVM-Aggregats in den Status „Fehlgeschlagen“ verschoben. Sie müssen entweder das Aggregat zu einem auf der SVM vorhandenen Aggregat ändern oder es komplett entfernen, um das Back-End wieder online zu schalten.
+ a| 
+„“
+
+
+
+| `limitAggregateUsage` | Bereitstellung fehlgeschlagen, wenn die Nutzung über diesem Prozentsatz liegt. Wenn Sie ein Amazon FSX für NetApp ONTAP-Backend verwenden, geben Sie nicht an `limitAggregateUsage`. Die angegebenen `fsxadmin` und `vsadmin` enthalten nicht die erforderlichen Berechtigungen, um die aggregierte Nutzung abzurufen und sie mit Trident zu begrenzen. | „“ (nicht standardmäßig durchgesetzt) 
 
 
 | `limitVolumeSize` | Bereitstellung fehlgeschlagen, wenn die angeforderte Volume-Größe über diesem Wert liegt. Schränkt auch die maximale Größe der Volumes ein, die es für qtrees und LUNs managt. | „“ (standardmäßig nicht erzwungen) 
@@ -109,13 +109,34 @@ Verwenden Sie diese Funktion nur, wenn Sie eine Fehlerbehebung durchführen und 
 
 
 | `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs. 
-`useREST` Bei Einstellung auf `true`verwendet Astra Trident ONTAP REST APIs zur Kommunikation mit dem Backend; bei Einstellung auf `false`verwendet Astra Trident ONTAP ZAPI Aufrufe zur Kommunikation mit dem Backend. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Astra Trident 24.06-Version und ONTAP 9.15.1 oder höher `userREST` ist standardmäßig auf eingestellt `true` . Wechseln Sie zu ONTAP ZAPI-Aufrufe.
-`useREST` `false` 
+`useREST` Bei Einstellung auf `true` verwendet Trident ONTAP REST APIs zur Kommunikation mit dem Backend; bei Einstellung auf `false` verwendet Trident ONTAP ZAPI Aufrufe zur Kommunikation mit dem Backend. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher `userREST` ist standardmäßig auf eingestellt `true`; ändern Sie
+`useREST` zu `false` ONTAP-ZAPI-Aufrufe verwenden. 
 `useREST` Ist vollständig für NVMe/TCP qualifiziert. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
 
 
-| `sanType` | Verwenden Sie, um auszuwählen `iscsi` Für iSCSI oder `nvme` Für NVMe/TCP | `iscsi` Falls leer 
+ a| 
+`sanType`
+| Verwenden Sie diese Option, um für iSCSI, `nvme` für NVMe/TCP oder `fcp` für SCSI über Fibre Channel (FC) auszuwählen `iscsi`. *'fcp' (SCSI over FC) ist ein Tech Preview Feature in der Trident 24.10 Version.* | `iscsi` Falls leer 
+
+
+| `formatOptions`  a| 
+Verwenden Sie `formatOptions` zum Angeben von Befehlszeilenargumenten für den `mkfs` Befehl, die bei jedem Formatieren eines Volumes angewendet werden. Auf diese Weise können Sie die Lautstärke nach Ihren Wünschen formatieren. Stellen Sie sicher, dass Sie die Formatieroptionen ähnlich wie die der mkfs-Befehlsoptionen angeben, ohne den Gerätepfad. Beispiel: „-E nodiscard“
+
+* `ontap-san` `ontap-san-economy`Nur für und Treiber unterstützt.*
+ a| 
+
 |===
+
+
+=== Empfehlungen für die Verwendung von FormatOptions
+
+Trident empfiehlt die folgende Option, um den Formatierungsprozess zu beschleunigen:
+
+*-E nodiscard:*
+
+* Beibehalten, versuchen Sie nicht, Blöcke zur mkfs-Zeit zu verwerfen (das Verwerfen von Blöcken ist zunächst auf Solid State-Geräten und selten/Thin Provisioning-Storage nützlich). Dies ersetzt die veraltete Option „-K“ und ist auf alle Dateisysteme anwendbar (xfs, ext3 und ext4).
+
+
 
 
 == Back-End-Konfigurationsoptionen für die Bereitstellung von Volumes
@@ -136,7 +157,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `snapshotPolicy` | Die Snapshot-Richtlinie zu verwenden | „Keine“ 
 
 
-| `qosPolicy` | QoS-Richtliniengruppe zur Zuweisung für erstellte Volumes Wählen Sie eine der qosPolicy oder adaptiveQosPolicy pro Storage Pool/Backend. Die Verwendung von QoS Policy Groups mit Astra Trident erfordert ONTAP 9.8 oder höher. Wir empfehlen die Verwendung einer nicht gemeinsam genutzten QoS-Richtliniengruppe und stellen sicher, dass die Richtliniengruppe auf jede Komponente einzeln angewendet wird. Eine Richtliniengruppe für Shared QoS führt zur Durchsetzung der Obergrenze für den Gesamtdurchsatz aller Workloads. | „“ 
+| `qosPolicy` | QoS-Richtliniengruppe zur Zuweisung für erstellte Volumes Wählen Sie eine der qosPolicy oder adaptiveQosPolicy pro Storage Pool/Backend. Für die Verwendung von QoS-Richtliniengruppen mit Trident ist ONTAP 9 8 oder höher erforderlich. Sie sollten eine nicht gemeinsam genutzte QoS-Richtliniengruppe verwenden und sicherstellen, dass die Richtliniengruppe auf jede Komponente einzeln angewendet wird. Eine Shared-QoS-Richtliniengruppe erzwingt die Obergrenze für den Gesamtdurchsatz aller Workloads. | „“ 
 
 
 | `adaptiveQosPolicy` | Adaptive QoS-Richtliniengruppe mit Zuordnung für erstellte Volumes Wählen Sie eine der qosPolicy oder adaptiveQosPolicy pro Storage Pool/Backend | „“ 
@@ -148,7 +169,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `splitOnClone` | Teilen Sie einen Klon bei der Erstellung von seinem übergeordneten Objekt auf | „Falsch“ 
 
 
-| `encryption` | Aktivieren Sie NetApp Volume Encryption (NVE) auf dem neuen Volume, standardmäßig aktiviert `false`. NVE muss im Cluster lizenziert und aktiviert sein, damit diese Option verwendet werden kann. Wenn NAE auf dem Backend aktiviert ist, wird jedes im Astra Trident bereitgestellte Volume NAE aktiviert. Weitere Informationen finden Sie unter: link:../trident-reco/security-reco.html["Astra Trident arbeitet mit NVE und NAE zusammen"]. | „Falsch“ 
+| `encryption` | Aktivieren Sie NetApp Volume Encryption (NVE) auf dem neuen Volume, Standardeinstellung ist `false`. NVE muss im Cluster lizenziert und aktiviert sein, damit diese Option verwendet werden kann. Wenn auf dem Backend NAE aktiviert ist, wird jedes in Trident bereitgestellte Volume NAE aktiviert. Weitere Informationen finden Sie unter link:../trident-reco/security-reco.html["Funktionsweise von Trident mit NVE und NAE"]. | „Falsch“ 
 
 
 | `luksEncryption` | Aktivieren Sie die LUKS-Verschlüsselung. Siehe link:../trident-reco/security-luks.html["Linux Unified Key Setup (LUKS) verwenden"].
@@ -166,6 +187,9 @@ LUKS-Verschlüsselung wird für NVMe/TCP nicht unterstützt. | „“
 
 
 | `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von LUNs im ONTAP-san-Economy-Backend. | „“ (nicht standardmäßig durchgesetzt) 
+
+
+| `denyNewVolumePools` | Schränkt das Erstellen neuer FlexVol Volumes für LUNs ein `ontap-san-economy` Zur Bereitstellung neuer PVS werden nur vorbestehende FlexVols verwendet. |  
 |===
 
 
@@ -198,15 +222,15 @@ defaults:
 
 ----
 
-NOTE: Für alle mit dem erstellten Volumes `ontap-san` Treiber: Astra Trident fügt der FlexVol zusätzliche Kapazität von 10 % hinzu, um die LUN-Metadaten zu bewältigen. Die LUN wird genau mit der Größe bereitgestellt, die der Benutzer in der PVC anfordert. Astra Trident fügt 10 Prozent zum FlexVol hinzu (wird in ONTAP als verfügbare Größe dargestellt). Benutzer erhalten jetzt die Menge an nutzbarer Kapazität, die sie angefordert haben. Diese Änderung verhindert auch, dass LUNs schreibgeschützt werden, sofern der verfügbare Speicherplatz nicht vollständig genutzt wird. Dies gilt nicht für die Wirtschaft von ontap-san.
+NOTE: Für alle Volumes, die mit dem Treiber erstellt `ontap-san` wurden, fügt Trident der FlexVol zusätzliche Kapazität von 10 % hinzu, um die LUN-Metadaten aufzunehmen. Die LUN wird genau mit der Größe bereitgestellt, die der Benutzer in der PVC anfordert. Trident addiert 10 Prozent zum FlexVol (wird als verfügbare Größe in ONTAP angezeigt). Benutzer erhalten jetzt die Menge an nutzbarer Kapazität, die sie angefordert haben. Diese Änderung verhindert auch, dass LUNs schreibgeschützt werden, sofern der verfügbare Speicherplatz nicht vollständig genutzt wird. Dies gilt nicht für die Wirtschaft von ontap-san.
 
-Für Back-Ends, die definieren `snapshotReserve`, Astra Trident berechnet die Größe der Volumes wie folgt:
+Für Back-Ends, die definieren `snapshotReserve`, berechnet Trident die Größe der Volumes wie folgt:
 
 [listing]
 ----
 Total volume size = [(PVC requested size) / (1 - (snapshotReserve percentage) / 100)] * 1.1
 ----
-Das 1.1 ist der zusätzliche 10-Prozent-Astra Trident fügt dem FlexVol hinzu, um die LUN-Metadaten zu bewältigen. Für `snapshotReserve` = 5 %, und die PVC-Anforderung = 5 gib, die Gesamtgröße des Volumes beträgt 5,79 gib und die verfügbare Größe 5,5 gib. Der `volume show` Der Befehl sollte Ergebnisse anzeigen, die diesem Beispiel ähnlich sind:
+Die 1.1 ist die zusätzliche 10 Prozent Trident fügt zu den FlexVol, um die LUN-Metadaten aufzunehmen. Für `snapshotReserve` = 5 % und die PVC-Anforderung = 5 gib beträgt die Gesamtgröße des Volumes 5,79 gib und die verfügbare Größe 5,5 gib. Der `volume show` Befehl sollte die Ergebnisse ähnlich wie in diesem Beispiel anzeigen:
 
 image::../media/vol-show-san.png[Zeigt die Ausgabe des Befehls Volume show an.]
 
@@ -219,7 +243,7 @@ Die Größenanpassung ist derzeit die einzige Möglichkeit, die neue Berechnung 
 Die folgenden Beispiele zeigen grundlegende Konfigurationen, bei denen die meisten Parameter standardmäßig belassen werden. Dies ist der einfachste Weg, ein Backend zu definieren.
 
 
-NOTE: Wenn Sie Amazon FSX auf NetApp ONTAP mit Astra Trident verwenden, empfehlen wir, DNS-Namen für LIFs anstelle von IP-Adressen anzugeben.
+NOTE: Wenn Sie Amazon FSX auf NetApp ONTAP mit Trident verwenden, empfehlen wir, DNS-Namen für LIFs anstelle von IP-Adressen anzugeben.
 
 .Beispiel: ONTAP SAN
 [%collapsible]
@@ -376,13 +400,32 @@ defaults: {
 "labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
 ----
 ====
+.FormatOptions-Beispiel für den </code>-Treiber <code> ONTAP-san-economr
+[%collapsible]
+====
+[listing]
+----
+version: 1
+storageDriverName: ontap-san-economy
+managementLIF: ''
+svm: svm1
+username: ''
+password: "!"
+storagePrefix: whelk_
+debugTraceFlags:
+  method: true
+  api: true
+defaults:
+  formatOptions: "-E nodiscard"
+----
+====
 
 
 == Beispiele für Back-Ends mit virtuellen Pools
 
 In diesen Beispiel-Back-End-Definitionsdateien werden spezifische Standardwerte für alle Speicherpools festgelegt, z. B. `spaceReserve` Bei keiner, `spaceAllocation` Bei false, und `encryption` Bei false. Die virtuellen Pools werden im Abschnitt Speicher definiert.
 
-Astra Trident bestimmt die Bereitstellungsetiketten im Feld „Kommentare“. Kommentare werden auf dem FlexVol gesetzt. Astra Trident kopiert alle Labels auf einem virtuellen Pool auf das Storage-Volume während der Bereitstellung. Storage-Administratoren können Labels je virtuellen Pool definieren und Volumes nach Label gruppieren.
+Trident legt die Bereitstellungsetiketten im Feld „Kommentare“ fest. Kommentare werden auf dem FlexVol gesetzt. Trident kopiert bei der Bereitstellung alle Labels, die sich in einem virtuellen Pool befinden, auf das Storage-Volume. Storage-Administratoren können Labels je virtuellen Pool definieren und Volumes nach Label gruppieren.
 
 In diesen Beispielen legen einige Speicherpools eigene fest `spaceReserve`, `spaceAllocation`, und `encryption` Werte und einige Pools überschreiben die Standardwerte.
 
@@ -604,4 +647,4 @@ parameters:
 ----
 
 
-Astra Trident entscheidet, welcher virtuelle Pool ausgewählt wird und stellt sicher, dass die Storage-Anforderungen erfüllt werden.
+Trident entscheidet, welcher virtuelle Pool ausgewählt wird, und stellt sicher, dass die Speicheranforderungen erfüllt werden.

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/deploy-reco.html 
 keywords: deployment, deploy, trident, namespace 
-summary: Nutzen Sie bei der Implementierung von Astra Trident die hier aufgeführten Empfehlungen. 
+summary: Verwenden Sie bei der Implementierung von Trident die hier aufgeführten Empfehlungen. 
 ---
 = Einsatz
 :hardbreaks:
@@ -12,13 +12,13 @@ summary: Nutzen Sie bei der Implementierung von Astra Trident die hier aufgefüh
 
 
 [role="lead"]
-Nutzen Sie bei der Implementierung von Astra Trident die hier aufgeführten Empfehlungen.
+Verwenden Sie bei der Implementierung von Trident die hier aufgeführten Empfehlungen.
 
 
 
 == Implementieren Sie diesen in einem dedizierten Namespace
 
-https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["Namespaces"^] Trennung zwischen verschiedenen Applikationen und gemeinsame Nutzung von Ressourcen gehören zu den Hinderungsgrund. Beispielsweise kann eine PVC aus einem Namespace nicht von einem anderen genutzt werden. Astra Trident stellt allen Namespaces im Kubernetes-Cluster PV-Ressourcen zur Verfügung und nutzt daher ein Service-Konto mit erhöhten Rechten.
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["Namespaces"^] Trennung von Administratoren zwischen verschiedenen Applikationen und Barriere für die gemeinsame Nutzung von Ressourcen Beispielsweise kann eine PVC aus einem Namespace nicht von einem anderen genutzt werden. Trident stellt allen Namespaces im Kubernetes-Cluster PV-Ressourcen zur Verfügung und nutzt folglich ein Servicekonto mit erhöhten Privileges.
 
 Außerdem kann der Zugriff auf den Trident Pod dazu führen, dass Benutzer auf die Anmeldedaten des Storage-Systems und andere sensible Informationen zugreifen können. Es ist wichtig, dass Applikationsbenutzer und Management-Applikationen nicht in der Lage sind, auf die Trident Objektdefinitionen oder Pods selbst zuzugreifen.
 

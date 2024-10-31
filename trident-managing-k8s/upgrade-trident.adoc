@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-managing-k8s/upgrade-trident.html 
 keywords: upgrade, trident, methods, operator, tridentctl, helm 
-summary: Astra Trident folgt einem viermonatigen Release-Intervall und liefert drei wichtige Releases pro Kalenderjahr. Jede neue Version baut auf den vorherigen Versionen auf und bietet neue Funktionen, Performance-Verbesserungen sowie Bug Fixes und Verbesserungen. Führen Sie ein Upgrade mindestens einmal pro Jahr durch, um von den neuen Funktionen in Astra Trident zu profitieren. 
+summary: Trident folgt einem viermonatigen Release-Intervall und veröffentlicht jedes Kalenderjahr drei wichtige Releases. Jede neue Version baut auf den vorherigen Versionen auf und bietet neue Funktionen, Performance-Verbesserungen sowie Bug Fixes und Verbesserungen. Sie können mindestens einmal pro Jahr ein Upgrade durchführen, um von den neuen Funktionen in Trident zu profitieren. 
 ---
-= Upgrade Astra Trident
+= Upgrade von Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,18 +12,18 @@ summary: Astra Trident folgt einem viermonatigen Release-Intervall und liefert d
 
 
 [role="lead"]
-Ab Version 24.02 folgt Astra Trident einem viermonatigen Release-Intervall und liefert drei wichtige Releases pro Kalenderjahr. Jede neue Version baut auf den vorherigen Versionen auf und bietet neue Funktionen, Performance-Verbesserungen, Bug Fixes und Verbesserungen. Wir empfehlen Ihnen, ein Upgrade mindestens einmal pro Jahr durchzuführen, um von den neuen Funktionen in Astra Trident zu profitieren.
+Ab Version 24.02 folgt Trident einem viermonatigen Release-Intervall und liefert drei wichtige Releases pro Kalenderjahr. Jede neue Version baut auf den vorherigen Versionen auf und bietet neue Funktionen, Performance-Verbesserungen, Bug Fixes und Verbesserungen. Wir empfehlen Ihnen, mindestens einmal pro Jahr ein Upgrade durchzuführen, um von den neuen Funktionen von Trident zu profitieren.
 
 
 
 == Überlegungen vor dem Upgrade
 
-Bei einem Upgrade auf die neueste Version von Astra Trident sollten Sie Folgendes berücksichtigen:
+Beachten Sie beim Upgrade auf die neueste Version von Trident Folgendes:
 
-* In allen Namespaces in einem Kubernetes-Cluster sollte nur eine Astra Trident Instanz installiert werden.
-* Astra Trident 23.07 und höher benötigt v1-Volume-Snapshots und unterstützt keine Alpha- oder Beta-Snapshots mehr.
-* Wenn Sie Cloud Volumes Service für Google Cloud in erstellt haben link:../trident-use/gcp.html#learn-about-astra-trident-support-for-cloud-volumes-service-for-google-cloud["CVS-Diensttyp"], Sie müssen die Backend-Konfiguration aktualisieren, um die zu verwenden `standardsw` Oder `zoneredundantstandardsw` Service-Level beim Upgrade von Astra Trident 23.01. Fehler beim Aktualisieren des `serviceLevel` Im Backend kann zu einem Ausfall von Volumes führen. Siehe link:../trident-use/gcp.html#cvs-service-type-examples["Beispiele für CVS-Diensttypen"] Entsprechende Details.
-* Beim Upgrade ist es wichtig, dass Sie das Upgrade durchführen `parameter.fsType` In `StorageClasses` Verwendet von Astra Trident. Sie können löschen und neu erstellen `StorageClasses` Ohne Unterbrechung vorhandener Volumes
+* In allen Namespaces in einem Kubernetes-Cluster sollte nur eine Trident Instanz installiert werden.
+* Trident 23.07 und höher erfordert v1-Volumen-Snapshots und unterstützt keine Alpha- oder Beta-Snapshots mehr.
+* Wenn Sie Cloud Volumes Service für Google Cloud im erstellt link:../trident-use/gcp.html#learn-about-trident-support-for-cloud-volumes-service-for-google-cloud["CVS-Diensttyp"]haben, müssen Sie die Backend-Konfiguration aktualisieren, um den oder `zoneredundantstandardsw` Service-Level beim Upgrade von Trident 23.01 zu verwenden `standardsw`. Wenn das im Backend nicht aktualisiert `serviceLevel` wird, kann es zu einem Fehlschlagen der Volumes kommen. Weitere Informationen finden Sie unter link:../trident-use/gcp.html#cvs-service-type-examples["Beispiele für CVS-Diensttypen"] .
+* Beim Upgrade ist es wichtig, dass Sie `StorageClasses` von Trident verwendet angeben `parameter.fsType`. Sie können löschen und neu erstellen `StorageClasses`, ohne bereits vorhandene Volumes zu unterbrechen.
 +
 ** Dies ist eine **Anforderung** für die Durchsetzung https://kubernetes.io/docs/tasks/configure-pod-container/security-context/["Sicherheitskontexte"^] Für SAN-Volumes.
 ** Das Verzeichnis https://github.com/NetApp/trident/tree/master/trident-installer/sample-input[sample input^] enthält Beispiele wie https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-basic.yaml.templ[`storage-class-basic.yaml.templ`^] und Link:https://github.com/NetApp/trident/blob/master/trident-installer/sample-input/storage-class-samples/storage-class-bronze-default.yaml[`storage-class-bronze-default.yaml`^].
@@ -36,7 +36,7 @@ Bei einem Upgrade auf die neueste Version von Astra Trident sollten Sie Folgende
 
 == Schritt 1: Wählen Sie eine Version
 
-Astra Trident Versionen folgen einem datumbasierten `YY.MM` Namensgebungskonvention, wobei „YY“ die letzten beiden Ziffern des Jahres und „MM“ der Monat ist. Dot Releases folgen einem `YY.MM.X` konvention, wo "X" die Patch-Ebene ist. Sie wählen die Version, auf die Sie aktualisieren möchten, basierend auf der Version aus, von der Sie aktualisieren.
+Trident-Versionen folgen einer datumbasierten Namenskonvention `YY.MM`, wobei „YY“ die letzten beiden Ziffern des Jahres und „MM“ der Monat ist. Dot-Releases folgen einer `YY.MM.X` Konvention, wobei „X“ der Patch-Level ist. Sie wählen die Version, auf die Sie aktualisieren möchten, basierend auf der Version aus, von der Sie aktualisieren.
 
 * Sie können ein direktes Upgrade auf jede Zielversion durchführen, die sich innerhalb eines Fensters mit vier Versionen Ihrer installierten Version befindet. Sie können beispielsweise direkt von 23.04 (oder einem beliebigen 23.04-Punkt-Release) auf 24.06 aktualisieren.
 * Wenn Sie ein Upgrade von einer Version außerhalb des Fensters mit vier Releases durchführen, führen Sie ein Upgrade in mehreren Schritten durch. Verwenden Sie die Upgrade-Anweisungen für das, von dem link:../earlier-versions.html["Frühere Version"] Sie aktualisieren, um auf die neueste Version zu aktualisieren, die für das Fenster mit vier Versionen passt. Wenn Sie beispielsweise 22.01 verwenden und ein Upgrade auf 24.06 durchführen möchten:
@@ -54,18 +54,18 @@ NOTE: Wenn Sie ein Upgrade über den Trident-Operator auf der OpenShift Containe
 
 == Schritt 2: Bestimmen Sie die ursprüngliche Installationsmethode
 
-So ermitteln Sie, welche Version Sie ursprünglich für Astra Trident verwendet haben:
+So bestimmen Sie, welche Version Sie ursprünglich für die Installation von Trident verwendet haben:
 
 . Nutzung `kubectl get pods -n trident` Um die Pods zu untersuchen.
 +
-** Wenn es keinen Operator Pod gibt, wurde Astra Trident mit installiert `tridentctl`.
-** Wenn es einen Operator Pod gibt, wurde Astra Trident entweder manuell oder über Helm mit dem Trident Operator installiert.
+** Wenn kein Operator Pod vorhanden ist, wurde Trident mit installiert `tridentctl`.
+** Wenn es einen Operator-Pod gibt, wurde Trident entweder manuell oder über Helm mit dem Trident-Operator installiert.
 
 
-. Wenn ein Benutzer-Pod vorhanden ist, verwenden Sie `kubectl describe torc` Um festzustellen, ob Astra Trident mit Helm installiert wurde.
+. Wenn ein Benutzer-POD vorhanden ist, verwenden Sie `kubectl describe torc`, um zu ermitteln, ob Trident mit Helm installiert wurde.
 +
-** Wenn es ein Helm-Label gibt, wurde Astra Trident mit Helm installiert.
-** Wenn es kein Helm-Label gibt, wurde Astra Trident manuell über den Trident Operator installiert.
+** Wenn ein Helm-Label vorhanden ist, wurde Trident mit Helm installiert.
+** Wenn kein Helm-Etikett vorhanden ist, wurde Trident manuell mit dem Trident-Operator installiert.
 
 
 
@@ -74,7 +74,7 @@ So ermitteln Sie, welche Version Sie ursprünglich für Astra Trident verwendet 
 
 == Schritt 3: Wählen Sie eine Upgrade-Methode
 
-Im Allgemeinen sollten Sie das Upgrade mit der gleichen Methode durchführen, die Sie für die Erstinstallation verwendet haben, wie Sie es können link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["Wechseln Sie zwischen den Installationsmethoden"]. Astra Trident bietet zwei Optionen für ein Upgrade.
+Im Allgemeinen sollten Sie mit der gleichen Methode aktualisieren, die Sie für die Erstinstallation verwendet haben, jedoch können Sie link:../trident-get-started/kubernetes-deploy.html#moving-between-installation-methods["Wechseln Sie zwischen den Installationsmethoden"]. Es gibt zwei Optionen für ein Upgrade von Trident.
 
 * link:upgrade-operator.html["Upgrade über den Trident-Operator"]
 +

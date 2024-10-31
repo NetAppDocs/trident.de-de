@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: trident-get-started/kubernetes-deploy-helm.html 
-keywords: deploy, astra trident, operator, helm, helm chart, configuration, values, standard, registry 
-summary: Sie können den Trident-Operator implementieren und Astra Trident mithilfe von Helm installieren. Dieser Prozess gilt für Installationen, bei denen die von Astra Trident benötigten Container-Images nicht in einer privaten Registrierung gespeichert werden. 
+keywords: deploy, Trident, operator, helm, helm chart, configuration, values, standard, registry 
+summary: Sie können den Trident-Operator bereitstellen und Trident mit Helm installieren. Dieser Vorgang gilt für Installationen, bei denen die von Trident benötigten Container-Images nicht in einer privaten Registrierung gespeichert werden. 
 ---
 = Trident Operator mit Helm (Standard-Modus) implementieren
 :hardbreaks:
@@ -12,28 +12,31 @@ summary: Sie können den Trident-Operator implementieren und Astra Trident mithi
 
 
 [role="lead"]
-Sie können den Trident-Operator implementieren und Astra Trident mithilfe von Helm installieren. Dieser Prozess gilt für Installationen, bei denen die von Astra Trident benötigten Container-Images nicht in einer privaten Registrierung gespeichert werden. Wenn Sie über eine private Bildregistrierung verfügen, verwenden Sie das link:kubernetes-deploy-helm-mirror.html["Prozess für Offline-Implementierung"].
+Sie können den Trident-Operator bereitstellen und Trident mit Helm installieren. Dieser Vorgang gilt für Installationen, bei denen die von Trident benötigten Container-Images nicht in einer privaten Registrierung gespeichert werden. Wenn Sie über eine private Bildregistrierung verfügen, verwenden Sie die link:kubernetes-deploy-helm-mirror.html["Prozess für Offline-Implementierung"].
 
 
 
-== Kritische Informationen zu Astra Trident 24.06
+== Wichtige Informationen zu Trident 24.10
 
-*Sie müssen die folgenden wichtigen Informationen über Astra Trident lesen.*
+*Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 
-.<strong> Informationen über Astra TripereIT </strong>
+.<strong>-Informationen über Trident </strong>
 [%collapsible%open]
 ====
-* Kubernetes 1.31 wird jetzt in Astra Trident unterstützt. Upgrade von Trident vor dem Upgrade von Kubernetes.
-* Astra Trident setzt die Verwendung von Multipathing-Konfiguration in SAN-Umgebungen strikt um und empfiehlt den Nutzen von `find_multipaths: no` In Multipath.conf Datei.
+[]
+=====
+* Kubernetes 1.31 wird jetzt in Trident unterstützt. Upgrade von Trident vor dem Upgrade von Kubernetes.
+* Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
 
 
 
+=====
 ====
 
 
-== Setzen Sie den Trident-Operator ein und installieren Sie Astra Trident mit Helm
+== Stellen Sie den Trident-Operator bereit, und installieren Sie Trident mithilfe von Helm
 
 Verwendung von Trident link:https://artifacthub.io/packages/helm/netapp-trident/trident-operator["Steuerruderdiagramm"^] Sie können den Trident Operator implementieren und Trident in einem Schritt installieren.
 
@@ -43,17 +46,17 @@ Prüfen link:../trident-get-started/kubernetes-deploy.html["Die Übersicht über
 Zusätzlich zum link:../trident-get-started/kubernetes-deploy.html#before-you-deploy["Voraussetzungen für die Implementierung"] Die Sie benötigen link:https://v3.helm.sh/["Helm Version 3"^].
 
 .Schritte
-. Fügen Sie das Helm Repository von Astra Trident hinzu:
+. Trident Helm Repository hinzufügen:
 +
 [listing]
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Verwenden Sie `helm install` einen Namen für Ihre Bereitstellung, und geben Sie einen Namen an, wie im folgenden Beispiel, wo `100.2404.0` die Version von Astra Trident installiert wird.
+.  `helm install`Geben Sie einen Namen für Ihre Bereitstellung an, wie im folgenden Beispiel gezeigt, wo `100.2404.0` sich die Version von Trident befindet, die Sie installieren.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2406.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2410.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -83,11 +86,11 @@ Geben Sie eine YAML-Datei mit Überschreibungen an. Dies kann mehrfach angegeben
 Geben Sie Überschreibungen in der Befehlszeile an.
 
 |===
-Um beispielsweise den Standardwert von zu ändern `debug`, führen Sie den folgenden Befehl aus `--set` , wobei `100.2406.0` sich die Version von Astra Trident befindet, die Sie installieren:
+Um beispielsweise den Standardwert von zu ändern `debug`, führen Sie den folgenden Befehl aus, wobei `100.2410.0` sich die Version von Trident befindet, die Sie installieren:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2406.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2410.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -95,7 +98,7 @@ helm install <name> netapp-trident/trident-operator --version 100.2406.0  --crea
 
 Diese Tabelle und die `values.yaml` Datei, die Teil des Helm-Diagramms ist, enthält die Liste der Schlüssel und ihre Standardwerte.
 
-[cols="1,2,1"]
+[cols="1,2,3"]
 |===
 | Option | Beschreibung | Standard 
 
@@ -112,7 +115,27 @@ Diese Tabelle und die `values.yaml` Datei, die Teil des Helm-Diagramms ist, enth
 | `tolerations` | Toleranzen für Pod-Zuweisung |  
 
 
-| `affinity` | Affinität für Pod-Zuweisung |  
+| `affinity` | Affinität für Pod-Zuweisung  a| 
+[listing]
+----
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/arch
+              operator: In
+              values:
+              - arm64
+              - amd64
+            - key: kubernetes.io/os
+              operator: In
+              values:
+              - linux
+----
+
+WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. Wenn Sie eine benutzerdefinierte Affinität bereitstellen möchten, erweitern Sie die Standardaffinität.
+
 
 
 | `tridentControllerPluginNodeSelector` | Zusätzliche Node-Auswahl für Pods Siehe <<Allgemeines zu Controller-Pods und Node-Pods>> Entsprechende Details. |  
@@ -127,7 +150,7 @@ Diese Tabelle und die `values.yaml` Datei, die Teil des Helm-Diagramms ist, enth
 | `tridentNodePluginTolerations` | Überschreibt Kubernetes-Toleranzen für Pods. Siehe <<Allgemeines zu Controller-Pods und Node-Pods>> Entsprechende Details. |  
 
 
-| `imageRegistry` | Identifiziert die Registrierung für den `trident-operator`, `trident`, Und andere Bilder. Lassen Sie das Feld leer, um die Standardeinstellung zu übernehmen. | `""` 
+| `imageRegistry` | Identifiziert die Registrierung für die `trident-operator`, `trident` und andere Bilder. Lassen Sie das Feld leer, um die Standardeinstellung zu übernehmen. WICHTIG: Wenn Sie Trident in einem privaten Repository installieren, verwenden Sie den Schalter nicht im Repository-Pfad, wenn Sie den `imageRegistry` Repository-Speicherort angeben `/netapp/`. | `""` 
 
 
 | `imagePullPolicy` | Legt die Richtlinie zum Abziehen von Bildern für den fest `trident-operator`. | `IfNotPresent` 
@@ -151,7 +174,7 @@ Diese Tabelle und die `values.yaml` Datei, die Teil des Helm-Diagramms ist, enth
 | `operatorImageTag` | Ermöglicht das Überschreiben des Tags des `trident-operator` Bild: | `""` 
 
 
-| `tridentIPv6` | Ermöglicht die Aktivierung von Astra Trident in IPv6-Clustern. | `false` 
+| `tridentIPv6` | Ermöglicht die Aktivierung von Trident für die Arbeit in IPv6-Clustern. | `false` 
 
 
 | `tridentK8sTimeout` | Setzt das standardmäßige 30-Sekunden-Zeitlimit für die meisten Kubernetes-API-Vorgänge außer Kraft (wenn nicht Null, in Sekunden). | `0` 
@@ -160,43 +183,43 @@ Diese Tabelle und die `values.yaml` Datei, die Teil des Helm-Diagramms ist, enth
 | `tridentHttpRequestTimeout` | Setzt das standardmäßige 90-Sekunden-Timeout für die HTTP-Anforderungen mit außer Kraft `0s` Ist eine unendliche Dauer für das Timeout. Negative Werte sind nicht zulässig. | `"90s"` 
 
 
-| `tridentSilenceAutosupport` | Ermöglicht die Deaktivierung von regelmäßigen AutoSupport Berichten für Astra Trident. | `false` 
+| `tridentSilenceAutosupport` | Ermöglicht die Deaktivierung von regelmäßigen Trident AutoSupport-Berichten. | `false` 
 
 
-| `tridentAutosupportImageTag` | Ermöglicht das Überschreiben des Tags des Images für den Astra Trident AutoSupport-Container. | `<version>` 
+| `tridentAutosupportImageTag` | Ermöglicht das Überschreiben des Tags des Images für den Trident AutoSupport-Container. | `<version>` 
 
 
-| `tridentAutosupportProxy` | Der Astra Trident AutoSupport Container kann über einen HTTP-Proxy nach Hause telefonieren. | `""` 
+| `tridentAutosupportProxy` | Aktiviert den Trident AutoSupport-Container, um über einen HTTP-Proxy per Telefon nach Hause zu telefonieren. | `""` 
 
 
-| `tridentLogFormat` | Legt das Astra Trident Protokollierungsformat fest (`text` Oder `json`). | `"text"` 
+| `tridentLogFormat` | Legt das Trident-Protokollierungsformat  oder `json`) fest(`text`. | `"text"` 
 
 
-| `tridentDisableAuditLog` | Deaktiviert den Astra Trident Audit-Logger. | `true` 
+| `tridentDisableAuditLog` | Deaktiviert den Trident-Audit-Logger. | `true` 
 
 
-| `tridentLogLevel` | Ermöglicht die Festlegung der Protokollebene von Astra Trident auf: `trace`, `debug`, `info`, `warn`, `error`, Oder `fatal`. | `"info"` 
+| `tridentLogLevel` | Ermöglicht die Einstellung der Protokollebene von Trident auf: `trace`, , `debug`, , `info` `warn` `error` Oder `fatal`. | `"info"` 
 
 
-| `tridentDebug` | Ermöglicht das Festlegen der Protokollebene für Astra Trident `debug`. | `false` 
+| `tridentDebug` | Ermöglicht die Einstellung der Protokollebene von Trident auf `debug`. | `false` 
 
 
-| `tridentLogWorkflows` | Ermöglicht die Aktivierung bestimmter Astra Trident Workflows für die Trace-Protokollierung oder Protokollunterdrückung. | `""` 
+| `tridentLogWorkflows` | Ermöglicht die Aktivierung bestimmter Trident-Workflows für die Trace-Protokollierung oder Protokollunterdrückung. | `""` 
 
 
-| `tridentLogLayers` | Ermöglicht die Aktivierung bestimmter Astra Trident-Ebenen für die Trace-Protokollierung oder Protokollunterdrückung. | `""` 
+| `tridentLogLayers` | Ermöglicht die Aktivierung bestimmter Trident-Ebenen für die Trace-Protokollierung oder Protokollunterdrückung. | `""` 
 
 
-| `tridentImage` | Ermöglicht die vollständige Überschreibung des Images für Astra Trident. | `""` 
+| `tridentImage` | Ermöglicht die vollständige Überschreibung des Bildes für Trident. | `""` 
 
 
-| `tridentImageTag` | Ermöglicht das Überschreiben des Tags des Images für Astra Trident. | `""` 
+| `tridentImageTag` | Ermöglicht das Überschreiben des Tags des Bildes für Trident. | `""` 
 
 
 | `tridentProbePort` | Ermöglicht das Überschreiben des Standardports, der für Kubernetes Liveness/Readiness-Sonden verwendet wird. | `""` 
 
 
-| `windows` | Ermöglicht die Installation von Astra Trident auf einem Windows Worker-Node. | `false` 
+| `windows` | Aktiviert die Installation von Trident auf dem Windows-Arbeitsknoten. | `false` 
 
 
 | `enableForceDetach` | Ermöglicht die Aktivierung der Funktion zum Abtrennen erzwingen. | `false` 
@@ -208,19 +231,22 @@ Diese Tabelle und die `values.yaml` Datei, die Teil des Helm-Diagramms ist, enth
 | `cloudProvider` | Auf einstellen `"Azure"` Bei Verwendung von verwalteten Identitäten oder einer Cloud-Identität auf einem AKS-Cluster. Bei Verwendung einer Cloud-Identität auf einem EKS Cluster auf „AWS“ einstellen. | `""` 
 
 
-| `cloudIdentity` | Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle („eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/astradent-role“) einstellen. | `""` 
+| `cloudIdentity` | Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle (“'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role') einstellen. | `""` 
 
 
 | `iscsiSelfHealingInterval` | Das Intervall, in dem die iSCSI-Selbstheilung aufgerufen wird. | `5m0s` 
 
 
 | `iscsiSelfHealingWaitTime` | Die Dauer, nach der die iSCSI-Selbstheilung den Versuch startet, eine veraltete Sitzung durch Abmeldung und anschließende Anmeldung aufzulösen. | `7m0s` 
+
+
+| `nodePrep` | Ermöglicht Trident, die Nodes des Kubernetes-Clusters so vorzubereiten, dass Volumes mithilfe des angegebenen Daten-Storage-Protokolls gemanagt werden. *Derzeit `iscsi` wird nur der Wert unterstützt.* |  
 |===
 
 
 === Allgemeines zu Controller-Pods und Node-Pods
 
-Astra Trident wird als einzelner Controller-Pod ausgeführt sowie als Node-Pod auf jedem Worker-Node im Cluster. Der Node Pod muss auf jedem Host ausgeführt werden, auf dem Sie ein Astra Trident Volume mounten möchten.
+Trident wird als einzelner Controller-Pod ausgeführt und zusätzlich als Node Pod auf jedem Worker-Node im Cluster. Der Node Pod muss auf einem beliebigen Host ausgeführt werden, auf dem Sie potenziell ein Trident Volume mounten möchten.
 
 Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Knotenauswahl"^] Und link:https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/["Toleranzen und Verfleckungen"^] Werden verwendet, um die Ausführung eines Pod auf einem bestimmten oder bevorzugten Node einzuschränken. Verwenden von`ControllerPlugin` und `NodePlugin`, Sie können Bedingungen und Überschreibungen festlegen.
 

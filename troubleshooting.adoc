@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: troubleshooting.html 
 keywords: troubleshooting, trident 
-summary: Verwenden Sie die hier angegebenen Hinweise zur Fehlerbehebung bei Problemen, die bei der Installation und Verwendung von Astra Trident möglicherweise auftreten können. 
+summary: Verwenden Sie die hier angegebenen Zeiger zur Fehlerbehebung bei Problemen, die bei der Installation und Verwendung von Trident auftreten können. 
 ---
 = Fehlerbehebung
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Verwenden Sie die hier angegebenen Hinweise zur Fehlerbehebung bei Prob
 
 
 [role="lead"]
-Verwenden Sie die hier angegebenen Hinweise zur Fehlerbehebung bei Problemen, die bei der Installation und Verwendung von Astra Trident möglicherweise auftreten können.
+Verwenden Sie die hier angegebenen Zeiger zur Fehlerbehebung bei Problemen, die bei der Installation und Verwendung von Trident auftreten können.
 
 
 
@@ -33,7 +33,7 @@ kubectl patch torc trident -n <namespace> --type=merge -p '{"spec":{"debug":true
 ----
 Dadurch werden alle Trident Pods neu gestartet, was mehrere Sekunden dauern kann. Sie können dies überprüfen, indem Sie die Spalte „ALTER“ in der Ausgabe von beobachten `kubectl get pod -n trident`.
 
-Für den Einsatz von Astra Trident 20.07 und 20.10 `tprov` Anstelle von `torc`.
+Für Trident 20.07 und 20.10 Verwendung `tprov` anstelle von `torc`.
 
 --
 Installiert mit Helm::
@@ -157,18 +157,18 @@ INFO Trident uninstallation succeeded.
 ----
 
 
-== Entfernen Sie Astra Trident und CRDs vollständig
+== Entfernen Sie Trident und CRDs vollständig
 
-Sie können Astra Trident und alle erstellten CRDs und zugehörigen benutzerdefinierten Ressourcen vollständig entfernen.
+Sie können Trident und alle erstellten CRDs und zugehörigen benutzerdefinierten Ressourcen vollständig entfernen.
 
 
-WARNING: Dieser Vorgang kann nicht rückgängig gemacht werden. Tun Sie dies nur, wenn Sie eine völlig frische Installation von Astra Trident wollen. Informationen zur Deinstallation von Astra Trident ohne Entfernen von CRDs finden Sie unter link:trident-managing-k8s/uninstall-trident.html["Deinstallieren Sie Astra Trident"].
+WARNING: Dieser Vorgang kann nicht rückgängig gemacht werden. Tun Sie dies nicht, es sei denn, Sie möchten eine völlig neue Installation von Trident. Informationen zum Deinstallieren von Trident ohne Entfernen von CRDs finden Sie unter link:trident-managing-k8s/uninstall-trident.html["Deinstallieren Sie Trident"].
 
 [role="tabbed-block"]
 ====
 .Betreiber von Trident
 --
-So deinstallieren Sie Astra Trident und entfernen Sie CRDs vollständig mit dem Trident Operator:
+So deinstallieren Sie Trident und entfernen CRDs vollständig mit dem Trident-Operator:
 
 [listing]
 ----
@@ -177,7 +177,7 @@ kubectl patch torc <trident-orchestrator-name> --type=merge -p '{"spec":{"wipeou
 --
 .Helm
 --
-So deinstallieren Sie Astra Trident und entfernen Sie CRDs vollständig mit Helm:
+So deinstallieren Sie Trident und entfernen CRDs vollständig mit Helm:
 
 [listing]
 ----
@@ -186,7 +186,7 @@ kubectl patch torc trident --type=merge -p '{"spec":{"wipeout":["crds"],"uninsta
 --
 .<code>tridentctl</code>
 --
-So entfernen Sie CRDs nach der Deinstallation von Astra Trident vollständig mit `tridentctl`
+So entfernen Sie CRDs nach der Deinstallation von Trident mit vollständig `tridentctl`
 
 [listing]
 ----
@@ -204,7 +204,7 @@ Wenn Sie Kubernetes 1.26 ausführen, schlägt das Entstauen der Nodes möglicher
 
 === Namespace und Pod wurden gelöscht
 
-Stellen Sie sich ein Szenario vor, in dem ein von Astra Trident gemanagter Namespace (persistentes Volume NVMe) mit einem Pod verbunden ist. Wenn Sie den Namespace direkt aus dem ONTAP-Backend löschen, bleibt der Entstempungsprozess hängen, nachdem Sie versucht haben, den Pod zu löschen. Dieses Szenario beeinträchtigt nicht das Kubernetes-Cluster oder andere Funktionen.
+Stellen Sie sich ein Szenario vor, in dem ein über Trident verwalteter Namespace (persistentes Volume NVMe) mit einem Pod verbunden ist. Wenn Sie den Namespace direkt aus dem ONTAP-Backend löschen, bleibt der Entstempungsprozess hängen, nachdem Sie versucht haben, den Pod zu löschen. Dieses Szenario beeinträchtigt nicht das Kubernetes-Cluster oder andere Funktionen.
 
 .Behelfslösung
 Heben Sie das persistente Volume (entsprechend dem Namespace) vom entsprechenden Node auf und löschen Sie es.
@@ -213,7 +213,7 @@ Heben Sie das persistente Volume (entsprechend dem Namespace) vom entsprechenden
 
 === Blockierte Daten-LIFs
 
- If you block (or bring down) all the dataLIFs of the NVMe Astra Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
+ If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
 .Behelfslösung
 Das DataLIFS wird zur Wiederherstellung der vollen Funktionalität angezeigt.
 

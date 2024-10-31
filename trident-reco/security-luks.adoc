@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-reco/security-luks.html 
 keywords: security, luks, linux unified key setup, encryption, key rotation, resizing, advanced encryption, rotation, key, import 
-summary: 'Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN und ONTAP SAN ECONOMY Volumes auf Astra Trident zu verschlüsseln. Astra Trident unterstützt die Größenanpassung von Volumes und die Rotation des Schlüssels (Passphrase) für LUKS-verschlüsselte Volumes.' 
+summary: 'Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN und ONTAP SAN ECONOMY Volumes auf Trident zu verschlüsseln. Trident unterstützt die Volume-Größenänderung und die Schlüsselrotation (Passphrase) für LUKS-verschlüsselte Volumes.' 
 ---
 = Linux Unified Key Setup (LUKS)
 :hardbreaks:
@@ -12,9 +12,9 @@ summary: 'Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN un
 
 
 [role="lead"]
-Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN und ONTAP SAN ECONOMY Volumes auf Astra Trident zu verschlüsseln. Astra Trident unterstützt die Rotation von Passphrase und die Volume-Erweiterung für LUKS-verschlüsselte Volumes.
+Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN und ONTAP SAN ECONOMY Volumes auf Trident zu verschlüsseln. Trident unterstützt die Rotation der Passphrase und die Volume-Erweiterung für LUKS-verschlüsselte Volumes.
 
-In Astra Trident verwenden LUKS-verschlüsselte Volumen den aes-xts-plain64 Zypher und den Modus, wie von empfohlen link:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
+In Trident verwenden LUKS-verschlüsselte Volumes den aes-xts-plain64-Cypher und -Modus, wie von empfohlenlink:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
 .Bevor Sie beginnen
 * Worker Nodes müssen cryptsetup 2.1 oder höher (aber unter 3.0) installiert sein. Weitere Informationen finden Sie unter link:https://gitlab.com/cryptsetup/cryptsetup["Gitlab: Cryptsetup"^].
@@ -96,7 +96,7 @@ LUKS-verschlüsselte Volumes können die ONTAP Deduplizierung und Komprimierung 
 
 == Back-End-Konfiguration zum Importieren von LUKS-Volumes
 
-Um ein LUKS-Volume zu importieren, müssen Sie festlegen `luksEncryption` Bis(`true` Am Backend. Der `luksEncryption` Die Option teilt Astra Trident mit, ob das Volume LUKS-konform ist (`true`) Oder nicht LUKS-konform (`false`) Wie im folgenden Beispiel gezeigt.
+Um ein LUKS-Volume zu importieren, müssen Sie auf(`true` dem Backend festlegen `luksEncryption`. Die `luksEncryption` Option zeigt Trident an, ob das Volume LUKS-konform ist (`true`) oder nicht LUKS-konform (`false`), wie im folgenden Beispiel gezeigt.
 
 [listing]
 ----
@@ -146,7 +146,7 @@ Sie können die LUKS-Passphrase drehen und die Drehung bestätigen.
 WARNING: Vergessen Sie keine Passphrase, bis Sie überprüft haben, dass sie nicht mehr von einem Volume, einem Snapshot oder einem geheimen Schlüssel referenziert wird. Wenn eine referenzierte Passphrase verloren geht, können Sie das Volume möglicherweise nicht mounten und die Daten bleiben verschlüsselt und unzugänglich.
 
 .Über diese Aufgabe
-DIE Drehung der LUKS-Passphrase erfolgt, wenn ein Pod, das das Volume bindet, nach der Angabe einer neuen LUKS-Passphrase erstellt wird. Bei der Erstellung eines neuen Pods vergleicht Astra Trident die LUKS-Passphrase auf dem Volume mit der aktiven Passphrase im Geheimnis.
+DIE Drehung der LUKS-Passphrase erfolgt, wenn ein Pod, das das Volume bindet, nach der Angabe einer neuen LUKS-Passphrase erstellt wird. Wenn ein neuer Pod erstellt wird, vergleicht Trident die LUKS-Passphrase auf dem Volume mit der aktiven Passphrase im Secret.
 
 * Wenn die Passphrase auf dem Volume nicht mit der aktiven Passphrase im Geheimnis übereinstimmt, erfolgt die Drehung.
 * Wenn die Passphrase auf dem Volume mit der aktiven Passphrase im Geheimnis übereinstimmt, wird das angezeigt `previous-luks-passphrase` Parameter wird ignoriert.

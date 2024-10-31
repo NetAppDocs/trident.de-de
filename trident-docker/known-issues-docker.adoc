@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: trident-docker/known-issues-docker.html 
 keywords: known issues, trident, trident for docker, docker 
-summary: Informationen zu bekannten Problemen bei der Verwendung von Astra Trident mit Docker 
+summary: Informationen zu bekannten Problemen bei der Verwendung von Trident mit Docker 
 ---
 = Bekannte Probleme und Einschränkungen
 :hardbreaks:
@@ -12,7 +12,7 @@ summary: Informationen zu bekannten Problemen bei der Verwendung von Astra Tride
 
 
 [role="lead"]
-Hier finden Sie Informationen zu bekannten Problemen und Einschränkungen bei der Verwendung von Astra Trident mit Docker.
+Informationen zu bekannten Problemen und Einschränkungen bei der Verwendung von Trident mit Docker
 
 
 
@@ -48,11 +48,11 @@ NOTE: Dies ist eine Docker-Client-Einschränkung. Der Client interpretiert einen
 
 
 
-== Docker Swarm hat bestimmte Verhaltensweisen, die Astra Trident nicht durch jede Storage- und Treiberkombination unterstützen können.
+== Docker Swarm verfügt über bestimmte Verhaltensweisen, die verhindern, dass Trident diese bei jeder Storage- und Treiberkombination unterstützen kann.
 
 * Docker Swarm verwendet derzeit Volume-Namen anstelle der Volume-ID als eindeutige Volume-Kennung.
 * Volume-Anforderungen werden gleichzeitig an jeden Node in einem Swarm-Cluster gesendet.
-* Volume-Plug-ins (einschließlich Astra Trident) müssen auf jedem Knoten in einem Swarm-Cluster unabhängig ausgeführt werden. Aufgrund der Art und Weise, wie ONTAP funktioniert und wie die `ontap-nas` Und `ontap-san` Treiber funktionieren, sind sie die einzigen, die zufällig in der Lage, innerhalb dieser Einschränkungen zu arbeiten.
+* Volume-Plug-ins (einschließlich Trident) müssen unabhängig auf jedem Node in einem Swarm-Cluster ausgeführt werden. Aufgrund der Funktionsweise von ONTAP und der Funktionsweise der `ontap-nas` und `ontap-san`-Treiber sind sie die einzigen, die innerhalb dieser Einschränkungen arbeiten können.
 
 
 Der Rest der Fahrer unterliegt Themen wie Rennbedingungen, die dazu führen können, dass eine große Anzahl von Volumes für eine einzelne Anfrage ohne einen klaren „Gewinner“ erstellt werden; zum Beispiel hat Element eine Funktion, die es Volumes erlaubt, den gleichen Namen, aber unterschiedliche IDs zu haben.

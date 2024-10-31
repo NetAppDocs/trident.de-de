@@ -4,7 +4,7 @@ permalink: trident-get-started/quickstart.html
 keywords: kubernetes cluster, simple installation, Kubernetes installation 
 summary: Falls Sie gerade mit Kubernetes beginnen, sollten Sie Kubernetes gemäß den Anweisungen installieren, um es auszuprobieren. Diese Anweisungen stellen ein Single-Node Cluster von Bare-Knochen bereit, mit dem Trident zu Demonstrationszwecken integriert werden kann. 
 ---
-= Der Einstieg in Astra Trident ist schnell möglich
+= Schnellstart für Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,17 +12,17 @@ summary: Falls Sie gerade mit Kubernetes beginnen, sollten Sie Kubernetes gemä�
 
 
 [role="lead"]
-Sie können Astra Trident installieren und mit dem Management von Storage-Ressourcen in wenigen Schritten beginnen. Bevor Sie beginnen, überprüfen Sie link:requirements.html["Anforderungen von Astra Trident"].
+Sie können Trident installieren und mit dem Management von Storage-Ressourcen in wenigen Schritten beginnen. Bevor Sie beginnen, überprüfen Sie link:requirements.html["Trident-Anforderungen erfüllt"].
 
 
-NOTE: Informationen zu Docker finden Sie unter link:../trident-docker/deploy-docker.html["Astra Trident für Docker"].
+NOTE: Informationen zu Docker finden Sie unter link:../trident-docker/deploy-docker.html["Trident für Docker"].
 
-.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Installation Von Astra Trident
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["Eins"] Installieren Sie Trident
 [role="quick-margin-para"]
-Astra Trident bietet mehrere Installationsmethoden und -Modi, die für eine Vielzahl von Umgebungen und Organisationen optimiert sind.
+Trident bietet verschiedene Installationsmethoden und -Modi, die für eine Vielzahl von Umgebungen und Organisationen optimiert sind.
 
 [role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["Installation Von Astra Trident"]
+link:../trident-get-started/kubernetes-deploy.html["Installation Von Trident"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Zwei"] Bereiten Sie den Knoten „Worker“ vor
 [role="quick-margin-para"]
@@ -33,14 +33,14 @@ link:../trident-use/worker-node-prep.html["Bereiten Sie den Knoten „Worker“ 
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"] Erstellen Sie ein Backend
 [role="quick-margin-para"]
-Ein Backend definiert die Beziehung zwischen Astra Trident und einem Storage-System. Er erzählt Astra Trident, wie man mit diesem Storage-System kommuniziert und wie Astra Trident Volumes darauf bereitstellen sollte.
+Ein Backend definiert die Beziehung zwischen Trident und einem Storage-System. Er erzählt Trident, wie man mit diesem Storage-System kommuniziert und wie Trident Volumes daraus bereitstellen sollte.
 
 [role="quick-margin-para"]
 link:../trident-use/backends.html["Konfigurieren Sie ein Backend"] Für Ihr Speichersystem
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-4.png["Vier"] Kubernetes StorageClass erstellen
 [role="quick-margin-para"]
-Das Objekt Kubernetes StorageClass gibt Astra Trident als bereitstellung an und ermöglicht die Erstellung einer Storage-Klasse zur Bereitstellung von Volumes mit anpassbaren Attributen. Astra Trident erstellt eine passende Storage-Klasse für Kubernetes-Objekte, mit der der Astra Trident-bereitstellung angegeben wird.
+Das Objekt Kubernetes StorageClass gibt Trident als bereitstellung an und ermöglicht die Erstellung einer Storage-Klasse, um Volumes mit anpassbaren Attributen bereitzustellen. Trident erstellt eine passende Storage-Klasse für Kubernetes-Objekte, die die Trident-bereitstellung angeben.
 
 [role="quick-margin-para"]
 link:../trident-use/create-stor-class.html["Erstellen Sie eine Speicherklasse"]

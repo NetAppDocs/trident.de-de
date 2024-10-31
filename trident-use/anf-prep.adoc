@@ -35,7 +35,7 @@ Um ein zu konfigurieren und zu verwenden https://azure.microsoft.com/en-us/servi
 * `tenantID`, `clientID`, und `clientSecret` Von einem link:https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal["App-Registrierung"^] In Azure Active Directory mit ausreichenden Berechtigungen für den Azure NetApp Files-Service. Die App-Registrierung sollte Folgendes verwenden:
 +
 ** Der Eigentümer oder die Rolle des Mitarbeiters link:https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles["Vordefiniert von Azure"^].
-** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Benutzerdefinierte Beitragsrolle"] Auf Abonnementebene (`assignableScopes`) Mit den folgenden Berechtigungen, die auf nur das beschränkt sind, was Astra Trident erfordert. Nach dem Erstellen der benutzerdefinierten Rolle link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Weisen Sie die Rolle über das Azure-Portal zu"^].
+** A link:https://learn.microsoft.com/en-us/azure/role-based-access-control/custom-roles-portal["Benutzerdefinierte Beitragsrolle"] auf Abonnementebene (`assignableScopes`) mit den folgenden Berechtigungen, die auf das beschränkt sind, was Trident benötigt. Nach dem Erstellen der benutzerdefinierten Rolle, link:https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal["Weisen Sie die Rolle über das Azure-Portal zu"^].
 +
 .Rolle für benutzerdefinierte Mitwirkende
 [%collapsible]
@@ -96,8 +96,8 @@ Um ein zu konfigurieren und zu verwenden https://azure.microsoft.com/en-us/servi
 Zur Erstellung eines SMB-Volumes müssen folgende Voraussetzungen erfüllt sein:
 
 * Active Directory konfiguriert und mit Azure NetApp Files verbunden. Siehe link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/create-active-directory-connections["Microsoft: Erstellen und Verwalten von Active Directory-Verbindungen für Azure NetApp Files"^].
-* Kubernetes-Cluster mit einem Linux-Controller-Knoten und mindestens einem Windows-Worker-Node, auf dem Windows Server 2022 ausgeführt wird. Astra Trident unterstützt SMB Volumes, die nur auf Windows Nodes laufenden Pods gemountet werden.
-* Mindestens ein Astra Trident-Schlüssel mit Ihren Active Directory-Anmeldeinformationen, damit Azure NetApp Files sich bei Active Directory authentifizieren kann. Um Geheimnis zu erzeugen `smbcreds`:
+* Kubernetes-Cluster mit einem Linux-Controller-Knoten und mindestens einem Windows-Worker-Node, auf dem Windows Server 2022 ausgeführt wird. Trident unterstützt nur SMB Volumes, die in Pods gemountet sind, die nur auf Windows Nodes ausgeführt werden.
+* Mindestens ein Trident-Schlüssel, der Ihre Active Directory-Anmeldeinformationen enthält, damit Azure NetApp Files sich bei Active Directory authentifizieren kann. So generieren Sie ein Geheimnis `smbcreds`:
 +
 [listing]
 ----
