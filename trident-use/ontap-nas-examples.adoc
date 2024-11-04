@@ -172,6 +172,9 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 
 
 | `nameTemplate` | Vorlage zum Erstellen benutzerdefinierter Volume-Namen. | „“ 
+
+
+| `denyNewVolumePools` | Schränkt das `ontap-nas-economy` Erstellen neuer FlexVol Volumes für Back-Ends ein, um ihre qtrees zu enthalten Zur Bereitstellung neuer PVS werden nur vorbestehende FlexVols verwendet. |  
 |===
 
 NOTE: Für die Verwendung von QoS-Richtliniengruppen mit Trident ist ONTAP 9 8 oder höher erforderlich. Sie sollten eine nicht gemeinsam genutzte QoS-Richtliniengruppe verwenden und sicherstellen, dass die Richtliniengruppe auf jede Komponente einzeln angewendet wird. Eine Shared-QoS-Richtliniengruppe erzwingt die Obergrenze für den Gesamtdurchsatz aller Workloads.
