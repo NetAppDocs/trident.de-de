@@ -97,7 +97,7 @@ NOTE: Wenn das Aggregat in einer SVM aktualisiert wird, wird es automatisch in T
 | `limitAggregateUsage` | Bereitstellung fehlgeschlagen, wenn die Nutzung über diesem Prozentsatz liegt. Wenn Sie ein Amazon FSX für NetApp ONTAP-Backend verwenden, geben Sie nicht an `limitAggregateUsage`. Die angegebenen `fsxadmin` und `vsadmin` enthalten nicht die erforderlichen Berechtigungen, um die aggregierte Nutzung abzurufen und sie mit Trident zu begrenzen. | „“ (nicht standardmäßig durchgesetzt) 
 
 
-| `limitVolumeSize` | Bereitstellung fehlgeschlagen, wenn die angeforderte Volume-Größe über diesem Wert liegt. Schränkt auch die maximale Größe der Volumes ein, die es für qtrees und LUNs managt. | „“ (standardmäßig nicht erzwungen) 
+| `limitVolumeSize` | Bereitstellung fehlgeschlagen, wenn die angeforderte Volume-Größe über diesem Wert liegt. Beschränkt außerdem die maximale Größe der Volumes, die es für LUNs managt. | „“ (standardmäßig nicht erzwungen) 
 
 
 | `lunsPerFlexvol` | Die maximale Anzahl an LUNs pro FlexVol muss im Bereich [50, 200] liegen. | `100` 
@@ -125,6 +125,12 @@ Verwenden Sie `formatOptions` zum Angeben von Befehlszeilenargumenten für den `
 * `ontap-san` `ontap-san-economy`Nur für und Treiber unterstützt.*
  a| 
 
+
+
+| `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von LUNs im ONTAP-san-Economy-Backend. | „“ (nicht standardmäßig durchgesetzt) 
+
+
+| `denyNewVolumePools` | Schränkt das Erstellen neuer FlexVol Volumes für LUNs ein `ontap-san-economy` Zur Bereitstellung neuer PVS werden nur vorbestehende FlexVols verwendet. |  
 |===
 
 
@@ -184,12 +190,6 @@ LUKS-Verschlüsselung wird für NVMe/TCP nicht unterstützt. | „“
 
 
 | `nameTemplate` | Vorlage zum Erstellen benutzerdefinierter Volume-Namen. | „“ 
-
-
-| `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von LUNs im ONTAP-san-Economy-Backend. | „“ (nicht standardmäßig durchgesetzt) 
-
-
-| `denyNewVolumePools` | Schränkt das Erstellen neuer FlexVol Volumes für LUNs ein `ontap-san-economy` Zur Bereitstellung neuer PVS werden nur vorbestehende FlexVols verwendet. |  
 |===
 
 
