@@ -1,0 +1,139 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-requirements.html 
+keywords: trident protect, application, cluster, snapmirror replication, ontap, configuration 
+summary: Prüfen Sie zunächst die Bereitschaft Ihrer Betriebsumgebung, Applikations-Cluster, Applikationen und Lizenzen. Stellen Sie sicher, dass Ihre Umgebung diese Anforderungen für den Einsatz und Betrieb von Trident Protect erfüllt. 
+---
+= Trident Protect – die Anforderungen
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Prüfen Sie zunächst die Bereitschaft Ihrer Betriebsumgebung, Applikations-Cluster, Applikationen und Lizenzen. Stellen Sie sicher, dass Ihre Umgebung diese Anforderungen für den Einsatz und Betrieb von Trident Protect erfüllt.
+
+
+
+== Trident schützen die Kubernetes-Kompatibilität
+
+Trident Protect ist mit einer Vielzahl vollständig gemanagter und selbst gemanagter Kubernetes-Angebote kompatibel, darunter:
+
+* Amazon Elastic Kubernetes Service (EKS)
+* Google Kubernetes Engine (GKE)
+* Microsoft Azure Kubernetes Service (AKS)
+* Red hat OpenShift
+* SUSE Rancher
+* VMware Tanzu Portfolio
+* Vorgelagerte Kubernetes-Systeme
+
+
+
+
+== Trident schützen die Kompatibilität mit dem Storage-Back-End
+
+Trident Protect unterstützt die folgenden Storage-Back-Ends:
+
+* Amazon FSX für NetApp ONTAP
+* Cloud Volumes ONTAP
+* ONTAP Storage-Arrays
+* Google Cloud NetApp Volumes
+* Azure NetApp Dateien
+
+
+Stellen Sie sicher, dass Ihr Storage-Back-End die folgenden Anforderungen erfüllt:
+
+* Vergewissern Sie sich, dass mit dem Cluster verbundener NetApp-Storage Astra Trident 24.02 oder neuer verwendet (Trident 24.10 wird empfohlen).
++
+** Wenn Astra Trident älter als die Version 24.06.1 ist und Sie die Disaster-Recovery-Funktion von NetApp SnapMirror nutzen möchten, müssen Sie die Astra Control Provisioner manuell aktivieren.
+
+
+* Stellen Sie sicher, dass Sie über die neueste Astra Control Provisioner-Version verfügen (standardmäßig installiert und aktiviert ab Astra Trident 24.06.1).
+* Stellen Sie sicher, dass Sie über ein NetApp ONTAP Storage-Back-End verfügen.
+* Stellen Sie sicher, dass Sie einen Objekt-Storage-Bucket zum Speichern von Backups konfiguriert haben.
+* Erstellen Sie alle Anwendungsnamepspaces, die Sie für Anwendungen oder Verwaltungsvorgänge von Anwendungsdaten verwenden möchten. Trident Protect erstellt diese Namespaces nicht für Sie. Wenn Sie einen nicht vorhandenen Namespace in einer benutzerdefinierten Ressource angeben, schlägt der Vorgang fehl.
+
+
+
+
+== Anforderungen für nas-Economy-Volumen
+
+Trident Protect unterstützt Backup- und Restore-Vorgänge auf Volumes mit nas-Wirtschaft. Snapshots, Klone und SnapMirror-Replizierung auf nas-Economy Volumes werden derzeit nicht unterstützt. Sie müssen ein Snapshot-Verzeichnis für jedes nas-Economy-Volumen aktivieren, das Sie mit Trident Protect verwenden möchten.
+
+[NOTE]
+====
+Einige Anwendungen sind nicht mit Volumes kompatibel, die ein Snapshot-Verzeichnis verwenden. Für diese Anwendungen müssen Sie das Snapshot-Verzeichnis ausblenden, indem Sie den folgenden Befehl auf dem ONTAP-Speichersystem ausführen:
+
+[source, console]
+----
+nfs modify -vserver <svm> -v3-hide-snapshot enabled
+----
+====
+Sie können das Snapshot-Verzeichnis aktivieren, indem Sie den folgenden Befehl für jedes nas-Economy-Volume ausführen und durch die UUID des Volumes ersetzen `<volume-UUID>`, das Sie ändern möchten:
+
+[source, console]
+----
+tridentctl update volume <volume-UUID> --snapshot-dir=true --pool-level=true -n trident
+----
+
+NOTE: Sie können Snapshot-Verzeichnisse standardmäßig für neue Volumes aktivieren, indem Sie die Trident-Backend-Konfigurationsoption auf `true` setzen `snapshotDir`. Vorhandene Volumes werden nicht beeinträchtigt.
+
+
+
+== Anforderungen für die SnapMirror-Replizierung
+
+NetApp SnapMirror steht zusammen mit Trident Protect für die folgenden ONTAP Lösungen zur Verfügung:
+
+* NetApp ASA
+* NetApp AFF
+* NetApp FAS
+* NetApp ONTAP Select
+* NetApp Cloud Volumes ONTAP
+* Amazon FSX für NetApp ONTAP
+
+
+
+
+=== ONTAP-Cluster-Anforderungen für die SnapMirror-Replizierung
+
+Stellen Sie sicher, dass Ihr ONTAP Cluster die folgenden Anforderungen erfüllt, wenn Sie SnapMirror Replizierung nutzen möchten:
+
+* *Astra Control Provisioner oder Trident*: Astra Control Provisioner oder Trident müssen sowohl auf den Quell- als auch auf den Ziel-Kubernetes-Clustern vorhanden sein, die ONTAP als Backend verwenden. Trident Protect unterstützt die Replikation mit NetApp SnapMirror-Technologie unter Verwendung von Storage-Klassen, die von den folgenden Treibern gesichert werden:
++
+** `ontap-nas`
+** `ontap-san`
+
+
+* *Lizenzen*: Asynchrone Lizenzen von ONTAP SnapMirror, die das Datensicherungspaket verwenden, müssen sowohl auf den Quell- als auch auf den Ziel-ONTAP-Clustern aktiviert sein. Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["Übersicht über die SnapMirror Lizenzierung in ONTAP"^] .
+
+
+
+
+=== Peering-Überlegungen für die SnapMirror-Replizierung
+
+Stellen Sie sicher, dass Ihre Umgebung die folgenden Anforderungen erfüllt, wenn Sie Storage-Back-End-Peering verwenden möchten:
+
+* *Cluster und SVM*: Die ONTAP Speicher-Back-Ends müssen aktiviert werden. Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/peering/index.html["Übersicht über Cluster- und SVM-Peering"^] .
++
+
+NOTE: Vergewissern Sie sich, dass die in der Replizierungsbeziehung zwischen zwei ONTAP-Clustern verwendeten SVM-Namen eindeutig sind.
+
+* *Astra Control Provisioner oder Trident und SVM*: Die Remote-SVMs müssen für die Astra Control Bereitstellung oder die Trident im Ziel-Cluster verfügbar sein.
+* *Managed Back-Ends*: Sie müssen ONTAP-Speicher-Back-Ends in Trident Protect hinzufügen und managen, um eine Replikationsbeziehung zu erstellen.
+* *NVMe über TCP*: Trident Protect unterstützt keine NetApp SnapMirror-Replizierung für Storage-Back-Ends, die das NVMe-over-TCP-Protokoll verwenden.
+
+
+
+
+=== Trident/ONTAP-Konfiguration für SnapMirror-Replikation
+
+Trident Protect setzt voraus, dass Sie mindestens ein Storage-Back-End konfigurieren, das die Replizierung sowohl für die Quell- als auch für Ziel-Cluster unterstützt. Wenn die Quell- und Ziel-Cluster identisch sind, sollte die Zielanwendung ein anderes Speicher-Back-End als die Quellanwendung verwenden, um die beste Ausfallsicherheit zu erreichen.
+
+
+
+=== Überlegungen bei der Verwendung von KubeVirt
+
+Wenn Sie Virtual Machines mit SnapMirror Replizierung verwenden möchten https://kubevirt.io/["KubeVirt"^], müssen Sie Virtualisierung einrichten, um Ihre SVMs ein- und einzufrieren. Nach der Einrichtung der Virtualisierung enthalten die implementierten SVMs die erforderlichen Tools zum Einfrieren und Aufheben der Sperrung. Weitere Informationen zur Einrichtung der Virtualisierung finden Sie unter https://docs.openshift.com/container-platform/4.17/virt/install/installing-virt.html["Installation von OpenShift Virtualization"^].

@@ -1,0 +1,38 @@
+---
+section: trident-protect
+title: Sicherung von Applikationen mit Trident-Schutz
+entries:
+- title: Weitere Informationen zu Trident Protect
+  url: "/trident-protect/learn-about-trident-protect.html"
+- title: Installieren Sie Trident Protect
+  entries:
+  - title: Trident Protect – die Anforderungen
+    url: "/trident-protect/trident-protect-requirements.html"
+  - title: Installieren Sie Trident Protect
+    url: "/trident-protect/trident-protect-installation.html"
+  - title: Installieren Sie das Trident Protect CLI-Plug-in
+    url: "/trident-protect/trident-protect-cli.html"
+- title: Management von Trident Protect
+  entries:
+  - title: Managen von Autorisierung und Zugriffssteuerung
+    url: "/trident-protect/manage-authorization-access-control.html"
+  - title: Generieren Sie ein Trident Protect Supportpaket
+    url: "/trident-protect/trident-protect-generate-support-bundle.html"
+- title: Managen und sichern Sie Applikationen
+  entries:
+  - title: Verwenden Sie AppVault-Objekte zum Verwalten von Buckets
+    url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: Definieren Sie eine Anwendung für die Verwaltung
+    url: "/trident-protect/trident-protect-manage-applications.html"
+  - title: Sichern von Applikationen
+    url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: Wiederherstellung von Applikationen
+    url: "/trident-protect/trident-protect-restore-apps.html"
+  - title: Replizieren Sie Applikationen mit NetApp SnapMirror
+    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+  - title: Migrieren Sie Applikationen
+    url: "/trident-protect/trident-protect-migrate-apps.html"
+  - title: Managen von Ausführungshaken mit Trident Protect
+    url: "/trident-protect/trident-protect-use-execution-hooks.html"
+- title: Deinstallieren Sie Trident Protect
+  url: "/trident-protect/trident-protect-uninstall.html"
