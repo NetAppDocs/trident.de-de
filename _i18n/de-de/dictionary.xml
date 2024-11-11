@@ -4914,7 +4914,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="645a84975202e30700b572b49a5ee29d" category="list-text">Disaster Recovery</block>
   <block id="11d5920d0c0b3a97e764f84dc92ef110" category="list-text">Applikationsmobilität</block>
   <block id="f593e32b2a3ead4ac029c13126d3531d" category="inline-link-macro">Erfahren Sie mehr über Trident Protect</block>
-  <block id="4f341cba22662b4f62e28f58e573db1f" category="paragraph"><block ref="d74b9942b9f31e879889873ba2e086e3" category="inline-link-macro-rx"></block>.</block>
   <block id="487dc96e91d89134e7a216bab529a019" category="paragraph">Ab Version 24.10 wird Astra Trident unter dem neuen Namen Trident (NetApp Trident) firmiere. Dieses Rebranding hat keine Auswirkungen auf Funktionen, unterstützte Plattformen oder Interoperabilität für Trident.</block>
   <block id="cf3f16653945ea2a3c2a47b5dce1e6b2" category="list-text">*Add-on-Software auf Ihrem Cluster erhalten* - Diese Option entfernt Amazon EKS-Verwaltung von allen Einstellungen. Amazon EKS kann Sie auch nicht mehr über Updates informieren und das Amazon EKS-Add-On automatisch aktualisieren, nachdem Sie ein Update gestartet haben. Die Add-on-Software auf dem Cluster bleibt jedoch erhalten. Mit dieser Option wird das Add-On zu einer selbstverwalteten Installation anstatt zu einem Amazon EKS-Add-on. Bei dieser Option haben Add-on keine Ausfallzeiten. Behalten Sie die Option im Befehl bei<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> , um das Add-on beizubehalten.</block>
   <block id="b84ba52748723df31fdf54485208c120" category="list-text">*Entfernen Sie Add-on-Software komplett aus Ihrem Cluster* - Wir empfehlen, das Amazon EKS-Add-on nur dann aus Ihrem Cluster zu entfernen, wenn es keine Ressourcen auf Ihrem Cluster gibt, die davon abhängen. Entfernen Sie die<block ref="4b4ac0f998920a46fd2015e11d01d3e7" prefix=" " category="inline-code"></block> Option aus dem<block ref="099af53f601532dbd31e0ea99ffdeb64" prefix=" " category="inline-code"></block> Befehl, um das Add-On zu entfernen.</block>
@@ -4927,4 +4926,5 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="b9ef0ee6944eb101de3de64b82db00dd" category="sidebar">Generieren Sie ein Trident Protect Supportpaket</block>
   <block id="1ae067a03c56065918252f36c73024d1" category="sidebar">Managen und sichern Sie Applikationen</block>
   <block id="793ba052e921b84a44dd053d68f45012" category="sidebar">Managen von Ausführungshaken mit Trident Protect</block>
+  <block id="a4ac350fb585f51020f747525f3175d8" category="paragraph"><block ref="2c7a14b5507108d57a83e6eb9858f03a" category="inline-link-macro-rx"></block>.</block>
 </blocks>
