@@ -68,25 +68,25 @@ link:https://www.netapp.com/cloud-services/cloud-volumes-ontap/["Cloud Volumes O
 link:https://bluexp.netapp.com/google-cloud-netapp-volumes?utm_source=GitHub&utm_campaign=Trident["Google Cloud NetApp Volumes"^] Ist ein vollständig gemanagter File-Storage-Service in Google Cloud mit hochperformantem File-Storage der Enterprise-Klasse.
 
 ====
+.Element Software
+[%collapsible]
+====
 https://www.netapp.com/data-management/element-software/["Element"^] Storage-Administrator kann Workloads konsolidieren, indem die Performance garantiert und der Storage-Bedarf vereinfacht und optimiert wird.
 
-[]
 ====
-
+.NetApp HCI
+[%collapsible]
 ====
 link:https://docs.netapp.com/us-en/hci/docs/concept_hci_product_overview.html["NetApp HCI"^] Vereinfacht das Management und die Skalierung des Datacenters durch Automatisierung von Routineaufgaben und ermöglicht es Infrastrukturadministratoren, sich auf wichtigere Funktionen zu konzentrieren.
 
 Trident kann Storage-Geräte für Container-Applikationen direkt auf der zugrunde liegenden NetApp HCI Storage-Plattform bereitstellen und managen.
 
-[]
 ====
-
+.NetApp ONTAP
+[%collapsible]
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] Ist das Unified Storage-Betriebssystem NetApp für mehrere Protokolle und bietet für jede Applikation erweiterte Datenmanagementfunktionen.
 
 ONTAP Systeme verfügen über rein Flash-basierte, hybride oder rein HDD-basierte Konfigurationen und bieten eine Vielzahl unterschiedlicher Implementierungsmodelle, darunter speziell entwickelte Hardware (FAS und AFF), White-Box (ONTAP Select) und rein Cloud-basierte Cloud Volumes ONTAP Systeme. Trident unterstützt diese ONTAP Implementierungsmodelle.
-
-[]
-====
 
 ====
