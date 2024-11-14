@@ -458,7 +458,7 @@ k get shutdownsnapshot -n my-app-namespace <shutdown_snapshot_name> -o jsonpath=
 
 NOTE: Fügen Sie in Schritt 2 des Failover-Verfahrens das Feld in die AppMirrorRelationship CR-Datei ein `spec.promotedSnapshot`, und setzen Sie den Wert auf den Basisnamen, den Sie oben in Schritt 3 aufgezeichnet haben.
 
-. Führen Sie die Schritte für die umgekehrte Resynchronisierung in <<Reverse resync a failed over replication>>aus.
+. Führen Sie die Schritte für die umgekehrte Resynchronisierung in <<Reverse Resynchronisierung einer Failover-Replizierungsbeziehung>>aus.
 . Aktivieren Sie Schutzzeitpläne auf dem neuen Quellcluster.
 
 
@@ -485,13 +485,17 @@ Mithilfe von Trident Protect können Sie nach einem Failover-Vorgang ein Failbac
 Dieser Prozess beginnt mit einer Beziehung, bei der ein Failover zu einem Ziel durchgeführt wurde, und umfasst die folgenden Schritte:
 
 * Starten Sie mit einem Failover-Status fehlgeschlagen.
-* Die Beziehung rückgängig machen.
-* Die Replikation wird rückgängig gemacht.
+* Umgekehrte Neusynchronisierung der Replikationsbeziehung.
++
+
+CAUTION: Führen Sie keine normale Neusynchronisierung durch, da dadurch während des Failover Daten, die auf das Ziel-Cluster geschrieben werden, verworfen werden.
+
+* Kehren Sie die Replikationsrichtung um.
 
 
 .Schritte
-. Führen Sie die <<Resync a failed over replication>> Schritte aus
-. Führen Sie die <<Reverse resync a failed over replication>> Schritte aus
+. Führen Sie die <<Reverse Resynchronisierung einer Failover-Replizierungsbeziehung>> Schritte aus.
+. Führen Sie die <<Richtung der Anwendungsreplikation umkehren>> Schritte aus.
 
 
 

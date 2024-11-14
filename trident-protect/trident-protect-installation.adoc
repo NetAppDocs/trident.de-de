@@ -16,6 +16,9 @@ summary: Wenn Ihre Umgebung die Anforderungen erfüllt, können Sie die folgende
 [role="lead"]
 Wenn Ihre Umgebung die Anforderungen für Trident Protect erfüllt, können Sie mit den folgenden Schritten Trident Protect auf Ihrem Cluster installieren. Sie können Trident Protect von NetApp beziehen oder es von Ihrer eigenen privaten Registrierung installieren. Die Installation von einer privaten Registrierung ist hilfreich, wenn Ihr Cluster nicht auf das Internet zugreifen kann.
 
+
+NOTE: Standardmäßig erfasst Trident Protect Support-Informationen, die bei allen NetApp-Supportfällen helfen, die Sie öffnen können, einschließlich Protokollen, Kennzahlen und Topologieinformationen zu Clustern und gemanagten Applikationen. Trident Protect sendet diese Support-Pakete nach einem täglichen Zeitplan an NetApp. Sie können diese Support-Bundle-Sammlung optional deaktivieren, wenn Sie Trident Protect installieren. Sie können jederzeit manuell link:trident-protect-generate-support-bundle.html["Generieren Sie ein Support-Bundle"]wählen.
+
 [role="tabbed-block"]
 ====
 .Installieren Sie Trident Protect von NetApp
@@ -26,17 +29,28 @@ Wenn Ihre Umgebung die Anforderungen für Trident Protect erfüllt, können Sie 
 ----
 helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-helm-chart
 ----
-. Verwenden Sie Helm, um Trident Protect zu installieren. Ersetzen Sie `<name_of_cluster>` ihn durch einen Cluster-Namen, der dem Cluster zugewiesen wird und zum Identifizieren von Backups und Snapshots aus diesem Cluster verwendet wird:
+. Installieren Sie die Trident Protect CRDs:
 +
 [source, console]
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
 ----
+. Verwenden Sie Helm, um Trident Protect mit einem der folgenden Befehle zu installieren. Ersetzen Sie `<name_of_cluster>` ihn durch einen Cluster-Namen, der dem Cluster zugewiesen wird und zum Identifizieren der Backups und Snapshots des Clusters verwendet wird:
++
+** Trident Protect normal installieren:
 +
 [source, console]
 ----
 helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
+** Installieren Sie Trident Protect und deaktivieren Sie die geplanten täglichen Uploads von Trident Protect AutoSupport Support-Paketen:
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect
+----
+
+
 . Optional können Sie Ihre VMs einfrieren. Wenn Sie die Unterstützung von KubeVirt für SnapMirror nutzen, hilft Ihnen das Einfrieren von VMs, sie effektiv zu verwalten:
 +
 [source, console]
@@ -132,17 +146,28 @@ webhooksCleanup:
   imagePullSecrets:
   - name: regcred
 ----
-. Verwenden Sie Helm, um Trident Protect zu installieren:
+. Installieren Sie die Trident Protect CRDs:
 +
 [source, console]
 ----
 helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
 ----
+. Verwenden Sie Helm, um Trident Protect mit einem der folgenden Befehle zu installieren. Ersetzen Sie `<name_of_cluster>` ihn durch einen Cluster-Namen, der dem Cluster zugewiesen wird und zum Identifizieren der Backups und Snapshots des Clusters verwendet wird:
++
+** Trident Protect normal installieren:
 +
 [source, console]
 ----
 helm install trident-protect netapp-trident-protect/trident-protect --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
 ----
+** Installieren Sie Trident Protect und deaktivieren Sie die geplanten täglichen Uploads von Trident Protect AutoSupport Support-Paketen:
++
+[source, console]
+----
+helm install trident-protect netapp-trident-protect/trident-protect --set autoSupport.enabled=false --set clusterName=<name_of_cluster> --version 100.2410.0 --create-namespace --namespace trident-protect -f protectValues.yaml
+----
+
+
 . Optional können Sie Ihre VMs einfrieren. Wenn Sie die Unterstützung von KubeVirt für SnapMirror nutzen, hilft Ihnen das Einfrieren von VMs, sie effektiv zu verwalten:
 +
 [source, console]
