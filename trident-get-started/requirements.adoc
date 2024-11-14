@@ -70,7 +70,7 @@ Um Trident verwenden zu können, benötigen Sie eines oder mehrere der folgenden
 * Amazon FSX für NetApp ONTAP
 * Azure NetApp Dateien
 * Cloud Volumes ONTAP
-* Cloud Volumes Service für GCP
+* Google Cloud NetApp Volumes
 * FAS/All Flash FAS/Select 9.5 oder höher
 * NetApp All-SAN-Array (ASA)
 * NetApp HCI/Element Software 11 oder höher
