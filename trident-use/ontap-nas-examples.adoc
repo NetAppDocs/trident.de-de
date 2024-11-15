@@ -69,7 +69,12 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `password` | Passwort für die Verbindung mit dem Cluster/SVM Wird für Anmeldeinformationsbasierte verwendet |  
 
 
-| `storagePrefix` | Das Präfix wird beim Bereitstellen neuer Volumes in der SVM verwendet. Kann nicht aktualisiert werden, nachdem Sie sie festgelegt haben | trident 
+| `storagePrefix`  a| 
+Das Präfix wird beim Bereitstellen neuer Volumes in der SVM verwendet. Kann nicht aktualisiert werden, nachdem Sie sie festgelegt haben
+
+
+NOTE: Bei Verwendung von ONTAP-nas-Economy und einem storagePrefix, das aus 24 oder mehr Zeichen besteht, ist das Storage-Präfix für die qtrees nicht eingebettet, obwohl es sich im Volume-Namen befindet.
+| trident 
 
 
 | `aggregate`  a| 
