@@ -4,6 +4,9 @@ title: Verwenden Sie Trident
 entries:
 - title: Bereiten Sie den Knoten „Worker“ vor
   url: "/trident-use/worker-node-prep.html"
+  entries:
+  - title: SCSI über Fibre Channel (FC)
+    url: "/trident-use/fcp.html"
 - title: Konfiguration und Management von Back-Ends
   entries:
   - title: Überblick
