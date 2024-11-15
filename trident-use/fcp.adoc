@@ -18,7 +18,13 @@ Jetzt kann das Fibre Channel-Protokoll (FC) mit Trident verwendet werden, um Sto
 
 Fibre Channel ist aufgrund seiner hohen Performance, Zuverlässigkeit und Skalierbarkeit ein weit verbreitetes Protokoll in Enterprise-Storage-Umgebungen. Er bietet einen robusten und effizienten Kommunikationskanal für Speichergeräte, der schnelle und sichere Datenübertragungen ermöglicht. Durch die Verwendung von SCSI über Fibre Channel können Sie ihre vorhandene SCSI-basierte Speicherinfrastruktur nutzen und gleichzeitig von den High-Performance- und Fernfunktionen von Fibre Channel profitieren. Sie unterstützt die Konsolidierung von Speicherressourcen und die Erstellung skalierbarer und effizienter Storage Area Networks (SANs), die große Datenmengen mit geringer Latenz verarbeiten können.
 
-Durch Verwendung der FC-Funktion mit Trident sind folgende Möglichkeiten möglich: * VES dynamisch mithilfe einer Implementierungsspezifikation bereitstellen. * Nehmen Sie Volume-Schnappschüsse und erstellen Sie ein neues Volumen aus dem Snapshot. * Klonen Sie eine vorhandene FC-PVC. * Ändern Sie die Größe eines bereits bereitgestellten Volumes.
+Mithilfe der FC-Funktion mit Trident können Sie folgende Aufgaben ausführen:
+
+* Dynamische Bereitstellung von VES mithilfe einer Implementierungsspezifikation
+* Erstellen Sie Volume-Snapshots und ein neues Volume aus dem Snapshot.
+* Klonen einer vorhandenen FC-PVC.
+* Die Größe eines bereits bereitgestellten Volumes ändern.
+
 
 
 
