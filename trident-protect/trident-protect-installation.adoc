@@ -33,7 +33,7 @@ helm repo add netapp-trident-protect https://netapp.github.io/trident-protect-he
 +
 [source, console]
 ----
-helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
+helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
 . Verwenden Sie Helm, um Trident Protect mit einem der folgenden Befehle zu installieren. Ersetzen Sie `<name_of_cluster>` ihn durch einen Cluster-Namen, der dem Cluster zugewiesen wird und zum Identifizieren der Backups und Snapshots des Clusters verwendet wird:
 +
@@ -150,7 +150,7 @@ webhooksCleanup:
 +
 [source, console]
 ----
-helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0
+helm install trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2410.0 --create-namespace --namespace trident-protect
 ----
 . Verwenden Sie Helm, um Trident Protect mit einem der folgenden Befehle zu installieren. Ersetzen Sie `<name_of_cluster>` ihn durch einen Cluster-Namen, der dem Cluster zugewiesen wird und zum Identifizieren der Backups und Snapshots des Clusters verwendet wird:
 +
