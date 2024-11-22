@@ -25,6 +25,9 @@ NOTE: Wenn Sie eine Anwendung wiederherstellen, werden alle für die Anwendung k
 
 Wenn Sie ein Backup mit einem Backup Restore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her. Die wiederhergestellte Anwendung ist jedoch nicht automatisch durch Trident Protect geschützt. Um die wiederhergestellte Anwendung zu schützen, müssen Sie eine Anwendungs-CR für die wiederhergestellte Anwendung erstellen, damit sie durch Trident Protect geschützt wird.
 
+
+NOTE: Wenn Sie ein Backup in einem anderen Namespace mit vorhandenen Ressourcen wiederherstellen, werden keine Ressourcen verändert, die Namen mit denen im Backup teilen. Um alle Ressourcen im Backup wiederherzustellen, löschen Sie entweder den Ziel-Namespace und erstellen Sie ihn neu, oder stellen Sie das Backup in einem neuen Namespace wieder her.
+
 [role="tabbed-block"]
 ====
 .CR verwenden
@@ -121,9 +124,6 @@ tridentctl protect create backuprestore <my_restore_name> --backup <backup_names
 == Wiederherstellung von einem Backup in den ursprünglichen Namespace
 
 Sie können ein Backup im ursprünglichen Namespace jederzeit wiederherstellen.
-
-
-NOTE: Durch die Wiederherstellung eines Backups in einem Namespace mit vorhandenen Ressourcen werden keine Ressourcen verändert, die Namen mit denen im Backup teilen. Um alle Ressourcen in einem Backup wiederherzustellen, löschen Sie entweder den Ziel-Namespace und erstellen Sie ihn neu, oder stellen Sie das Backup in einem neuen Namespace wieder her.
 
 [role="tabbed-block"]
 ====
