@@ -23,6 +23,7 @@ NOTE: Standardmäßig erfasst Trident Protect Support-Informationen, die bei all
 ====
 .Installieren Sie Trident Protect von NetApp
 --
+.Schritte
 . Trident Helm Repository hinzufügen:
 +
 [source, console]
@@ -68,6 +69,7 @@ NOTE: Sie müssen die Virtualisierung einrichten, damit die Freeze-Funktion funk
 --
 Sie können Trident Protect aus einer privaten Image-Registrierung installieren, wenn Ihr Kubernetes-Cluster nicht auf das Internet zugreifen kann. Ersetzen Sie in diesen Beispielen Werte in Klammern durch Informationen aus Ihrer Umgebung:
 
+.Schritte
 . Ziehen Sie die folgenden Bilder auf Ihren lokalen Computer, aktualisieren Sie die Tags und schieben Sie sie dann in Ihre private Registrierung:
 +
 [source, console]

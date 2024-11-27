@@ -32,6 +32,7 @@ NOTE: Wenn Sie ein Backup in einem anderen Namespace mit vorhandenen Ressourcen 
 ====
 .CR verwenden
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-backup-restore-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -109,6 +110,7 @@ kubectl apply -f trident-protect-backup-restore-cr.yaml
 --
 .Verwenden Sie die CLI
 --
+.Schritte
 . Stellen Sie das Backup in einem anderen Namespace wieder her und ersetzen Sie die Werte in Klammern durch Informationen aus Ihrer Umgebung. Das `namespace-mapping` Argument verwendet durch Doppelpunkte getrennte Namespaces, um Quellnamepaces im Format den richtigen Zielnamepaces zuzuordnen `source1:dest1,source2:dest2`. Beispiel:
 +
 [source, console]
@@ -129,6 +131,7 @@ Sie können ein Backup im ursprünglichen Namespace jederzeit wiederherstellen.
 ====
 .CR verwenden
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-backup-ipr-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -203,6 +206,7 @@ kubectl apply -f trident-protect-backup-ipr-cr.yaml
 --
 .Verwenden Sie die CLI
 --
+.Schritte
 . Stellen Sie das Backup auf den ursprünglichen Namespace wieder her, und ersetzen Sie die Werte in Klammern durch Informationen aus Ihrer Umgebung. Das `backup` Argument verwendet einen Namespace und einen Backup-Namen im Format `<namespace>/<name>`. Beispiel:
 +
 [source, console]
@@ -223,6 +227,7 @@ Sie können Daten aus einem Snapshot mithilfe einer benutzerdefinierten Ressourc
 ====
 .CR verwenden
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-snapshot-restore-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -300,6 +305,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Verwenden Sie die CLI
 --
+.Schritte
 . Stellen Sie den Snapshot in einem anderen Namespace wieder her und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung.
 +
 ** Das `snapshot` Argument verwendet einen Namespace und Snapshot-Namen im Format `<namespace>/<name>`.
@@ -328,6 +334,7 @@ Sie können einen Snapshot jederzeit im ursprünglichen Namespace wiederherstell
 ====
 .CR verwenden
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-snapshot-ipr-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -399,6 +406,7 @@ kubectl apply -f trident-protect-snapshot-ipr-cr.yaml
 --
 .Verwenden Sie die CLI
 --
+.Schritte
 . Stellen Sie den Snapshot auf den ursprünglichen Namespace wieder her, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
 +
 [source, console]

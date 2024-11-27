@@ -32,6 +32,7 @@ Sie müssen für jede Anwendung, die Sie mit Trident Protect verwalten möchten,
 ====
 .Fügen Sie eine Anwendung mit einem CR hinzu
 --
+.Schritte
 . Erstellen Sie die CR-Datei der Zielanwendung:
 +
 .. Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie (z. B. `maria-app.yaml`).
@@ -64,6 +65,7 @@ spec:
 --
 .Fügen Sie eine Anwendung mithilfe der CLI hinzu
 --
+.Schritte
 . Erstellen und wenden Sie die Anwendungsdefinition an, indem Sie Werte in Klammern durch Informationen aus Ihrer Umgebung ersetzen. Sie können Namespaces und Ressourcen in die Anwendungsdefinition mit kommagetrennten Listen mit den im folgenden Beispiel gezeigten Argumenten aufnehmen:
 +
 [source, console]

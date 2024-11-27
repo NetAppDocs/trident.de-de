@@ -97,6 +97,7 @@ Mit Trident Protect können Sie einen benutzerdefinierten Ausführungshaken für
 ====
 .CR verwenden
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-hook.yaml`.
 . Konfigurieren Sie die folgenden Attribute entsprechend Ihrer Trident Protect-Umgebung und Cluster-Konfiguration:
 +
@@ -183,6 +184,7 @@ kubectl apply -f trident-protect-hook.yaml
 --
 .Verwenden Sie die CLI
 --
+.Schritte
 . Erstellen Sie den Ausführungshaken, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
 +
 [source, console]

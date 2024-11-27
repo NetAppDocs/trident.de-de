@@ -20,6 +20,7 @@ Mit Trident Protect können Administratoren Bundles erstellen, die für die Unte
 ====
 .Erstellen Sie mithilfe eines CR-Systems ein Supportpaket
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie (z. B. `trident-protect-support-bundle.yaml`).
 . Konfigurieren Sie die folgenden Attribute:
 +
@@ -65,6 +66,7 @@ kubectl apply -f trident-protect-support-bundle.yaml
 --
 .Erstellen Sie ein Support-Bundle mithilfe der CLI
 --
+.Schritte
 . Erstellen Sie das Supportpaket, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Der `trigger-type` legt fest, ob das Bündel sofort erstellt wird oder ob die Erstellungszeit vom Zeitplan vorgegeben ist, und kann oder `Scheduled` sein `Manual`. Die Standardeinstellung ist `Manual`.
 +
 Beispiel:

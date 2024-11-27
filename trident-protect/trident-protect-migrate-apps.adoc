@@ -101,6 +101,7 @@ spec:
 ====
 .Stellen Sie den Snapshot mithilfe eines CR-Systems wieder her
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-snapshot-restore-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -167,6 +168,7 @@ kubectl apply -f trident-protect-snapshot-restore-cr.yaml
 --
 .Stellen Sie den Snapshot mithilfe der CLI wieder her
 --
+.Schritte
 . Stellen Sie den Snapshot in einem anderen Namespace wieder her und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung.
 +
 ** Das `snapshot` Argument verwendet einen Namespace und Snapshot-Namen im Format `<namespace>/<name>`.

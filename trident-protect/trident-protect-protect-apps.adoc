@@ -26,6 +26,7 @@ Sie können jederzeit einen On-Demand-Snapshot erstellen.
 ====
 .Erstellen Sie mithilfe eines CR-Systems einen Snapshot
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-snapshot-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -64,6 +65,7 @@ kubectl apply -f trident-protect-snapshot-cr.yaml
 --
 .Erstellen Sie einen Snapshot mithilfe der CLI
 --
+.Schritte
 . Erstellen Sie den Snapshot, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
 +
 [source, console]
@@ -84,6 +86,7 @@ Sie können eine App jederzeit sichern.
 ====
 .Erstellen Sie ein Backup mit einem CR
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-backup-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -129,6 +132,7 @@ kubectl apply -f trident-protect-backup-cr.yaml
 --
 .Erstellen Sie mithilfe der CLI ein Backup
 --
+.Schritte
 . Erstellen Sie das Backup, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
 +
 [source, console]
@@ -149,6 +153,7 @@ Eine Sicherungsrichtlinie sichert eine Applikation, indem Snapshots, Backups ode
 ====
 .Erstellen Sie einen Zeitplan mit einem CR
 --
+.Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-schedule-cr.yaml`.
 . Konfigurieren Sie in der erstellten Datei die folgenden Attribute:
 +
@@ -208,6 +213,7 @@ kubectl apply -f trident-protect-schedule-cr.yaml
 --
 .Erstellen Sie einen Zeitplan über die CLI
 --
+.Schritte
 . Erstellen Sie den Schutzplan und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
 +
 
