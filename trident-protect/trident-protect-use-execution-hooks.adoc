@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-execution-hooks.html
 keywords: trident, protect, execution hooks 
 summary: Mit Trident Protect können Sie einen benutzerdefinierten Ausführungshaken für eine App erstellen. Sie müssen über die Berechtigungen Eigentümer, Administrator oder Mitglied verfügen, um Testausführungshaken zu erstellen. 
 ---
-= Ausführungshaken verwalten
+= Managen von Trident Protect-Ausführungshaken
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-use-snapmirror-replication.html
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
 summary: Mit Trident Protect können Sie die asynchronen Replizierungsfunktionen der NetApp SnapMirror Technologie verwenden, um Daten und Applikationsänderungen von einem Storage-Back-End auf ein anderes zu replizieren, im selben Cluster oder zwischen verschiedenen Clustern. 
 ---
-= Replizieren Sie Applikationen mit NetApp SnapMirror
+= Replizieren Sie Applikationen mit NetApp SnapMirror und Trident Protect
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

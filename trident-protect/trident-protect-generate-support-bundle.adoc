@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-generate-support-bundle.html
 keywords: trident, protect, bundle, support, netapp, custom, resource, file 
 summary: 'Mit Trident Protect können Administratoren Bundles erstellen, die für die Unterstützung von NetApp nützliche Informationen enthalten, einschließlich Protokollen, Kennzahlen und Topologieinformationen zu den zu managenden Clustern und Apps. Wenn Sie mit dem Internet verbunden sind, können Sie Supportpakete mithilfe einer benutzerdefinierten Ressourcendatei (CR) auf die NetApp-Support-Website (NSS) hochladen.' 
 ---
-= Generieren Sie ein Support-Bundle
+= Generieren Sie ein Trident Protect Supportpaket
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

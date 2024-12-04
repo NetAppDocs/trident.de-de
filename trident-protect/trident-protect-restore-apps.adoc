@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-restore-apps.html
 keywords: trident, protect, restore, data, backup 
 summary: Sie können Trident Protect verwenden, um Ihre Anwendung aus einem Snapshot oder einem Backup wiederherzustellen. Das Wiederherstellen aus einem vorhandenen Snapshot erfolgt schneller, wenn die Anwendung auf dasselbe Cluster wiederhergestellt wird. 
 ---
-= Wiederherstellung von Applikationen
+= Stellen Sie Applikationen mit Trident Protect wieder her
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

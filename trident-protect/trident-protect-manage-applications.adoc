@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-manage-applications.html
 keywords: appvault, data protection, custom resource, namespace, application, cluster 
 summary: Sie können Trident Protect auf eine Anwendung aufmerksam machen, die Sie verwalten möchten, indem Sie eine Anwendungs-CR und eine zugehörige AppVault CR erstellen. 
 ---
-= Definieren Sie eine Anwendung für die Verwaltung
+= Definieren Sie mit Trident Protect eine Applikation für das Management
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 

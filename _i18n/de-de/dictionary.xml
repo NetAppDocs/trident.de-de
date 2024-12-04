@@ -4432,7 +4432,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">Ergebnis</block>
   <block id="a2290b3f31cfd85a3e9ff7885be716a7" category="paragraph">Bei Ihrer nächsten Shell-Anmeldung können Sie den Befehl Auto-Vervollständigung mit dem tridentctl Protect-Plugin verwenden.</block>
   <block id="7b6672be7a52979b1357ccc3d2a45f8a" category="summary">Mit Trident Protect können Administratoren Bundles erstellen, die für die Unterstützung von NetApp nützliche Informationen enthalten, einschließlich Protokollen, Kennzahlen und Topologieinformationen zu den zu managenden Clustern und Apps. Wenn Sie mit dem Internet verbunden sind, können Sie Supportpakete mithilfe einer benutzerdefinierten Ressourcendatei (CR) auf die NetApp-Support-Website (NSS) hochladen.</block>
-  <block id="c06b3814928e21adcd4d633f11293a23" category="doc">Generieren Sie ein Support-Bundle</block>
   <block id="e984343e441956b7136d09919877b5ab" category="open-title">Erstellen Sie mithilfe eines CR-Systems ein Supportpaket</block>
   <block id="dd942fa25b8e28c96c8d05e37b0f157e" category="list-text">Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie (z. B.<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>).</block>
   <block id="18924d9e76d2dc9a88bddb772904461d" category="list-text">Konfigurieren Sie die folgenden Attribute:</block>
@@ -4683,7 +4682,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="aec02c2a1b714f40a949aa18d1f2d588" category="list-text">Trident Protect entfernen:</block>
   <block id="20c06650be80c297c0e4dc5ae977d44f" category="list-text">Entfernen Sie den Trident Protect Namespace:</block>
   <block id="a8c1fc9f09b8338dd9f8badd5c3d30c0" category="summary">Mit Trident Protect können Sie einen benutzerdefinierten Ausführungshaken für eine App erstellen. Sie müssen über die Berechtigungen Eigentümer, Administrator oder Mitglied verfügen, um Testausführungshaken zu erstellen.</block>
-  <block id="cbb269e08085ebb437449cc744357ee6" category="doc">Ausführungshaken verwalten</block>
   <block id="ccd62d676165e34c2e9c6d088c06e70f" category="paragraph">Ein Execution Hook ist eine benutzerdefinierte Aktion, die Sie so konfigurieren können, dass sie zusammen mit einem Datenschutzvorgang einer verwalteten App ausgeführt wird. Wenn Sie beispielsweise über eine Datenbank-App verfügen, können Sie mit einem Execution-Hook alle Datenbanktransaktionen vor einem Snapshot anhalten und die Transaktionen nach Abschluss des Snapshots wieder aufnehmen. Dies gewährleistet applikationskonsistente Snapshots.</block>
   <block id="83fbf1604bedff410ea11872b40ab9f0" category="section-title">Arten von Ausführungshaken</block>
   <block id="d702711249a4d54c15ce81c80152b8e7" category="paragraph">Trident Protect unterstützt die folgenden Typen von Ausführungshaken, je nachdem, wann sie ausgeführt werden können:</block>
@@ -4989,4 +4987,12 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="0ac202e458490a734271522fcedf4876" category="list-text">Stellen Sie sicher, dass<block ref="8732863da72605a20ed96b4eee87a5fb" prefix=" " category="inline-code"></block> Folgendes ausgeführt wird:</block>
   <block id="69eeaf73fccab6d6abcba46bd6a3a3bf" category="list-text">Stellen Sie sicher, dass<block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> aktiviert und ausgeführt wird:</block>
   <block id="00ea3f7016d7b9a4ad023b106cc1e6d3" category="paragraph"><block ref="7e7b7908484dc2cebc13ec93d8042bd0" category="inline-link-macro-rx"></block> Wenn Sie mit sanType<block ref="0f64d0456878c73cbec1ccea842a6f14" prefix=" " category="inline-code"></block> (SCSI über FC) verwenden<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block>.</block>
+  <block id="0cc310db20eaee9161e8ef937010b536" category="doc">Managen von Trident Schützen Sie die Autorisierung und Zugriffssteuerung</block>
+  <block id="97f3fa7a4bb86197f0db69aa160c73e9" category="doc">Verwenden Sie zum Verwalten von Buckets Trident Protect AppVault-Objekte</block>
+  <block id="bf4313699bccd15d73aa8653cfdfd754" category="doc">Definieren Sie mit Trident Protect eine Applikation für das Management</block>
+  <block id="b6a8ee5a5280d899b4ea1be0f8697335" category="doc">Migrieren Sie Applikationen mit Trident Protect</block>
+  <block id="8686ed080978191a10848ee52cd0c87a" category="doc">Sicherung von Applikationen mit Trident Protect</block>
+  <block id="0539043b2ec0bd1bfae64dc58173dec7" category="doc">Stellen Sie Applikationen mit Trident Protect wieder her</block>
+  <block id="873e2eae9a82cbe9c291ade077f017d2" category="doc">Managen von Trident Protect-Ausführungshaken</block>
+  <block id="6f8f09e1a22390ac35a40283a4dc713f" category="doc">Replizieren Sie Applikationen mit NetApp SnapMirror und Trident Protect</block>
 </blocks>
