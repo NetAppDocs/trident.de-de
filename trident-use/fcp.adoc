@@ -36,7 +36,7 @@ Konfigurieren Sie die erforderlichen Netzwerk- und Node-Einstellungen für FC.
 
 === Netzwerkeinstellungen
 
-. Erhalten Sie den WWPN der Zielschnittstellen. Weitere Informationen finden Sie unter link:..https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["Netzwerkschnittstelle wird angezeigt"^] .
+. Erhalten Sie den WWPN der Zielschnittstellen. Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap-cli//network-interface-show.html["Netzwerkschnittstelle wird angezeigt"^] .
 . Abrufen der WWPN für die Schnittstellen auf Initiator (Host).
 +
 Weitere Informationen finden Sie in den entsprechenden Dienstprogrammen des Host-Betriebssystems.
