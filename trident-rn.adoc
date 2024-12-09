@@ -144,13 +144,6 @@ Ab Version 24.10 wird Astra Trident unter dem neuen Namen Trident (NetApp Triden
 
 
 
-=== Abschreibungen
-
-* Support für EOL Windows Server 2019 wurde entfernt.
-
-
-
-
 == Änderungen in 24.02
 
 
