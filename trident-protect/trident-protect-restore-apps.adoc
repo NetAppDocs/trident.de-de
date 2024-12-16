@@ -21,6 +21,85 @@ NOTE: Wenn Sie eine Anwendung wiederherstellen, werden alle für die Anwendung k
 
 
 
+== Namespace-Annotationen und -Labels bei Restore- und Failover-Vorgängen
+
+Während von Restore- und Failover-Vorgängen werden Labels und Annotationen im Ziel-Namespace so angefertigt, dass sie den Labels und Annotationen im Quell-Namespace entsprechen. Beschriftungen oder Anmerkungen aus dem Quell-Namespace, die nicht im Ziel-Namespace vorhanden sind, werden hinzugefügt. Alle bereits vorhandenen Beschriftungen oder Anmerkungen werden überschrieben, um dem Wert aus dem Quell-Namespace zu entsprechen. Beschriftungen oder Anmerkungen, die nur im Ziel-Namespace vorhanden sind, bleiben unverändert.
+
+
+NOTE: Wenn Sie RedHat OpenShift verwenden, ist es wichtig, die wichtige Rolle von Namespace-Annotationen in OpenShift-Umgebungen zu beachten. Namespace-Anmerkungen stellen sicher, dass wiederhergestellte Pods den durch OpenShift Security Context Constraints (SCCs) definierten Berechtigungen und Sicherheitskonfigurationen entsprechen und ohne Berechtigungsprobleme auf Volumes zugreifen können. Weitere Informationen finden Sie im https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/authentication_and_authorization/managing-pod-security-policies["Dokumentation zu den Einschränkungen für den Sicherheitskontext von OpenShift"^].
+
+Sie können verhindern, dass bestimmte Annotationen im Ziel-Namespace überschrieben werden, indem Sie die Kubernetes-Umgebungsvariable vor der Wiederherstellung oder dem Failover einstellen `RESTORE_SKIP_NAMESPACE_ANNOTATIONS`. Beispiel:
+
+[source, console]
+----
+kubectl set env -n trident-protect deploy/trident-protect-controller-manager RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+----
+Wenn Sie die Quellanwendung mit Helm mit dem Flag installiert haben, wird der Label-Schlüssel mit `--create-namespace` einer speziellen Bestrahlung `name` versehen. Während des Wiederherstellungs- oder Failover-Prozesses kopiert Trident Protect dieses Label in den Ziel-Namespace, aktualisiert jedoch den Wert auf den Ziel-Namespace-Wert, wenn der Wert von Quell-Namespace mit dem Quell-Namespace übereinstimmt. Wenn dieser Wert nicht mit dem Quell-Namespace übereinstimmt, wird er ohne Änderungen in den Ziel-Namespace kopiert.
+
+
+
+=== Beispiel
+
+Im folgenden Beispiel wird ein Quell- und Ziel-Namespace präsentiert, der jeweils unterschiedliche Annotationen und Labels enthält. Sie können den Status des Ziel-Namespace vor und nach dem Vorgang anzeigen und sehen, wie die Annotationen und Labels im Ziel-Namespace kombiniert oder überschrieben werden.
+
+
+
+==== Vor der Wiederherstellung oder dem Failover
+
+Die folgende Tabelle zeigt den Status der Beispiel-Namespaces für Quelle und Ziel vor dem Restore- oder Failover-Vorgang:
+
+[cols="1,2a,2a"]
+|===
+| Namespace | Anmerkungen | Etiketten 
+
+
+| Namespace ns-1 (Quelle)  a| 
+* Annotation.one/key: „Aktualisiertwert“
+* Anmerkung.zwei/Taste: "Wahr"
+
+ a| 
+* Umgebung = Produktion
+* Compliance=hipaa
+* Name=ns-1
+
+
+
+
+| Namespace ns-2 (Ziel)  a| 
+* Anmerkung.One/key: „True“
+* Anmerkung.drei/Taste: "False"
+
+ a| 
+* Rolle=Datenbank
+
+
+|===
+
+
+==== Nach dem Wiederherstellungsvorgang
+
+In der folgenden Tabelle wird der Status des Beispiel-Ziel-Namespace nach der Wiederherstellung oder dem Failover-Vorgang dargestellt. Einige Schlüssel wurden hinzugefügt, einige wurden überschrieben und das Label wurde aktualisiert, `name` um dem Ziel-Namespace zu entsprechen:
+
+[cols="1,2a,2a"]
+|===
+| Namespace | Anmerkungen | Etiketten 
+
+
+| Namespace ns-2 (Ziel)  a| 
+* Annotation.one/key: „Aktualisiertwert“
+* Anmerkung.zwei/Taste: "Wahr"
+* Anmerkung.drei/Taste: "False"
+
+ a| 
+* Name=ns-2
+* Compliance=hipaa
+* Umgebung = Produktion
+* Rolle=Datenbank
+
+
+|===
+
+
 == Wiederherstellung aus einem Backup in einem anderen Namespace
 
 Wenn Sie ein Backup mit einem Backup Restore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her. Die wiederhergestellte Anwendung ist jedoch nicht automatisch durch Trident Protect geschützt. Um die wiederhergestellte Anwendung zu schützen, müssen Sie eine Anwendungs-CR für die wiederhergestellte Anwendung erstellen, damit sie durch Trident Protect geschützt wird.

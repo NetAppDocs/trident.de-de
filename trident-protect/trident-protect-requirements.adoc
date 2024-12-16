@@ -83,6 +83,37 @@ NOTE: Sie können Snapshot-Verzeichnisse standardmäßig für neue Volumes aktiv
 
 
 
+== Datensicherung mit KubeVirt VMs
+
+Trident Protect 24.10 und 24.10.1 und neuere Versionen weisen beim Schutz von Applikationen auf KubeVirt VMs unterschiedliche Verhaltensweisen auf. Bei beiden Versionen können Sie das Einfrieren und Entsperren des Dateisystems während der Datenschutzvorgänge aktivieren oder deaktivieren.
+
+[NOTE]
+====
+Für alle Trident Protect-Versionen müssen Sie möglicherweise dem Application Namespace privilegierte Berechtigungen erteilen, um die Funktion zum automatischen Einfrieren in OpenShift-Umgebungen zu aktivieren oder zu deaktivieren. Beispiel:
+
+[source, console]
+----
+oc adm policy add-scc-to-user privileged -z default -n <application-namespace>
+----
+====
+.Trident Protect 24.10
+Trident Protect 24.10 stellt nicht automatisch einen konsistenten Zustand für KubeVirt VM-Dateisysteme während Datensicherheitsvorgängen sicher. Wenn Sie Ihre KubeVirt VM-Daten mit Trident Protect 24.10 schützen möchten, müssen Sie die Freeze/Unfreeze-Funktion für die Dateisysteme vor dem Datenschutzvorgang manuell aktivieren. Dadurch wird sichergestellt, dass sich die Dateisysteme in einem konsistenten Zustand befinden.
+
+Sie können Trident Protect 24.10 so konfigurieren, dass das Einfrieren und Entfrieren des VM-Dateisystems während der Datenschutzvorgänge verwaltet wird, indem link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["Konfiguration der Virtualisierung"^]Sie dann den folgenden Befehl verwenden:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=true -n trident-protect
+----
+.Trident Protect 24.10.1 und neuer
+Ab Trident Protect 24.10.1 friert Trident Protect KubeVirt-Dateisysteme während der Datensicherheitsvorgänge automatisch ein und entfriert diese. Optional können Sie dieses automatische Verhalten mit dem folgenden Befehl deaktivieren:
+
+[source, console]
+----
+kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=false -n trident-protect
+----
+
+
 == Anforderungen für die SnapMirror-Replizierung
 
 NetApp SnapMirror steht zusammen mit Trident Protect für die folgenden ONTAP Lösungen zur Verfügung:
@@ -131,9 +162,3 @@ NOTE: Vergewissern Sie sich, dass die in der Replizierungsbeziehung zwischen zwe
 === Trident/ONTAP-Konfiguration für SnapMirror-Replikation
 
 Trident Protect setzt voraus, dass Sie mindestens ein Storage-Back-End konfigurieren, das die Replizierung sowohl für die Quell- als auch für Ziel-Cluster unterstützt. Wenn die Quell- und Ziel-Cluster identisch sind, sollte die Zielanwendung ein anderes Speicher-Back-End als die Quellanwendung verwenden, um die beste Ausfallsicherheit zu erreichen.
-
-
-
-=== Überlegungen bei der Verwendung von KubeVirt
-
-Wenn Sie Virtual Machines mit SnapMirror Replizierung verwenden möchten https://kubevirt.io/["KubeVirt"^], müssen Sie Virtualisierung einrichten, um Ihre SVMs ein- und einzufrieren. Nach der Einrichtung der Virtualisierung enthalten die implementierten SVMs die erforderlichen Tools zum Einfrieren und Aufheben der Sperrung. Weitere Informationen zur Einrichtung der Virtualisierung finden Sie unter https://docs.openshift.com/container-platform/4.17/virt/install/installing-virt.html["Installation von OpenShift Virtualization"^].

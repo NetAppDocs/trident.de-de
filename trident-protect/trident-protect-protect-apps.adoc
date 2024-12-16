@@ -14,7 +14,10 @@ summary: Alle Applikationen werden gesichert, indem Snapshots und Backups über 
 
 
 [role="lead"]
-Alle Applikationen werden gesichert, indem Snapshots und Backups über eine automatisierte Sicherungsrichtlinie oder im Ad-hoc-Verfahren erstellt werden.
+Sie können alle von Trident Protect gemanagten Applikationen schützen, indem Sie Snapshots und Backups mithilfe einer automatisierten Sicherungsrichtlinie oder ad hoc erstellen.
+
+
+NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während des Datenschutzes eingefroren und wieder eingefroren werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über das Konfigurieren des Dateisystemfrierens mit Trident Protect"].
 
 
 

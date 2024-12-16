@@ -37,7 +37,9 @@ Trident Protect unterstützt die folgenden Typen von Ausführungshaken, je nachd
 Wenn ein Datenschutzvorgang ausgeführt wird, finden Hakenereignisse in der folgenden Reihenfolge statt:
 
 . Alle entsprechenden benutzerdefinierten Testhaken für die Ausführung vor dem Betrieb werden auf den entsprechenden Containern ausgeführt. Sie können beliebig viele benutzerdefinierte Hooks für die Vorbedienung erstellen und ausführen, aber die Reihenfolge der Ausführung dieser Haken vor der Operation ist weder garantiert noch konfigurierbar.
+. Das Dateisystem hängt sich ggf. ein. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über das Konfigurieren des Dateisystemfrierens mit Trident Protect"].
 . Der Vorgang der Datensicherung wird durchgeführt.
+. Eingefrorene Dateisysteme werden gegebenenfalls nicht eingefroren.
 . Alle entsprechenden benutzerdefinierten Testhaken für die Ausführung nach der Operation werden auf den entsprechenden Containern ausgeführt. Sie können beliebig viele benutzerdefinierte Haken für die Nachbearbeitung erstellen und ausführen, aber die Reihenfolge der Ausführung dieser Haken nach der Operation ist weder garantiert noch konfigurierbar.
 
 
