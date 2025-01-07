@@ -5022,5 +5022,5 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="a16ec228f0e3336de76f224b11d860d9" category="list-text">Upgrade-Trident-Schutz:</block>
   <block id="08810911e9a818361e28207072354bd4" category="list-text">Das Dateisystem hängt sich ggf. ein. <block ref="d0a15703ee89b8fa8b780fb2dbace2bd" category="inline-link-macro-rx"></block>.</block>
   <block id="caf47630bbafdc416f6b6ecdb585e83e" category="list-text">Eingefrorene Dateisysteme werden gegebenenfalls nicht eingefroren.</block>
-  <block id="2d9c57bbe7c29718be24410f0c38688e" category="list-text">*RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder in jedem Element (Gruppe, Typ, Version) stimmen als AND-Operation überein.</block>
+  <block id="1eb6c79d30a4cb086ad406cb25fec350" category="list-text">*RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.</block>
 </blocks>

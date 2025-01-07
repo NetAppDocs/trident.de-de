@@ -147,7 +147,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden Sie `include or exclude`, um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
-*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder in jedem Element (Gruppe, Typ, Version) stimmen als AND-Operation überein.
+*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.
 +
 **** *ResourceMatchers[].Group*: (_Optional_) Gruppe der zu filternden Ressource.
 **** *ResourceMatchers[].Kind*: (_Optional_) Art der zu filternden Ressource.
@@ -249,7 +249,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden Sie `include or exclude`, um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
-*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder in jedem Element (Gruppe, Typ, Version) stimmen als AND-Operation überein.
+*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.
 +
 **** *ResourceMatchers[].Group*: (_Optional_) Gruppe der zu filternden Ressource.
 **** *ResourceMatchers[].Kind*: (_Optional_) Art der zu filternden Ressource.
@@ -354,7 +354,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden Sie `include or exclude`, um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
-*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder in jedem Element (Gruppe, Typ, Version) stimmen als AND-Operation überein.
+*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.
 +
 **** *ResourceMatchers[].Group*: (_Optional_) Gruppe der zu filternden Ressource.
 **** *ResourceMatchers[].Kind*: (_Optional_) Art der zu filternden Ressource.
@@ -461,7 +461,7 @@ spec:
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden Sie `include or exclude`, um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
-*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder in jedem Element (Gruppe, Typ, Version) stimmen als AND-Operation überein.
+*** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.
 +
 **** *ResourceMatchers[].Group*: (_Optional_) Gruppe der zu filternden Ressource.
 **** *ResourceMatchers[].Kind*: (_Optional_) Art der zu filternden Ressource.
