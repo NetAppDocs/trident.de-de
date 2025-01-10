@@ -4476,9 +4476,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="1c7b9a68982aa2ad5f1d69eeb5bdf99e" category="inline-link-macro">Stellen Sie Ihre Daten aus dem Backup wieder her</block>
   <block id="e27031b9d0bffffcf2abd2136eed21f5" category="list-text"><block ref="71bc4096317f8eb78a9951851bc1165b" category="inline-link-macro-rx"></block>.</block>
   <block id="403ecb1db6fa0f1bb20e787bb5f5dacd" category="section-title">Klonen auf anderes Cluster</block>
-  <block id="1fe732d5921038b3ec81023b7a5d8068" category="paragraph">Um eine Anwendung auf einem anderen Cluster zu klonen (einen Cluster-übergreifenden Klon durchführen), erstellen Sie einen Snapshot oder ein Backup und stellen Sie die Daten auf einem anderen Cluster wieder her. Stellen Sie sicher, dass Trident Protect auf dem Ziel-Cluster installiert ist.</block>
-  <block id="884bacf23a56346ab0468809c6cb7145" category="list-text">Stellen Sie sicher, dass der AppVault CR für den Objektspeicher-Bucket, der das Backup oder den Snapshot enthält, auf dem Zielcluster konfiguriert wurde.</block>
-  <block id="f5c64bf182766988d3561488bae5bf83" category="list-text">Führen Sie auf dem Zielcluster je nach Erstellung eines Snapshots oder einer Sicherung einen der folgenden Schritte aus:</block>
   <block id="181aa092ab965b34bcee90e25056f876" category="section-title">Migrieren von Applikationen von einer Storage-Klasse zu einer anderen Storage-Klasse</block>
   <block id="97a1f17d0c2154050e8ba2ecfd07ecf4" category="paragraph">Sie können Anwendungen von einer Storage-Klasse zu einer anderen Storage-Klasse migrieren, indem Sie einen Snapshot auf der anderen Ziel-Storage-Klasse wiederherstellen.</block>
   <block id="f1ad7bca566917ee78958caa78fab3f5" category="paragraph">Beispiel: (Ohne die Geheimnisse aus dem Wiederherstellungs-CR):</block>
@@ -5020,4 +5017,10 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="f266533c568f7d6d2cb55d3ef8fa6b5b" category="list-text">Gehen Sie auf der Seite *Ausgewählte Add-ons konfigurieren* wie folgt vor:</block>
   <block id="effa92215c770083617150adc291c130" category="list-text">Erweitern Sie die *Optionale Konfigurationseinstellungen* und ändern Sie sie nach Bedarf.</block>
   <block id="c44618c9f0d840029b691a1dee65b927" category="paragraph"><block ref="7111ba434e6642bb1d25b7f45b940c41" prefix="" category="inline-code"></block></block>
+  <block id="fd8585ec0c8ba7001713251f9ab9c69e" category="paragraph">Um eine Anwendung auf einem anderen Cluster zu klonen (einen Cluster-übergreifenden Klon durchführen), erstellen Sie ein Backup auf dem Quellcluster, und stellen Sie das Backup dann auf einem anderen Cluster wieder her. Stellen Sie sicher, dass Trident Protect auf dem Ziel-Cluster installiert ist.</block>
+  <block id="a1f41e52e9ddbd9f87ecd032c237b1c0" category="inline-link-macro">SnapMirror Replizierung</block>
+  <block id="f6acb98f21e25882aaaa267339abcc92" category="admonition">Sie können eine Anwendung zwischen verschiedenen Clustern mit replizieren<block ref="69314cba6d14bf88b8e850c978056766" category="inline-link-macro-rx"></block>.</block>
+  <block id="fe961357dbe4b6bf8b5503f4919ea35c" category="list-text">Stellen Sie sicher, dass der AppVault CR für den Objektspeicher-Bucket, der das Backup enthält, auf dem Zielcluster konfiguriert wurde.</block>
+  <block id="baafbccab17d07f9ba18e7becb7c76d2" category="inline-link-macro">Stellen Sie Ihre Daten aus dem Backup wieder her</block>
+  <block id="878bbf0662ed19ef900e4e06bfad92d2" category="list-text">Auf dem Zielcluster, <block ref="11860f9f3ec51316f8ebc9805806b6cd" category="inline-link-macro-rx"></block>.</block>
 </blocks>

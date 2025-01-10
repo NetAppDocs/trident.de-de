@@ -50,22 +50,15 @@ Um eine Anwendung auf demselben Cluster zu klonen, erstellen Sie einen Snapshot 
 
 === Klonen auf anderes Cluster
 
-Um eine Anwendung auf einem anderen Cluster zu klonen (einen Cluster-übergreifenden Klon durchführen), erstellen Sie einen Snapshot oder ein Backup und stellen Sie die Daten auf einem anderen Cluster wieder her. Stellen Sie sicher, dass Trident Protect auf dem Ziel-Cluster installiert ist.
+Um eine Anwendung auf einem anderen Cluster zu klonen (einen Cluster-übergreifenden Klon durchführen), erstellen Sie ein Backup auf dem Quellcluster, und stellen Sie das Backup dann auf einem anderen Cluster wieder her. Stellen Sie sicher, dass Trident Protect auf dem Ziel-Cluster installiert ist.
+
+
+NOTE: Sie können eine Anwendung zwischen verschiedenen Clustern mit replizierenlink:trident-protect-use-snapmirror-replication.html["SnapMirror Replizierung"].
 
 .Schritte
-. Führen Sie einen der folgenden Schritte aus:
-+
-.. link:trident-protect-protect-apps.html#create-an-on-demand-snapshot["Erstellen Sie einen Snapshot"].
-.. link:trident-protect-protect-apps.html#create-an-on-demand-backup["Erstellen Sie ein Backup"].
-
-
-. Stellen Sie sicher, dass der AppVault CR für den Objektspeicher-Bucket, der das Backup oder den Snapshot enthält, auf dem Zielcluster konfiguriert wurde.
-. Führen Sie auf dem Zielcluster je nach Erstellung eines Snapshots oder einer Sicherung einen der folgenden Schritte aus:
-+
-.. link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["Stellen Sie Ihre Daten aus dem Snapshot wieder her"].
-.. link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["Stellen Sie Ihre Daten aus dem Backup wieder her"].
-
-
+. link:trident-protect-protect-apps.html#create-an-on-demand-backup["Erstellen Sie ein Backup"].
+. Stellen Sie sicher, dass der AppVault CR für den Objektspeicher-Bucket, der das Backup enthält, auf dem Zielcluster konfiguriert wurde.
+. Auf dem Zielcluster, link:trident-protect-restore-apps.html#restore-from-a-backup-to-a-different-namespace["Stellen Sie Ihre Daten aus dem Backup wieder her"].
 
 
 
