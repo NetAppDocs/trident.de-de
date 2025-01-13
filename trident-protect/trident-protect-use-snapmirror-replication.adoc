@@ -340,7 +340,7 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n my-app-n
 *** *spec.namespaceMapping*: (_required_) der Ziel- und Quellnamepaces muss mit dem im jeweiligen Anwendungs-CR definierten AnwendungsNamespace übereinstimmen.
 *** *Spec.sourceAppVaultRef*: (_required_) dieser Wert muss mit dem Namen des AppVault für die Quellanwendung übereinstimmen.
 *** *Spec.sourceApplicationName*: (_required_) dieser Wert muss mit dem Namen der Quellanwendung übereinstimmen, die Sie in der Quellanwendung CR definiert haben.
-*** *Spec.storageClassName*: (_required_) Wählen Sie den Namen einer gültigen Storage-Klasse auf dem Cluster. Die Storage-Klasse muss mit der Storage-Klasse peered werden, die auf dem Quell-Cluster verwendet wird, in dem die Quellapplikation implementiert wird.
+*** *Spec.storageClassName*: (_required_) Wählen Sie den Namen einer gültigen Storage-Klasse auf dem Cluster. Die Storage-Klasse muss mit einer ONTAP Storage-VM verknüpft werden, die mit der Quellumgebung peert wird.
 *** *Spec.recurrenceRule*: Definieren Sie ein Startdatum in UTC-Zeit und ein Wiederholungsintervall.
 +
 Beispiel YAML:
