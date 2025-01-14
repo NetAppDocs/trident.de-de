@@ -24,7 +24,7 @@ Stellen Sie vor der Konfiguration des Google Cloud NetApp Volumes-Back-End siche
 
 * Ein Google Cloud Konto, das mit dem Google Cloud NetApp Volumes Service konfiguriert ist. Siehe link:https://cloud.google.com/netapp-volumes["Google Cloud NetApp Volumes"^].
 * Projektnummer Ihres Google Cloud-Kontos. Siehe link:https://cloud.google.com/resource-manager/docs/creating-managing-projects#identifying_projects["Projekte identifizieren"^].
-* Ein Google Cloud-Service-Konto mit der Rolle NetApp Volumes Admin (`netappcloudvolumes.admin`). Siehe link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["Rollen und Berechtigungen für Identitäts- und Zugriffsmanagement"^].
+* Ein Google Cloud-Service-Konto mit der Rolle NetApp Volumes Admin (`roles/netapp.admin`). Siehe link:https://cloud.google.com/netapp/volumes/docs/get-started/configure-access/iam#roles_and_permissions["Rollen und Berechtigungen für Identitäts- und Zugriffsmanagement"^].
 * API-Schlüsseldatei für Ihr GCNV-Konto. Siehe link:https://cloud.google.com/iam/docs/keys-create-delete#creating["Erstellen eines Service-Kontokonschlüssels"^]
 * Ein Speicherpool. Siehe link:https://cloud.google.com/netapp/volumes/docs/configure-and-use/storage-pools/overview["Überblick über Speicherpools"^].
 
