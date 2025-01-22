@@ -43,6 +43,7 @@ Sie können jederzeit einen On-Demand-Snapshot erstellen.
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Snapshot
 metadata:
@@ -112,6 +113,7 @@ Sie können eine App jederzeit sichern.
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Backup
 metadata:
@@ -186,6 +188,7 @@ Eine Sicherungsrichtlinie sichert eine Applikation, indem Snapshots, Backups ode
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Schedule
 metadata:

@@ -4424,7 +4424,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="2dcd4437dbff8aff3bc16ac15a71b74d" category="list-text">Trident Protect System Namespace erstellen:</block>
   <block id="e0f6b701766eb28d805d7ba1e820f582" category="list-text">Melden Sie sich bei der Registrierung an:</block>
   <block id="814565bb5d7e7359fff967986fd4195a" category="list-text">Erstellen Sie einen Pull-Schlüssel, der für die Authentifizierung der privaten Registrierung verwendet werden soll:</block>
-  <block id="9fd6c1e403ca347a1528f0f6688f6a06" category="list-text">Erstellen Sie eine Datei mit dem Namen<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>, die die folgenden Trident Protect-Einstellungen enthält:</block>
   <block id="86e8b34710172d33dcae839e1f4dd07e" category="summary">Sie können Trident Protect auf eine Anwendung aufmerksam machen, die Sie verwalten möchten, indem Sie eine Anwendungs-CR und eine zugehörige AppVault CR erstellen.</block>
   <block id="80b940e5c68d020c06f9dc2f188d2169" category="doc">Definieren Sie eine Anwendung für die Verwaltung</block>
   <block id="1e10d655f5307ce7f79aeee68a9e72f3" category="paragraph">Sie können eine Anwendung definieren, die Sie mit Trident Protect verwalten möchten, indem Sie eine Anwendungs-CR und einen zugehörigen AppVault CR erstellen.</block>
@@ -5017,4 +5016,11 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="d05c8b60cfd355fccac41017c33ca892" category="paragraph">Sie können die folgenden CR-Beispiele verwenden, um AppVault-Objekte für jeden Cloud-Provider zu erstellen.</block>
   <block id="59264d37bdf7f6cbf4f94ad00dacdce1" category="section-title">Beispiele für die Erstellung von AppVault mithilfe der Trident Protect CLI</block>
   <block id="4db09810b323e73b4041a65c99bb14f8" category="paragraph">Sie können die folgenden CLI-Befehlsbeispiele verwenden, um AppVault CRS für jeden Anbieter zu erstellen.</block>
+  <block id="c8dac6733f0c00d0b3b8b239841a0255" category="list-text">Erstellen Sie eine Datei mit dem Namen<block ref="5744e710490761bdd5b4603b9b0487a7" prefix=" " category="inline-code"></block>. Stellen Sie sicher, dass es die folgenden Trident Protect-Einstellungen enthält:</block>
+  <block id="d9802724acbde7ce7749f0884262496a" category="section-title">Geben Sie die Höchstwerte für die Trident Protect Container-Ressourcen an</block>
+  <block id="723ff7c28b60307db94ddb35dd6cc517" category="paragraph">Nach der Installation von Trident Protect können Sie eine Konfigurationsdatei verwenden, um Ressourcenbeschränkungen für Trident Protect Container festzulegen. Durch das Festlegen der Grenzwerte für die Ressourcen können Sie steuern, wie viele Ressourcen des Clusters von Trident Protect-Vorgängen verbraucht werden.</block>
+  <block id="45d7099b61647936da59ccfbaa49ca5c" category="list-text">Erstellen Sie eine Datei mit dem Namen<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block>.</block>
+  <block id="9f83417f7d6c999c56b0dcc3b274be23" category="list-text">Füllen Sie die Datei entsprechend den Anforderungen Ihrer Umgebung mit Optionen für die Ressourcenbegrenzung für Trident Container.</block>
+  <block id="816f46c4a8435f7f0f1498054f254865" category="paragraph">Die folgende Beispielkonfigurationsdatei zeigt die verfügbaren Einstellungen und enthält die Standardvaules für jedes Ressourcenlimit:</block>
+  <block id="956fe3fe2ad4f9cb1b569d66b4ff1db5" category="list-text">Anwenden der Werte aus der<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block> Datei:</block>
 </blocks>
