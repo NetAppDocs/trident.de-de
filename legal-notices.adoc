@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: legal-notices.html 
-keywords:  
-summary:  
+keywords: copyrights, notice, trademarks, patents, privacy, open source 
+summary: Rechtliche Hinweise ermöglichen den Zugriff auf Copyright-Erklärungen, Marken, Patente und mehr. 
 ---
 = Rechtliche Hinweise
 :allow-uri-read: 
