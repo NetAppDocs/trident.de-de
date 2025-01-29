@@ -4373,7 +4373,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="49e2b1aa2d6325460e3268f3fac8fd30" category="paragraph">Stellen Sie sicher, dass Sie alle Snapshots und Backups gelöscht haben, die im zugehörigen Bucket gespeichert sind.</block>
   <block id="33850d305da8c5eb949c81e70e40a54d" category="open-title">Entfernen Sie einen AppVault mithilfe der Kubernetes-CLI</block>
   <block id="1921311333af338cd3327c59e3b9a4ab" category="list-text">Entfernen Sie das AppVault-Objekt und ersetzen Sie<block ref="c57e6773097b6f688f96a88c56c16d47" prefix=" " category="inline-code"></block> es durch den Namen des zu entfernenden AppVault-Objekts:</block>
-  <block id="cec4e9b4984eb35ca6068b0c9dcd5aa7" category="open-title">Entfernen Sie einen AppVault mithilfe der Trident-CLI</block>
   <block id="6c4ae71603666b23d3e05193118a3147" category="summary">Sie können den Befehl protectctctcttl verwenden, um benutzerdefinierte Trident Protect-Ressourcen zu erstellen und mit ihnen zu interagieren.</block>
   <block id="40e0842217cf3fc8b760cbd68cc14a76" category="doc">Installieren Sie das Trident Protect CLI-Plug-in</block>
   <block id="bd0df34f0c12fe6faae3a05dde47f3a9" category="paragraph">Sie können das Befehlszeilenplugin Trident Protect verwenden, das eine Erweiterung des Dienstprogramms Trident ist<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>, um benutzerdefinierte Ressourcen (Trident Protect Custom Resources, CRS) zu erstellen und mit ihnen zu interagieren.</block>
@@ -4398,7 +4397,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="45dba4471beecdb4813778042a6ccfc2" category="list-text">Das heruntergeladene Skript in das Verzeichnis verschieben<block ref="d6ca46a9bae5529cb8e845fb419ba1e0" prefix=" " category="inline-code"></block>:</block>
   <block id="e2f12f24108169a5ab9aa9923f95a468" category="list-text">Fügen Sie der Datei im Home-Verzeichnis folgende Zeile hinzu<block ref="f0f9c4057b7322a99704208706a05ba7" prefix=" " category="inline-code"></block>:</block>
   <block id="8eea62084ca7e541d918e823422bd82e" category="paragraph-title">Ergebnis</block>
-  <block id="a2290b3f31cfd85a3e9ff7885be716a7" category="paragraph">Bei Ihrer nächsten Shell-Anmeldung können Sie den Befehl Auto-Vervollständigung mit dem tridentctl Protect-Plugin verwenden.</block>
   <block id="7b6672be7a52979b1357ccc3d2a45f8a" category="summary">Mit Trident Protect können Administratoren Bundles erstellen, die für die Unterstützung von NetApp nützliche Informationen enthalten, einschließlich Protokollen, Kennzahlen und Topologieinformationen zu den zu managenden Clustern und Apps. Wenn Sie mit dem Internet verbunden sind, können Sie Supportpakete mithilfe einer benutzerdefinierten Ressourcendatei (CR) auf die NetApp-Support-Website (NSS) hochladen.</block>
   <block id="e984343e441956b7136d09919877b5ab" category="open-title">Erstellen Sie mithilfe eines CR-Systems ein Supportpaket</block>
   <block id="dd942fa25b8e28c96c8d05e37b0f157e" category="list-text">Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie (z. B.<block ref="699c503b46d4ca3ec78905dff3704cac" prefix=" " category="inline-code"></block>).</block>
@@ -4520,7 +4518,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="1326c499c45cd471c6075891c6573130" category="list-text">Nachdem Sie die Datei mit den richtigen Werten ausgefüllt<block ref="8b0c6e1f32e0c117335dedae62b11dba" prefix=" " category="inline-code"></block> haben, wenden Sie den CR an:</block>
   <block id="6bb2ab2bbc2b0f3f5faec961628f6f4b" category="open-title">Erstellen Sie einen Zeitplan über die CLI</block>
   <block id="95e2bfc6f531a05575927e45b0a34558" category="list-text">Erstellen Sie den Schutzplan und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:</block>
-  <block id="7f0d505baa6b3480c3d32ad1383aa91c" category="admonition">Mit können<block ref="d37e701d9d74e65c6aded6370cecbd15" prefix=" " category="inline-code"></block> Sie detaillierte Hilfeinformationen für diesen Befehl anzeigen.</block>
   <block id="efb44cfe1d5b8d9954ea045385675c66" category="section-title">Löschen Sie einen Snapshot</block>
   <block id="a37bf6328466dc531288498c6041de5f" category="paragraph">Löschen Sie die geplanten oder On-Demand Snapshots, die Sie nicht mehr benötigen.</block>
   <block id="3eb928cdf7a13317d47b6aff6e1777bc" category="list-text">Entfernen Sie den Snapshot CR, der dem Snapshot zugeordnet ist:</block>
@@ -5023,4 +5020,7 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="9f83417f7d6c999c56b0dcc3b274be23" category="list-text">Füllen Sie die Datei entsprechend den Anforderungen Ihrer Umgebung mit Optionen für die Ressourcenbegrenzung für Trident Container.</block>
   <block id="816f46c4a8435f7f0f1498054f254865" category="paragraph">Die folgende Beispielkonfigurationsdatei zeigt die verfügbaren Einstellungen und enthält die Standardvaules für jedes Ressourcenlimit:</block>
   <block id="956fe3fe2ad4f9cb1b569d66b4ff1db5" category="list-text">Anwenden der Werte aus der<block ref="e66ad8c89b28dc43a24e6e1689a79cdc" prefix=" " category="inline-code"></block> Datei:</block>
+  <block id="a4af4e386bb379977acdb5a465780149" category="open-title">Entfernen Sie einen AppVault mithilfe der Trident Protect-CLI</block>
+  <block id="7bbf9a1a0bbcbeb6a4fef133c3975079" category="paragraph">Bei Ihrer nächsten Shell-Anmeldung können Sie den Befehl Auto-Vervollständigung mit dem tridentctl-Protect-Plugin verwenden.</block>
+  <block id="0708d6413707329d6051a0456f0810ac" category="admonition">Mit können<block ref="deb04333ae980bc0147681e476e1941c" prefix=" " category="inline-code"></block> Sie detaillierte Hilfeinformationen für diesen Befehl anzeigen.</block>
 </blocks>

@@ -104,7 +104,7 @@ Sie können die integrierten Plug-in-Hilfefunktionen nutzen, um detaillierte Hil
 +
 [source, console]
 ----
-tridentctl protect help
+tridentctl-protect help
 ----
 
 
@@ -178,4 +178,4 @@ source ~/.zsh/completions/tridentctl-completion.zsh
 --
 ====
 .Ergebnis
-Bei Ihrer nächsten Shell-Anmeldung können Sie den Befehl Auto-Vervollständigung mit dem tridentctl Protect-Plugin verwenden.
+Bei Ihrer nächsten Shell-Anmeldung können Sie den Befehl Auto-Vervollständigung mit dem tridentctl-Protect-Plugin verwenden.
