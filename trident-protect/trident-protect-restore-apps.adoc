@@ -102,7 +102,7 @@ In der folgenden Tabelle wird der Status des Beispiel-Ziel-Namespace nach der Wi
 
 == Wiederherstellung aus einem Backup in einem anderen Namespace
 
-Wenn Sie ein Backup mit einem Backup Restore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her. Die wiederhergestellte Anwendung ist jedoch nicht automatisch durch Trident Protect geschützt. Um die wiederhergestellte Anwendung zu schützen, müssen Sie eine Anwendungs-CR für die wiederhergestellte Anwendung erstellen, damit sie durch Trident Protect geschützt wird.
+Wenn Sie ein Backup mit einem Backup Restore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her und erstellt eine Anwendungs-CR für die wiederhergestellte Anwendung. Erstellen Sie zum Schutz der wiederhergestellten Applikation On-Demand-Backups oder Snapshots oder erstellen Sie einen Sicherungszeitplan.
 
 
 NOTE: Wenn Sie ein Backup in einem anderen Namespace mit vorhandenen Ressourcen wiederherstellen, werden keine Ressourcen verändert, die Namen mit denen im Backup teilen. Um alle Ressourcen im Backup wiederherzustellen, löschen Sie entweder den Ziel-Namespace und erstellen Sie ihn neu, oder stellen Sie das Backup in einem neuen Namespace wieder her.
@@ -314,7 +314,7 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 == Wiederherstellung von einem Snapshot in einem anderen Namespace
 
-Sie können Daten aus einem Snapshot mithilfe einer benutzerdefinierten Ressourcendatei (CR) entweder in einem anderen Namespace oder im ursprünglichen QuellNamespace wiederherstellen. Wenn Sie einen Snapshot mithilfe eines SnapshotRestore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her, aber die wiederhergestellte Anwendung wird nicht automatisch durch Trident Protect geschützt. Um die wiederhergestellte Anwendung zu schützen, müssen Sie eine Anwendungs-CR für die wiederhergestellte Anwendung erstellen, damit sie durch Trident Protect geschützt wird.
+Sie können Daten aus einem Snapshot mithilfe einer benutzerdefinierten Ressourcendatei (CR) entweder in einem anderen Namespace oder im ursprünglichen QuellNamespace wiederherstellen. Wenn Sie einen Snapshot mithilfe eines SnapshotRestore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her und erstellt eine Anwendungs-CR für die wiederhergestellte Anwendung. Erstellen Sie zum Schutz der wiederhergestellten Applikation On-Demand-Backups oder Snapshots oder erstellen Sie einen Sicherungszeitplan.
 
 [role="tabbed-block"]
 ====
