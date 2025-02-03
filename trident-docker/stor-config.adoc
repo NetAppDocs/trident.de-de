@@ -311,7 +311,8 @@ Weitere Informationen zum Erstellen benutzerdefinierter Trident-Rollen finden Si
 
 . Erstellen Sie einen Benutzernamen für den Trident-Benutzer:
 +
-`security login create -username <user_name\> -application ontapi -authmethod <password\> -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
 
 . Ordnen Sie die Rolle dem Benutzer zu:
 +

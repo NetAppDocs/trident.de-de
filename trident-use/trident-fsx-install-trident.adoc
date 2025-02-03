@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/trident-fsx-install-trident.html 
-keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident add-on, Astra Trident EKS add-on, Trident AWS EKS add-on 
+keywords: Amazon FSx for NetApp ONTAP, FSx for ONTAP, deploy Trident, integrate Trident, Trident add-on, Trident EKS add-on, Trident AWS EKS add-on 
 summary: 'Durch den Einsatz von Astra Trident mit Amazon FSX for NetApp ONTAP stellen Sie sicher, dass Ihre Kubernetes-Cluster, die in Amazon Elastic Kubernetes Service (EKS) ausgeführt werden, persistente Block- und dateibasierte Volumes mit ONTAP bereitstellen können.' 
 ---
-= Installation Von Astra Trident
+= Installation Von Trident
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,9 +12,9 @@ summary: 'Durch den Einsatz von Astra Trident mit Amazon FSX for NetApp ONTAP st
 
 
 [role="lead"]
-Astra Trident optimiert das Amazon FSX für NetApp ONTAP Storage-Management in Kubernetes, damit sich Ihre Entwickler und Administratoren voll und ganz auf den Applikationseinsatz konzentrieren können.
+Trident optimiert das Amazon FSX für NetApp ONTAP Storage-Management in Kubernetes, damit sich Ihre Entwickler und Administratoren voll und ganz auf den Applikationseinsatz konzentrieren können.
 
-Sie können Astra Trident über eine der folgenden Methoden installieren:
+Sie können Trident mit einer der folgenden Methoden installieren:
 
 * Helm
 * EKS-Add-on
@@ -26,11 +26,11 @@ If you want to make use of the snapshot functionality, install the CSI snapshot 
 ----
 
 
-== Astra Trident über Helm installieren
+== Trident über Helm installieren
 
-. Laden Sie das Astra Trident Installer-Paket herunter
+. Laden Sie das Trident-Installationspaket herunter
 +
-Das Astra Trident Installationspaket enthält alles, was Sie für die Bereitstellung des Trident-Operators und die Installation von Astra Trident benötigen. Laden Sie die neueste Version des Astra Trident Installers aus dem Bereich „Assets“ auf GitHub herunter und extrahieren Sie sie.
+Das Trident-Installationspaket enthält alles, was Sie für die Bereitstellung des Trident-Bedieners und die Installation von Trident benötigen. Laden Sie die neueste Version des Trident-Installers herunter und extrahieren Sie sie aus dem Abschnitt „Assets“ auf GitHub.
 `wget https://github.com/NetApp/trident/releases/download/v24.10.0/trident-installer-24.10.0.tar.gz`
 `tar -xf trident-installer-24.10.0.tar.gz`
 `cd trident-installer`
@@ -41,7 +41,7 @@ Das Astra Trident Installationspaket enthält alles, was Sie für die Bereitstel
 `export CI="'eks.amazonaws.com/role-arn: arn:aws:iam::<accountID>:role/<AmazonEKS_FSxN_CSI_DriverRole>'"`
 
 +
-Das folgende Beispiel installiert Astra Trident und setzt das `cloud-provider` Flag auf `$CP`, und `cloud-identity` auf `$CI`:
+Das folgende Beispiel installiert Trident und setzt das `cloud-provider` Flag auf `$CP`, und `cloud-identity` auf `$CI`:
 
 +
 [listing]
@@ -67,15 +67,15 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 
 
 
-== Astra Trident über das EKS-Add-on installieren
+== Installieren Sie Trident über das EKS-Add-on
 
-Das Add-on für Astra Trident EKS enthält die neuesten Sicherheits-Patches und Bug Fixes. Es wurde von AWS für die Zusammenarbeit mit Amazon EKS validiert. Mit dem EKS-Add-on können Sie sicherstellen, dass Ihre Amazon EKS-Cluster sicher und stabil sind und den Arbeitsaufwand für die Installation, Konfiguration und Aktualisierung von Add-Ons verringern.
+Das Trident EKS Add-on enthält die neuesten Sicherheitspatches und Bug Fixes. Es wurde von AWS für die Zusammenarbeit mit Amazon EKS validiert. Mit dem EKS-Add-on können Sie sicherstellen, dass Ihre Amazon EKS-Cluster sicher und stabil sind und den Arbeitsaufwand für die Installation, Konfiguration und Aktualisierung von Add-Ons verringern.
 
 
 
 === Voraussetzungen
 
-Stellen Sie vor dem Konfigurieren des Astra Trident Add-ons für AWS EKS sicher, dass folgende Voraussetzungen erfüllt sind:
+Stellen Sie sicher, dass folgende Voraussetzungen erfüllt sind, bevor Sie das Trident Add-on für AWS EKS konfigurieren:
 
 * Ein Amazon EKS Cluster-Konto mit Add-on-Abonnement
 * AWS Berechtigungen für den AWS Marketplace:
@@ -89,13 +89,13 @@ Stellen Sie vor dem Konfigurieren des Astra Trident Add-ons für AWS EKS sicher,
 
 
 
-=== Aktivieren Sie das Astra Trident Add-on für AWS
+=== Aktivieren Sie das Trident Add-on für AWS
 
 [role="tabbed-block"]
 ====
 .EKS-Cluster
 --
-Im folgenden Beispiel wird das Add-on für Astra Trident EKS installiert:
+Mit den folgenden Beispielbefehlen wird das Trident EKS Add-On installiert:
 
 `eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild`
 `eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` (Mit einer dedizierten Version)
@@ -148,7 +148,7 @@ add-on.json
    "cloudProvider": "AWS"}"
 }
 ----
-. Astra Trident EKS-Add-On installieren“
+. Trident EKS-Add-On installieren“
 +
 `aws eks create-addon --cli-input-json file://add-on.json`
 
@@ -158,7 +158,7 @@ add-on.json
 ====
 
 
-=== Aktualisieren Sie das Astra Trident EKS-Add-on
+=== Aktualisieren Sie das Trident EKS-Add-On
 
 [role="tabbed-block"]
 ====
@@ -212,7 +212,7 @@ Im folgenden Beispiel wird das EKS-Add-on aktualisiert:
 ====
 
 
-=== Deinstallieren Sie das Astra Trident EKS-Add-On bzw. entfernen Sie es
+=== Deinstallieren Sie das Trident EKS-Add-On bzw. entfernen Sie es
 
 Sie haben zwei Optionen zum Entfernen eines Amazon EKS-Add-ons:
 
@@ -227,7 +227,7 @@ NOTE: Wenn dem Add-On ein IAM-Konto zugeordnet ist, wird das IAM-Konto nicht ent
 ====
 .EKS-Cluster
 --
-Mit dem folgenden Befehl wird das Astra Trident EKS Add-On deinstalliert:
+Mit dem folgenden Befehl wird das Trident EKS-Add-On deinstalliert:
 `eksctl delete addon --cluster K8s-arm --name netapp_trident-operator`
 
 --
@@ -236,7 +236,7 @@ Mit dem folgenden Befehl wird das Astra Trident EKS Add-On deinstalliert:
 . Öffnen Sie die Amazon EKS Konsole unter https://console.aws.amazon.com/eks/home#/clusters[].
 . Klicken Sie im linken Navigationsbereich auf *Cluster*.
 . Klicken Sie auf den Namen des Clusters, für den Sie das NetApp Trident-CSI-Add-On entfernen möchten.
-. Klicken Sie auf die Registerkarte *Add-ons* und dann auf *Astra Trident by NetApp*.*
+. Klicken Sie auf die Registerkarte *Add-ons* und dann auf *Trident by NetApp*.*
 . Klicken Sie Auf *Entfernen*.
 . Gehen Sie im Dialogfeld *Remove netapp_Trident-Operator confirmation* wie folgt vor:
 +

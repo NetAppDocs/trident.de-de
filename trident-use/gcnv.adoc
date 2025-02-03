@@ -44,8 +44,9 @@ Die Cloud-Identität ermöglicht Kubernetes-Pods den Zugriff auf Google Cloud-Re
 Um die Vorteile der Cloud-Identität in Google Cloud zu nutzen, müssen Sie über folgende Voraussetzungen verfügen:
 
 * Ein mit GKE implementierter Kubernetes-Cluster.
-* Workload-Identität und oidc-Issuer auf dem GKE-Cluster konfiguriert.
-* Trident wurde installiert, das die zum Angeben `"GCP"` und `cloudIdentity` Angeben der Workload-Identität enthält `cloudProvider`.
+* Auf dem GKE-Cluster konfigurierte Workload-Identität und auf den Node-Pools konfigurierten GKE-Metadatenserver.
+* Ein GCP-Service-Konto mit der Google Cloud NetApp Volumes Admin-Rolle (Rollen/NetApp.admin) oder einer benutzerdefinierten Rolle.
+* Trident installiert, das den CloudProvider enthält, um „GCP“ und CloudIdentity anzugeben, die das neue GCP-Dienstkonto angeben. Ein Beispiel ist unten angegeben.
 +
 [role="tabbed-block"]
 ====
