@@ -7,7 +7,7 @@ summary: Rechtliche Hinweise ermöglichen den Zugriff auf Copyright-Erklärungen
 = Rechtliche Hinweise
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
