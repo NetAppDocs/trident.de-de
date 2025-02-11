@@ -25,7 +25,7 @@ Vor der Installation von Trident sollten Sie die folgenden allgemeinen Systemanf
 ====
 []
 =====
-* Kubernetes 1.31 wird jetzt in Trident unterstützt. Upgrade von Trident vor dem Upgrade von Kubernetes.
+* Kubernetes 1.32 wird jetzt in Trident unterstützt. Upgrade von Trident vor dem Upgrade von Kubernetes.
 * Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
@@ -41,7 +41,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, darunter:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.25–1.31
+* Kubernetes 1.25–1.32
 * OpenShift 4.10 - 4.17
 * Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1
 
@@ -49,7 +49,7 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 Der Trident-Operator wird durch folgende Versionen unterstützt:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.25–1.31
+* Kubernetes 1.25–1.32
 * OpenShift 4.10 - 4.17
 * Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1
 
@@ -88,56 +88,56 @@ Die folgende Tabelle bietet einen Überblick über die mit dieser Version von Tr
 
 
 | Trident  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | Volume Snapshots  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | PVC aus Volume Snapshots  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | ISCSI PV-Größe  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | Bidirektionales ONTAP-CHAP  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | Dynamische Exportrichtlinien  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | Trident Operator  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
 
 
 | CSI-Topologie  a| 
-1.25 - 1.31
+1,25 - 1,32
  a| 
 Nein
 
@@ -197,7 +197,7 @@ Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz 
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0  a| 
+| v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0 v1.30.0, v1.31.0, v1.32.0  a| 
 * docker.io/netapp/Trident:24.10.0
 * docker.io/netapp/Trident-AutoSupport:24.10
 * Registry.k8s.io/SIG-Storage/csi-provisioner:v5.1.0
