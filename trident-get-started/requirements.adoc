@@ -71,7 +71,7 @@ Um Trident verwenden zu können, benötigen Sie eines oder mehrere der folgenden
 * Azure NetApp Dateien
 * Cloud Volumes ONTAP
 * Google Cloud NetApp Volumes
-* FAS/All Flash FAS/Select 9.5 oder höher
+* FAS/AFF/Select
 * NetApp All-SAN-Array (ASA)
 * NetApp HCI/Element Software 11 oder höher
 

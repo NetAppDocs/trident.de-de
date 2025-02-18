@@ -1892,7 +1892,6 @@
   <block id="dd341f866eaefb939dc86608773c909d" category="section-title">Wechseln zwischen den Installationsmethoden</block>
   <block id="84dfae02381a00cf11d01c571e3e3e0f" category="paragraph">Sie können sich entscheiden, Ihre Installationsmethode zu ändern. Bevor Sie dies tun, sollten Sie folgendes bedenken:</block>
   <block id="e77325ac6e155cf5d14c756f1d64333f" category="list-text">Wenn Sie über eine manuelle, bedienerbasierte Implementierung verfügen und die Helm-basierte Trident Operator-Implementierung verwenden möchten, sollten Sie zuerst den Operator manuell deinstallieren und dann die Helm-Installation durchführen. So kann Helm den Trident-Operator mit den erforderlichen Beschriftungen und Anmerkungen implementieren. Wenn dies nicht der Fall ist, schlägt die Bereitstellung des Helm-basierten Trident-Operators mit einem Fehler bei der Labelvalidierung und einem Validierungsfehler bei der Annotation fehl. Wenn Sie eine haben<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block>-Basierte Bereitstellung, können Sie Helm-basierte Implementierung nutzen, ohne Probleme zu verursachen.</block>
-  <block id="0ffed9ae8c0b8e64c5dc8cba81c4fe34" category="list-text">FAS/All Flash FAS/Select 9.5 oder höher</block>
   <block id="f36d25716a4b2c466ddcb8065bef3ae6" category="paragraph"><block ref="f36d25716a4b2c466ddcb8065bef3ae6" category="inline-link-macro-rx"></block></block>
   <block id="50823ee9226376c44bfb71c334ee2f3f" category="paragraph"><block ref="50823ee9226376c44bfb71c334ee2f3f" category="inline-link-macro-rx"></block></block>
   <block id="44e21d73aa8bd7200fceac6671723524" category="doc">Manuelles Bereitstellen des Trident-Mitarbeiters (Offline-Modus)</block>
@@ -5199,4 +5198,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="053aba80de03f3fdf626d1c858342330" category="list-text">Stellen Sie die Anwendung mithilfe des AppVault-Namens und Archivpfads auf dem Zielcluster wieder her:</block>
   <block id="fceebbe32c1f7b24c54d6a4e8a0fa776" category="admonition">Wenn BackupRestore CR nicht verfügbar ist, können Sie den in Schritt 2 genannten Befehl verwenden, um den Inhalt des Backups anzuzeigen.</block>
   <block id="4ef55c1fec2de9218af40d16cbc021a4" category="list-text">Verwenden Sie den folgenden Befehl, um die Anwendung wiederherzustellen und Werte in Klammern durch Informationen aus Ihrer Umgebung zu ersetzen. Das Namespace-Mapping-Argument verwendet durch Doppelpunkte getrennte Namespaces, um Quellnamepaces im Format source1:dest1,source2:dest2 den korrekten Zielnamepaces zuzuordnen. Beispiel:</block>
+  <block id="e0020bd4ebab101e8b128426eb7025bd" category="list-text">FAS/AFF/Select</block>
+  <block id="fcabe507223b9ffe86d4048df99d8ee5" category="paragraph">ISCSI SCSI über FC (technische Vorschau in Trident 24.10)</block>
 </blocks>

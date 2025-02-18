@@ -26,7 +26,7 @@ Trident stellt die folgenden SAN-Speichertreiber für die Kommunikation mit dem 
 
 
 | `ontap-san`  a| 
-ISCSI
+ISCSI SCSI über FC (technische Vorschau in Trident 24.10)
  a| 
 Block-Storage
  a| 
@@ -37,7 +37,7 @@ Kein Filesystem, rohes Block-Gerät
 
 
 | `ontap-san`  a| 
-ISCSI
+ISCSI SCSI über FC (technische Vorschau in Trident 24.10)
  a| 
 Dateisystem
  a| 
