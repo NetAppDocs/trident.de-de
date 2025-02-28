@@ -54,7 +54,7 @@ Optionale Einschränkung von Volume-Größen. Standard: „“ (nicht erzwungen)
 
 |===
 
-TIP: Verwenden Sie es nicht `storagePrefix` (Einschließlich Standard) für Element-Back-Ends. Standardmäßig wird der verwendet `solidfire-san` Der Treiber ignoriert diese Einstellung und verwendet kein Präfix. Wir empfehlen die Verwendung einer bestimmten TenantID für die Docker Volume-Zuordnung oder die Verwendung der Attributdaten, die mit der Docker-Version, den Treiber-Informationen und dem Raw-Namen aus Docker gefüllt sind, in Fällen, in denen Namensnennung verwendet wurde.
+TIP: Verwenden Sie (einschließlich der Standardeinstellung) keine `storagePrefix` Back-Ends für Elemente. Standardmäßig ignoriert der `solidfire-san` Treiber diese Einstellung und verwendet kein Präfix. NetApp empfiehlt die Verwendung einer bestimmten TenantID für die Docker-Volume-Zuordnung oder der Attributdaten, die mit der Docker-Version, der Treiberinfo und dem Rohnamen aus Docker gefüllt sind, falls eventuell Namenspunk verwendet wurden.
 
 Es stehen Standardoptionen zur Verfügung, damit Sie sie nicht für jedes erstellte Volume angeben müssen. Der `size` Die Option ist für alle Controller-Typen verfügbar. Im Abschnitt zur ONTAP-Konfiguration finden Sie ein Beispiel dafür, wie Sie die Standard-Volume-Größe festlegen.
 
@@ -90,9 +90,9 @@ IP-Adresse des ONTAP Management LIF. Sie können einen vollqualifizierten Domän
 | `dataLIF`  a| 
 IP-Adresse des LIF-Protokolls.
 
-*ONTAP NAS Treiber*: Wir empfehlen die Angabe `dataLIF`. Falls nicht bereitgestellt, ruft Trident die Daten-LIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Damit können Sie ein Round-Robin-DNS zum Load-Balancing über mehrere Daten-LIFs erstellen.
+*ONTAP NAS Treiber*: NetApp empfiehlt die Angabe `dataLIF`. Falls nicht bereitgestellt, ruft Trident die Daten-LIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Damit können Sie ein Round-Robin-DNS zum Load-Balancing über mehrere Daten-LIFs erstellen.
 
-*ONTAP-SAN-Treiber*: Geben Sie nicht für iSCSI an. Trident verwendetlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP selektive LUN-Zuordnung"^], um die für die Einrichtung einer Multi-Path-Sitzung erforderlichen iSCI LIFs zu ermitteln. Eine Warnung wird erzeugt, wenn `dataLIF` explizit definiert ist.
+*ONTAP SAN-Treiber*: Nicht für iSCSI oder FC angeben. Trident verwendet link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP selektive LUN-Zuordnung"^] zur Erkennung der für eine Multi-Path-Sitzung erforderlichen iSCSI oder FC LIFs. Eine Warnung wird erzeugt, wenn `dataLIF` explizit definiert ist.
  a| 
 `10.0.0.2`
 
@@ -169,7 +169,7 @@ Maximale Anzahl der qtrees pro FlexVol, die im Bereich [50, 300] liegen müssen,
 
  a| 
 `sanType`
-| *Nur für Treiber unterstützt `ontap-san`.* Verwenden Sie diese Option, um für iSCSI, `nvme` für NVMe/TCP oder `fcp` für SCSI über Fibre Channel (FC) auszuwählen `iscsi`. *'fcp' (SCSI over FC) ist ein Tech Preview Feature in der Trident 24.10 Version.* | `iscsi` Falls leer 
+| *Nur für Treiber unterstützt `ontap-san`.* Verwenden Sie diese Option, um für iSCSI, `nvme` für NVMe/TCP oder `fcp` für SCSI über Fibre Channel (FC) auszuwählen `iscsi`. | `iscsi` Falls leer 
 
 
 | `limitVolumePoolSize` | * `ontap-san-economy` `ontap-san-economy`Nur für und Treiber unterstützt.* Begrenzung der FlexVol-Größe bei den wirtschaftlichen Faktoren ONTAP ONTAP-nas und ONTAP-SAN  a| 
@@ -260,7 +260,7 @@ SAN-Option zum Auswählen des Dateisystemtyps, standardmäßig auf `ext4`
 
 
 | `tieringPolicy`  a| 
-Zu verwendende Tiering-Richtlinie, Standard ist `none`; `snapshot-only` Für Konfiguration vor ONTAP 9.5 SVM-DR
+Zu verwendende Tiering-Richtlinie, Standardwert ist `none`.
  a| 
 `none`
 
@@ -269,16 +269,16 @@ Zu verwendende Tiering-Richtlinie, Standard ist `none`; `snapshot-only` Für Kon
 
 === Skalierungsoptionen
 
-Der `ontap-nas` Und `ontap-san` Treiber erstellen für jedes Docker Volume eine ONTAP FlexVol. ONTAP unterstützt bis zu 1000 FlexVols pro Cluster Node mit einem Cluster maximal 12,000 FlexVols. Wenn die Anforderungen für das Docker Volume diesen Anforderungen entsprechen, wird der angezeigt `ontap-nas` Aufgrund der zusätzlichen Funktionen von FlexVols, wie dem granularen Docker-Volume-Snapshot und Klonen, ist der Treiber die bevorzugte NAS-Lösung.
+Die `ontap-nas` Treiber und `ontap-san` erstellen eine ONTAP FlexVol für jedes Docker Volume. ONTAP unterstützt bis zu 1000 FlexVols pro Cluster-Node mit einem Cluster von maximal 12,000 FlexVol Volumes. Wenn die Anforderungen Ihres Docker Volumes diese Einschränkung erfüllen, ist der Treiber aufgrund der zusätzlichen Funktionen von FlexVols `ontap-nas`, wie Snapshots auf Docker Volume-Ebene und Klonen, die bevorzugte NAS-Lösung.
 
 Wenn Sie mehr Docker Volumes benötigen, als durch die FlexVol-Limits unterstützt werden können, wählen Sie die Option `ontap-nas-economy` Oder im `ontap-san-economy` Treiber.
 
-Der `ontap-nas-economy` Der Treiber erstellt Docker Volumes als ONTAP qtrees innerhalb eines Pools automatisch verwalteter FlexVols. Qtrees bieten eine wesentlich größere Skalierung – bis zu 100,000 pro Cluster-Node und 2,400,000 pro Cluster – zu Lasten einiger Funktionen. Der `ontap-nas-economy` Der Treiber unterstützt keine granularen Snapshots oder Klone von Docker Volumes.
+Der `ontap-nas-economy` Treiber erstellt Docker Volumes als ONTAP Qtrees in einem Pool automatisch gemanagter FlexVol Volumes Qtrees bieten eine wesentlich größere Skalierbarkeit auf bis zu 100,000 pro Cluster-Node und 2,400,000 pro Cluster, auf Kosten einiger Funktionen.  `ontap-nas-economy`Snapshots oder Klonen mit granularem Docker Volume werden vom Treiber nicht unterstützt.
 
 
 NOTE: Der `ontap-nas-economy` Treiber wird derzeit in Docker Swarm nicht unterstützt, da Swarm die Volume-Erstellung nicht über mehrere Nodes hinweg orchestriert.
 
-Der `ontap-san-economy` Der Treiber erstellt Docker Volumes als ONTAP LUNs in einem gemeinsamen Pool automatisch verwalteter FlexVols. Somit ist jede FlexVol nicht auf nur eine LUN beschränkt und bietet eine bessere Skalierbarkeit für SAN-Workloads. Je nach Storage Array unterstützt ONTAP bis zu 16384 LUNs pro Cluster. Da es sich bei den Volumes um LUNs handelt, unterstützt dieser Treiber granulare Docker Snapshots und Klone.
+Der `ontap-san-economy` Treiber erstellt Docker Volumes als ONTAP LUNs innerhalb eines gemeinsamen Pools von automatisch gemanagten FlexVol Volumes. Auf diese Weise ist jede FlexVol nicht auf eine LUN beschränkt und bietet eine bessere Skalierbarkeit für SAN-Workloads. Je nach Storage Array unterstützt ONTAP bis zu 16384 LUNs pro Cluster. Da es sich bei den Volumes um LUNs handelt, unterstützt dieser Treiber granulare Docker Snapshots und Klone.
 
 Wählen Sie den `ontap-nas-flexgroup` Treiber, um die Parallelität zu einem einzelnen Volume zu erhöhen, das bis in den Petabyte-Bereich mit Milliarden von Dateien anwachsen kann. Zu den idealen Anwendungsfällen für FlexGroups gehören KI/ML/DL, Big Data und Analysen, Softwareentwicklung, Streaming, Datei-Repositorys und so weiter. Trident verwendet bei der Bereitstellung eines FlexGroup Volumes alle Aggregate, die einer SVM zugewiesen sind. Die Unterstützung von FlexGroup in Trident muss darüber hinaus Folgendes beachtet werden:
 
@@ -467,6 +467,24 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
   "username":"vsadmin",
   "password":"password",
   "sanType": "nvme",
+  "useREST": true
+}
+----
+====
+.SCSI über FC-Beispiel für <code> ONTAP-</code>-Treiber
+[%collapsible]
+====
+[listing]
+----
+{
+  "version": 1,
+  "backendName": "ontap-san-backend",
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "sanType": "fcp",
+  "svm": "trident_svm",
+  "username":"vsadmin",
+  "password":"password",
   "useREST": true
 }
 ----

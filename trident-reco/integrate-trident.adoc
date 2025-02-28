@@ -49,10 +49,10 @@ Beachten Sie, dass in den folgenden Tabellen nicht alle Funktionen über Trident
 | `ontap-nas` | Ja. | Ja. | Yesfootnote:5[] | Ja. | Yesfootnote:1[] | Ja. | Yesfootnote:1[] 
 
 
-| `ontap-nas-economy` | Yesfootnote:3[] | Yesfootnote:3[] | Yesfootnote:5[] | Ja. | Yesfootnote:3[] | Ja. | Yesfootnote:3[] 
+| `ontap-nas-economy` | NOfootnote:3[] | NOfootnote:3[] | Yesfootnote:5[] | Ja. | NOfootnote:3[] | Ja. | NOfootnote:3[] 
 
 
-| `ontap-nas-flexgroup` | Yesfootnote:1[] | Nein | Yesfootnote:5[] | Ja. | Yesfootnote:1[] | Ja. | Yesfootnote:1[] 
+| `ontap-nas-flexgroup` | Yesfootnote:1[] | NEIN | Yesfootnote:5[] | Ja. | Yesfootnote:1[] | Ja. | Yesfootnote:1[] 
 |===
 Trident bietet 2 SAN-Treiber für ONTAP an, deren Funktionen unten dargestellt sind.
 
@@ -64,10 +64,10 @@ Trident bietet 2 SAN-Treiber für ONTAP an, deren Funktionen unten dargestellt s
 | `ontap-san` | Ja. | Ja. | Yesfootnote:4[] | Ja. | Yesfootnote:1[] | Ja. | Yesfootnote:1[] 
 
 
-| `ontap-san-economy` | Ja. | Ja. | Yesfootnote:4[] | Ja. | Yesfootnote:3[] | Ja. | Yesfootnote:3[] 
+| `ontap-san-economy` | Ja. | Ja. | Yesfootnote:4[] | Ja. | NOfootnote:3[] | Ja. | NOfootnote:3[] 
 |===
 [verse]
-Fußnote für die obigen Tabellen: Yesfootnote:1[]: Nicht von Trident verwaltet Yesfootnote:2[]: Verwaltet von Trident, aber nicht von PV granular Yesfootnote:3[]: Nicht von Trident verwaltet und nicht von PV granular Yesfootnote:4[]: Unterstützt für RAW-Block-Volumes Yesfootnote:5[]: Unterstützt von Trident
+Fußnote für die obigen Tabellen: Yesfootnote:1[]: Nicht von Trident verwaltet Yesfootnote:2[]: Verwaltet von Trident, aber nicht von PV granular NOfootnote:3[]: Nicht von Trident verwaltet und nicht von PV granular Yesfootnote:4[]: Unterstützt für RAW-Block-Volumes Yesfootnote:5[]: Unterstützt von Trident
 
 Die Funktionen, die keine PV-Granularität sind, werden auf das gesamte FlexVolume angewendet, und alle PVs (also qtrees oder LUNs in gemeinsam genutzten FlexVols) teilen einen gemeinsamen Zeitplan.
 
@@ -247,7 +247,7 @@ Eine Anfrage nach einem ReadWriteManche PVC, die an eine Trident-Implementierung
 Persistente Volumes sind mit zwei Ausnahmen unveränderliche Objekte in Kubernetes. Sobald die Rückgewinnungsrichtlinie erstellt wurde, kann die Größe geändert werden. Dies hindert jedoch nicht daran, einige Aspekte des Volumes außerhalb von Kubernetes zu ändern. Das kann durchaus wünschenswert sein, wenn das Volume für spezifische Applikationen angepasst werden soll, um sicherzustellen, dass die Kapazität nicht versehentlich verbraucht wird oder das Volume einfach aus irgendeinem Grund auf einen anderen Storage Controller verschoben werden kann.
 
 
-NOTE: Kubernetes-in-Tree-Provisioners unterstützen derzeit keine Vorgänge zur Größenanpassung von Volumes für NFS oder iSCSI PVS. Trident unterstützt die Erweiterung von NFS- und iSCSI-Volumes.
+NOTE: Kubernetes in-Tree-Provisionierer unterstützen derzeit keine Volume-Größenänderungen für NFS, iSCSI oder FC PVs. Trident unterstützt die Erweiterung von NFS-, iSCSI- und FC-Volumes.
 
 Die Verbindungsdetails des PV können nach der Erstellung nicht geändert werden.
 
@@ -277,7 +277,7 @@ Wenn ein Volume an einen anderen Speicherort kopiert wird, kann die Volume-Impor
 
 === Erweitern Sie Volumes
 
-Trident unterstützt die Anpassung von NFS- und iSCSI-PVS. Dadurch können Benutzer ihre Volumes direkt über die Kubernetes-Ebene skalieren. Eine Volume-Erweiterung ist für alle größeren NetApp Storage-Plattformen möglich, einschließlich ONTAP, SolidFire/NetApp HCI und Cloud Volumes Service Back-Ends. Um später eine mögliche Erweiterung zu ermöglichen, setzen Sie `allowVolumeExpansion` in der mit dem Volume verknüpften StorageClass auf `true`. Wenn die Größe des persistenten Volumes geändert werden muss, bearbeiten Sie die `spec.resources.requests.storage` Anmerkung im Persistent Volume Claim auf die erforderliche Volume-Größe. Trident übernimmt automatisch die Anpassung der Größe des Volumes im Storage-Cluster.
+Trident unterstützt die Anpassung von NFS-, iSCSI- und FC-PVS. Dadurch können Benutzer ihre Volumes direkt über die Kubernetes-Ebene skalieren. Eine Volume-Erweiterung ist für alle größeren NetApp Storage-Plattformen möglich, einschließlich ONTAP, SolidFire/NetApp HCI und Cloud Volumes Service Back-Ends. Um später eine mögliche Erweiterung zu ermöglichen, setzen Sie `allowVolumeExpansion` in der mit dem Volume verknüpften StorageClass auf `true`. Wenn die Größe des persistenten Volumes geändert werden muss, bearbeiten Sie die `spec.resources.requests.storage` Anmerkung im Persistent Volume Claim auf die erforderliche Volume-Größe. Trident übernimmt automatisch die Anpassung der Größe des Volumes im Storage-Cluster.
 
 
 
@@ -292,12 +292,6 @@ Verwenden Sie bei Verwendung des `azure-netapp-files` Treibers oder `gcp-cvs` de
 Wenn der obige Befehl ausgeführt wird, findet Trident das Volume auf dem Backend und liest seine Größe. Die Volume-Größe der konfigurierten PVC wird automatisch hinzugefügt (und bei Bedarf überschrieben). Trident erstellt dann das neue PV und Kubernetes bindet die PVC an das PV.
 
 Wenn ein Container so eingesetzt wurde, dass er das spezifische importierte PVC benötigt, bleibt er in einem ausstehenden Zustand, bis das PVC/PV-Paar über den Volumenimport gebunden ist. Nachdem das PVC/PV-Paar gebunden ist, sollte der Behälter aufstehen, sofern keine anderen Probleme auftreten.
-
-
-
-== OpenShift Services implementieren
-
-Die Cluster-Services OpenShift mit großem Mehrwert bieten Clusteradministratoren und den gehosteten Applikationen wichtige Funktionen. Der Storage, den diese Services nutzen, kann mithilfe der Node-lokalen Ressourcen bereitgestellt werden. Dadurch wird jedoch häufig die Kapazität, Performance, Wiederherstellbarkeit und die Nachhaltigkeit des Service begrenzt. Die Nutzung eines Enterprise-Speicher-Arrays zur Bereitstellung der Kapazität für diese Services kann einen erheblich verbesserten Service ermöglichen. OpenShift und die Speicheradministratoren sollten jedoch eng zusammenarbeiten, um die besten Optionen für die einzelnen zu bestimmen. Die Red hat-Dokumentation sollte intensiv genutzt werden, um die Anforderungen zu ermitteln und sicherzustellen, dass die Anforderungen hinsichtlich Größe und Leistung erfüllt werden.
 
 
 

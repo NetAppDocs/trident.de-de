@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/ontap-san-prep.html 
-keywords: trident backend, ontap san, ontap-san, ontap-san-economy 
+keywords: trident backend, ontap san, ontap-san, ontap-san-economy, asa r2 
 summary: Erfahren Sie, wie Sie ein ONTAP-Back-End mit ONTAP-SAN-Treibern vorbereiten. 
 ---
 = Vorbereiten der Konfiguration des Back-End mit ONTAP-SAN-Treibern
@@ -14,11 +14,16 @@ summary: Erfahren Sie, wie Sie ein ONTAP-Back-End mit ONTAP-SAN-Treibern vorbere
 [role="lead"]
 Verstehen Sie die Anforderungen und Authentifizierungsoptionen für die Konfiguration eines ONTAP-Backends mit ONTAP-SAN-Treibern.
 
+Ab Version 25.02 erkennt Trident automatisch ASA r2-Persönlichkeit des ONTAP 9.16.1 oder höher und ermöglicht die Bereitstellung und Nutzung von Storage auf ASA r2 über das iSCSI-Protokoll.
+
 
 
 == Anforderungen
 
 Für alle ONTAP-Back-Ends benötigt Trident der SVM mindestens ein Aggregat zugewiesen.
+
+
+NOTE: Für Trident muss der SVM mindestens ein Aggregat zugewiesen sein. Bei Verwendung von ASA r2 ist diese Aktion nur mit der ONTAP-CLI im Modus verfügbar `diag`.
 
 Denken Sie daran, dass Sie auch mehr als einen Treiber ausführen können und Speicherklassen erstellen können, die auf den einen oder anderen verweisen. Beispielsweise könnten Sie A konfigurieren `san-dev` Klasse, die den verwendet `ontap-san` Fahrer und A `san-default` Klasse, die den verwendet `ontap-san-economy` Eins.
 
@@ -306,7 +311,7 @@ Nach der Erstellung des Backends erstellt Trident eine entsprechende `tridentbac
 Sie können die CHAP-Anmeldeinformationen aktualisieren, indem Sie die CHAP-Parameter im aktualisieren `backend.json` Datei: Dazu müssen die CHAP-Schlüssel aktualisiert und der verwendet werden `tridentctl update` Befehl zum Übergeben dieser Änderungen.
 
 
-WARNING: Wenn Sie die CHAP-Schlüssel für ein Backend aktualisieren, müssen Sie `tridentctl` das Backend aktualisieren. Aktualisieren Sie die Zugangsdaten auf dem Storage-Cluster nicht über die CLI/ONTAP-Benutzeroberfläche, da Trident diese Änderungen nicht aufnehmen kann.
+WARNING: Wenn Sie die CHAP-Schlüssel für ein Backend aktualisieren, müssen Sie `tridentctl` das Backend aktualisieren. Aktualisieren Sie die Zugangsdaten auf dem Storage-Cluster nicht über die ONTAP-CLI oder den ONTAP-System-Manager, da Trident diese Änderungen nicht aufnehmen kann.
 
 [listing]
 ----

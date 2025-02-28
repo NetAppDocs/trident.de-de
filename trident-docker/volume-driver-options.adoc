@@ -20,7 +20,7 @@ Die Verwendung dieser Optionen während der Erstellung des Volumes ist einfach. 
 
 == ONTAP Volume-Optionen
 
-Bei der Erstellung von Volumes für NFS und iSCSI sind folgende Optionen enthalten:
+Es gibt folgende Optionen zur Erstellung von Volumes für NFS, iSCSI und FC:
 
 [cols="2*"]
 |===
@@ -151,7 +151,7 @@ docker volume create -d netapp --name my_vol --opt snapshotPolicy=none --opt sna
 ----
 docker volume create -d netapp --name my_vol --opt snapshotPolicy=myPolicy --opt snapshotReserve=10
 ----
-* Erstellen Sie ein Volume mit einer Snapshot-Richtlinie, und akzeptieren Sie die standardmäßige Snapshot-Reserve von ONTAP (normalerweise 5%):
+* Erstellen Sie ein Volume mit einer Snapshot-Richtlinie und akzeptieren Sie die Standard-Snapshot-Reserve von ONTAP (normalerweise 5%):
 +
 [listing]
 ----

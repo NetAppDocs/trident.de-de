@@ -41,7 +41,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, darunter:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.25–1.32
+* Kubernetes 1.26–1.32
 * OpenShift 4.10 - 4.17
 * Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1
 
@@ -49,7 +49,7 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 Der Trident-Operator wird durch folgende Versionen unterstützt:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.25–1.32
+* Kubernetes 1.26–1.32
 * OpenShift 4.10 - 4.17
 * Rancher Kubernetes Engine 2 (RKE2) v1.28.5+rke2r1
 
@@ -59,7 +59,7 @@ Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbst
 Trident und ONTAP können als Speicheranbieter für verwendet werdenlink:https://kubevirt.io/["KubeVirt"].
 
 
-WARNING: Lesen Sie, bevor Sie ein Kubernetes-Cluster von 1.24 auf 1.25 oder höher aktualisieren, auf dem Trident installiert link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["Aktualisieren einer Helm-Installation"]ist.
+WARNING: Lesen Sie, bevor Sie ein Kubernetes-Cluster von 1.25 auf 1.26 oder höher aktualisieren, auf dem Trident installiert link:../trident-managing-k8s/upgrade-operator.html#upgrade-a-helm-installation["Aktualisieren einer Helm-Installation"]ist.
 
 
 
@@ -71,9 +71,35 @@ Um Trident verwenden zu können, benötigen Sie eines oder mehrere der folgenden
 * Azure NetApp Dateien
 * Cloud Volumes ONTAP
 * Google Cloud NetApp Volumes
-* FAS/AFF/Select
 * NetApp All-SAN-Array (ASA)
+* Lokale FAS-, AFF- oder ASA-Cluster mit ONTAP 9.6 oder höher
 * NetApp HCI/Element Software 11 oder höher
+
+
+
+
+== Trident-Unterstützung für KubeVirt- und OpenShift-Virtualisierung
+
+.Unterstützte Speichertreiber:
+Trident unterstützt die folgenden ONTAP-Treiber für die KubeVirt- und OpenShift-Virtualisierung:
+
+* ontap-nas
+* ONTAP-nas-Economy
+* ONTAP san (iSCSI, FCP, NVMe over TCP)
+* ONTAP-san-Economy (nur iSCSI)
+
+
+.Zu berücksichtigende Aspekte:
+* Aktualisieren Sie die Storage-Klasse, um den `fsType` Parameter (z. B. `fsType: "ext4"` ) in der OpenShift-Virtualisierungsumgebung zu erhalten. Setzen Sie bei Bedarf den Volume-Modus explizit auf Blockieren, indem Sie den Parameter im `dataVolumeTemplates` verwenden `volumeMode=Block`, um CDI zum Erstellen von Block-Daten-Volumes zu benachrichtigen.
+* _RWX-Zugriffsmodus für Block-Speicher-Treiber_: ONTAP-san (iSCSI, NVMe/TCP, FC) und ONTAP-san-Economy (iSCSI) Treiber werden nur mit „VolumeMode: Block“ (RAW Device) unterstützt. Für diese Treiber kann der `fstype` Parameter nicht verwendet werden, da die Volumes im RAW-Device-Modus bereitgestellt werden.
+* Für Workflows mit Live-Migration, für die der RWX-Zugriffsmodus erforderlich ist, werden folgende Kombinationen unterstützt:
++
+** NFS + `volumeMode=Filesystem`
+** ISCSI + `volumeMode=Block` (RAW-Gerät)
+** NVMe/TCP + `volumeMode=Block` (RAW-Gerät)
+** FC + `volumeMode=Block` (RAW Device)
+
+
 
 
 
@@ -88,56 +114,56 @@ Die folgende Tabelle bietet einen Überblick über die mit dieser Version von Tr
 
 
 | Trident  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | Volume Snapshots  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | PVC aus Volume Snapshots  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | ISCSI PV-Größe  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | Bidirektionales ONTAP-CHAP  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | Dynamische Exportrichtlinien  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | Trident Operator  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
 
 
 | CSI-Topologie  a| 
-1,25 - 1,32
+1,26 - 1,32
  a| 
 Nein
 
@@ -197,15 +223,15 @@ Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz 
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.25.0, v1.26.0, v1.27.0, v1.28.0, v1.29.0 v1.30.0, v1.31.0, v1.32.0  a| 
-* docker.io/netapp/Trident:24.10.0
-* docker.io/netapp/Trident-AutoSupport:24.10
-* Registry.k8s.io/SIG-Storage/csi-provisioner:v5.1.0
-* Registry.k8s.io/SIG-Storage/csi-Attacher:v4.7.0
-* Registry.k8s.io/SIG-Storage/csi-resizer:v1.12.0
-* Registry.k8s.io/SIG-Storage/csi-snapshotter:v8.1.0
-* Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.12.0
-* docker.io/netapp/Trident-Operator:24.10.0 (optional)
+| v1.26.0, v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0  a| 
+* docker.io/netapp/Trident:25.02.0
+* docker.io/netapp/Trident-AutoSupport:25.02
+* Registry.k8s.io/SIG-Storage/csi-provisioner:v5.2.0
+* Registry.k8s.io/SIG-Storage/csi-Attacher:v4.8.0
+* Registry.k8s.io/SIG-Storage/csi-resizer:v1.13.0
+* Registry.k8s.io/SIG-Storage/csi-snapshotter:v8.2.0
+* Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.13.0
+* docker.io/netapp/Trident-Operator:25.02.0 (optional)
 
 
 |===

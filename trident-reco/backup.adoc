@@ -28,10 +28,10 @@ Trident verwendet Kubernetes CRDs zum Speichern und Managen seines eigenen Zusta
 
 .Schritte
 . Sichern Sie den Kubernetes-Cluster und den Einsatz von  link:https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster["Kubernetes: Backup eines uscd-Clusters"^].
-. Platzieren Sie die Backup-Artefakte auf einer FlexVol.
+. Platzieren Sie die Backup-Artefakte auf einer FlexVol volume
 +
 
-NOTE: Wir empfehlen, die SVM, auf der sich die FlexVol befindet, mit einer SnapMirror-Beziehung zu einer anderen SVM zu sichern.
+NOTE: NetApp empfiehlt die Sicherung der SVM, auf der sich die FlexVol mit einer SnapMirror-Beziehung zu einer anderen SVM befindet.
 
 
 

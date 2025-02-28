@@ -18,7 +18,7 @@ Trident ist ein vollständig von NetApp unterstütztes Open-Source-Projekt. Es w
 
 == Was ist Trident?
 
-NetApp Trident ermöglicht die Nutzung und das Management von Storage-Ressourcen über alle gängigen NetApp Storage-Plattformen hinweg, in der Public Cloud oder vor Ort, einschließlich ONTAP (AFF, FAS, Select, Cloud, Amazon FSX for NetApp ONTAP), Element Software (NetApp HCI, SolidFire), Azure NetApp Files Service und Cloud Volumes Service on Google Cloud.
+NetApp Trident ermöglicht die Nutzung und das Management von Storage-Ressourcen über alle gängigen NetApp Storage-Plattformen hinweg, in der Public Cloud oder vor Ort, einschließlich lokaler ONTAP-Cluster (AFF, Cloud Volumes ONTAP und ASA), ONTAP Select, FAS, Element Software (NetApp HCI, SolidFire), Azure NetApp Files, Amazon FSX for NetApp ONTAP und Cloud Volumes Service on Google Cloud.
 
 Trident ist ein CSI-konformer dynamischer Storage Orchestrator, der sich nativ in link:https://kubernetes.io/["Kubernetes"^]NetApp integrieren lässt. Trident wird als einzelner Controller-Pod plus einen Node Pod auf jedem Worker-Node im Cluster ausgeführt. Weitere Informationen finden Sie unter link:../trident-get-started/architecture.html["Architektur von Trident"] .
 
@@ -76,6 +76,6 @@ Trident kann Storage-Geräte für Container-Applikationen direkt auf der zugrund
 ====
 link:https://docs.netapp.com/us-en/ontap/index.html["NetApp ONTAP"^] Ist das Unified Storage-Betriebssystem NetApp für mehrere Protokolle und bietet für jede Applikation erweiterte Datenmanagementfunktionen.
 
-ONTAP Systeme verfügen über rein Flash-basierte, hybride oder rein HDD-basierte Konfigurationen und bieten eine Vielzahl unterschiedlicher Implementierungsmodelle, darunter speziell entwickelte Hardware (FAS und AFF), White-Box (ONTAP Select) und rein Cloud-basierte Cloud Volumes ONTAP Systeme. Trident unterstützt diese ONTAP Implementierungsmodelle.
+ONTAP Systeme verfügen über All-Flash-, Hybrid- oder rein HDD-Konfigurationen und bieten eine Vielzahl verschiedener Implementierungsmodelle an: On-Premises FAS, AFA, ASA Cluster, ONTAP Select und Cloud Volumes ONTAP. Trident unterstützt diese ONTAP Implementierungsmodelle.
 
 ====
