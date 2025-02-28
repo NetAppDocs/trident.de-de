@@ -107,6 +107,13 @@ Wenn Sie ein Backup mit einem Backup Restore CR in einem anderen Namespace wiede
 
 NOTE: Wenn Sie ein Backup in einem anderen Namespace mit vorhandenen Ressourcen wiederherstellen, werden keine Ressourcen verändert, die Namen mit denen im Backup teilen. Um alle Ressourcen im Backup wiederherzustellen, löschen Sie entweder den Ziel-Namespace und erstellen Sie ihn neu, oder stellen Sie das Backup in einem neuen Namespace wieder her.
 
+.Bevor Sie beginnen
+Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
+
+* Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
+* Weitere Informationen zu Zugangsdaten für AWS Ressourcen finden Sie in der https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM-Dokumentation"^].
+
+
 [role="tabbed-block"]
 ====
 .CR verwenden
@@ -213,6 +220,13 @@ tridentctl-protect create backuprestore <my_restore_name> --backup <backup_names
 
 Sie können ein Backup im ursprünglichen Namespace jederzeit wiederherstellen.
 
+.Bevor Sie beginnen
+Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
+
+* Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
+* Weitere Informationen zu Zugangsdaten für AWS Ressourcen finden Sie in der https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM-Dokumentation"^].
+
+
 [role="tabbed-block"]
 ====
 .CR verwenden
@@ -316,12 +330,17 @@ tridentctl-protect create backupinplacerestore <my_restore_name> --backup <names
 
 Sie können ein Backup in einem anderen Cluster wiederherstellen, wenn ein Problem mit dem ursprünglichen Cluster auftritt.
 
-*Bevor Sie beginnen*
-
+.Bevor Sie beginnen
 Stellen Sie sicher, dass die folgenden Voraussetzungen erfüllt sind:
 
 * Auf dem Zielcluster ist Trident Protect installiert.
 * Der Zielcluster hat Zugriff auf den Bucket-Pfad desselben AppVault wie das Quellcluster, in dem das Backup gespeichert ist.
+* Stellen Sie sicher, dass der Ablauf des AWS-Sitzungstokens für alle Wiederherstellungsvorgänge mit langer Laufzeit ausreicht. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
++
+** Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
+** Weitere Informationen zu Zugangsdaten für AWS Ressourcen finden Sie in der https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS-Dokumentation"^].
+
+
 
 
 .Schritte
@@ -356,7 +375,6 @@ Mit diesem Befehl werden die verfügbaren Backups im AppVault angezeigt, einschl
 | production1 | wordpress | backup | wordpress-bkup-1| 2024-10-30 08:37:40 (UTC)| backuppath1 |
 | production1 | wordpress | backup | wordpress-bkup-2| 2024-10-30 08:37:40 (UTC)| backuppath2 |
 +-------------+-----------+--------+-----------------+--------------------------+-------------+
-
 ----
 . Stellen Sie die Anwendung mithilfe des AppVault-Namens und Archivpfads auf dem Zielcluster wieder her:
 
@@ -425,6 +443,13 @@ tridentctl-protect create backuprestore <restore_name> --namespace-mapping <sour
 == Wiederherstellung von einem Snapshot in einem anderen Namespace
 
 Sie können Daten aus einem Snapshot mithilfe einer benutzerdefinierten Ressourcendatei (CR) entweder in einem anderen Namespace oder im ursprünglichen QuellNamespace wiederherstellen. Wenn Sie einen Snapshot mithilfe eines SnapshotRestore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her und erstellt eine Anwendungs-CR für die wiederhergestellte Anwendung. Erstellen Sie zum Schutz der wiederhergestellten Applikation On-Demand-Backups oder Snapshots oder erstellen Sie einen Sicherungszeitplan.
+
+.Bevor Sie beginnen
+Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
+
+* Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
+* Weitere Informationen zu Zugangsdaten für AWS Ressourcen finden Sie in der https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM-Dokumentation"^].
+
 
 [role="tabbed-block"]
 ====
@@ -539,6 +564,13 @@ tridentctl-protect create snapshotrestore <my_restore_name> --snapshot <namespac
 == Wiederherstellung von einem Snapshot im ursprünglichen Namespace
 
 Sie können einen Snapshot jederzeit im ursprünglichen Namespace wiederherstellen.
+
+.Bevor Sie beginnen
+Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
+
+* Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
+* Weitere Informationen zu Zugangsdaten für AWS Ressourcen finden Sie in der https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM-Dokumentation"^].
+
 
 [role="tabbed-block"]
 ====

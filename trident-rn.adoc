@@ -21,7 +21,7 @@ WARNING: Der `tridentctl` Binary for Linux, die in der ZIP-Datei des Installatio
 
 == Was ist neu in 25.02
 
-Ab Trident 25.02 enthält die neue Zusammenfassung Informationen zu Verbesserungen, Fixes und Korrekturen für Trident und Trident Protect Versionen.
+Ab Trident 25.02 enthält die neue Zusammenfassung weitere Informationen zu Verbesserungen, Fixes und Korrekturen für Trident und Trident Protect Versionen.
 
 
 

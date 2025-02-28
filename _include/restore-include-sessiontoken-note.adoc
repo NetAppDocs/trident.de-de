@@ -1,0 +1,10 @@
+= 
+:allow-uri-read: 
+
+
+.Bevor Sie beginnen
+Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
+
+* Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
+* Weitere Informationen zu Zugangsdaten für AWS Ressourcen finden Sie in der https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_use-resources.html["AWS IAM-Dokumentation"^].
+

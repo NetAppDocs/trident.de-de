@@ -40,21 +40,36 @@ Sie müssen jede Applikation definieren, die Sie mit Trident Protect managen mö
 +
 *** *metadata.name*: (_required_) der Name der benutzerdefinierten Ressource der Anwendung. Beachten Sie den von Ihnen ausgewählten Namen, da sich andere CR-Dateien, die für Schutzvorgänge benötigt werden, auf diesen Wert beziehen.
 *** *spec.includedNamespaces*: (_required_) Verwenden Sie Namespace-Labels oder einen Namespace-Namen, um Namespaces anzugeben, in denen die Anwendungsressourcen vorhanden sind. Der Application Namespace muss Teil dieser Liste sein.
+*** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Optional_) Diese Annotation gilt nur für Anwendungen, die von virtuellen Maschinen definiert sind, wie in KubeVirt-Umgebungen, in denen vor Snapshots das Einfrieren des Dateisystems auftritt. Geben Sie an, ob diese Anwendung während eines Snapshots in das Dateisystem schreiben kann. Wenn auf true gesetzt, ignoriert die Anwendung die globale Einstellung und kann während eines Snapshots in das Dateisystem schreiben. Wenn diese Option auf false gesetzt ist, ignoriert die Anwendung die globale Einstellung und das Dateisystem wird während eines Snapshots eingefroren. Wenn angegeben, die Anwendungsdefinition jedoch keine virtuellen Maschinen enthält, wird die Annotation ignoriert. Falls nicht angegeben, folgt die Applikation der link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Global Trident Protect Freeze-Einstellung"].
++
+[NOTE]
+====
+Wenn Sie diese Anmerkung anwenden müssen, nachdem eine Anwendung bereits erstellt wurde, können Sie den folgenden Befehl verwenden:
+
+[source, console]
+----
+kubectl annotate application -n <application CR namespace> <application CR name> protect.trident.netapp.io/skip-vm-freeze="true"
+----
+====
 +
 Beispiel YAML:
 
 +
 [source, yaml]
 ----
----
 apiVersion: protect.trident.netapp.io/v1
 kind: Application
 metadata:
-  name: maria
+  annotations:
+    protect.trident.netapp.io/skip-vm-freeze: "false"
+  name: my-app-name
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-    - namespace: my-app-namespace
+  - labelSelector: {}
+    namespace: namespace-1
+  - labelSelector: {}
+    namespace: namespace-2
 ----
 
 
@@ -72,12 +87,28 @@ kubectl apply -f maria-app.yaml
 .Fügen Sie eine Anwendung mithilfe der CLI hinzu
 --
 .Schritte
-. Erstellen und wenden Sie die Anwendungsdefinition an, indem Sie Werte in Klammern durch Informationen aus Ihrer Umgebung ersetzen. Sie können Namespaces und Ressourcen in die Anwendungsdefinition mit kommagetrennten Listen mit den im folgenden Beispiel gezeigten Argumenten aufnehmen:
+. Erstellen und wenden Sie die Anwendungsdefinition anhand eines der folgenden Beispiele an. Ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Sie können Namespaces und Ressourcen in die Anwendungsdefinition mit kommagetrennten Listen mit den in den Beispielen gezeigten Argumenten aufnehmen.
++
+Sie können optional eine Anmerkung verwenden, wenn Sie eine App erstellen, um anzugeben, ob die Anwendung während eines Snapshots in das Dateisystem schreiben kann. Dies gilt nur für Anwendungen, die aus virtuellen Maschinen definiert sind, wie z. B. in KubeVirt-Umgebungen, in denen das Dateisystem vor Snapshots eingefroren wird. Wenn Sie die Anmerkung auf setzen `true`, ignoriert die Anwendung die globale Einstellung und kann während eines Snapshots in das Dateisystem schreiben. Wenn Sie diese Einstellung auf festlegen `false`, ignoriert die Anwendung die globale Einstellung und das Dateisystem wird während eines Snapshots eingefroren. Wenn Sie die Anmerkung verwenden, aber die Anwendung keine virtuellen Maschinen in der Anwendungsdefinition hat, wird die Anmerkung ignoriert. Wenn Sie die Anmerkung nicht verwenden, folgt die Anwendung der link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Global Trident Protect Freeze-Einstellung"].
+
++
+Um die Anmerkung anzugeben, wenn Sie die CLI zum Erstellen einer Anwendung verwenden, können Sie das Flag verwenden `--annotation`.
+
++
+** Erstellen Sie die Anwendung, und verwenden Sie die globale Einstellung für das Verhalten des Dateisystemfixieren:
 +
 [source, console]
 ----
 tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace>
 ----
+** Erstellen Sie die Anwendung, und konfigurieren Sie die lokale Anwendungseinstellung für das Dateisystem-Standverhalten:
++
+[source, console]
+----
+tridentctl-protect create application <my_new_app_cr_name> --namespaces <namespaces_to_include> --csr <cluster_scoped_resources_to_include> --namespace <my-app-namespace> --annotation protect.trident.netapp.io/skip-vm-freeze=<"true"|"false">
+----
+
+
 
 
 --

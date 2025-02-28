@@ -58,6 +58,9 @@ NOTE: Das Beispiel der vorherigen Reihenfolge gilt nur, wenn Sie ein Backup ausf
 NOTE: Sie sollten Ihre Hook-Skripte immer testen, bevor Sie sie in einer Produktionsumgebung aktivieren. Mit dem Befehl 'kubectl exec' können Sie die Skripte bequem testen. Nachdem Sie die Testausführungshaken in einer Produktionsumgebung aktiviert haben, testen Sie die erstellten Snapshots und Backups, um sicherzustellen, dass sie konsistent sind. Dazu klonen Sie die Applikation in einem temporären Namespace, stellen den Snapshot oder das Backup wieder her und testen anschließend die App.
 
 
+NOTE: Wenn ein Hook aus einer Phase vor der Snapshot-Ausführung Kubernetes-Ressourcen hinzufügt, ändert oder entfernt, werden diese Änderungen im Snapshot oder Backup und in jedem nachfolgenden Wiederherstellungsvorgang enthalten.
+
+
 
 == Wichtige Hinweise zu benutzerdefinierten Testausführungshaken
 
@@ -196,4 +199,178 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 
 
 --
+====
+
+
+== Führen Sie manuell einen Ausführungshaken aus
+
+Sie können einen Ausführungshaken manuell zu Testzwecken ausführen oder den Hook nach einem Fehler manuell erneut ausführen. Sie müssen über die Berechtigungen Eigentümer, Administrator oder Mitglied verfügen, um Ausführungshaken manuell auszuführen.
+
+Das manuelle Ausführen eines Ausführungshakens besteht aus zwei grundlegenden Schritten:
+
+. Erstellen Sie ein Ressourcenbackup, das Ressourcen sammelt und eine Sicherung von ihnen erstellt und bestimmt, wo der Hook ausgeführt wird
+. Führen Sie den Ausführungshaken gegen die Sicherung aus
+
+
+.Schritt 1: Erstellen einer Ressourcensicherung
+[%collapsible]
+====
+[role="tabbed-block"]
+=====
+.CR verwenden
+--
+.Schritte
+. Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-resource-backup.yaml`.
+. Konfigurieren Sie die folgenden Attribute entsprechend Ihrer Trident Protect-Umgebung und Cluster-Konfiguration:
++
+** *metadata.name*: (_required_) der Name dieser benutzerdefinierten Ressource; wählen Sie einen eindeutigen und sinnvollen Namen für Ihre Umgebung.
+** *Spec.applicationRef*: (_required_) der Kubernetes-Name der Applikation, für die das Ressourcen-Backup erstellt werden soll.
+** *Spec.appVaultRef*: (_required_) der Name des AppVault, in dem der Backup-Inhalt gespeichert ist.
+** *Spec.appArchivePath*: Der Pfad innerhalb von AppVault, in dem die Backup-Inhalte gespeichert werden. Sie können den folgenden Befehl verwenden, um diesen Pfad zu finden:
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
++
+Beispiel YAML:
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: ResourceBackup
+metadata:
+  name: example-resource-backup
+spec:
+  applicationRef: my-app-name
+  appVaultRef: my-appvault-name
+  appArchivePath: example-resource-backup
+----
+
+
+. Nachdem Sie die CR-Datei mit den richtigen Werten ausgefüllt haben, wenden Sie den CR an:
++
+[source, console]
+----
+kubectl apply -f trident-protect-resource-backup.yaml
+----
+
+
+--
+.Verwenden Sie die CLI
+--
+.Schritte
+. Erstellen Sie das Backup, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
++
+[source, console]
+----
+tridentctl protect create resourcebackup <my_backup_name> --app <my_app_name> --appvault <my_appvault_name> -n <my_app_namespace> --app-archive-path <app_archive_path>
+----
+. Den Status des Backups anzeigen. Sie können diesen Beispielbefehl wiederholt verwenden, bis der Vorgang abgeschlossen ist:
++
+[source, console]
+----
+tridentctl protect get resourcebackup -n <my_app_namespace> <my_backup_name>
+----
+. Überprüfen Sie, ob die Sicherung erfolgreich war:
++
+[source, console]
+----
+kubectl describe resourcebackup <my_backup_name>
+----
+
+
+--
+=====
+====
+.Schritt 2: Führen Sie den Ausführungshaken aus
+[%collapsible]
+====
+[role="tabbed-block"]
+=====
+.CR verwenden
+--
+.Schritte
+. Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-hook-run.yaml`.
+. Konfigurieren Sie die folgenden Attribute entsprechend Ihrer Trident Protect-Umgebung und Cluster-Konfiguration:
++
+** *metadata.name*: (_required_) der Name dieser benutzerdefinierten Ressource; wählen Sie einen eindeutigen und sinnvollen Namen für Ihre Umgebung.
+** *Spec.applicationRef*: (_required_) Stellen Sie sicher, dass dieser Wert mit dem Anwendungsnamen aus dem ResourceBackup CR übereinstimmt, den Sie in Schritt 1 erstellt haben.
+** *Spec.appVaultRef*: (_required_) Stellen Sie sicher, dass dieser Wert mit der appVaultRef aus der ResourceBackup CR übereinstimmt, die Sie in Schritt 1 erstellt haben.
+** *Spec.appArchivePath*: Stellen Sie sicher, dass dieser Wert mit dem appArchivePath aus dem ResourceBackup CR übereinstimmt, den Sie in Schritt 1 erstellt haben.
++
+[source, console]
+----
+kubectl get backups <BACKUP_NAME> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+** *Spec.Action*: (_required_) Eine Zeichenfolge, die angibt, welche Aktion der Ausführungshaken ausführen wird, vorausgesetzt, dass alle angegebenen Ausführungshaken-Filter übereinstimmen. Mögliche Werte:
++
+*** Snapshot
+*** Backup
+*** Wiederherstellen
+*** Failover
+
+
+** *Spec.Stage*: (_required_) Eine Zeichenfolge, die angibt, welche Phase während der Aktion der Ausführungshaken ausgeführt werden soll. Bei diesem Hakenlauf werden keine Haken in einer anderen Phase ausgeführt. Mögliche Werte:
++
+*** Vor
+*** Post
++
+Beispiel YAML:
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: ExecHooksRun
+metadata:
+  name: example-hook-run
+spec:
+  applicationRef: my-app-name
+  appVaultRef: my-appvault-name
+  appArchivePath: example-resource-backup
+  stage: Post
+  action: Failover
+----
+
+
+
+
+. Nachdem Sie die CR-Datei mit den richtigen Werten ausgefüllt haben, wenden Sie den CR an:
++
+[source, console]
+----
+kubectl apply -f trident-protect-hook-run.yaml
+----
+
+
+--
+.Verwenden Sie die CLI
+--
+.Schritte
+. Erstellen Sie die Anforderung zur manuellen Ausführung von Hook Run:
++
+[source, console]
+----
+tridentctl protect create exechooksrun <my_exec_hook_run_name> -n <my_app_namespace> --action snapshot --stage <pre_or_post> --app <my_app_name> --appvault <my_appvault_name> --path <my_backup_name>
+----
+. Überprüfen Sie den Status des Ausführungs-Hook-Durchlaufs. Sie können diesen Befehl wiederholt ausführen, bis der Vorgang abgeschlossen ist:
++
+[source, console]
+----
+tridentctl protect get exechooksrun -n <my_app_namespace> <my_exec_hook_run_name>
+----
+. Beschreiben Sie das exechoksrun-Objekt, um die endgültigen Details und den Status anzuzeigen:
++
+[source, console]
+----
+kubectl -n <my_app_namespace> describe exechooksrun <my_exec_hook_run_name>
+----
+
+
+--
+=====
 ====

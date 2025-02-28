@@ -90,15 +90,6 @@ NOTE: Sie können Snapshot-Verzeichnisse standardmäßig für neue Volumes aktiv
 
 Trident Protect 24.10 und 24.10.1 und neuere Versionen weisen beim Schutz von Applikationen auf KubeVirt VMs unterschiedliche Verhaltensweisen auf. Bei beiden Versionen können Sie das Einfrieren und Entsperren des Dateisystems während der Datenschutzvorgänge aktivieren oder deaktivieren.
 
-[NOTE]
-====
-Für alle Trident Protect-Versionen müssen Sie möglicherweise dem Application Namespace privilegierte Berechtigungen erteilen, um die Funktion zum automatischen Einfrieren in OpenShift-Umgebungen zu aktivieren oder zu deaktivieren. Beispiel:
-
-[source, console]
-----
-oc adm policy add-scc-to-user privileged -z default -n <application-namespace>
-----
-====
 .Trident Protect 24.10
 Trident Protect 24.10 stellt nicht automatisch einen konsistenten Zustand für KubeVirt VM-Dateisysteme während Datensicherheitsvorgängen sicher. Wenn Sie Ihre KubeVirt VM-Daten mit Trident Protect 24.10 schützen möchten, müssen Sie die Freeze/Unfreeze-Funktion für die Dateisysteme vor dem Datenschutzvorgang manuell aktivieren. Dadurch wird sichergestellt, dass sich die Dateisysteme in einem konsistenten Zustand befinden.
 

@@ -1,0 +1,23 @@
+---
+sidebar: sidebar 
+permalink: known-issues.html 
+keywords: 'what"s new, new features, enhancements, known issues, resolved issues, troubleshooting' 
+summary: Hier sind die bekannten Probleme mit dieser Version. 
+---
+= Bekannte Probleme
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Bekannte Probleme identifizieren Probleme, die Sie daran hindern könnten, diese Produktversion erfolgreich zu verwenden.
+
+Die folgenden bekannten Probleme wirken sich auf die aktuelle Version aus:
+
+
+
+== Die Wiederherstellung von Restic-Backups großer Dateien kann fehlschlagen
+
+Bei der Wiederherstellung von Dateien mit 30 GB oder mehr aus einem Amazon S3-Backup, das mit Restic erstellt wurde, kann der Wiederherstellungsvorgang fehlschlagen. Sichern Sie als Workaround die Daten mit Kopia als Data Mover (Kopia ist der Standard Data Mover für Backups). Anweisungen hierzu finden Sie unter https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Sicherung von Applikationen mit Trident Protect"^] .
