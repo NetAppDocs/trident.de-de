@@ -26,7 +26,7 @@ Bevor Sie ein AppVault-Objekt erstellen, müssen Sie sicherstellen, dass sich Ap
 
 === Passwörter für Data Mover Repository
 
-Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen, können Sie optional Trident Protect anweisen, einen Kubernetes-Schlüssel zu verwenden, der benutzerdefinierte Passwörter für die Restic- und Kopia-Repository-Verschlüsselung enthält. Wenn Sie keinen Schlüssel angeben, verwendet Trident Protect `password` für beide Passwörter.
+Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen, können Sie optional Trident Protect anweisen, einen Kubernetes-Schlüssel zu verwenden, der benutzerdefinierte Passwörter für die Restic- und Kopia-Repository-Verschlüsselung enthält. Wenn Sie keinen Schlüssel angeben, verwendet Trident Protect ein Standardpasswort.
 
 * Wenn Sie AppVault CRS manuell erstellen, können Sie das Feld *spec.properties.dataMoverPasswordSecretRef* verwenden, um den Schlüssel anzugeben.
 * Wenn Sie AppVault-Objekte mithilfe der Trident Protect-CLI erstellen, können Sie das Argument verwenden `--data-mover-password-secret-ref`, um den Schlüssel anzugeben.
