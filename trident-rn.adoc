@@ -69,7 +69,6 @@ Ab Trident 25.02 enthält die neue Zusammenfassung weitere Informationen zu Verb
 ** Die Backend-Konfig-Anmeldeinformationen wurden korrigiert, um alle verfügbaren AWS ARN-Partitionen zu unterstützen (link:https://github.com/NetApp/trident/issues/913["Ausgabe #913"]).
 ** Option hinzugefügt, um den Auto-Konfigurator-Abgleich im Trident-Operator zu deaktivieren (link:https://github.com/NetApp/trident/issues/924["Ausgabe #924"]).
 ** Zusätzlicher SicherheitContext für csi-Resizer Container (link:https://github.com/NetApp/trident/issues/976["Ausgabe #976"]).
-** Logouts für zeitweise fehlerhafte nicht-CHAP-Portale während der iSCSI-Selbstheilung entfernt (link:https://github.com/NetApp/trident/issues/961["Ausgabe #961"]).
 
 
 
