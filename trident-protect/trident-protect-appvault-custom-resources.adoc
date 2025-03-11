@@ -28,7 +28,7 @@ Bevor Sie ein AppVault-Objekt erstellen, müssen Sie sicherstellen, dass sich Ap
 
 Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen, können Sie optional Trident Protect anweisen, einen Kubernetes-Schlüssel zu verwenden, der benutzerdefinierte Passwörter für die Restic- und Kopia-Repository-Verschlüsselung enthält. Wenn Sie keinen Schlüssel angeben, verwendet Trident Protect ein Standardpasswort.
 
-* Wenn Sie AppVault CRS manuell erstellen, können Sie das Feld *spec.properties.dataMoverPasswordSecretRef* verwenden, um den Schlüssel anzugeben.
+* Wenn Sie AppVault CRS manuell erstellen, können Sie das Feld *spec.dataMoverPasswordSecretRef* verwenden, um den Schlüssel anzugeben.
 * Wenn Sie AppVault-Objekte mithilfe der Trident Protect-CLI erstellen, können Sie das Argument verwenden `--data-mover-password-secret-ref`, um den Schlüssel anzugeben.
 
 
@@ -37,6 +37,9 @@ Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen,
 ==== Erstellen Sie einen Kennwortschlüssel für das Data Mover Repository
 
 Verwenden Sie die folgenden Beispiele, um den Kennwortschlüssel zu erstellen. Wenn Sie AppVault-Objekte erstellen, können Sie Trident Protect anweisen, diesen Schlüssel zum Authentifizieren beim Data Mover-Repository zu verwenden.
+
+
+NOTE: Je nachdem, welchen Data Mover Sie verwenden, müssen Sie nur das entsprechende Passwort für diesen Data Mover angeben. Wenn Sie beispielsweise Restic verwenden und Kopia in Zukunft nicht verwenden möchten, können Sie beim Erstellen des Geheimnisses nur das Restic-Kennwort eingeben.
 
 [role="tabbed-block"]
 ====
@@ -47,21 +50,23 @@ Verwenden Sie die folgenden Beispiele, um den Kennwortschlüssel zu erstellen. W
 ---
 apiVersion: v1
 data:
-  KOPIA_PASSWORD: <plain-text-password>
-  RESTIC_PASSWORD: <plain-text-password>
+  KOPIA_PASSWORD: <base64-encoded-password>
+  RESTIC_PASSWORD: <base64-encoded-password>
 kind: Secret
 metadata:
   name: my-optional-data-mover-secret
+  namespace: trident-protect
 type: Opaque
 ----
 --
-.Verwenden Sie die Trident Protect-CLI
+.Verwenden Sie die CLI
 --
 [source, console]
 ----
 kubectl create secret generic my-optional-data-mover-secret \
 --from-literal=KOPIA_PASSWORD=<plain-text-password> \
---from-literal=RESTIC_PASSWORD=<plain-text-password>
+--from-literal=RESTIC_PASSWORD=<plain-text-password> \
+-n trident-protect
 ----
 --
 ====
@@ -88,7 +93,7 @@ kubectl create secret generic <secret-name> \
 ----
 kubectl create secret generic <secret-name> \
 --from-literal=accessKeyID=<objectstorage-accesskey> \
---from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> \
+--from-literal=secretAccessKey=<amazon-s3-trident-protect-src-bucket-secret> \
 -n trident-protect
 ----
 --
@@ -117,7 +122,7 @@ kubectl create secret generic <secret-name> \
 ----
 kubectl create secret generic <secret-name> \
 --from-literal=accessKeyID=<objectstorage-accesskey> \
---from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> \
+--from-literal=secretAccessKey=<ontap-s3-trident-protect-src-bucket-secret> \
 -n trident-protect
 ----
 --
@@ -127,7 +132,7 @@ kubectl create secret generic <secret-name> \
 ----
 kubectl create secret generic <secret-name> \
 --from-literal=accessKeyID=<objectstorage-accesskey> \
---from-literal=secretAccessKey=<generic-s3-trident-protect-src-bucket-secret> \
+--from-literal=secretAccessKey=<storagegrid-s3-trident-protect-src-bucket-secret> \
 -n trident-protect
 ----
 --
@@ -164,8 +169,7 @@ metadata:
   name: gcp-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: GCP
   providerConfig:
     gcp:
@@ -189,8 +193,7 @@ metadata:
   name: amazon-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: AWS
   providerConfig:
     s3:
@@ -222,8 +225,7 @@ metadata:
   name: azure-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: Azure
   providerConfig:
     azure:
@@ -246,8 +248,7 @@ metadata:
   name: generic-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: GenericS3
   providerConfig:
     s3:
@@ -279,8 +280,7 @@ metadata:
   name: ontap-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: OntapS3
   providerConfig:
     s3:
@@ -312,8 +312,7 @@ metadata:
   name: storagegrid-s3-trident-protect-src-bucket
   namespace: trident-protect
 spec:
-  properties:
-    dataMoverPasswordSecretRef: my-optional-data-mover-secret
+  dataMoverPasswordSecretRef: my-optional-data-mover-secret
   providerType: StorageGridS3
   providerConfig:
     s3:
@@ -358,8 +357,10 @@ Sie können die folgenden CLI-Befehlsbeispiele verwenden, um AppVault CRS für j
 tridentctl-protect create vault GCP <vault-name> \
 --bucket <mybucket> \
 --project <my-gcp-project> \
---secret <gcp-creds>/<credentials> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--secret <secret-name>/credentials \
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
+
 ----
 --
 .Amazon S3 (AWS)
@@ -370,7 +371,8 @@ tridentctl-protect create vault AWS <vault-name> \
 --bucket <bucket-name> \
 --secret  <secret-name>  \
 --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .Microsoft Azure
@@ -381,7 +383,8 @@ tridentctl-protect create vault Azure <vault-name> \
 --account <account-name> \
 --bucket <bucket-name> \
 --secret <secret-name> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .Allgemein S3
@@ -390,8 +393,10 @@ tridentctl-protect create vault Azure <vault-name> \
 ----
 tridentctl-protect create vault GenericS3 <vault-name> \
 --bucket <bucket-name> \
---secret  <secret-name>  --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--secret  <secret-name>  \
+--endpoint <s3-endpoint> \
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .ONTAP S3
@@ -402,7 +407,8 @@ tridentctl-protect create vault OntapS3 <vault-name> \
 --bucket <bucket-name> \
 --secret  <secret-name>  \
 --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 .StorageGRID S3
@@ -413,7 +419,8 @@ tridentctl-protect create vault StorageGridS3 <vault-name> \
 --bucket <bucket-name> \
 --secret  <secret-name>  \
 --endpoint <s3-endpoint> \
---data-mover-password-secret-ref <my-optional-data-mover-secret>
+--data-mover-password-secret-ref <my-optional-data-mover-secret> \
+-n trident-protect
 ----
 --
 ====
@@ -429,7 +436,8 @@ Sie können das Trident Protect CLI-Plugin verwenden, um Informationen über App
 [source, console]
 ----
 tridentctl-protect get appvaultcontent gcp-vault \
---show-resources all
+--show-resources all \
+-n trident-protect
 ----
 +
 *Beispielausgabe*:
@@ -467,7 +475,7 @@ Sie können ein AppVault-Objekt jederzeit entfernen.
 NOTE: Entfernen Sie den Schlüssel im AppVault CR nicht `finalizers`, bevor Sie das AppVault-Objekt löschen. Wenn Sie dies tun, kann dies zu Restdaten im AppVault-Bucket und verwaisten Ressourcen im Cluster führen.
 
 .Bevor Sie beginnen
-Stellen Sie sicher, dass Sie alle Snapshots und Backups gelöscht haben, die im zugehörigen Bucket gespeichert sind.
+Stellen Sie sicher, dass Sie alle Snapshot- und Backup-CRS gelöscht haben, die vom AppVault verwendet werden, den Sie löschen möchten.
 
 [role="tabbed-block"]
 ====
