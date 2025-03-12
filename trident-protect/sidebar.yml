@@ -18,6 +18,8 @@ entries:
   entries:
   - title: Managen von Autorisierung und Zugriffssteuerung
     url: "/trident-protect/manage-authorization-access-control.html"
+  - title: Überwachen Sie Trident Protect-Ressourcen
+    url: "/trident-protect/monitor-trident-protect-resources.html"
   - title: Generieren Sie ein Trident Protect Supportpaket
     url: "/trident-protect/trident-protect-generate-support-bundle.html"
   - title: Upgrade von Trident Protect

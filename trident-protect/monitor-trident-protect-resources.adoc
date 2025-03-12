@@ -1,0 +1,214 @@
+---
+permalink: trident-protect/monitor-trident-protect-resources.html 
+sidebar: sidebar 
+keywords: manage, authentication, rbac 
+summary: Sie können den Status von Trident Protect Ressourcen mit kube-State-metrics und Prometheus überwachen. So erhalten Sie Systemzustandsinformationen über Implementierungen, Nodes und Pods. 
+---
+= Überwachen Sie Trident Protect-Ressourcen
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die Open-Source-Tools kube-State-metrics, Prometheus und Alertmanager verwenden, um den Zustand der durch Trident Protect geschützten Ressourcen zu überwachen.
+
+Der kube-Service für Statusmetriken generiert Kennzahlen aus der Kubernetes-API-Kommunikation. In Kombination mit Trident Protect gibt die Software hilfreiche Informationen über den Zustand der Ressourcen in der Umgebung wieder.
+
+Prometheus ist ein Toolkit, das die von kube-State-metrics generierten Daten aufnehmen und als leicht lesbare Informationen über diese Objekte darstellen kann. Gemeinsam bieten Ihnen kube-State-metrics und Prometheus die Möglichkeit, den Zustand und den Status der Ressourcen zu überwachen, die Sie mit Trident Protect managen.
+
+Alertmanager ist ein Dienst, der die von Tools wie Prometheus gesendeten Warnmeldungen aufnimmt und an die von Ihnen konfigurierten Ziele weiterleitet.
+
+[NOTE]
+====
+Die in diesen Schritten enthaltenen Konfigurationen und Anleitungen sind nur Beispiele. Sie müssen sie an Ihre Umgebung anpassen. Spezifische Anweisungen und Unterstützung finden Sie in der folgenden offiziellen Dokumentation:
+
+* https://github.com/kubernetes/kube-state-metrics/tree/main["kube-State-Metrics-Dokumentation"^]
+* https://prometheus.io/docs/introduction/overview/["Prometheus Dokumentation"^]
+* https://github.com/prometheus/alertmanager["Alertmanager-Dokumentation"^]
+
+
+====
+
+
+== Schritt 1: Installieren Sie die Überwachungstools
+
+Um die Ressourcenüberwachung in Trident Protect zu aktivieren, müssen Sie kube-State-metrics, Promethus und Alertmanager installieren und konfigurieren.
+
+
+
+=== Installieren Sie kube-State-metrics
+
+Sie können kube-State-Metriken mit Helm installieren.
+
+.Schritte
+. Fügen Sie das Helm-Diagramm „kube-State-metrics“ hinzu. Beispiel:
++
+[source, console]
+----
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+----
+. Erstellen Sie eine Konfigurationsdatei für das Helm-Diagramm (z. B. `metrics-config.yaml` ). Sie können die folgende Beispielkonfiguration an Ihre Umgebung anpassen:
++
+.Metrics-config.yaml: kube-State-metrics Helm Chart Configuration
+[source, yaml]
+----
+---
+extraArgs:
+  # Collect only custom metrics
+  - --custom-resource-state-only=true
+
+customResourceState:
+  enabled: true
+  config:
+    kind: CustomResourceStateMetrics
+    spec:
+      resources:
+      - groupVersionKind:
+          group: astra.netapp.io
+          kind: "Backup"
+          version: "v1"
+        labelsFromPath:
+          backup_uid: [metadata, uid]
+          backup_name: [metadata, name]
+          creation_time: [metadata, creationTimestamp]
+        metrics:
+        - name: backup_info
+          help: "Exposes details about the Backup state"
+          each:
+            type: Info
+            info:
+              labelsFromPath:
+                appVaultReference: ["spec", "appVaultRef"]
+                appReference: ["spec", "applicationRef"]
+rbac:
+  extraRules:
+  - apiGroups: ["backups.protect.trident.netapp.io"]
+    resources: ["backups"]
+    verbs: ["list", "watch"]
+
+# Collect metrics from all namespaces
+namespaces: ""
+
+# Ensure that the metrics are collected by Prometheus
+prometheus:
+  monitor:
+    enabled: true
+----
+. Installieren Sie kube-State-metrics, indem Sie das Helm-Diagramm bereitstellen. Beispiel:
++
+[source, console]
+----
+helm install custom-resource -f metrics-config.yaml prometheus-community/kube-state-metrics --version 5.21.0
+----
+. Konfigurieren Sie kube-State-metrics, um Metriken für die benutzerdefinierten Ressourcen zu generieren, die von Trident Protect verwendet werden, indem Sie die Anweisungen im befolgen https://github.com/kubernetes/kube-state-metrics/blob/main/docs/metrics/extend/customresourcestate-metrics.md#custom-resource-state-metrics["kube State-metrics Custom Resource Documentation"^].
+
+
+
+
+=== Installation Von Prometheus
+
+Sie können Prometheus installieren, indem Sie die Anweisungen im https://prometheus.io/docs/prometheus/latest/installation/["Prometheus Dokumentation"^] .
+
+
+
+=== Installieren Sie Alertmanager
+
+Sie können Alertmanager installieren, indem Sie die Anweisungen im https://github.com/prometheus/alertmanager?tab=readme-ov-file#install["Alertmanager-Dokumentation"^].
+
+
+
+== Schritt 2: Konfigurieren Sie die Überwachungstools für die Zusammenarbeit
+
+Nachdem Sie die Überwachungstools installiert haben, müssen Sie sie für die Zusammenarbeit konfigurieren.
+
+.Schritte
+. Integrieren Sie kube-State-Metrics mit Prometheus. Bearbeiten Sie die Prometheus(`prometheus.yml`-Konfigurationsdatei ) und fügen Sie die kube-State-metrics-Dienstinformationen hinzu. Beispiel:
++
+.prometheus.yml: kube-State-metrics Service-Integration mit Prometheus
+[source, yaml]
+----
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: astra-connector
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+    scrape_configs:
+      - job_name: 'kube-state-metrics'
+        static_configs:
+          - targets: ['kube-state-metrics.astra-connector.svc:8080']
+----
+. Konfigurieren Sie Prometheus für die Weiterleitung von Warnmeldungen an Alertmanager. Bearbeiten Sie die Prometheus Konfigurationsdatei (`prometheus.yml`) und fügen Sie folgenden Abschnitt hinzu:
++
+.prometheus.yml: Senden Sie Alarme an Alertmanager
+[source, yaml]
+----
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager.astra-connector.svc:9093
+----
+
+
+.Ergebnis
+Prometheus kann jetzt Kennzahlen von den Zustandsmetriken von kube erfassen und Alarme an Alertmanager senden. Sie können jetzt konfigurieren, welche Bedingungen eine Warnung auslösen und wo die Warnungen gesendet werden sollen.
+
+
+
+== Schritt 3: Konfigurieren von Warnungen und Warnungszielen
+
+Nachdem Sie die Tools für eine Zusammenarbeit konfiguriert haben, müssen Sie konfigurieren, welche Art von Informationen Warnmeldungen auslöst und an welchen Orten die Meldungen gesendet werden sollen.
+
+
+
+=== Warnbeispiel: Backup-Fehler
+
+Das folgende Beispiel definiert eine kritische Warnung, die ausgelöst wird, wenn der Status der benutzerdefinierten Backup-Ressource auf 5 Sekunden oder länger eingestellt `Error` ist. Sie können dieses Beispiel an Ihre Umgebung anpassen und dieses YAML-Snippet in Ihre Konfigurationsdatei aufnehmen `prometheus.yml`:
+
+.Rules.yml: Definieren Sie eine Prometheus-Warnung für fehlgeschlagene Backups
+[source, yaml]
+----
+rules.yml: |
+  groups:
+    - name: fail-backup
+        rules:
+          - alert: BackupFailed
+            expr: kube_customresource_backup_info{status="Error"}
+            for: 5s
+            labels:
+              severity: critical
+            annotations:
+              summary: "Backup failed"
+              description: "A backup has failed."
+----
+
+
+=== Konfigurieren Sie Alertmanager so, dass Warnungen an andere Kanäle gesendet werden
+
+Sie können Alertmanager so konfigurieren, dass Benachrichtigungen an andere Kanäle wie E-Mail, PagerDuty, Microsoft Teams oder andere Benachrichtigungsdienste gesendet werden, indem Sie die entsprechende Konfiguration in der Datei angeben `alertmanager.yml`.
+
+Im folgenden Beispiel wird Alertmanager so konfiguriert, dass Benachrichtigungen an einen Slack-Kanal gesendet werden. Um dieses Beispiel an Ihre Umgebung anzupassen, ersetzen Sie den Wert des `api_url` Schlüssels durch die Slack Webhook-URL, die in Ihrer Umgebung verwendet wird:
+
+.Alertmanager.yml: Sendet Benachrichtigungen an einen Slack-Kanal
+[source, yaml]
+----
+data:
+  alertmanager.yml: |
+    global:
+      resolve_timeout: 5m
+    route:
+      receiver: 'slack-notifications'
+    receivers:
+      - name: 'slack-notifications'
+        slack_configs:
+          - api_url: '<your-slack-webhook-url>'
+            channel: '#failed-backups-channel'
+            send_resolved: false
+----
