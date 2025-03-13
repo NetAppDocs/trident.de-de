@@ -153,6 +153,10 @@ spec:
 
 . (_Optional_) Wenn Sie nur bestimmte Ressourcen der wiederherzustellenden Anwendung auswählen müssen, fügen Sie eine Filterung hinzu, die Ressourcen mit bestimmten Bezeichnungen enthält oder ausschließt:
 +
+
+NOTE: Trident Protect wählt einige Ressourcen automatisch aus, da sie mit den von Ihnen ausgewählten Ressourcen in Beziehung stehen. Wenn Sie beispielsweise eine beanspruchende Ressource für ein persistentes Volume auswählen und ihm ein zugeordneter Pod zugewiesen ist, stellt Trident Protect auch den zugehörigen Pod wieder her.
+
++
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden `Include` oder `Exclude` um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
 *** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.
@@ -262,6 +266,10 @@ spec:
 
 
 . (_Optional_) Wenn Sie nur bestimmte Ressourcen der wiederherzustellenden Anwendung auswählen müssen, fügen Sie eine Filterung hinzu, die Ressourcen mit bestimmten Bezeichnungen enthält oder ausschließt:
++
+
+NOTE: Trident Protect wählt einige Ressourcen automatisch aus, da sie mit den von Ihnen ausgewählten Ressourcen in Beziehung stehen. Wenn Sie beispielsweise eine beanspruchende Ressource für ein persistentes Volume auswählen und ihm ein zugeordneter Pod zugewiesen ist, stellt Trident Protect auch den zugehörigen Pod wieder her.
+
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden `Include` oder `Exclude` um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
@@ -490,6 +498,10 @@ spec:
 
 . (_Optional_) Wenn Sie nur bestimmte Ressourcen der wiederherzustellenden Anwendung auswählen müssen, fügen Sie eine Filterung hinzu, die Ressourcen mit bestimmten Bezeichnungen enthält oder ausschließt:
 +
+
+NOTE: Trident Protect wählt einige Ressourcen automatisch aus, da sie mit den von Ihnen ausgewählten Ressourcen in Beziehung stehen. Wenn Sie beispielsweise eine beanspruchende Ressource für ein persistentes Volume auswählen und ihm ein zugeordneter Pod zugewiesen ist, stellt Trident Protect auch den zugehörigen Pod wieder her.
+
++
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden `Include` oder `Exclude` um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
 *** *RefindeFilter.refindeMatchers*: Eine Reihe von refindeMatcher-Objekten. Wenn Sie mehrere Elemente in diesem Array definieren, stimmen sie als OP-Operation überein, und die Felder innerhalb jedes Elements (Gruppe, Typ, Version) stimmen mit einer UND-Operation überein.
@@ -604,6 +616,10 @@ spec:
 
 
 . (_Optional_) Wenn Sie nur bestimmte Ressourcen der wiederherzustellenden Anwendung auswählen müssen, fügen Sie eine Filterung hinzu, die Ressourcen mit bestimmten Bezeichnungen enthält oder ausschließt:
++
+
+NOTE: Trident Protect wählt einige Ressourcen automatisch aus, da sie mit den von Ihnen ausgewählten Ressourcen in Beziehung stehen. Wenn Sie beispielsweise eine beanspruchende Ressource für ein persistentes Volume auswählen und ihm ein zugeordneter Pod zugewiesen ist, stellt Trident Protect auch den zugehörigen Pod wieder her.
+
 +
 ** *ResourceFilter.resourceSelectionCriteria*: (Erforderlich für die Filterung) Verwenden `Include` oder `Exclude` um eine in resourceMatchers definierte Ressource ein- oder auszuschließen. Fügen Sie die folgenden resourceMatchers-Parameter hinzu, um die einzuschließenden oder auszuschließenden Ressourcen zu definieren:
 +
