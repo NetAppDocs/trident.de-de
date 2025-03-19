@@ -492,7 +492,7 @@ IMPORTANT: Kubernetes 1.27 wird jetzt in Trident unterstützt. Führen Sie ein U
 === Abschreibungen
 
 * Kubernetes: Aktualisierte die minimal unterstützte Version von Kubernetes auf 1.21.
-* Daten-LIFs sollten bei der Konfiguration nicht mehr angegeben werden `ontap-san` Oder `ontap-san-economy` Treiber.
+* DataLIFs sollten beim Konfigurieren von oder `ontap-san-economy` Treibern nicht mehr angegeben werden `ontap-san`.
 
 
 
@@ -518,7 +518,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 
 * Problem wurde speziell mit dem ONTAP Back-End behoben, das mit erstellt wurde `credentials` Feld nicht online während 22.07.0 Upgrade (link:https://github.com/NetApp/trident/issues/759["Ausgabe #759"^]).
 * **Docker:** hat ein Problem behoben, das dazu führt, dass das Docker Volume Plugin in einigen Umgebungen nicht startet (link:https://github.com/NetApp/trident/issues/548["Ausgabe #548"^] Und link:https://github.com/NetApp/trident/issues/760["Ausgabe #760"^]).
-* Festes SLM-Problem speziell für ONTAP-SAN-Back-Ends, das sicherstellt, dass nur eine Teilmenge von Daten-LIFs, die zu den Berichterstellungs-Nodes gehören, veröffentlicht wird.
+* SLM-Problem speziell für ONTAP SAN-Back-Ends behoben, um sicherzustellen, dass nur eine Teilmenge der DatenLIFs veröffentlicht werden, die zu Reporting-Nodes gehören.
 * Es wurde ein Performance-Problem behoben, bei dem unnötige Scans für iSCSI-LUNs beim Anschließen eines Volumes aufgetreten sind.
 * Granulare Wiederholungen im Trident iSCSI Workflow wurden entfernt, um ein schnelles Fehlschlagen zu ermöglichen und externe Wiederholungsintervalle zu verringern.
 * Das Problem wurde behoben, bei dem beim Spülen eines iSCSI-Geräts ein Fehler zurückgegeben wurde, als das entsprechende Multipath-Gerät bereits gespült wurde.
@@ -665,7 +665,7 @@ E-Series-Treiber (deaktiviert seit 20.07) wurde entfernt.
 
 * *Kubernetes:* Erhöhung der Neuzulassung der Knotenregistrierung für große Cluster.
 * Das Problem wurde behoben, bei dem der Azure-netapp-Files Treiber von mehreren Ressourcen mit demselben Namen verwirrt werden konnte.
-* ONTAP SAN IPv6 Daten-LIFs funktionieren jetzt, wenn sie mit Klammern angegeben sind.
+* ONTAP SAN IPv6 DataLIFs funktionieren jetzt, wenn sie mit Klammern angegeben werden.
 * Das Problem wurde behoben, bei dem der Import eines bereits importierten Volumes das EOF zurückgibt, sodass PVC in den ausstehenden Zustand zurückbleibt. (link:https://github.com/NetApp/trident/issues/489["GitHub Ausgabe #489"])
 * Das Problem wurde behoben, wenn die Trident Performance langsamer wird, wenn mehr als 32 Snapshots auf einem SolidFire Volume erstellt werden.
 * SHA-1 wurde durch SHA-256 bei der Erstellung eines SSL-Zertifikats ersetzt.

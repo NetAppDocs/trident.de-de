@@ -331,7 +331,7 @@ Die Variablen in der folgenden Tabelle führen dazu, dass im Ansible-Playbook ei
 | `openshift_logging_storage_kind` | Auf einstellen `nfs` So erstellen Sie ein NFS-PV für den Protokollierungsservice. 
 
 
-| `openshift_logging_storage_host` | Der Hostname oder die IP-Adresse des NFS-Hosts. Diese Einstellung sollte auf die Daten-LIF für Ihre Virtual Machine eingestellt sein. 
+| `openshift_logging_storage_host` | Der Hostname oder die IP-Adresse des NFS-Hosts. Dies sollte auf die DatenLIF für Ihre Virtual Machine festgelegt werden. 
 
 
 | `openshift_logging_storage_nfs_directory` | Der Mount-Pfad für den NFS-Export. Beispiel: Wenn das Volume mit verbunden ist `/openshift_logging`, Sie würden diesen Pfad für diese Variable verwenden. 
@@ -399,7 +399,7 @@ NOTE: Die nachfolgenden Tabellen enthalten nur die Variablen, die für die Stora
 | `openshift_metrics_storage_kind` | Auf einstellen `nfs` So erstellen Sie ein NFS-PV für den Protokollierungsservice. 
 
 
-| `openshift_metrics_storage_host` | Der Hostname oder die IP-Adresse des NFS-Hosts. Diese Einstellung sollte auf die Daten-LIF für Ihre SVM eingestellt sein. 
+| `openshift_metrics_storage_host` | Der Hostname oder die IP-Adresse des NFS-Hosts. Dies sollte auf die DatenLIF für Ihre SVM eingestellt werden. 
 
 
 | `openshift_metrics_storage_nfs_directory` | Der Mount-Pfad für den NFS-Export. Beispiel: Wenn das Volume mit verbunden ist `/openshift_metrics`, Sie würden diesen Pfad für diese Variable verwenden. 

@@ -52,10 +52,14 @@ Diese Tabelle enthält Einzelheiten `TridentOrchestrator` Attribute.
 | `windows` | Einstellung auf `true` Ermöglicht die Installation auf Windows Worker-Knoten. | `false` 
 
 
-| `cloudProvider` | Auf einstellen `"Azure"` Bei Verwendung von verwalteten Identitäten oder einer Cloud-Identität auf einem AKS-Cluster. Bei Verwendung einer Cloud-Identität auf einem EKS Cluster auf „AWS“ einstellen. | `""` 
+| `cloudProvider`  a| 
+Einstellung auf `"Azure"` bei Verwendung von verwalteten Identitäten oder einer Cloud-Identität auf einem AKS-Cluster. Legen Sie bei Verwendung einer Cloud-Identität auf einem EKS-Cluster fest `"AWS"`. Einstellung auf `"GCP"` bei Verwendung einer Cloud-Identität auf einem GKE-Cluster.
+| `""` 
 
 
-| `cloudIdentity` | Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle (“'eks.amazonaws.com/role-arn: arn:aws:iam::123456:Role/Trident-Role“) einstellen. | `""` 
+| `cloudIdentity`  a| 
+Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle (“'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role') einstellen. Bei Verwendung der Cloud-Identität auf einem GKE-Cluster auf Cloud-Identität ("iam.gke.io/gcp-Service-Account: xxxx@mygcpproject.iam.gserviceaccount.com'") gesetzt.
+| `""` 
 
 
 | `IPv6` | Installieren Sie Trident über IPv6 | Falsch 

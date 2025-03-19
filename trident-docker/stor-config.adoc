@@ -90,7 +90,7 @@ IP-Adresse des ONTAP Management LIF. Sie können einen vollqualifizierten Domän
 | `dataLIF`  a| 
 IP-Adresse des LIF-Protokolls.
 
-*ONTAP NAS Treiber*: NetApp empfiehlt die Angabe `dataLIF`. Falls nicht bereitgestellt, ruft Trident die Daten-LIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Damit können Sie ein Round-Robin-DNS zum Load-Balancing über mehrere Daten-LIFs erstellen.
+*ONTAP NAS Treiber*: NetApp empfiehlt die Angabe `dataLIF`. Wenn nicht angegeben, ruft Trident die DatenLIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Dadurch können Sie ein Round-Robin-DNS erstellen, um den Lastausgleich über mehrere DatenLIFs hinweg zu ermöglichen.
 
 *ONTAP SAN-Treiber*: Nicht für iSCSI oder FC angeben. Trident verwendet link:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP selektive LUN-Zuordnung"^] zur Erkennung der für eine Multi-Path-Sitzung erforderlichen iSCSI oder FC LIFs. Eine Warnung wird erzeugt, wenn `dataLIF` explizit definiert ist.
  a| 

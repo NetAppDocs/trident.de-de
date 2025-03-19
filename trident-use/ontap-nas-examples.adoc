@@ -37,7 +37,7 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `managementLIF` | IP-Adresse eines Clusters oder einer SVM-Management-LIF Ein vollständig qualifizierter Domain-Name (FQDN) kann angegeben werden. Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`. Informationen über die nahtlose MetroCluster-Umschaltung finden Sie im <<mcc-best>>. | „10.0.0.1“, „[2001:1234:abcd::fefe]“ 
 
 
-| `dataLIF` | IP-Adresse des LIF-Protokolls. NetApp empfiehlt die Angabe `dataLIF`. Falls nicht bereitgestellt, ruft Trident die Daten-LIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Damit können Sie ein Round-Robin-DNS zum Load-Balancing über mehrere Daten-LIFs erstellen. Kann nach der Anfangseinstellung geändert werden. Siehe . Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`. *Für MetroCluster weglassen.* Siehe <<mcc-best>>. | Angegebene Adresse oder abgeleitet von SVM, falls nicht angegeben (nicht empfohlen) 
+| `dataLIF` | IP-Adresse des LIF-Protokolls. NetApp empfiehlt die Angabe `dataLIF`. Wenn nicht angegeben, ruft Trident die DatenLIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Dadurch können Sie ein Round-Robin-DNS erstellen, um den Lastausgleich über mehrere DatenLIFs hinweg zu ermöglichen. Kann nach der Anfangseinstellung geändert werden. Siehe . Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. `[28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]`. *Für MetroCluster weglassen.* Siehe <<mcc-best>>. | Angegebene Adresse oder abgeleitet von SVM, falls nicht angegeben (nicht empfohlen) 
 
 
 | `svm` | Zu verwendende Storage Virtual Machine
@@ -118,7 +118,7 @@ Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und ben
 | `smbShare` | Sie können eine der folgenden Optionen angeben: Den Namen einer SMB-Freigabe, die mit der Microsoft Verwaltungskonsole oder der ONTAP-CLI erstellt wurde, einen Namen, über den Trident die SMB-Freigabe erstellen kann, oder Sie können den Parameter leer lassen, um den Zugriff auf gemeinsame Freigaben auf Volumes zu verhindern. Dieser Parameter ist für On-Premises-ONTAP optional. Dieser Parameter ist für Amazon FSX for ONTAP-Back-Ends erforderlich und darf nicht leer sein. | `smb-share` 
 
 
-| `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher `userREST` ist standardmäßig auf gesetzt `true`. Wechseln Sie `useREST` zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
+| `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher `useREST` ist standardmäßig auf gesetzt `true`. Wechseln Sie `useREST` zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
 
 
 | `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von Qtrees im ONTAP-nas-Economy Backend. | „“ (nicht standardmäßig durchgesetzt) 
@@ -671,11 +671,11 @@ Trident entscheidet, welcher virtuelle Pool ausgewählt wird, und stellt sicher,
 
 == Aktualisierung `dataLIF` Nach der Erstkonfiguration
 
-Sie können die Daten-LIF nach der Erstkonfiguration ändern, indem Sie den folgenden Befehl ausführen, um die neue Backend-JSON-Datei mit aktualisierten Daten-LIF bereitzustellen.
+Sie können die dataLIF nach der Erstkonfiguration ändern, indem Sie den folgenden Befehl ausführen, um die neue Backend-JSON-Datei mit aktualisierter dataLIF bereitzustellen.
 
 [listing]
 ----
 tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-updated-dataLIF>
 ----
 
-NOTE: Wenn PVCs an einen oder mehrere Pods angeschlossen sind, müssen Sie alle entsprechenden Pods herunterfahren und sie dann wieder zurückbringen, damit die neue logische Daten wirksam werden.
+NOTE: Wenn PVCs an einen oder mehrere Pods angeschlossen sind, müssen Sie alle entsprechenden Pods herunterfahren und sie dann wieder erstellen, damit die neue DataLIF wirksam wird.

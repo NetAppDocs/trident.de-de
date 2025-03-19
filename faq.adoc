@@ -202,12 +202,12 @@ Wenn Sie nach einem Upgrade, Abhängigkeitsproblemen oder einem nicht erfolgreic
 
 
 
-=== Muss ich Management- und Daten-LIFs in einer ONTAP-Back-End-Definitionsdatei definieren?
+=== Muss ich sowohl das Management als auch die DataLIFs in einer ONTAP-Backend-Definitionsdatei definieren?
 
-Die Management-LIF ist erforderlich. Logische Datenschnittstelle variiert:
+Die Management-LIF ist erforderlich. DataLIF variiert:
 
 * ONTAP SAN: Nicht für iSCSI angeben. Trident verwendetlink:https://docs.netapp.com/us-en/ontap/san-admin/selective-lun-map-concept.html["ONTAP selektive LUN-Zuordnung"^], um die für die Einrichtung einer Multi-Path-Sitzung erforderlichen iSCI LIFs zu ermitteln. Eine Warnung wird erzeugt, wenn `dataLIF` explizit definiert ist. Weitere Informationen finden Sie unter link:trident-use/ontap-san-examples.html["ONTAP SAN-Konfigurationsoptionen und -Beispiele"] .
-* ONTAP NAS: NetApp empfiehlt die Angabe `dataLIF`. Falls nicht bereitgestellt, ruft Trident die Daten-LIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Damit können Sie ein Round-Robin-DNS zum Load-Balancing über mehrere Daten-LIFs erstellen. Weitere Informationen finden Sie unterlink:trident-use/ontap-nas-examples.html["ONTAP NAS-Konfigurationsoptionen und -Beispiele"]
+* ONTAP NAS: NetApp empfiehlt die Angabe `dataLIF`. Wenn nicht angegeben, ruft Trident die DatenLIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Dadurch können Sie ein Round-Robin-DNS erstellen, um den Lastausgleich über mehrere DatenLIFs hinweg zu ermöglichen. Weitere Informationen finden Sie unterlink:trident-use/ontap-nas-examples.html["ONTAP NAS-Konfigurationsoptionen und -Beispiele"]
 
 
 
@@ -224,7 +224,7 @@ Trident kann Exportrichtlinien ab Version 20.04 dynamisch erstellen und verwalte
 
 
 
-=== Können IPv6-Adressen für das Management und die Daten-LIFs verwendet werden?
+=== Können IPv6-Adressen für die Management- und DataLIFs verwendet werden?
 
 Trident unterstützt das Definieren von IPv6-Adressen für:
 
@@ -242,9 +242,9 @@ Ja, es ist möglich, die Backend-Management-LIF mithilfe des zu aktualisieren `t
 
 
 
-=== Ist es möglich, die Daten-LIF auf dem Backend zu aktualisieren?
+=== Ist es möglich, die DataLIF auf dem Backend zu aktualisieren?
 
-Sie können die Daten-LIF auf aktualisieren `ontap-nas` Und `ontap-nas-economy` Nur.
+Sie können die DataLIF nur bei und `ontap-nas-economy` aktualisieren `ontap-nas`.
 
 
 
