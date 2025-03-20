@@ -118,7 +118,7 @@ Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und ben
 | `smbShare` | Sie können eine der folgenden Optionen angeben: Den Namen einer SMB-Freigabe, die mit der Microsoft Verwaltungskonsole oder der ONTAP-CLI erstellt wurde, einen Namen, über den Trident die SMB-Freigabe erstellen kann, oder Sie können den Parameter leer lassen, um den Zugriff auf gemeinsame Freigaben auf Volumes zu verhindern. Dieser Parameter ist für On-Premises-ONTAP optional. Dieser Parameter ist für Amazon FSX for ONTAP-Back-Ends erforderlich und darf nicht leer sein. | `smb-share` 
 
 
-| `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher `useREST` ist standardmäßig auf gesetzt `true`. Wechseln Sie `useREST` zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
+| `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontapi` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher `useREST` ist standardmäßig auf gesetzt `true`. Wechseln Sie `useREST` zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
 
 
 | `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von Qtrees im ONTAP-nas-Economy Backend. | „“ (nicht standardmäßig durchgesetzt) 
@@ -223,7 +223,7 @@ Die Berechnung ist wie folgt:
 ----
 Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
 ----
-Für die snapshotReserve = 50 %, und die PVC-Anfrage = 5 gib, beträgt die Gesamtgröße des Volumes 2/.5 = 10 gib, und die verfügbare Größe beträgt 5 gib. Dies entspricht dem, was der Benutzer in der PVC-Anfrage angefordert hat. Der `volume show` Der Befehl sollte Ergebnisse anzeigen, die diesem Beispiel ähnlich sind:
+Für die snapshotReserve = 50 %, und die PVC-Anfrage = 5 gib, beträgt die Gesamtgröße des Volumes 5/.5 = 10 gib, und die verfügbare Größe beträgt 5 gib. Dies entspricht dem, was der Benutzer in der PVC-Anfrage angefordert hat. Der `volume show` Befehl sollte die Ergebnisse ähnlich wie in diesem Beispiel anzeigen:
 
 image::../media/volume-show-nas.png[Zeigt die Ausgabe des Befehls Volume show an.]
 

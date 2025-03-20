@@ -122,7 +122,7 @@ Verwenden Sie diese Funktion nur, wenn Sie eine Fehlerbehebung durchführen und 
 
 
 | `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs. 
-`useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontap` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher
+`useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontapi` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher
 `useREST` ist standardmäßig auf gesetzt `true`. Wechseln Sie
 `useREST` zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. 
 `useREST` Ist vollständig für NVMe/TCP qualifiziert. *Falls angegeben, immer für ASA r2* auf einstellen `true`. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 

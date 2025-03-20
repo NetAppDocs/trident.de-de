@@ -49,7 +49,7 @@ Unabhängig von Ihrem Installationspfad müssen Sie Folgendes haben:
 
 
 
-TIP: Wenn Sie sich nicht mit dem vertraut gemacht haben link:../trident-concepts/intro.html["Grundkonzepte"^], Ist jetzt eine tolle Zeit, um das zu tun.
+TIP: Wenn Sie sich nicht mit dem vertraut gemacht habenlink:../trident-get-started/intro.html["Grundkonzepte"^], ist jetzt eine tolle Zeit, das zu tun.
 
 
 
