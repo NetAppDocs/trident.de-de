@@ -12,7 +12,7 @@ summary: 'Durch den Einsatz von Trident mit Amazon FSX for NetApp ONTAP kann sic
 
 
 [role="lead"]
-Konfigurieren Sie ein Kubernetes StorageClass-Objekt und erstellen Sie die Storage-Klasse, um Trident anzuweisen, wie Volumes bereitgestellt werden. Erstellen Sie ein PersistentVolume (PV) und ein PersistentVolumeClaim (PVC), das die konfigurierte Kubernetes StorageClass verwendet, um Zugriff auf das PV anzufordern. Anschließend können Sie das PV an einem Pod montieren.
+Konfigurieren Sie ein Kubernetes StorageClass-Objekt und erstellen Sie die Storage-Klasse, um Trident anzuweisen, wie Volumes bereitgestellt werden. Erstellen Sie ein PersistentVolumeClaim (PVC), das die konfigurierte Kubernetes StorageClass verwendet, um Zugriff auf das PV anzufordern. Anschließend können Sie das PV an einem Pod montieren.
 
 
 
@@ -80,13 +80,13 @@ basic-csi    csi.trident.netapp.io   15h
 
 
 
-== Erstellen Sie das PV und die PVC
+== Erstellen Sie die PVC
 
-A link:https://kubernetes.io/docs/concepts/storage/persistent-volumes/["_PersistentVolume_"^] (PV) ist eine physische Speicherressource, die vom Clusteradministrator auf einem Kubernetes-Cluster bereitgestellt wird. Der https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] (PVC) ist eine Anforderung für den Zugriff auf das PersistentVolume auf dem Cluster.
+A https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] (PVC) ist eine Anforderung für den Zugriff auf das PersistentVolume auf dem Cluster.
 
 Die PVC kann so konfiguriert werden, dass eine Speicherung einer bestimmten Größe oder eines bestimmten Zugriffsmodus angefordert wird. Mithilfe der zugehörigen StorageClass kann der Clusteradministrator mehr als die Größe des PersistentVolume und den Zugriffsmodus steuern, z. B. die Performance oder das Service-Level.
 
-Nachdem Sie das PV und die PVC erstellt haben, können Sie das Volume in einem Pod einbinden.
+Nachdem Sie die PVC erstellt haben, können Sie das Volume in einem Pod einbinden.
 
 
 
@@ -161,20 +161,6 @@ storageClassName: protection-gold
 === Erstellen Sie das PV und die PVC
 
 .Schritte
-. Erstellen Sie das PV.
-+
-[listing]
-----
-kubectl create -f pv.yaml
-----
-. Überprüfen Sie den PV-Status.
-+
-[listing]
-----
-kubectl get pv
-NAME        CAPACITY  ACCESS MODES  RECLAIM POLICY  STATUS    CLAIM  STORAGECLASS  REASON  AGE
-pv-storage  4Gi       RWO           Retain          Available                              7s
-----
 . Erstellen Sie die PVC.
 +
 [listing]
@@ -186,11 +172,14 @@ kubectl create -f pvc.yaml
 [listing]
 ----
 kubectl get pvc
-NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
-pvc-storage Bound  pv-name 2Gi      RWO                       5m
 ----
 
 
+[listing]
+----
+NAME        STATUS VOLUME     CAPACITY ACCESS MODES STORAGECLASS AGE
+pvc-storage Bound  pv-name 2Gi      RWO                       5m
+----
 Einzelheiten zur Interaktion von Storage-Klassen mit den `PersistentVolumeClaim` Parametern und zur Steuerung, wie Trident Volumes provisioniert, finden Sie unterlink:../trident-reference/objects.html["Kubernetes und Trident Objekte"].
 
 
