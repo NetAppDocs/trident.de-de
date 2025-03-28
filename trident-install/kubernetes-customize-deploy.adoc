@@ -89,7 +89,7 @@ Telemetrie | `"http://proxy.example.com:8888"`
 
 
 | `imageRegistry` | Pfad zur internen Registrierung des Formats
-`<registry FQDN>[:port][/subpath]` | `"k8s.gcr.io"` (Kubernetes 1.19+) oder `"quay.io/k8scsi"` 
+`<registry FQDN>[:port][/subpath]` | `"registry.k8s.io"` 
 
 
 | `kubeletDir` | Pfad zum kubelet-Verzeichnis auf dem Host | `"/var/lib/kubelet"` 
