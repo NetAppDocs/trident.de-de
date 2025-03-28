@@ -39,7 +39,13 @@ Sie müssen jede Applikation definieren, die Sie mit Trident Protect managen mö
 .. Konfigurieren Sie die folgenden Attribute:
 +
 *** *metadata.name*: (_required_) der Name der benutzerdefinierten Ressource der Anwendung. Beachten Sie den von Ihnen ausgewählten Namen, da sich andere CR-Dateien, die für Schutzvorgänge benötigt werden, auf diesen Wert beziehen.
-*** *spec.includedNamespaces*: (_required_) Verwenden Sie Namespace-Labels oder einen Namespace-Namen, um Namespaces anzugeben, in denen die Anwendungsressourcen vorhanden sind. Der Application Namespace muss Teil dieser Liste sein.
+*** *spec.includedNamespaces*: (_required_) Verwenden Sie Namespace und Label Selector, um die Namespaces und Ressourcen anzugeben, die die Anwendung verwendet. Der Application Namespace muss Teil dieser Liste sein. Die Label Selector ist optional und kann verwendet werden, um Ressourcen innerhalb jedes angegebenen Namespace zu filtern.
+*** *spec.includedClusterScopedResources*: (_Optional_) Verwenden Sie dieses Attribut, um Clusterressourcen anzugeben, die in die Anwendungsdefinition aufgenommen werden sollen. Mit diesem Attribut können Sie diese Ressourcen anhand ihrer Gruppe, Version, Art und Labels auswählen.
++
+**** *GroupVersionRind*: (_required_) gibt die API-Gruppe, die Version und die Art der Clusterressource an.
+**** *LabelSelector*: (_Optional_) filtert die Cluster-Ressourcen basierend auf ihren Bezeichnungen.
+
+
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Optional_) Diese Annotation gilt nur für Anwendungen, die von virtuellen Maschinen definiert sind, wie in KubeVirt-Umgebungen, in denen vor Snapshots das Einfrieren des Dateisystems auftritt. Geben Sie an, ob diese Anwendung während eines Snapshots in das Dateisystem schreiben kann. Wenn auf true gesetzt, ignoriert die Anwendung die globale Einstellung und kann während eines Snapshots in das Dateisystem schreiben. Wenn diese Option auf false gesetzt ist, ignoriert die Anwendung die globale Einstellung und das Dateisystem wird während eines Snapshots eingefroren. Wenn angegeben, die Anwendungsdefinition jedoch keine virtuellen Maschinen enthält, wird die Annotation ignoriert. Falls nicht angegeben, folgt die Applikation der link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Global Trident Protect Freeze-Einstellung"].
 +
 [NOTE]
@@ -66,10 +72,23 @@ metadata:
   namespace: my-app-namespace
 spec:
   includedNamespaces:
-  - labelSelector: {}
-    namespace: namespace-1
-  - labelSelector: {}
-    namespace: namespace-2
+    - namespace: namespace-1
+      labelSelector:
+        matchLabels:
+          app: example-app
+    - namespace: namespace-2
+      labelSelector:
+        matchLabels:
+          app: another-example-app
+  includedClusterScopedResources:
+    - groupVersionKind:
+        group: rbac.authorization.k8s.io
+        kind: ClusterRole
+        version: v1
+      labelSelector:
+        matchLabels:
+          mylabel: test
+
 ----
 
 

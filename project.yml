@@ -50,6 +50,8 @@ sidebar:
   - section: trident-docker
   - section: trident-reco
   - section: trident-protect
+  - title: Blogbeiträge
+    url: "/blog-posts.html"
   - title: Wissen und Support
     entries:
     - title: FAQs
