@@ -46,6 +46,10 @@ NOTE: Die Volumes, die von Trident erstellt werden, sind keiner Volume Access Gr
 NetApp ONTAP bietet Verschlüsselung ruhender Daten zum Schutz sensibler Daten, wenn eine Festplatte gestohlen, zurückgegeben oder einer neuen Verwendung zugewiesen wird. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap/encryption-at-rest/configure-netapp-volume-encryption-concept.html["NetApp Volume Encryption Übersicht konfigurieren"^].
 
 * Wenn auf dem Backend NAE aktiviert ist, wird jedes in Trident bereitgestellte Volume NAE-aktiviert.
++
+** Sie können die NVE-Verschlüsselung auf flat einstellen `""`, um NAE-fähige Volumes zu erstellen.
+
+
 * Wenn NAE im Back-End nicht aktiviert ist, wird jedes in Trident bereitgestellte Volume NVE-aktiviert, es sei denn, Sie setzen in der Backend-Konfiguration das NVE-Verschlüsselungsflag auf `false`.
 
 
