@@ -5020,7 +5020,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="78cd2bf2aaf1655ef471d7da97aa4ef9" category="list-text">docker.io/netapp/Trident-AutoSupport:25.02</block>
   <block id="b55333d21cb50b1d1d34c529c999482f" category="list-text">Registry.k8s.io/SIG-Storage/csi-provisioner:v5.2.0</block>
   <block id="c9341ee9faa017471dec7dabe41bf3e4" category="list-text">Registry.k8s.io/SIG-Storage/csi-Attacher:v4.8.0</block>
-  <block id="8185908867d5a8954eddf078ff1f303e" category="list-text">Registry.k8s.io/SIG-Storage/csi-resizer:v1.13.0</block>
   <block id="f174408325f6885e97fc18e213950cb7" category="list-text">Registry.k8s.io/SIG-Storage/csi-snapshotter:v8.2.0</block>
   <block id="7e8b00e8f801232796015a8859867e55" category="list-text">Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.13.0</block>
   <block id="7abdbff8f015a0a5e1ca6bcf8e7a955c" category="list-text">docker.io/netapp/Trident-Operator:25.02.0 (optional)</block>
@@ -5495,4 +5494,5 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="a305c8fb2137d8a4a767905590079e89" category="section-title">Erstellen Sie die PVC</block>
   <block id="06034bca671a3028021f1a722aac7b41" category="paragraph">Konfigurieren Sie ein Kubernetes StorageClass-Objekt und erstellen Sie die Storage-Klasse, um Trident anzuweisen, wie Volumes bereitgestellt werden. Erstellen Sie ein PersistentVolumeClaim (PVC), das die konfigurierte Kubernetes StorageClass verwendet, um Zugriff auf das PV anzufordern. Anschließend können Sie das PV an einem Pod montieren.</block>
   <block id="5de805965faeb85a54098223ea3a3334" category="paragraph">Nachdem Sie die PVC erstellt haben, können Sie das Volume in einem Pod einbinden.</block>
+  <block id="06489d7f99c3b214c8b9a539006a642c" category="list-text">Registry.k8s.io/SIG-Storage/csi-resizer:v1.13.2</block>
 </blocks>
