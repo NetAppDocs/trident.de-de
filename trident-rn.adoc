@@ -37,7 +37,6 @@ Ab Trident 25.02 enthält die neue Zusammenfassung weitere Informationen zu Verb
 ** Unterstützung für Force-Trennen für ONTAP-NAS-Volumes bei Szenarios zum Herunterfahren eines nicht anmutigen Knotens hinzugefügt. Die neuen ONTAP-NAS-Volumes verwenden jetzt von Trident gemanagte Exportrichtlinien pro Volume. Bereitstellung eines Upgrade-Pfads für vorhandene Volumes, um zu dem neuen Richtlinienmodell für den Export bei einer Veröffentlichung ohne Beeinträchtigung aktiver Workloads zu wechseln
 ** CloneFromSnapshot-Anmerkung hinzugefügt.
 ** Zusätzliche Unterstützung für Namespace-übergreifendes Klonen von Volumes.
-** Automatische Backend-Konfiguration für EKS Add-on und Helm-basierte Installation für Amazon FSX for NetApp ONTAP hinzugefügt.
 ** Verbesserte iSCSI-Korrektur bei der Selbstheilung, um eine erneute Überprüfung durch exakte Host-, Kanal-, Ziel- und LUN-ID einzuleiten.
 ** Unterstützung für Kubernetes 1.32 hinzugefügt.
 

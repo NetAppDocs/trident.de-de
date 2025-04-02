@@ -24,7 +24,7 @@ Konfigurieren Sie ein Kubernetes StorageClass-Objekt und erstellen Sie die Stora
 
 Das https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes StorageClass-Objekt"^] identifiziert Trident als bereitstellung, die für diese Klasse verwendet wird. Trident erklärt, wie ein Volume bereitgestellt wird. Beispiel:
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -38,7 +38,7 @@ parameters:
 ----
 Fügen Sie zum Bereitstellen von NFSv3 Volumes auf AWS Bottlerocket die erforderliche Storage-Klasse hinzu `mountOptions`:
 
-[listing]
+[source, YAML]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -63,21 +63,24 @@ Einzelheiten zur Interaktion von Storage-Klassen mit den `PersistentVolumeClaim`
 .Schritte
 . Verwenden Sie dieses Objekt von Kubernetes `kubectl` Um sie in Kubernetes zu erstellen.
 +
-[listing]
+[source, console]
 ----
 kubectl create -f storage-class-ontapnas.yaml
 ----
 . Sie sollten nun eine *Basic-csi* Storage-Klasse sowohl in Kubernetes als auch in Trident sehen, und Trident hätte die Pools auf dem Backend entdeckt haben sollen.
 +
-[listing]
+[source, console]
 ----
 kubectl get sc basic-csi
+----
+
+
+[listing]
+----
 NAME         PROVISIONER             AGE
 basic-csi    csi.trident.netapp.io   15h
 
 ----
-
-
 
 
 == Erstellen Sie die PVC
@@ -97,7 +100,7 @@ Nachdem Sie die PVC erstellt haben, können Sie das Volume in einem Pod einbinde
 ====
 Dieses Beispielmanifest zeigt ein Basis-PV von 10Gi, das mit StorageClass verknüpft ist `basic-csi`.
 
-[listing]
+[source, YAML]
 ----
 apiVersion: v1
 kind: PersistentVolume
@@ -123,7 +126,7 @@ Diese Beispiele zeigen grundlegende PVC-Konfigurationsoptionen.
 .PVC mit RWX-Zugang
 Dieses Beispiel zeigt ein einfaches PVC mit RWX-Zugriff, das mit einer StorageClass namens verknüpft ist `basic-csi`.
 
-[listing]
+[source, YAML]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -140,9 +143,8 @@ spec:
 .PVC mit NVMe/TCP
 Dieses Beispiel zeigt eine grundlegende PVC für NVMe/TCP mit RWX-Zugriff, die einer StorageClass namens zugeordnet ist `protection-gold`.
 
-[listing]
+[source, YAML]
 ----
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -163,13 +165,13 @@ storageClassName: protection-gold
 .Schritte
 . Erstellen Sie die PVC.
 +
-[listing]
+[source, console]
 ----
 kubectl create -f pvc.yaml
 ----
 . Überprüfen Sie den PVC-Status.
 +
-[listing]
+[source, console]
 ----
 kubectl get pvc
 ----

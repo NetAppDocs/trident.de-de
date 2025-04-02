@@ -52,38 +52,16 @@ image::../media/aws-eks-03.png[aws eks, 03]
 +
 image::../media/aws-eks-04.png[aws eks, 04]
 
-. Konfigurieren Sie die optionalen Konfigurationseinstellungen nach Bedarf, und wählen Sie *Weiter*.
+. Folgen Sie dem *Add-on-Konfigurationsschema* und setzen Sie den Parameter Konfigurationswerte im Abschnitt *Konfigurationswerte* auf die Rolle-arn, die Sie im vorherigen Schritt (Schritt 1) erstellt haben.
 +
-Folgen Sie dem *Add-on-Konfigurationsschema* und setzen Sie den Parameter Konfigurationswerte im Abschnitt *Konfigurationswerte* auf die Rolle-arn, die Sie im vorherigen Schritt (Schritt 1) erstellt haben (Wert sollte im folgenden Format sein: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`). HINWEIS: Wenn Sie für die Konfliktlösungsmethode Überschreiben auswählen, können eine oder mehrere Einstellungen für das vorhandene Add-On mit den Amazon EKS-Add-on-Einstellungen überschrieben werden. Wenn Sie diese Option nicht aktivieren und es einen Konflikt mit Ihren bestehenden Einstellungen gibt, schlägt der Vorgang fehl. Sie können die resultierende Fehlermeldung verwenden, um den Konflikt zu beheben. Bevor Sie diese Option auswählen, stellen Sie sicher, dass das Amazon EKS-Add-On keine Einstellungen verwaltet, die Sie selbst verwalten müssen.
+Der Wert muss im folgenden Format vorliegen: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`.
+
++
+
+NOTE: Wenn Sie für die Konfliktlösungsmethode Überschreiben auswählen, können eine oder mehrere Einstellungen für das vorhandene Add-On mit den Amazon EKS-Zusatzeinstellungen überschrieben werden. Wenn Sie diese Option nicht aktivieren und es einen Konflikt mit Ihren bestehenden Einstellungen gibt, schlägt der Vorgang fehl. Sie können die resultierende Fehlermeldung verwenden, um den Konflikt zu beheben. Bevor Sie diese Option auswählen, stellen Sie sicher, dass das Amazon EKS-Add-On keine Einstellungen verwaltet, die Sie selbst verwalten müssen.
 
 +
 image::../media/aws-eks-06.png[aws eks, 06]
-
-+
-** Ab Version 25.02 unterstützt Trident die automatische Backend-Konfiguration. Trident erstellt nach der Trident Installation nahtlos die Back-End- und Storage-Klassen. Um die automatische Backend-Konfiguration zu aktivieren, fügen Sie den `ontapConfigurator` Parameter hinzu und geben Sie `authType`, `fsxnID` und `protocols` im Add-On-Konfigurationsschema zusammen mit `cloudIdentity` während der Installation an.
-+
-[listing]
-----
-"ontapConfigurator": {
-        "enabled": true,
-        "svms": [
-          {
-            "authType": "awsarn",
-            "fsxnID": "fs-0dfeaa884a68b1cab",
-            "protocols": [
-              "nfs",
-              "iscsi"
-            ]
-          }
-        ]
-      }}"
-
-----
-+
-
-NOTE: Um die automatische Backend-Konfiguration zu deaktivieren, aktualisieren Sie die Trident-Release-Version und setzen Sie den *ontapConfigurator* auf *false*.
-
-
 
 . Wählen Sie *Erstellen*.
 . Überprüfen Sie, ob der Status des Add-ons _Active_ lautet.
