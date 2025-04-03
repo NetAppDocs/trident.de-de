@@ -5483,4 +5483,5 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="fa1c8065dc4d2b862bfba881472c0aac" category="admonition">Ersetzen Sie<block ref="2befb7722283d545949c6220c6548fe4" prefix=" " category="inline-code"></block> diese durch die ARN der Rolle, die im vorherigen Schritt erstellt wurde.</block>
   <block id="44308ffe82692c268b99d3caefca907e" category="list-text">Überprüfen Sie die aktuelle Version des FSxN Trident CSI-Add-ons. Ersetzen Sie<block ref="e2eb89f0ffaf521a0d2eeaffca04d117" prefix=" " category="inline-code"></block> den Cluster-Namen.</block>
   <block id="a1dc4a2136ed260b34021d64aaa6980a" category="list-text">Aktualisieren Sie das Add-on auf die Version, DIE unter UPDATE zurückgegeben wurde, DIE in der Ausgabe des vorherigen Schritts VERFÜGBAR ist.</block>
+  <block id="0ca34892a0e67f37b07d196ec272007d" category="list-text">NetApp empfiehlt nicht die Verwendung von FlexVol Autogrow in allen ONTAP-Treibern außer ONTAP-san. Als Workaround unterstützt Trident die Verwendung von Snapshot-Reserve und skaliert FlexVol-Volumen entsprechend.</block>
 </blocks>
