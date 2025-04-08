@@ -50,7 +50,7 @@ NetApp ONTAP bietet Verschlüsselung ruhender Daten zum Schutz sensibler Daten, 
 ** Sie können das NVE-Verschlüsselungs-Flag auf festlegen `""`, um NAE-fähige Volumes zu erstellen.
 
 
-* Wenn NAE im Back-End nicht aktiviert ist, wird jedes in Trident bereitgestellte Volume NVE-aktiviert, es sei denn, Sie setzen in der Backend-Konfiguration das NVE-Verschlüsselungsflag auf `false`.
+* Wenn NAE im Back-End nicht aktiviert ist, wird jedes in Trident bereitgestellte Volume NVE-aktiviert, es sei denn, das NVE-Verschlüsselungs-Flag ist in der Back-End-Konfiguration auf (Standardwert) gesetzt `false`.
 
 
 [NOTE]
