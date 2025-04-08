@@ -15,6 +15,9 @@ summary: Verwenden Sie die hier angegebenen Zeiger zur Fehlerbehebung bei Proble
 Verwenden Sie die hier angegebenen Zeiger zur Fehlerbehebung bei Problemen, die bei der Installation und Verwendung von Trident auftreten können.
 
 
+NOTE: Um Hilfe mit Trident zu erhalten, erstellen Sie ein Support-Bundle mit `tridentctl logs -a -n trident` und senden Sie es an den NetApp Support.
+
+
 
 == Allgemeine Fehlerbehebung
 
