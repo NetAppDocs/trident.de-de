@@ -12,7 +12,7 @@ summary: Erfahren Sie mehr über Back-End-Konfigurationsoptionen für Amazon FSX
 
 
 [role="lead"]
-Beispielanwendung bereitstellen.
+Wenn die Storage-Klasse und die PVC erstellt wurden, können Sie das PV an einem Pod mounten. In diesem Abschnitt werden der Beispielbefehl und die Konfiguration zum Anbinden des PV an einen Pod aufgeführt.
 
 .Schritte
 . Mounten Sie das Volume in einem Pod.
