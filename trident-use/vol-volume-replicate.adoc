@@ -54,7 +54,7 @@ Führen Sie die folgenden Schritte aus, und verwenden Sie die CRD-Beispiele, um 
 .. Erstellen Sie ein StorageClass-Objekt mit dem `trident.netapp.io/replication: true` Parameter.
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -69,7 +69,7 @@ parameters:
 .. PVC mit zuvor erstellter StorageClass erstellen.
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -86,7 +86,7 @@ spec:
 .. Erstellen Sie eine MirrorRelation CR mit lokalen Informationen.
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -107,7 +107,7 @@ Trident ruft die internen Informationen für das Volume und den aktuellen DP-Sta
 kubectl get tmr csi-nas
 ----
 +
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -132,7 +132,7 @@ status:
 .. Erstellen Sie eine StorageClass mit dem Parameter trident.netapp.io/replication: true.
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -145,7 +145,7 @@ parameters:
 .. Erstellen Sie eine MirrorRelationship-CR mit Ziel- und Quellinformationen.
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 kind: TridentMirrorRelationship
 apiVersion: trident.netapp.io/v1
@@ -163,7 +163,7 @@ Trident erstellt eine SnapMirror Beziehung mit dem Namen der konfigurierten Bezi
 .. PVC mit zuvor erstellter StorageClass erstellen, um als sekundäres Ziel zu fungieren (SnapMirror Ziel).
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -222,7 +222,7 @@ Führen Sie während eines geplanten Failover (Migration) die folgenden Schritte
 . Erstellen Sie auf dem primären Kubernetes-Cluster SnapshotInfo CR, um interne Details zu erhalten.
 +
 .Beispiel
-[listing]
+[source, yaml]
 ----
 kind: SnapshotInfo
 apiVersion: trident.netapp.io/v1
@@ -305,7 +305,7 @@ Spiegelbeziehungen können jederzeit nach ihrer Einrichtung aktualisiert werden.
 Sie können ein CRD verwenden, um ein SnapMirror-Update durchzuführen, ohne dass Trident über eine direkte Verbindung zum ONTAP-Cluster verfügt. Im folgenden Beispielformat finden Sie das TridentActionMirrorUpdate:
 
 .Beispiel
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentActionMirrorUpdate

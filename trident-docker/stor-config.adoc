@@ -134,7 +134,7 @@ Optionale, fail-Provisioning-Funktion, wenn die Nutzung über diesem Prozentsatz
 
 
 | `nfsMountOptions`  a| 
-Feingranulare Steuerung der NFS-Mount-Optionen; standardmäßig „-o nfsvers=3“. *Nur für die verfügbar `ontap-nas` Und `ontap-nas-economy` Fahrer*. https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Siehe Informationen zur NFS-Host-Konfiguration hier"^].
+Feingranulare Steuerung der NFS-Mount-Optionen; standardmäßig „-o nfsvers=3“. *Nur verfügbar für die `ontap-nas` und `ontap-nas-economy` Fahrer*. https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf["Siehe Informationen zur NFS-Host-Konfiguration hier"^].
  a| 
 `-o nfsvers=4`
 
@@ -273,12 +273,12 @@ Die `ontap-nas` Treiber und `ontap-san` erstellen eine ONTAP FlexVol für jedes 
 
 Wenn Sie mehr Docker Volumes benötigen, als durch die FlexVol-Limits unterstützt werden können, wählen Sie die Option `ontap-nas-economy` Oder im `ontap-san-economy` Treiber.
 
-Der `ontap-nas-economy` Treiber erstellt Docker Volumes als ONTAP Qtrees in einem Pool automatisch gemanagter FlexVol Volumes Qtrees bieten eine wesentlich größere Skalierbarkeit auf bis zu 100,000 pro Cluster-Node und 2,400,000 pro Cluster, auf Kosten einiger Funktionen.  `ontap-nas-economy`Snapshots oder Klonen mit granularem Docker Volume werden vom Treiber nicht unterstützt.
+Der `ontap-nas-economy` Treiber erstellt Docker Volumes als ONTAP qtrees innerhalb eines Pools automatisch gemanagter FlexVol Volumes. Qtrees bieten eine wesentlich größere Skalierung – bis zu 100,000 pro Cluster-Node und 2,400,000 pro Cluster – zu Lasten einiger Funktionen.  `ontap-nas-economy`Snapshots oder Klonen mit granularem Docker Volume werden vom Treiber nicht unterstützt.
 
 
-NOTE: Der `ontap-nas-economy` Treiber wird derzeit in Docker Swarm nicht unterstützt, da Swarm die Volume-Erstellung nicht über mehrere Nodes hinweg orchestriert.
+NOTE: Der `ontap-nas-economy` Treiber wird derzeit in Docker Swarm nicht unterstützt, da Docker Swarm die Volume-Erstellung nicht über mehrere Nodes hinweg orchestriert.
 
-Der `ontap-san-economy` Treiber erstellt Docker Volumes als ONTAP LUNs innerhalb eines gemeinsamen Pools von automatisch gemanagten FlexVol Volumes. Auf diese Weise ist jede FlexVol nicht auf eine LUN beschränkt und bietet eine bessere Skalierbarkeit für SAN-Workloads. Je nach Storage Array unterstützt ONTAP bis zu 16384 LUNs pro Cluster. Da es sich bei den Volumes um LUNs handelt, unterstützt dieser Treiber granulare Docker Snapshots und Klone.
+Der `ontap-san-economy` Treiber erstellt Docker Volumes als ONTAP-LUNs in einem gemeinsamen Pool von automatisch gemanagten FlexVol-Volumes. Somit ist jede FlexVol nicht auf nur eine LUN beschränkt und bietet eine bessere Skalierbarkeit für SAN-Workloads. Je nach Storage Array unterstützt ONTAP bis zu 16384 LUNs pro Cluster. Da es sich bei den Volumes um LUNs handelt, unterstützt dieser Treiber granulare Docker Snapshots und Klone.
 
 Wählen Sie den `ontap-nas-flexgroup` Treiber, um die Parallelität zu einem einzelnen Volume zu erhöhen, das bis in den Petabyte-Bereich mit Milliarden von Dateien anwachsen kann. Zu den idealen Anwendungsfällen für FlexGroups gehören KI/ML/DL, Big Data und Analysen, Softwareentwicklung, Streaming, Datei-Repositorys und so weiter. Trident verwendet bei der Bereitstellung eines FlexGroup Volumes alle Aggregate, die einer SVM zugewiesen sind. Die Unterstützung von FlexGroup in Trident muss darüber hinaus Folgendes beachtet werden:
 
@@ -289,9 +289,9 @@ Wählen Sie den `ontap-nas-flexgroup` Treiber, um die Parallelität zu einem ein
 * Klonen wird für FlexGroup Volumes nicht unterstützt.
 
 
-Informationen zu FlexGroups und Workloads, die für FlexGroups geeignet sind, finden Sie unter https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["Best Practices und Implementierungsleitfaden für NetApp FlexGroup Volumes"^].
+Informationen zu FlexGroups und Workloads, die für FlexGroups geeignet sind, finden Sie im https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["Best Practices und Implementierungsleitfaden für NetApp FlexGroup Volumes"^].
 
-Um erweiterte Funktionen und die enorme Skalierbarkeit in derselben Umgebung zu erhalten, können Sie mehrere Instanzen des Docker Volume Plug-ins ausführen. Dabei kommt ein Storage-Plug-in zum Einsatz `ontap-nas` Und ein anderes mit `ontap-nas-economy`.
+Um erweiterte Funktionen und umfassende Skalierbarkeit in derselben Umgebung zu erhalten, können Sie mehrere Instanzen des Docker Volume Plug-ins ausführen, wobei eine verwendet und eine andere `ontap-nas-economy` verwendet `ontap-nas` wird.
 
 
 
@@ -307,16 +307,16 @@ Weitere Informationen zum Erstellen benutzerdefinierter Trident-Rollen finden Si
 --
 . Erstellen Sie eine neue Rolle mit dem folgenden Befehl:
 +
-`security login role create <role_name\> -cmddirname "command" -access all –vserver <svm_name\>`
+`security login role create <role_name\> -cmddirname "command" -access all -vserver <svm_name\>`
 
 . Erstellen Sie einen Benutzernamen für den Trident-Benutzer:
 +
-`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
-`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> –vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application ontapi -authmethod password -role <name_of_role_in_step_1\> -vserver <svm_name\> -comment "user_description"`
+`security login create -username <user_name\> -application http -authmethod password -role <name_of_role_in_step_1\> -vserver <svm_name\> -comment "user_description"`
 
 . Ordnen Sie die Rolle dem Benutzer zu:
 +
-`security login modify username <user_name\> –vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
+`security login modify username <user_name\> -vserver <svm_name\> -role <role_name\> -application ontapi -application console -authmethod <password\>`
 
 
 
@@ -360,103 +360,103 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
 .NFS-Beispiel für <code>ontap-nas</code> Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "defaults": {
-      "size": "10G",
-      "spaceReserve": "none",
-      "exportPolicy": "default"
-    }
+  "version": 1,
+  "storageDriverName": "ontap-nas",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "defaults": {
+    "size": "10G",
+    "spaceReserve": "none",
+    "exportPolicy": "default"
+  }
 }
 ----
 ====
 .NFS-Beispiel für <code>ontap-nas-flexgroup</code> Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas-flexgroup",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "defaults": {
-      "size": "100G",
-      "spaceReserve": "none",
-      "exportPolicy": "default"
-    }
+  "version": 1,
+  "storageDriverName": "ontap-nas-flexgroup",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "defaults": {
+    "size": "100G",
+    "spaceReserve": "none",
+    "exportPolicy": "default"
+  }
 }
 ----
 ====
 .NFS-Beispiel für <code>ontap-nas-economy</code> Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-nas-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.2",
-    "svm": "svm_nfs",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1"
+  "version": 1,
+  "storageDriverName": "ontap-nas-economy",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.2",
+  "svm": "svm_nfs",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1"
 }
 ----
 ====
 .ISCSI-Beispiel für <code>ontap-san</code> Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-san",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "igroupName": "netappdvp"
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.3",
+  "svm": "svm_iscsi",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "igroupName": "netappdvp"
 }
 ----
 ====
 .NFS-Beispiel für <code>ontap-san-economy</code> Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "ontap-san-economy",
-    "managementLIF": "10.0.0.1",
-    "dataLIF": "10.0.0.3",
-    "svm": "svm_iscsi_eco",
-    "username": "vsadmin",
-    "password": "password",
-    "aggregate": "aggr1",
-    "igroupName": "netappdvp"
+  "version": 1,
+  "storageDriverName": "ontap-san-economy",
+  "managementLIF": "10.0.0.1",
+  "dataLIF": "10.0.0.3",
+  "svm": "svm_iscsi_eco",
+  "username": "vsadmin",
+  "password": "password",
+  "aggregate": "aggr1",
+  "igroupName": "netappdvp"
 }
 ----
 ====
 .NVMe/TCP – Beispiel für <code>ontap-san</code> Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -464,8 +464,8 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
   "storageDriverName": "ontap-san",
   "managementLIF": "10.0.0.1",
   "svm": "svm_nvme",
-  "username":"vsadmin",
-  "password":"password",
+  "username": "vsadmin",
+  "password": "password",
   "sanType": "nvme",
   "useREST": true
 }
@@ -474,7 +474,7 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
 .SCSI über FC-Beispiel für <code> ONTAP-</code>-Treiber
 [%collapsible]
 ====
-[listing]
+[source, json]
 ----
 {
   "version": 1,
@@ -483,8 +483,8 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
   "managementLIF": "10.0.0.1",
   "sanType": "fcp",
   "svm": "trident_svm",
-  "username":"vsadmin",
-  "password":"password",
+  "username": "vsadmin",
+  "password": "password",
   "useREST": true
 }
 ----
@@ -547,40 +547,40 @@ Der `solidfire-san` Der Treiber unterstützt Docker Swarm nicht.
 
 === Beispiel für eine Konfigurationsdatei für die Element Software
 
-[listing]
+[source, json]
 ----
 {
-    "version": 1,
-    "storageDriverName": "solidfire-san",
-    "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
-    "SVIP": "10.0.0.7:3260",
-    "TenantName": "docker",
-    "InitiatorIFace": "default",
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "version": 1,
+  "storageDriverName": "solidfire-san",
+  "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
+  "SVIP": "10.0.0.7:3260",
+  "TenantName": "docker",
+  "InitiatorIFace": "default",
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----

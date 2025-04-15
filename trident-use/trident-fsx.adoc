@@ -102,7 +102,7 @@ Der EKS Cluster unterstützt zwar verschiedene Betriebssysteme, AWS hat jedoch b
 
 | BOTTLEROCKET_ARM_64 | Ja* | Ja. | K. A. | K. A. 
 |===
-* *Muss „nolock“ in Mount-Optionen verwenden.
+* *Muss "nolock" in Mount-Optionen verwenden.
 * ** Das PV kann nicht gelöscht werden, ohne den Knoten neu zu starten
 
 

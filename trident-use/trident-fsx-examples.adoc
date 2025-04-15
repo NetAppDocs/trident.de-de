@@ -79,7 +79,9 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `lunsPerFlexvol` | Die maximale Anzahl an LUNs pro FlexVol muss im Bereich [50, 200] liegen. Nur SAN | `100` 
 
 
-| `debugTraceFlags` | Fehler-Flags bei der Fehlerbehebung beheben. Beispiel: { „API“:false, „Methode“:true} Verwenden Sie nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und benötigen einen detaillierten Log Dump. | Null 
+| `debugTraceFlags` | Fehler-Flags bei der Fehlerbehebung beheben. Beispiel, {„API“:false, „method“:true}
+
+Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und benötigen einen detaillierten Log Dump. | Null 
 
 
 | `nfsMountOptions` | Kommagetrennte Liste von NFS-Mount-Optionen. Die Mount-Optionen für persistente Kubernetes-Volumes werden normalerweise in Storage-Klassen angegeben. Wenn jedoch keine Mount-Optionen in einer Storage-Klasse angegeben sind, verwendet Trident die Mount-Optionen, die in der Konfigurationsdatei des Storage-Backends angegeben sind. Wenn in der Storage-Klasse oder in der Konfigurationsdatei keine Mount-Optionen angegeben sind, legt Trident keine Mount-Optionen auf einem zugeordneten persistenten Volume fest. | „“ 
@@ -139,7 +141,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `spaceAllocation` | Speicherplatzzuweisung für LUNs | `true` 
 
 
-| `spaceReserve` | Space Reservation Mode; „none“ (Thin) oder „Volume“ (Thick) | `none` 
+| `spaceReserve` | Modus für Speicherplatzreservierung; „none“ (Thin) oder „Volume“ (Thick) | `none` 
 
 
 | `snapshotPolicy` | Die Snapshot-Richtlinie zu verwenden | `none` 
@@ -151,7 +153,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `adaptiveQosPolicy` | Adaptive QoS-Richtliniengruppe mit Zuordnung für erstellte Volumes Wählen Sie eine der qosPolicy oder adaptiveQosPolicy pro Storage-Pool oder Backend. Nicht unterstützt durch ontap-nas-Ökonomie | „“ 
 
 
-| `snapshotReserve` | Prozentsatz des für Snapshots reservierten Volumens „0“ | Wenn `snapshotPolicy` Ist `none`, `else` „“ 
+| `snapshotReserve` | Prozentsatz des für Snapshots reservierten Volumes „0“ | Wenn `snapshotPolicy` `none` , `else` „ “ 
 
 
 | `splitOnClone` | Teilen Sie einen Klon bei der Erstellung von seinem übergeordneten Objekt auf | `false` 
@@ -180,7 +182,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 ====
 Wird Verwendet `nasType`, `node-stage-secret-name`, und `node-stage-secret-namespace`, Sie können ein SMB-Volume angeben und die erforderlichen Active Directory-Anmeldeinformationen angeben. SMB Volumes werden mit unterstützt `ontap-nas` Nur Treiber.
 
-[source, console]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -197,7 +199,7 @@ parameters:
 .Konfiguration für AWS FSX for ONTAP mit Secrets Manager
 [%collapsible]
 ====
-[source, console]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

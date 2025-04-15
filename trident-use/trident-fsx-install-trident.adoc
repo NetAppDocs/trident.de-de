@@ -136,7 +136,7 @@ Nachdem die Installation des Add-ons abgeschlossen ist, wird das installierte Ad
 --
 . Erstellen Sie die `add-on.json` Datei:
 +
-[source, JSON]
+[source, json]
 ----
 {
   "clusterName": "<eks-cluster>",
@@ -144,7 +144,7 @@ Nachdem die Installation des Add-ons abgeschlossen ist, wird das installierte Ad
   "addonVersion": "v24.10.0-eksbuild.1",
   "serviceAccountRoleArn": "<role ARN>",
   "configurationValues": {
-    "cloudIdentity": "'cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
+    "cloudIdentity": "'cloudIdentity: eks.amazonaws.com/role-arn: <role ARN>'",
     "cloudProvider": "AWS"
   }
 }

@@ -21,9 +21,13 @@ Sie können Protokolle erfassen, um Hilfe bei der Fehlerbehebung zu erhalten. Di
 .Schritte
 . Wenn Sie Trident mit der empfohlenen Managed-Plugin-Methode ausführen (z. B. mit `docker plugin` Befehlen), zeigen Sie diese wie folgt an:
 +
-[listing]
+[source, console]
 ----
 docker plugin ls
+----
++
+[listing]
+----
 ID                  NAME                DESCRIPTION                          ENABLED
 4fb97d2b956b        netapp:latest       nDVP - NetApp Docker Volume Plugin   false
 journalctl -u docker | grep 4fb97d2b956b
@@ -33,7 +37,7 @@ Die Standardprotokollierungsebene sollte Ihnen die Diagnose der meisten Probleme
 
 . Um die Debug-Protokollierung zu aktivieren, installieren Sie das Plugin mit aktivierter Debug-Protokollierung:
 +
-[listing]
+[source, console]
 ----
 docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 ----
@@ -41,10 +45,18 @@ docker plugin install netapp/trident-plugin:<version> --alias <alias> debug=true
 Oder aktivieren Sie Debug-Protokollierung, wenn das Plugin bereits installiert ist:
 
 +
-[listing]
+[source, console]
 ----
 docker plugin disable <plugin>
+----
++
+[source, console]
+----
 docker plugin set <plugin> debug=true
+----
++
+[source, console]
+----
 docker plugin enable <plugin>
 ----
 . Wenn Sie die Binärdatei selbst auf dem Host ausführen, sind Protokolle auf den Hosts verfügbar `/var/log/netappdvp` Verzeichnis. Um die Debug-Protokollierung zu aktivieren, geben Sie an `-debug` Wenn Sie das Plugin ausführen.

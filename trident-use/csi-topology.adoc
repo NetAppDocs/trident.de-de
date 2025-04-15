@@ -66,7 +66,7 @@ Hier ist eine Beispiel-Backend-Definition:
 ====
 .YAML
 --
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -77,28 +77,34 @@ svm: iscsi_svm
 username: admin
 password: password
 supportedTopologies:
-- topology.kubernetes.io/region: us-east1
-  topology.kubernetes.io/zone: us-east1-a
-- topology.kubernetes.io/region: us-east1
-  topology.kubernetes.io/zone: us-east1-b
+  - topology.kubernetes.io/region: us-east1
+    topology.kubernetes.io/zone: us-east1-a
+  - topology.kubernetes.io/region: us-east1
+    topology.kubernetes.io/zone: us-east1-b
 ----
 --
 .JSON
 --
-[listing]
+[source, json]
 ----
 {
- "version": 1,
- "storageDriverName": "ontap-san",
- "backendName": "san-backend-us-east1",
- "managementLIF": "192.168.27.5",
- "svm": "iscsi_svm",
- "username": "admin",
- "password": "password",
- "supportedTopologies": [
-{"topology.kubernetes.io/region": "us-east1", "topology.kubernetes.io/zone": "us-east1-a"},
-{"topology.kubernetes.io/region": "us-east1", "topology.kubernetes.io/zone": "us-east1-b"}
-]
+  "version": 1,
+  "storageDriverName": "ontap-san",
+  "backendName": "san-backend-us-east1",
+  "managementLIF": "192.168.27.5",
+  "svm": "iscsi_svm",
+  "username": "admin",
+  "password": "password",
+  "supportedTopologies": [
+    {
+      "topology.kubernetes.io/region": "us-east1",
+      "topology.kubernetes.io/zone": "us-east1-a"
+    },
+    {
+      "topology.kubernetes.io/region": "us-east1",
+      "topology.kubernetes.io/zone": "us-east1-b"
+    }
+  ]
 }
 ----
 --
@@ -108,7 +114,7 @@ NOTE: `supportedTopologies` Wird verwendet, um eine Liste von Regionen und Zonen
 
 Sie können definieren `supportedTopologies` Auch pro Storagepool. Das folgende Beispiel zeigt:
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -119,21 +125,22 @@ svm: nfs_svm
 username: admin
 password: password
 supportedTopologies:
-- topology.kubernetes.io/region: us-central1
-  topology.kubernetes.io/zone: us-central1-a
-- topology.kubernetes.io/region: us-central1
-  topology.kubernetes.io/zone: us-central1-b
-storage:
-- labels:
-    workload: production
-  supportedTopologies:
   - topology.kubernetes.io/region: us-central1
     topology.kubernetes.io/zone: us-central1-a
-- labels:
-    workload: dev
-  supportedTopologies:
   - topology.kubernetes.io/region: us-central1
     topology.kubernetes.io/zone: us-central1-b
+storage:
+  - labels:
+      workload: production
+    supportedTopologies:
+      - topology.kubernetes.io/region: us-central1
+        topology.kubernetes.io/zone: us-central1-a
+  - labels:
+      workload: dev
+    supportedTopologies:
+      - topology.kubernetes.io/region: us-central1
+        topology.kubernetes.io/zone: us-central1-b
+
 ----
 In diesem Beispiel ist der `region` Und `zone` Etiketten stehen für die Position des Speicherpools. `topology.kubernetes.io/region` Und `topology.kubernetes.io/zone` Vorgeben, woher die Speicherpools verbraucht werden können.
 
@@ -145,25 +152,25 @@ Auf der Grundlage der Topologiebeschriftungen, die den Nodes im Cluster zur Verf
 
 Das folgende Beispiel zeigt:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
-metadata:
+metadata: null
 name: netapp-san-us-east1
 provisioner: csi.trident.netapp.io
 volumeBindingMode: WaitForFirstConsumer
 allowedTopologies:
-- matchLabelExpressions:
-- key: topology.kubernetes.io/zone
-  values:
-  - us-east1-a
-  - us-east1-b
-- key: topology.kubernetes.io/region
-  values:
-  - us-east1
+  - matchLabelExpressions: null
+  - key: topology.kubernetes.io/zone
+    values:
+      - us-east1-a
+      - us-east1-b
+  - key: topology.kubernetes.io/region
+    values:
+      - us-east1
 parameters:
-  fsType: "ext4"
+  fsType: ext4
 ----
 In der oben angegebenen StorageClass-Definition `volumeBindingMode` ist auf festgelegt `WaitForFirstConsumer`. VES, die mit dieser StorageClass angefordert werden, werden erst dann gehandelt, wenn sie in einem Pod referenziert werden. Und `allowedTopologies` stellt die zu verwendenden Zonen und Regionen bereit. Die `netapp-san-us-east1` StorageClass erstellt VES auf dem `san-backend-us-east1` oben definierten Back-End.
 
@@ -175,14 +182,14 @@ Wenn die StorageClass erstellt und einem Backend zugeordnet wird, können Sie je
 
 Siehe Beispiel `spec` Unten:
 
-[listing]
+[source, yaml]
 ----
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
-metadata:
+metadata: null
 name: pvc-san
-spec:
+spec: null
 accessModes:
   - ReadWriteOnce
 resources:
@@ -219,7 +226,7 @@ Events:
 ----
 Verwenden Sie für Trident, ein Volume zu erstellen und es an die PVC zu binden, das in einem Pod verwendet wird. Das folgende Beispiel zeigt:
 
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: Pod

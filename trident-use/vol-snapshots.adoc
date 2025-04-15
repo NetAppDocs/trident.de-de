@@ -42,6 +42,10 @@ NOTE: Erstellen Sie keinen Snapshot Controller, wenn Sie On-Demand Volume Snapsh
 [listing]
 ----
 cat snap-sc.yaml
+----
++
+[source, yaml]
+----
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
 metadata:
@@ -59,6 +63,10 @@ deletionPolicy: Delete
 [listing]
 ----
 cat snap.yaml
+----
++
+[source, yaml]
+----
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
 metadata:
@@ -86,9 +94,7 @@ pvc1-snap              50s
 kubectl describe volumesnapshots pvc1-snap
 Name:         pvc1-snap
 Namespace:    default
-.
-.
-.
+...
 Spec:
   Snapshot Class Name:    pvc1-snap
   Snapshot Content Name:  snapcontent-e8d8a0ca-9826-11e9-9807-525400f3f660
@@ -100,8 +106,7 @@ Status:
   Creation Time:  2019-06-26T15:27:29Z
   Ready To Use:   true
   Restore Size:   3Gi
-.
-.
+...
 ----
 
 
@@ -121,6 +126,9 @@ Im folgenden Beispiel wird die PVC mit erstellt `pvc1-snap` Als Datenquelle spei
 [listing]
 ----
 cat pvc-from-snap.yaml
+----
+[source, yaml]
+----
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -160,7 +168,7 @@ NOTE: Der `<volumeSnapshotContentName>` Aufgrund von Einschränkungen bei der CR
 Im folgenden Beispiel wird ein erstellt `VolumeSnapshotContent` Objekt, das auf Back-End-Snapshot verweist `snap-01`.
 
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotContent
@@ -185,7 +193,7 @@ spec:
 Im folgenden Beispiel wird ein erstellt `VolumeSnapshot` CR benannt `import-snap` Die auf die verweisen `VolumeSnapshotContent` Genannt `import-snap-content`.
 
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshot
@@ -208,7 +216,7 @@ spec:
 Im folgenden Beispiel wird eine PVC erstellt, die auf den verweist `VolumeSnapshot` Genannt `import-snap`.
 
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -256,13 +264,13 @@ Sie müssen über einen gebundenen PVC-Snapshot und einen verfügbaren Volume-Sn
 
 * Vergewissern Sie sich, dass der PVC-Status gebunden ist.
 +
-[listing]
+[source, console]
 ----
 kubectl get pvc
 ----
 * Überprüfen Sie, ob der Volume-Snapshot einsatzbereit ist.
 +
-[listing]
+[source, console]
 ----
 kubectl get vs
 ----
@@ -274,12 +282,14 @@ kubectl get vs
 
 NOTE: Der TASR CR muss sich in einem Namensraum befinden, in dem PVC und VS vorhanden sind.
 
-
-
-[listing]
++
+[source, console]
 ----
 cat tasr-pvc1-snapshot.yaml
-
+----
++
+[source, yaml]
+----
 apiVersion: trident.netapp.io/v1
 kind: TridentActionSnapshotRestore
 metadata:
@@ -291,21 +301,26 @@ spec:
 ----
 . Wenden Sie den CR an, um ihn aus dem Snapshot wiederherzustellen. Dieses Beispiel wird aus Snapshot wiederhergestellt `pvc1`.
 +
-[listing]
+[source, console]
 ----
 kubectl create -f tasr-pvc1-snapshot.yaml
-
+----
++
+[listing]
+----
 tridentactionsnapshotrestore.trident.netapp.io/trident-snap created
 ----
 
 
 .Ergebnisse
-Trident stellt die Daten aus dem Snapshot wieder her. Sie können den Status der Snapshot-Wiederherstellung überprüfen.
+Trident stellt die Daten aus dem Snapshot wieder her. Sie können den Wiederherstellungsstatus von Snapshots überprüfen:
 
-[listing]
+[source, console]
 ----
 kubectl get tasr -o yaml
-
+----
+[source, yaml]
+----
 apiVersion: trident.netapp.io/v1
 items:
 - apiVersion: trident.netapp.io/v1
@@ -339,7 +354,7 @@ metadata:
 
 == Löschen Sie ein PV mit den zugehörigen Snapshots
 
-Wenn Sie ein persistentes Volume mit zugeordneten Snapshots löschen, wird das entsprechende Trident-Volume in einen „Löschzustand“ aktualisiert. Entfernen Sie die Volume-Snapshots, um das Trident-Volume zu löschen.
+Beim Löschen eines persistenten Volumes mit zugeordneten Snapshots wird das entsprechende Trident-Volume auf den „Löschstatus“ aktualisiert. Entfernen Sie die Volume-Snapshots, um das Trident-Volume zu löschen.
 
 
 
@@ -353,6 +368,10 @@ Wenn Ihre Kubernetes-Distribution den Snapshot-Controller und CRDs nicht enthäl
 [listing]
 ----
 cat snapshot-setup.sh
+----
++
+[source, sh]
+----
 #!/bin/bash
 # Create volume snapshot CRDs
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-6.1/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
@@ -361,9 +380,13 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snaps
 ----
 . Erstellen Sie den Snapshot-Controller.
 +
-[listing]
+[source, console]
 ----
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-6.1/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+----
++
+[source, console]
+----
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-6.1/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 ----
 +

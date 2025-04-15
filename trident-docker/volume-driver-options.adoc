@@ -38,7 +38,7 @@ Thin oder Thick Provisioning stellen das Volume bereit. Die Standardeinstellung 
 
 
 | `snapshotPolicy`  a| 
-Dadurch wird die Snapshot-Richtlinie auf den gewünschten Wert eingestellt. Die Standardeinstellung lautet `none`, Das bedeutet, dass keine Snapshots automatisch für den Datenträger erstellt werden. Sofern nicht von Ihrem Speicheradministrator geändert, existiert eine Richtlinie namens „Standard“ auf allen ONTAP Systemen, die sechs stündliche, zwei tägliche und zwei wöchentliche Schnappschüsse erzeugt und speichert. Die in einem Snapshot erhaltenen Daten können durch Durchsuchen der wiederhergestellt werden `.snapshot` Verzeichnis in einem beliebigen Verzeichnis im Volume.
+Dadurch wird die Snapshot-Richtlinie auf den gewünschten Wert eingestellt. Der Standardwert ist `none`, was bedeutet, dass keine Snapshots automatisch für das Volume erstellt werden. Sofern der Storage-Administrator nicht Änderungen vornimmt, existiert auf allen ONTAP Systemen eine Richtlinie mit dem Namen „Standard“, die sechs stündliche, zwei tägliche und zwei wöchentliche Snapshots erstellt und aufbewahrt. Die Daten, die in einem Snapshot erhalten bleiben, können wiederhergestellt werden, indem Sie in das Verzeichnis in einem beliebigen Verzeichnis auf dem Volume navigieren `.snapshot`.
 
 
 
@@ -189,36 +189,35 @@ Verwenden Sie entweder 512 oder 4096, standardmäßig 512 oder den Konfiguration
 
 In der folgenden Beispielkonfigurationsdatei finden Sie QoS-Definitionen:
 
-[listing]
+[source, json]
 ----
 {
-    "...": "..."
-    "Types": [
-        {
-            "Type": "Bronze",
-            "Qos": {
-                "minIOPS": 1000,
-                "maxIOPS": 2000,
-                "burstIOPS": 4000
-            }
-        },
-        {
-            "Type": "Silver",
-            "Qos": {
-                "minIOPS": 4000,
-                "maxIOPS": 6000,
-                "burstIOPS": 8000
-            }
-        },
-        {
-            "Type": "Gold",
-            "Qos": {
-                "minIOPS": 6000,
-                "maxIOPS": 8000,
-                "burstIOPS": 10000
-            }
-        }
-    ]
+  "Types": [
+    {
+      "Type": "Bronze",
+      "Qos": {
+        "minIOPS": 1000,
+        "maxIOPS": 2000,
+        "burstIOPS": 4000
+      }
+    },
+    {
+      "Type": "Silver",
+      "Qos": {
+        "minIOPS": 4000,
+        "maxIOPS": 6000,
+        "burstIOPS": 8000
+      }
+    },
+    {
+      "Type": "Gold",
+      "Qos": {
+        "minIOPS": 6000,
+        "maxIOPS": 8000,
+        "burstIOPS": 10000
+      }
+    }
+  ]
 }
 ----
 In der obigen Konfiguration haben wir drei Richtliniendefinitionen: Bronze, Silver und Gold. Diese Namen sind frei wählbar.

@@ -164,11 +164,10 @@ Sie können die Attribute in verwenden <<Konfigurationsoptionen>> Beim Definiere
 .Einfache benutzerdefinierte Konfiguration
 [%collapsible]
 ====
-Dies ist ein Beispiel für eine benutzerdefinierte Basisinstallation.
+Dieses Beispiel, das nach dem Ausführen des Befehls erstellt `cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml` wurde, stellt eine einfache benutzerdefinierte Installation dar:
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr_imagepullsecrets.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -185,7 +184,7 @@ spec:
 ====
 In diesem Beispiel wird Trident mit Node-Selektoren installiert.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -203,11 +202,10 @@ spec:
 .Windows Worker-Knoten
 [%collapsible]
 ====
-In diesem Beispiel wird Trident auf einem Windows-Arbeitsknoten installiert.
+Dieses Beispiel, das nach dem Ausführen des Befehls erstellt `cat deploy/crds/tridentorchestrator_cr.yaml` wurde, installiert Trident auf einem Windows-Arbeitsknoten.
 
-[listing]
+[source, yaml]
 ----
-cat deploy/crds/tridentorchestrator_cr.yaml
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
 metadata:
@@ -223,7 +221,7 @@ spec:
 ====
 In diesem Beispiel wird Trident installiert, um verwaltete Identitäten auf einem AKS-Cluster zu aktivieren.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -240,7 +238,7 @@ spec:
 ====
 In diesem Beispiel wird Trident zur Verwendung mit einer Cloud-Identität auf einem AKS-Cluster installiert.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -259,7 +257,7 @@ spec:
 ====
 In diesem Beispiel wird Trident zur Verwendung mit einer Cloud-Identität auf einem AKS-Cluster installiert.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentOrchestrator
@@ -277,7 +275,7 @@ spec:
 ====
 In diesem Beispiel wird Trident zur Verwendung mit einer Cloud-Identität auf einem GKE-Cluster installiert.
 
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentBackendConfig

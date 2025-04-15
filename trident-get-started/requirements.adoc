@@ -91,7 +91,7 @@ Trident unterstützt die folgenden ONTAP-Treiber für die KubeVirt- und OpenShif
 
 .Zu berücksichtigende Aspekte:
 * Aktualisieren Sie die Storage-Klasse, um den `fsType` Parameter (z. B. `fsType: "ext4"` ) in der OpenShift-Virtualisierungsumgebung zu erhalten. Setzen Sie bei Bedarf den Volume-Modus explizit auf Blockieren, indem Sie den Parameter im `dataVolumeTemplates` verwenden `volumeMode=Block`, um CDI zum Erstellen von Block-Daten-Volumes zu benachrichtigen.
-* _RWX-Zugriffsmodus für Block-Speicher-Treiber_: ONTAP-san (iSCSI, NVMe/TCP, FC) und ONTAP-san-Economy (iSCSI) Treiber werden nur mit „VolumeMode: Block“ (RAW Device) unterstützt. Für diese Treiber kann der `fstype` Parameter nicht verwendet werden, da die Volumes im RAW-Device-Modus bereitgestellt werden.
+* _RWX-Zugriffsmodus für Block-Speicher-Treiber_: ONTAP-san (iSCSI, NVMe/TCP, FC) und ONTAP-san-Economy (iSCSI) Treiber werden nur mit "VolumeMode: Block" (RAW Device) unterstützt. Für diese Treiber kann der `fstype` Parameter nicht verwendet werden, da die Volumes im RAW-Device-Modus bereitgestellt werden.
 * Für Workflows mit Live-Migration, für die der RWX-Zugriffsmodus erforderlich ist, werden folgende Kombinationen unterstützt:
 +
 ** NFS + `volumeMode=Filesystem`

@@ -51,7 +51,7 @@ Um die Sicherheit zu gewährleisten, müssen Volumes über Namespaces hinweg gem
 .Schritte
 . *Source Namespace Owner:* Erstellen Sie die PVC (`pvc1`) im source Namespace (`namespace1`), die die Erlaubnis erteilt, mit dem Ziel-Namespace zu teilen (`namespace2`) mit der `cloneToNamespace` Annotation.
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -83,7 +83,7 @@ Trident erstellt das PV und das dazugehörige Backend-NFS-Storage-Volume.
 . *Cluster admin:* Erstellen Sie die benutzerdefinierte Rolle und kubeconfig, um dem Ziel-Namespace-Eigentümer die Berechtigung zu erteilen, den TridentVolume Reference CR im Ziel-Namespace zu erstellen(`namespace2` ).
 . *Zielgebietes-Namespace-Eigentümer:* Erstellen Sie ein TridentVolumeReference CR im Ziel-Namespace, der sich auf den Quell-Namespace bezieht `pvc1`.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: trident.netapp.io/v1
 kind: TridentVolumeReference
@@ -96,7 +96,7 @@ spec:
 ----
 . *Destination Namespace Owner:* Erstellen Sie eine PVC (`pvc2`) im Destination Namespace (`namespace2`) Verwenden Sie `cloneFromPVC` die oder `cloneFromSnapshot`, und `cloneFromNamespace` Anmerkungen, um die Quell-PVC zu kennzeichnen.
 +
-[listing]
+[source, yaml]
 ----
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -114,11 +114,11 @@ spec:
     requests:
       storage: 100Gi
 ----
-+
+
+
+
+
 == Einschränkungen
 
-+
-** Für PVCs, die über ONTAP-nas-Economy-Treiber bereitgestellt werden, werden schreibgeschützte Klone nicht unterstützt.
-
-
+* Für PVCs, die über ONTAP-nas-Economy-Treiber bereitgestellt werden, werden schreibgeschützte Klone nicht unterstützt.
 

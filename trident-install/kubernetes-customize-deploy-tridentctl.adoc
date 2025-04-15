@@ -40,7 +40,7 @@ Wenn Sie die Installation anpassen müssen, die über die Argumente des Installe
 
 Nachdem Sie diese Dateien erstellt haben, können Sie sie nach Ihren Bedürfnissen ändern und dann verwenden `--use-custom-yaml` Um Ihre benutzerdefinierte Bereitstellung zu installieren.
 
-[listing]
+[source, console]
 ----
 ./tridentctl install -n trident --use-custom-yaml
 ----

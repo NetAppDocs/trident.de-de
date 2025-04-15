@@ -160,28 +160,27 @@ Die folgenden Beispiele enthalten Beispielkonfigurationen für den CVS-Performan
 ====
 Dies ist die minimale Backend-Konfiguration, die den standardmäßigen CVS-Performance-Servicetyp mit dem Standard-Service Level verwendet.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
 storageDriverName: gcp-cvs
-projectNumber: '012345678901'
+projectNumber: "012345678901"
 apiRegion: us-west2
 apiKey:
   type: service_account
   project_id: my-gcp-project
-  private_key_id: "<id_value>"
+  private_key_id: <id_value>
   private_key: |
     -----BEGIN PRIVATE KEY-----
     <key_value>
     -----END PRIVATE KEY-----
   client_email: cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com
-  client_id: '123456789012345678901'
+  client_id: "123456789012345678901"
   auth_uri: https://accounts.google.com/o/oauth2/auth
   token_uri: https://oauth2.googleapis.com/token
   auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs
   client_x509_cert_url: https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com
-
 ----
 ====
 .Beispiel 2: Service Level-Konfiguration
@@ -189,7 +188,7 @@ apiKey:
 ====
 Dieses Beispiel stellt die Back-End-Konfigurationsoptionen dar, einschließlich Service Level und Volume-Standardeinstellungen.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -219,7 +218,6 @@ defaults:
   snapshotReserve: '5'
   exportRule: 10.0.0.0/24,10.0.1.0/24,10.0.2.100
   size: 5Ti
-
 ----
 ====
 .Beispiel 3: Virtuelle Pool-Konfiguration
@@ -229,7 +227,7 @@ Dieses Beispiel verwendet `storage` Um virtuelle Pools und die zu konfigurieren 
 
 Hier werden für alle virtuellen Pools, die das festlegen, spezifische Standardeinstellungen festgelegt `snapshotReserve` Bei 5% und der `exportRule` Zu 0.0.0.0/0. Die virtuellen Pools werden im definiert `storage` Abschnitt. Jeder individuelle virtuelle Pool definiert seine eigenen `serviceLevel`, Und einige Pools überschreiben die Standardwerte. Virtuelle Pool-Labels wurden verwendet, um die Pools basierend auf zu differenzieren `performance` Und `protection`.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -296,15 +294,16 @@ Die folgenden StorageClass-Definitionen gelten für das Beispiel der virtuellen 
 .Beispiel für Storage-Klasse
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
+---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: cvs-extreme-extra-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=extreme; protection=extra"
+  selector: performance=extreme; protection=extra
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -313,7 +312,7 @@ metadata:
   name: cvs-extreme-standard-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=premium; protection=standard"
+  selector: performance=premium; protection=standard
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -322,7 +321,7 @@ metadata:
   name: cvs-premium-extra-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=premium; protection=extra"
+  selector: performance=premium; protection=extra
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -331,7 +330,7 @@ metadata:
   name: cvs-premium
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=premium; protection=standard"
+  selector: performance=premium; protection=standard
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -340,7 +339,7 @@ metadata:
   name: cvs-standard
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "performance=standard"
+  selector: performance=standard
 allowVolumeExpansion: true
 ---
 apiVersion: storage.k8s.io/v1
@@ -349,8 +348,9 @@ metadata:
   name: cvs-extra-protection
 provisioner: csi.trident.netapp.io
 parameters:
-  selector: "protection=extra"
+  selector: protection=extra
 allowVolumeExpansion: true
+
 ----
 ====
 * Die erste StorageClass (`cvs-extreme-extra-protection`) Karten zum ersten virtuellen Pool. Dies ist der einzige Pool, der eine extreme Performance mit einer Snapshot-Reserve von 10 % bietet.
@@ -368,7 +368,7 @@ Die folgenden Beispiele enthalten Beispielkonfigurationen für den CVS-Servicety
 ====
 Dies ist die minimale Backend-Konfiguration mit `storageClass` Geben Sie den CVS-Diensttyp und den Standardwert an `standardsw` Service-Level:
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -398,7 +398,7 @@ serviceLevel: standardsw
 ====
 Diese Beispiel-Back-End-Konfiguration verwendet `storagePools` So konfigurieren Sie einen Speicherpool:
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1

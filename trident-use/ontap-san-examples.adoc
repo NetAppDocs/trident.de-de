@@ -44,7 +44,7 @@ Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mi
 Informationen über die nahtlose MetroCluster-Umschaltung finden Sie im <<mcc-best>>.
 
 
-NOTE: Wenn Sie die Anmeldedaten für den „vsadmin“ verwenden, `managementLIF` müssen sie die der SVM sein. Bei Verwendung der Anmeldedaten für den Administrator muss sie die des Clusters sein. `managementLIF`
+NOTE: Wenn Sie „vsadmin“-Anmeldedaten verwenden, `managementLIF` muss dies die der SVM sein. Bei Verwendung der „admin“-Anmeldedaten muss es sich um die des Clusters handeln. `managementLIF`
 | „10.0.0.1“, „[2001:1234:abcd::fefe]“ 
 
 
@@ -154,7 +154,7 @@ Trident empfiehlt die folgende Option, um den Formatierungsprozess zu beschleuni
 
 *-E nodiscard:*
 
-* Beibehalten, versuchen Sie nicht, Blöcke zur mkfs-Zeit zu verwerfen (das Verwerfen von Blöcken ist zunächst auf Solid State-Geräten und selten/Thin Provisioning-Storage nützlich). Dies ersetzt die veraltete Option „-K“ und ist auf alle Dateisysteme anwendbar (xfs, ext3 und ext4).
+* Beibehalten, versuchen Sie nicht, Blöcke zur mkfs-Zeit zu verwerfen (das Verwerfen von Blöcken ist zunächst auf Solid State-Geräten und selten/Thin Provisioning-Storage nützlich). Dies ersetzt die veraltete Option "-K" und ist auf alle Dateisysteme anwendbar (xfs, ext3 und ext4).
 
 
 
@@ -208,7 +208,7 @@ LUKS-Verschlüsselung wird für NVMe/TCP nicht unterstützt. | „“ für ASA r
 
 Hier ein Beispiel mit definierten Standardwerten:
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -261,7 +261,7 @@ NOTE: Wenn Sie Amazon FSX auf NetApp ONTAP mit Trident verwenden, empfiehlt NetA
 ====
 Dies ist eine grundlegende Konfiguration mit dem `ontap-san` Treiber.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -282,7 +282,7 @@ Sie können das Backend so konfigurieren, dass die Backend-Definition nach Umsch
 
 Geben Sie für ein nahtloses Switchover und Switchback die SVM mit an `managementLIF` und lassen Sie die Parameter weg `svm`. Beispiel:
 
-[listing]
+[source, yaml]
 ----
 version: 1
 storageDriverName: ontap-san
@@ -294,7 +294,7 @@ password: password
 .Beispiel für die SAN-Ökonomie von ONTAP
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 version: 1
 storageDriverName: ontap-san-economy
@@ -309,7 +309,7 @@ password: <password>
 ====
 In diesem Beispiel der Grundkonfiguration `clientCertificate`, `clientPrivateKey`, und `trustedCACertificate` (Optional, wenn Sie eine vertrauenswürdige CA verwenden) werden ausgefüllt `backend.json` Und nehmen Sie die base64-kodierten Werte des Clientzertifikats, des privaten Schlüssels und des vertrauenswürdigen CA-Zertifikats.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -333,7 +333,7 @@ trustedCACertificate: zcyBbaG...b3Igb3duIGNsYXNz
 Diese Beispiele erstellen ein Backend mit `useCHAP` Auf einstellen `true`.
 
 .Beispiel für ONTAP-SAN-CHAP
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -352,7 +352,7 @@ username: vsadmin
 password: <password>
 ----
 .Beispiel für ONTAP SAN Economy CHAP
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -373,7 +373,7 @@ password: <password>
 ====
 Sie müssen eine SVM auf Ihrem ONTAP Back-End mit NVMe konfiguriert haben. Dies ist eine grundlegende Backend-Konfiguration für NVMe/TCP.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -392,7 +392,7 @@ useREST: true
 ====
 Auf Ihrem ONTAP-Back-End muss eine SVM mit FC konfiguriert sein. Dies ist eine grundlegende Back-End-Konfiguration für FC.
 
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -409,7 +409,7 @@ useREST: true
 .Back-End-Konfigurationsbeispiel mit nameTemplate
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -419,29 +419,32 @@ managementLIF: <ip address>
 svm: svm0
 username: <admin>
 password: <password>
-defaults: {
-    "nameTemplate": "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.volume.RequestName}}"
-},
-"labels": {"cluster": "ClusterA", "PVC": "{{.volume.Namespace}}_{{.volume.RequestName}}"}
+defaults:
+  nameTemplate: "{{.volume.Name}}_{{.labels.cluster}}_{{.volume.Namespace}}_{{.vo\
+    lume.RequestName}}"
+labels:
+  cluster: ClusterA
+  PVC: "{{.volume.Namespace}}_{{.volume.RequestName}}"
 ----
 ====
 .FormatOptions Beispiel für ONTAP-san-Economy-Treiber
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
+---
 version: 1
 storageDriverName: ontap-san-economy
-managementLIF: ''
+managementLIF: ""
 svm: svm1
-username: ''
+username: ""
 password: "!"
 storagePrefix: whelk_
 debugTraceFlags:
   method: true
   api: true
 defaults:
-  formatOptions: "-E nodiscard"
+  formatOptions: -E nodiscard
 ----
 ====
 
@@ -457,7 +460,7 @@ In diesen Beispielen legen einige Speicherpools eigene fest `spaceReserve`, `spa
 .Beispiel: ONTAP SAN
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -472,43 +475,44 @@ chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
 defaults:
-  spaceAllocation: 'false'
-  encryption: 'false'
+  spaceAllocation: "false"
+  encryption: "false"
   qosPolicy: standard
 labels:
   store: san_store
   kubernetes-cluster: prod-cluster-1
 region: us_east_1
 storage:
-- labels:
-    protection: gold
-    creditpoints: '40000'
-  zone: us_east_1a
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'true'
-    adaptiveQosPolicy: adaptive-extreme
-- labels:
-    protection: silver
-    creditpoints: '20000'
-  zone: us_east_1b
-  defaults:
-    spaceAllocation: 'false'
-    encryption: 'true'
-    qosPolicy: premium
-- labels:
-    protection: bronze
-    creditpoints: '5000'
-  zone: us_east_1c
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'false'
+  - labels:
+      protection: gold
+      creditpoints: "40000"
+    zone: us_east_1a
+    defaults:
+      spaceAllocation: "true"
+      encryption: "true"
+      adaptiveQosPolicy: adaptive-extreme
+  - labels:
+      protection: silver
+      creditpoints: "20000"
+    zone: us_east_1b
+    defaults:
+      spaceAllocation: "false"
+      encryption: "true"
+      qosPolicy: premium
+  - labels:
+      protection: bronze
+      creditpoints: "5000"
+    zone: us_east_1c
+    defaults:
+      spaceAllocation: "true"
+      encryption: "false"
+
 ----
 ====
 .Beispiel für die SAN-Ökonomie von ONTAP
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -523,46 +527,47 @@ chapUsername: uh2aNCLSd6cNwxyz
 username: vsadmin
 password: <password>
 defaults:
-  spaceAllocation: 'false'
-  encryption: 'false'
+  spaceAllocation: "false"
+  encryption: "false"
 labels:
   store: san_economy_store
 region: us_east_1
 storage:
-- labels:
-    app: oracledb
-    cost: '30'
-  zone: us_east_1a
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'true'
-- labels:
-    app: postgresdb
-    cost: '20'
-  zone: us_east_1b
-  defaults:
-    spaceAllocation: 'false'
-    encryption: 'true'
-- labels:
-    app: mysqldb
-    cost: '10'
-  zone: us_east_1c
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'false'
-- labels:
-    department: legal
-    creditpoints: '5000'
-  zone: us_east_1c
-  defaults:
-    spaceAllocation: 'true'
-    encryption: 'false'
+  - labels:
+      app: oracledb
+      cost: "30"
+    zone: us_east_1a
+    defaults:
+      spaceAllocation: "true"
+      encryption: "true"
+  - labels:
+      app: postgresdb
+      cost: "20"
+    zone: us_east_1b
+    defaults:
+      spaceAllocation: "false"
+      encryption: "true"
+  - labels:
+      app: mysqldb
+      cost: "10"
+    zone: us_east_1c
+    defaults:
+      spaceAllocation: "true"
+      encryption: "false"
+  - labels:
+      department: legal
+      creditpoints: "5000"
+    zone: us_east_1c
+    defaults:
+      spaceAllocation: "true"
+      encryption: "false"
+
 ----
 ====
 .Beispiel für NVMe/TCP
 [%collapsible]
 ====
-[listing]
+[source, yaml]
 ----
 ---
 version: 1
@@ -574,15 +579,16 @@ username: vsadmin
 password: <password>
 useREST: true
 defaults:
-  spaceAllocation: 'false'
-  encryption: 'true'
+  spaceAllocation: "false"
+  encryption: "true"
 storage:
-- labels:
-    app: testApp
-    cost: '20'
-  defaults:
-    spaceAllocation: 'false'
-    encryption: 'false'
+  - labels:
+      app: testApp
+      cost: "20"
+    defaults:
+      spaceAllocation: "false"
+      encryption: "false"
+
 ----
 ====
 
@@ -593,7 +599,7 @@ Die folgenden StorageClass-Definitionen finden Sie im <<Beispiele für Back-Ends
 
 * Der `protection-gold` StorageClass wird dem ersten virtuellen Pool in zugeordnet `ontap-san` Back-End: Dies ist der einzige Pool mit Gold-Level-Schutz.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -606,7 +612,7 @@ parameters:
 ----
 * Der `protection-not-gold` StorageClass wird dem zweiten und dritten virtuellen Pool in zugeordnet `ontap-san` Back-End: Dies sind die einzigen Pools, die ein anderes Schutzniveau als Gold bieten.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -619,7 +625,7 @@ parameters:
 ----
 * Der `app-mysqldb` StorageClass wird dem dritten virtuellen Pool in zugeordnet `ontap-san-economy` Back-End: Dies ist der einzige Pool, der Storage-Pool-Konfiguration für die mysqldb-App bietet.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -632,7 +638,7 @@ parameters:
 ----
 * Der `protection-silver-creditpoints-20k` StorageClass wird dem zweiten virtuellen Pool in zugeordnet `ontap-san` Back-End: Dies ist der einzige Pool mit Silber-Level-Schutz und 20000 Kreditpunkte.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -645,7 +651,7 @@ parameters:
 ----
 * Der `creditpoints-5k` StorageClass wird dem dritten virtuellen Pool in zugeordnet `ontap-san` Back-End und der vierte virtuelle Pool im `ontap-san-economy` Back-End: Dies sind die einzigen Poolangebote mit 5000 Kreditpunkten.
 +
-[listing]
+[source, yaml]
 ----
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -658,7 +664,7 @@ parameters:
 ----
 * Der `my-test-app-sc` StorageClass wird dem zugeordnet `testAPP` Virtueller Pool im `ontap-san` Treiber mit `sanType: nvme`. Dies ist das einzige Poolangebot `testApp`.
 +
-[listing]
+[source, yaml]
 ----
 ---
 apiVersion: storage.k8s.io/v1
