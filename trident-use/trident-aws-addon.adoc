@@ -52,10 +52,16 @@ image::../media/aws-eks-03.png[aws eks, 03]
 +
 image::../media/aws-eks-04.png[aws eks, 04]
 
-. Folgen Sie dem *Add-on-Konfigurationsschema* und setzen Sie den Parameter Konfigurationswerte im Abschnitt *Konfigurationswerte* auf die Rolle-arn, die Sie im vorherigen Schritt (Schritt 1) erstellt haben.
+. Folgen Sie dem *Add-on-Konfigurationsschema* und setzen Sie den Parameter Konfigurationswerte im Abschnitt *Konfigurationswerte* auf die Rolle-arn, die Sie im vorherigen Schritt (Schritt 1) erstellt haben. Der Wert muss das folgende Format haben:
 +
-Der Wert muss im folgenden Format vorliegen: `eks.amazonaws.com/role-arn: arn:aws:iam::464262061435:role/AmazonEKS_FSXN_CSI_DriverRole`.
+[source, JSON]
+----
+{
 
+  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'"
+
+}
+----
 +
 
 NOTE: Wenn Sie für die Konfliktlösungsmethode Überschreiben auswählen, können eine oder mehrere Einstellungen für das vorhandene Add-On mit den Amazon EKS-Zusatzeinstellungen überschrieben werden. Wenn Sie diese Option nicht aktivieren und es einen Konflikt mit Ihren bestehenden Einstellungen gibt, schlägt der Vorgang fehl. Sie können die resultierende Fehlermeldung verwenden, um den Konflikt zu beheben. Bevor Sie diese Option auswählen, stellen Sie sicher, dass das Amazon EKS-Add-On keine Einstellungen verwaltet, die Sie selbst verwalten müssen.
@@ -83,7 +89,7 @@ kubectl get pods -n trident
 
 .Installieren Sie das NetApp Trident EKS-Add-On über CLI:
 Mit dem folgenden Beispielbefehl wird das Trident EKS Add-On installiert:
-`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v24.10.0-eksbuild.1` (Mit einer dedizierten Version)
+`eksctl create addon --cluster clusterName --name netapp_trident-operator --version v25.02.1-eksbuild.1` (Mit einer dedizierten Version)
 
 .Deinstallieren Sie das NetApp Trident EKS-Add-On über CLI:
 Mit dem folgenden Befehl wird das Trident EKS-Add-On deinstalliert:
