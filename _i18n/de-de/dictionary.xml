@@ -5147,7 +5147,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="fc61af20b92225aae2a169587940eb14" category="doc">Volumes können in Namespaces geklont werden</block>
   <block id="7d3b4ba16dd9908f0a9572976f62cb92" category="paragraph">Mit Trident können Sie neue Volumes unter Verwendung vorhandener Volumes oder Volume-Snapshots aus einem anderen Namespace im selben Kubernetes-Cluster erstellen.</block>
   <block id="12bf911acc3865647e24aa6cc61fad9d" category="paragraph">Stellen Sie vor dem Klonen von Volumes sicher, dass die Quell- und Ziel-Back-Ends vom gleichen Typ sind und dieselbe Storage-Klasse aufweisen.</block>
-  <block id="0338234dde0d63169da560597ab080e5" category="paragraph">Die Einrichtung von NFS-Volume-Klonen ist in nur wenigen Schritten möglich.</block>
   <block id="9e556d1188a1d7d3f911546d9c8f70f1" category="paragraph-title"><block ref="58f667aaf05f87159670e12bd9bc076b" category="inline-image-macro-rx" type="image"></block> Konfigurieren Sie die Quell-PVC zum Klonen des Volume</block>
   <block id="4f371bbe8ba542b2ca00eb9f3a3a2716" category="paragraph-title"><block ref="beadfa85a2fdca06b91edc1131c603e6" category="inline-image-macro-rx" type="image"></block> Erstellen Sie die Klon-PVC im Ziel-Namespace</block>
   <block id="a77fe76c8980416f14767484ab56a324" category="paragraph">Der Eigentümer des Ziel-Namespace erstellt die PVC zum Klonen der PVC aus dem Quell-Namespace.</block>
@@ -5514,4 +5513,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="0e9e7400617f4a815b5ec92f2030b580" category="sidebar">Installation mit OpenShift-zertifiziertem Operator</block>
   <block id="93e4eff1c01241084bfc9427074bacea" category="sidebar">Installieren Sie Trident mithilfe von OpenShift OperatorHub</block>
   <block id="c9e3d6c8fc80db4773cf69e205f2b571" category="sidebar">Wechseln Sie vom Betreiber der Trident-Community zu einem zertifizierten Betreiber von OpenShift</block>
+  <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Die Einrichtung von Volume-Klonen ist in wenigen Schritten möglich.</block>
+  <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident erstellt das PV und das zugehörige Back-End Storage Volume.</block>
 </blocks>
