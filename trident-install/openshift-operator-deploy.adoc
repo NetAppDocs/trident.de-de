@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+permalink: trident-get-started/openshift-operator-deploy.html 
+keywords: deploy, trident, methods, operator, openshift, operatorhub 
+summary: Wenn Sie Red hat OpenShift verwenden, können Sie das Trident über einen Operator installieren. 
+---
+= Installieren Sie Trident mithilfe von OpenShift OperatorHub
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Wenn Sie Red hat OpenShift verwenden, können Sie NetApp Trident mit dem zertifizierten Red hat Operator installieren. Gehen Sie wie folgt vor, um Trident von der Red hat OpenShift-Container-Plattform zu installieren.
+
+.Bevor Sie beginnen
+Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html/["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
+
+
+
+== Suchen und installieren Sie den Trident-Operator
+
+.Schritte
+. Navigieren Sie zu OpenShift OperatorHub, und suchen Sie nach NetApp Trident.
++
+image::../media/openshift-operator-01.png[Trident Operator]
+
+. Klicken Sie Auf *Installieren*.
++
+image::../media/openshift-operator-02.png[Installieren]
+
+. Wählen Sie die gewünschten Optionen aus und klicken Sie auf *Installieren*.
++
+image::../media/openshift-operator-03.png[Installieren]
+
+. Nach Abschluss der Installation wird der Bediener in der Liste der installierten Bediener angezeigt.
++
+image::../media/openshift-operator-04.png[Installiert]
+
+. Erstellen Sie ein TORC wie das Operator Bundle installieren.
+
+
+
+
+== Deinstallieren Sie den Trident-Operator
+
+.Schritte
+. Wählen Sie den Trident-Operator aus der Liste des installierten Operators aus.
++
+image::../media/openshift-operator-05.png[Installieren]
+
+. Wählen Sie diese Option aus, wenn Sie die gesamte Operanden-Instanz vom Operator löschen möchten.
++
+image::../media/openshift-operator-06.png[Installiert]
+
++
+
+WARNING: Wenn Sie nicht das Kontrollkästchen *Alle Operanden-Instanzen von diesem Operator löschen* aktivieren, wird Trident nicht deinstalliert.
+
+. Klicken Sie Auf *Deinstallieren*.
+
