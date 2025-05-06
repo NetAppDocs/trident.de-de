@@ -15,7 +15,7 @@ summary: Wenn Sie Red hat OpenShift verwenden, können Sie das Trident über ein
 Um vom NetApp Community Trident Operator zum Red hat OpenShift zertifizierten Trident Operator zu wechseln, müssen Sie den Community Operator deinstallieren und anschließend den zertifizierten Operator über den OperatorHub installieren.
 
 .Bevor Sie beginnen
-Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html/["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
+Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
 
 
 

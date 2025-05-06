@@ -15,7 +15,7 @@ summary: Wenn Sie Red hat OpenShift verwenden, können Sie das Trident über ein
 Wenn Sie Red hat OpenShift verwenden, können Sie NetApp Trident mit dem zertifizierten Red hat Operator installieren. Gehen Sie wie folgt vor, um Trident von der Red hat OpenShift-Container-Plattform zu installieren.
 
 .Bevor Sie beginnen
-Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html/["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
+Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
 
 
 
