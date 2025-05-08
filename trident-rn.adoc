@@ -19,7 +19,27 @@ WARNING: Der `tridentctl` Binary for Linux, die in der ZIP-Datei des Installatio
 
 
 
-== Was ist neu in 25.02
+== Was ist neu in 25.02.1
+
+
+
+=== Trident
+
+
+
+==== Korrekturen
+
+* *Kubernetes*:
++
+** Es wurde ein Problem im Trident-Operator behoben, bei dem sidecar-Bildnamen und -Versionen falsch ausgefüllt wurden, wenn eine nicht standardmäßige Bildregistrierung verwendet wurde (link:https://github.com/NetApp/trident/issues/983["Ausgabe #983"]).
+** Behebung des Problems, bei dem Multipath-Sitzungen während eines ONTAP Failover Giveback nicht wiederhergestellt werden können (link:https://github.com/NetApp/trident/issues/961["Ausgabe #961"]).
+
+
+
+
+
+
+== Änderungen in 25.02
 
 Ab Trident 25.02 enthält die neue Zusammenfassung weitere Informationen zu Verbesserungen, Fixes und Korrekturen für Trident und Trident Protect Versionen.
 
@@ -103,6 +123,28 @@ NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenm
 * SCC-Anmerkungen werden nun auf die ursprünglichen Werte zurückgesetzt.
 * Höhere Effizienz der Wiederherstellung mit Unterstützung von parallelen Operationen
 * Verbesserte Unterstützung für Ausführungshaken-Timeouts für größere Anwendungen.
+
+
+
+
+== Änderungen in 24.10.1
+
+
+
+=== Vorgestellt Werden
+
+* *Kubernetes*: Zusätzliche Unterstützung für Kubernetes 1.32.
+* ISCSI-Verbindungsstatus-Erkennung und Protokollierung hinzugefügt, wenn iSCSI-Sitzungen angemeldet sein sollen, aber nicht (link:https://github.com/NetApp/trident/issues/961["Ausgabe #961"]).
+
+
+
+
+=== Korrekturen
+
+* Fehlende Knoten-IP-Adressen aus automatischen Export-Richtlinien () wurden behobenlink:https://github.com/NetApp/trident/issues/965["Ausgabe #965"].
+* Automatische Exportrichtlinien wurden für ONTAP-NAS-Economy vorzeitig auf die Richtlinie pro Volume umgeschaltet.
+* Aktualisierte Abhängigkeiten von Trident und Trident-ASUP für die Adresse CVE-2024-45337 und CVE-2024-45310.
+* Logouts für zeitweise fehlerhafte nicht-CHAP-Portale während der iSCSI-Selbstheilung entfernt (link:https://github.com/NetApp/trident/issues/961["Ausgabe #961"]).
 
 
 

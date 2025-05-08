@@ -4986,7 +4986,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="cd2793aaeed5e7f0429f516ecf5eb130" category="list-text"><block ref="8a4b824281db82475bec9857f32bde41" category="inline-link-rx"></block> (Für iSCSI)</block>
   <block id="23db1fababbb1ae99bf5bf19e6f6f47b" category="list-text">NetApp empfiehlt das Klonen eines inaktiven Volumes.</block>
   <block id="3ca0a694ceba360e6f67566a611b37fb" category="paragraph">Volumes sind die grundlegende Bereitstellungseinheit und umfassen Back-End-Endpunkte wie NFS-Freigaben sowie iSCSI und FC LUNs. In Kubernetes entsprechen diese direkt<block ref="3f91308865b7567ae097573f6d0519e9" prefix=" " category="inline-code"></block> . Wenn Sie ein Volume erstellen, stellen Sie sicher, dass es über eine Storage-Klasse verfügt, die bestimmt, wo das Volume zusammen mit einer Größe bereitgestellt werden kann.</block>
-  <block id="5a8746628add05005005c4b1b98f52a6" category="section-title">Was ist neu in 25.02</block>
   <block id="f732fd09d1f97b63aaad6d5a80382f0c" category="list-text">Zusätzliche Unterstützung für ONTAP ASA r2 für iSCSI.</block>
   <block id="87959ecf0c52ae4baca9f7e962286ec1" category="list-text">Unterstützung für Force-Trennen für ONTAP-NAS-Volumes bei Szenarios zum Herunterfahren eines nicht anmutigen Knotens hinzugefügt. Die neuen ONTAP-NAS-Volumes verwenden jetzt von Trident gemanagte Exportrichtlinien pro Volume. Bereitstellung eines Upgrade-Pfads für vorhandene Volumes, um zu dem neuen Richtlinienmodell für den Export bei einer Veröffentlichung ohne Beeinträchtigung aktiver Workloads zu wechseln</block>
   <block id="09abe7a508b1461d2b42cd082e9680aa" category="list-text">CloneFromSnapshot-Anmerkung hinzugefügt.</block>
@@ -5515,4 +5514,13 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="88f2acec92adfdf94ffec73a8fda60a6" category="paragraph">Die Einrichtung von Volume-Klonen ist in wenigen Schritten möglich.</block>
   <block id="e44a637a848aa60ef27cfc477d692412" category="paragraph">Trident erstellt das PV und das zugehörige Back-End Storage Volume.</block>
   <block id="9f965f02f635b760a84c43d43aba854f" category="paragraph">Bevor Sie mit der Installation beginnen, <block ref="a24ee29cd883cbf52de58a68b0fed1a7" category="inline-link-macro-rx"></block>.</block>
+  <block id="c9611d3f195e70e59294887ffd815bd1" category="section-title">Was ist neu in 25.02.1</block>
+  <block id="d72c3d84865c2955b89cbf6e0ec00ada" category="inline-link-macro">Ausgabe #983</block>
+  <block id="ac76c3fcac41a10bd5f709108875e6c6" category="list-text">Es wurde ein Problem im Trident-Operator behoben, bei dem sidecar-Bildnamen und -Versionen falsch ausgefüllt wurden, wenn eine nicht standardmäßige Bildregistrierung verwendet wurde (<block ref="524f95fe3800e5d3ef82e615d679c539" category="inline-link-macro-rx"></block>).</block>
+  <block id="7bc2d7846b2e95d3f64a4d4f4b53cc3c" category="list-text">Behebung des Problems, bei dem Multipath-Sitzungen während eines ONTAP Failover Giveback nicht wiederhergestellt werden können (<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>).</block>
+  <block id="212dff1a74c955a52357c5a67478720d" category="section-title">Änderungen in 25.02</block>
+  <block id="ef5363598e9b6f09c42a4f11b7798e31" category="section-title">Änderungen in 24.10.1</block>
+  <block id="fe28e2a5f749261aca15de7b9e5841d0" category="list-text">*Kubernetes*: Zusätzliche Unterstützung für Kubernetes 1.32.</block>
+  <block id="3da21bcb163e7e142caada3e22ac014f" category="list-text">Aktualisierte Abhängigkeiten von Trident und Trident-ASUP für die Adresse CVE-2024-45337 und CVE-2024-45310.</block>
+  <block id="eeda04a5133a10ebd4956c7d83dfd389" category="list-text">Logouts für zeitweise fehlerhafte nicht-CHAP-Portale während der iSCSI-Selbstheilung entfernt (<block ref="0939f851f18acedadb7fdffdec6d140b" category="inline-link-macro-rx"></block>).</block>
 </blocks>
