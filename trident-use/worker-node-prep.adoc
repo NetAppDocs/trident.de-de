@@ -18,7 +18,7 @@ Alle Worker-Nodes im Kubernetes-Cluster müssen in der Lage sein, die Volumes, d
 
 == Auswahl der richtigen Werkzeuge
 
-Wenn Sie eine Kombination von Treibern verwenden, sollten Sie alle erforderlichen Tools für Ihre Treiber installieren. Bei aktuellen Versionen von RedHat CoreOS sind die Tools standardmäßig installiert.
+Wenn Sie eine Kombination von Treibern verwenden, sollten Sie alle erforderlichen Tools für Ihre Treiber installieren. Bei aktuellen Versionen von Red hat Enterprise Linux CoreOS (RHCOS) sind die Tools standardmäßig installiert.
 
 .NFS Tools
 link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#nfs-volumes["Installieren Sie die NFS Tools"] Wenn Sie Folgendes verwenden: `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `azure-netapp-files`, `gcp-cvs`.
@@ -140,7 +140,7 @@ Installieren Sie die iSCSI-Tools mit den Befehlen für Ihr Betriebssystem.
 ----
 sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
 ----
-* Geben Sie bei Verwendung von Worker-Nodes, die RHEL/RedHat CoreOS mit iSCSI PVS ausführen, die an `discard` MountOption in StorageClass für die Inline-Speicherplatzrückgewinnung. Siehe https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat-Dokumentation"^].
+* Geben Sie bei der Verwendung von Worker-Nodes, die RHEL/Red hat Enterprise Linux CoreOS (RHCOS) mit iSCSI-PVs ausführen, die Option mountOption in der StorageClass an `discard`, um Inline-Speicherplatz zurückzunehmen. Siehe https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat Dokumentation"^].
 
 
 [role="tabbed-block"]
@@ -367,7 +367,7 @@ Details finden Sie in der folgenden ONTAP Dokumentation:
 
 Installieren Sie die FC-Tools unter Verwendung der Befehle für Ihr Betriebssystem.
 
-* Geben Sie bei der Verwendung von Worker-Nodes, auf denen RHEL/RedHat CoreOS mit FC PVs ausgeführt wird, die MountOption in der StorageClass an `discard`, um Inline-Speicherplatz-Rückgewinnung durchzuführen. Siehe https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat-Dokumentation"^].
+* Geben Sie bei der Verwendung von Worker-Nodes, die RHEL/Red hat Enterprise Linux CoreOS (RHCOS) mit FC PVs ausführen, die Option mountOption in der StorageClass an `discard`, um Inline-Speicherplatz zurückzunehmen. Siehe https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat Dokumentation"^].
 
 
 [role="tabbed-block"]

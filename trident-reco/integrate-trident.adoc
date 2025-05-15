@@ -319,7 +319,7 @@ Der Protokollierungsservice kann optional sowohl für Applikationen als auch fü
 Das Konfigurieren der Ansible-Variablen gemäß der Implementierungsmethode ist wichtig, um sicherzustellen, dass der richtige Storage von den zugrunde liegenden Services verwendet wird. Betrachten wir nun die Optionen für die einzelnen Bereitstellungsmethoden.
 
 
-NOTE: Die folgenden Tabellen enthalten nur die für die Speicherkonfiguration relevanten Variablen, die sich auf den Protokollierungsservice beziehen. Weitere Optionen finden Sie in link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Logging-Dokumentation von redhat OpenShift"^] Die entsprechend Ihrer Bereitstellung überprüft, konfiguriert und verwendet werden sollten.
+NOTE: Die folgenden Tabellen enthalten nur die für die Speicherkonfiguration relevanten Variablen, die sich auf den Protokollierungsservice beziehen. Sie können andere Optionen finden, in link:https://docs.openshift.com/container-platform/3.11/install_config/aggregate_logging.html["Dokumentation der Red hat OpenShift -Protokollierung"^] denen Sie entsprechend Ihrer Bereitstellung prüfen, konfigurieren und verwenden sollten.
 
 Die Variablen in der folgenden Tabelle führen dazu, dass im Ansible-Playbook ein PV und eine PVC für den Protokollierungsservice erstellt werden. Diese Details werden verwendet. Diese Methode ist wesentlich weniger flexibel als nach der Installation von OpenShift das Playbook für die Komponenteninstallation zu verwenden. Wenn Sie jedoch vorhandene Volumes zur Verfügung haben, ist dies eine Option.
 
@@ -378,7 +378,7 @@ Wenn Ihr OpenShift-Cluster bereits ausgeführt wird und daher Trident implementi
 
 Wenn Sie die Protokollierung als Teil des ursprünglichen OpenShift-Installationsprozesses bereitstellen, müssen Sie nur den Standardprozess für die Bereitstellung befolgen. Ansible konfiguriert und implementiert die erforderlichen Services und OpenShift-Objekte, sodass der Service sobald Ansible abgeschlossen ist.
 
-Wenn Sie die Implementierung jedoch nach der Erstinstallation durchführen, muss das Komponenten-Playbook von Ansible verwendet werden. Dieser Prozess kann sich mit verschiedenen Versionen von OpenShift leicht ändern, also lesen und folgen link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Dokumentation der redhat OpenShift Container Platform 3.11"^] Für Ihre Version.
+Wenn Sie die Implementierung jedoch nach der Erstinstallation durchführen, muss das Komponenten-Playbook von Ansible verwendet werden. Dieser Vorgang kann sich bei verschiedenen Versionen von OpenShift geringfügig ändern. Lesen Sie daher unbedingt link:https://docs.openshift.com/container-platform/3.11/welcome/index.html["Dokumentation zur Red hat OpenShift Container Platform 3.11"^]die Informationen zu Ihrer Version.
 
 
 
@@ -434,4 +434,4 @@ Wenn Ihr OpenShift-Cluster bereits ausgeführt wird und daher Trident implementi
 
 Implementieren Sie den Service mithilfe von Ansible, wenn Sie die entsprechenden Ansible-Variablen in der Host-/Inventardatei festlegen. Wenn Sie zur Installationszeit OpenShift bereitstellen, wird das PV automatisch erstellt und verwendet. Wenn Sie nach der Installation von OpenShift mit den Komponenten-Playbooks implementieren, erstellt Ansible alle erforderlichen PVCs. Nachdem Trident Storage für sie bereitgestellt hat, kann der Service implementiert werden.
 
-Die oben genannten Variablen und der Prozess für die Bereitstellung können sich mit jeder Version von OpenShift ändern. Überprüfen und befolgen Sie die Anweisungen link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Der OpenShift-Implementierungsleitfaden von Red hat"^] Für Ihre Version so konfigurieren, dass sie für Ihre Umgebung konfiguriert ist.
+Die oben genannten Variablen und der Prozess für die Bereitstellung können sich mit jeder Version von OpenShift ändern. Überprüfen und befolgen Sie link:https://docs.openshift.com/container-platform/3.11/install_config/cluster_metrics.html["Red hat OpenShift Deployment Guide"^]Ihre Version, damit sie für Ihre Umgebung konfiguriert ist.
