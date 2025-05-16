@@ -418,7 +418,7 @@ Weitere Informationen zu Speicherklassen finden Sie unter link:../trident-use/cr
 
 === Beispieldefinitionen für SMB Volumes
 
-Wird Verwendet `nasType`, `node-stage-secret-name`, und  `node-stage-secret-namespace`, Sie können ein SMB-Volume angeben und die erforderlichen Active Directory-Anmeldeinformationen angeben.
+Mit `nasType`, `node-stage-secret-name` und  `node-stage-secret-namespace`können Sie ein SMB-Volume angeben und die erforderlichen Active Directory-Anmeldeinformationen eingeben. Jeder Active Directory-Benutzer/jedes Active Directory-Kennwort mit beliebigen oder keinen Berechtigungen kann für den Schlüssel der Knotenstufe verwendet werden.
 
 .Grundkonfiguration im Standard-Namespace
 [%collapsible]
