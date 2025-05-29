@@ -66,7 +66,7 @@ customResourceState:
     spec:
       resources:
       - groupVersionKind:
-          group: astra.netapp.io
+          group: protect.trident.netapp.io
           kind: "Backup"
           version: "v1"
         labelsFromPath:
@@ -84,7 +84,7 @@ customResourceState:
                 appReference: ["spec", "applicationRef"]
 rbac:
   extraRules:
-  - apiGroups: ["backups.protect.trident.netapp.io"]
+  - apiGroups: ["protect.trident.netapp.io"]
     resources: ["backups"]
     verbs: ["list", "watch"]
 
@@ -124,9 +124,9 @@ Sie können Alertmanager installieren, indem Sie die Anweisungen im https://gith
 Nachdem Sie die Überwachungstools installiert haben, müssen Sie sie für die Zusammenarbeit konfigurieren.
 
 .Schritte
-. Integrieren Sie kube-State-Metrics mit Prometheus. Bearbeiten Sie die Prometheus(`prometheus.yml`-Konfigurationsdatei ) und fügen Sie die kube-State-metrics-Dienstinformationen hinzu. Beispiel:
+. Integrieren Sie kube-State-Metrics mit Prometheus. Bearbeiten Sie die Prometheus(`prometheus.yaml`-Konfigurationsdatei ) und fügen Sie die kube-State-metrics-Dienstinformationen hinzu. Beispiel:
 +
-.prometheus.yml: kube-State-metrics Service-Integration mit Prometheus
+.prometheus.yaml: Integration des Kube-State-Metrics-Dienstes mit Prometheus
 [source, yaml]
 ----
 ---
@@ -134,26 +134,26 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: prometheus-config
-  namespace: astra-connector
+  namespace: trident-protect
 data:
-  prometheus.yml: |
+  prometheus.yaml: |
     global:
       scrape_interval: 15s
     scrape_configs:
       - job_name: 'kube-state-metrics'
         static_configs:
-          - targets: ['kube-state-metrics.astra-connector.svc:8080']
+          - targets: ['kube-state-metrics.trident-protect.svc:8080']
 ----
-. Konfigurieren Sie Prometheus für die Weiterleitung von Warnmeldungen an Alertmanager. Bearbeiten Sie die Prometheus Konfigurationsdatei (`prometheus.yml`) und fügen Sie folgenden Abschnitt hinzu:
+. Konfigurieren Sie Prometheus für die Weiterleitung von Warnmeldungen an Alertmanager. Bearbeiten Sie die Prometheus Konfigurationsdatei (`prometheus.yaml`) und fügen Sie folgenden Abschnitt hinzu:
 +
-.prometheus.yml: Senden Sie Alarme an Alertmanager
+.prometheus.yaml: Senden Sie Warnungen an Alertmanager
 [source, yaml]
 ----
 alerting:
   alertmanagers:
     - static_configs:
         - targets:
-            - alertmanager.astra-connector.svc:9093
+            - alertmanager.trident-protect.svc:9093
 ----
 
 
@@ -170,12 +170,12 @@ Nachdem Sie die Tools für eine Zusammenarbeit konfiguriert haben, müssen Sie k
 
 === Warnbeispiel: Backup-Fehler
 
-Das folgende Beispiel definiert eine kritische Warnung, die ausgelöst wird, wenn der Status der benutzerdefinierten Backup-Ressource auf 5 Sekunden oder länger eingestellt `Error` ist. Sie können dieses Beispiel an Ihre Umgebung anpassen und dieses YAML-Snippet in Ihre Konfigurationsdatei aufnehmen `prometheus.yml`:
+Das folgende Beispiel definiert eine kritische Warnung, die ausgelöst wird, wenn der Status der benutzerdefinierten Backup-Ressource auf 5 Sekunden oder länger eingestellt `Error` ist. Sie können dieses Beispiel an Ihre Umgebung anpassen und dieses YAML-Snippet in Ihre Konfigurationsdatei aufnehmen `prometheus.yaml`:
 
-.Rules.yml: Definieren Sie eine Prometheus-Warnung für fehlgeschlagene Backups
+.rules.yaml: Definieren Sie einen Prometheus-Alarm für fehlgeschlagene Backups
 [source, yaml]
 ----
-rules.yml: |
+rules.yaml: |
   groups:
     - name: fail-backup
         rules:
@@ -192,15 +192,15 @@ rules.yml: |
 
 === Konfigurieren Sie Alertmanager so, dass Warnungen an andere Kanäle gesendet werden
 
-Sie können Alertmanager so konfigurieren, dass Benachrichtigungen an andere Kanäle wie E-Mail, PagerDuty, Microsoft Teams oder andere Benachrichtigungsdienste gesendet werden, indem Sie die entsprechende Konfiguration in der Datei angeben `alertmanager.yml`.
+Sie können Alertmanager so konfigurieren, dass Benachrichtigungen an andere Kanäle wie E-Mail, PagerDuty, Microsoft Teams oder andere Benachrichtigungsdienste gesendet werden, indem Sie die entsprechende Konfiguration in der Datei angeben `alertmanager.yaml`.
 
 Im folgenden Beispiel wird Alertmanager so konfiguriert, dass Benachrichtigungen an einen Slack-Kanal gesendet werden. Um dieses Beispiel an Ihre Umgebung anzupassen, ersetzen Sie den Wert des `api_url` Schlüssels durch die Slack Webhook-URL, die in Ihrer Umgebung verwendet wird:
 
-.Alertmanager.yml: Sendet Benachrichtigungen an einen Slack-Kanal
+.alertmanager.yaml: Senden Sie Warnungen an einen Slack-Kanal
 [source, yaml]
 ----
 data:
-  alertmanager.yml: |
+  alertmanager.yaml: |
     global:
       resolve_timeout: 5m
     route:
