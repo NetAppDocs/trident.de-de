@@ -228,7 +228,7 @@ Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz 
 * docker.io/netapp/Trident-AutoSupport:25.02
 * Registry.k8s.io/SIG-Storage/csi-provisioner:v5.2.0
 * Registry.k8s.io/SIG-Storage/csi-Attacher:v4.8.0
-* Registry.k8s.io/SIG-Storage/csi-resizer:v1.13.2
+* Registry.k8s.io/SIG-Storage/csi-resizer:v1.13.1
 * Registry.k8s.io/SIG-Storage/csi-snapshotter:v8.2.0
 * Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.13.0
 * docker.io/netapp/Trident-Operator:25.02.0 (optional)
