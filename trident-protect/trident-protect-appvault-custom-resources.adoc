@@ -30,8 +30,8 @@ Bevor Sie ein AppVault CR-System erstellen, müssen Sie sicherstellen, dass sich
 
 Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen, können Sie optional Trident Protect anweisen, einen Kubernetes-Schlüssel zu verwenden, der benutzerdefinierte Passwörter für die Restic- und Kopia-Repository-Verschlüsselung enthält. Wenn Sie keinen Schlüssel angeben, verwendet Trident Protect ein Standardpasswort.
 
-* Wenn Sie AppVault CRS manuell erstellen, können Sie das Feld *spec.dataMoverPasswordSecretRef* verwenden, um den Schlüssel anzugeben.
-* Wenn Sie AppVault-Objekte mithilfe der Trident Protect-CLI erstellen, können Sie das Argument verwenden `--data-mover-password-secret-ref`, um den Schlüssel anzugeben.
+* Wenn Sie AppVault CRs manuell erstellen, verwenden Sie das Feld *spec.dataMoverPasswordSecretRef*, um das Geheimnis anzugeben.
+* Wenn Sie AppVault-Objekte mit der Trident Protect-CLI erstellen, verwenden Sie die  `--data-mover-password-secret-ref` Argument zum Angeben des Geheimnisses.
 
 
 
@@ -72,6 +72,32 @@ kubectl create secret generic my-optional-data-mover-secret \
 ----
 --
 ====
+
+
+=== S3-kompatible Speicher-IAM-Berechtigungen
+
+Wenn Sie auf S3-kompatiblen Speicher wie Amazon S3, Generic S3,  https://docs.netapp.com/us-en/storagegrid/s3/index.html["StorageGRID S3"^] , oder  https://docs.netapp.com/us-en/ontap/s3-config/["ONTAP S3"^] Bei der Verwendung von Trident Protect müssen Sie sicherstellen, dass die von Ihnen angegebenen Benutzeranmeldeinformationen über die erforderlichen Berechtigungen für den Zugriff auf den Bucket verfügen. Das folgende Beispiel zeigt eine Richtlinie, die die erforderlichen Mindestberechtigungen für den Zugriff mit Trident Protect gewährt. Sie können diese Richtlinie auf den Benutzer anwenden, der S3-kompatible Bucket-Richtlinien verwaltet.
+
+[source, json]
+----
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:DeleteObject"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+----
+Weitere Informationen zu Amazon S3-Richtlinien finden Sie in den Beispielen im  https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html["Amazon S3-Dokumentation"^] .
+
 
 
 === Beispiele für die Schlüsselgeneration von AppVault für Cloud-Provider
