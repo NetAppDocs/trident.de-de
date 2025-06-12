@@ -14,16 +14,13 @@ summary: Erfahren Sie, wie Sie ein ONTAP-Back-End mit ONTAP-SAN-Treibern vorbere
 [role="lead"]
 Verstehen Sie die Anforderungen und Authentifizierungsoptionen für die Konfiguration eines ONTAP-Backends mit ONTAP-SAN-Treibern.
 
-Ab Version 25.02 erkennt Trident automatisch ASA r2-Persönlichkeit des ONTAP 9.16.1 oder höher und ermöglicht die Bereitstellung und Nutzung von Storage auf ASA r2 über das iSCSI-Protokoll.
-
 
 
 == Anforderungen
 
-Für alle ONTAP-Back-Ends benötigt Trident der SVM mindestens ein Aggregat zugewiesen.
+Für alle ONTAP-Backends erfordert Trident, dass dem SVM mindestens ein Aggregat zugewiesen wird.
 
-
-NOTE: Für Trident muss der SVM mindestens ein Aggregat zugewiesen sein. Bei Verwendung von ASA r2 ist diese Aktion nur mit der ONTAP-CLI im Modus verfügbar `diag`.
+Informationen zum Zuweisen von Aggregaten zu SVM in ASA R2-Systemen finden Sie in diesem Knowledge Base-Artikel: link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["Das Erstellen einer Speichereinheit durch den SVM-Administrator mithilfe der CLI schlägt mit der Fehlermeldung „Für Speicherdienste sind keine Kandidatenaggregate verfügbar“ fehl."^] .
 
 Denken Sie daran, dass Sie auch mehr als einen Treiber ausführen können und Speicherklassen erstellen können, die auf den einen oder anderen verweisen. Beispielsweise könnten Sie A konfigurieren `san-dev` Klasse, die den verwendet `ontap-san` Fahrer und A `san-default` Klasse, die den verwendet `ontap-san-economy` Eins.
 
