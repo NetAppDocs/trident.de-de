@@ -151,8 +151,8 @@ Oder https://docs.docker.com/engine/install/["Befolgen Sie die Anweisungen für 
 +
 [source, console]
 ----
-wget https://github.com/NetApp/trident/releases/download/v25.02.0/trident-installer-25.02.0.tar.gz
-tar zxf trident-installer-25.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v25.06.0/trident-installer-25.06.0.tar.gz
+tar zxf trident-installer-25.06.0.tar.gz
 ----
 .. Verschieben Sie zu einer Position im bin-Pfad:
 +

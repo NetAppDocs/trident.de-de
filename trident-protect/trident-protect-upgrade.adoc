@@ -16,6 +16,13 @@ summary: Sie können ein Upgrade von Trident Protect auf die neueste Version dur
 [role="lead"]
 Sie können ein Upgrade von Trident Protect auf die neueste Version durchführen, um von neuen Funktionen oder Fehlerkorrekturen zu profitieren.
 
+[NOTE]
+====
+Beim Upgrade von Version 24.10 können Snapshots während des Upgrades fehlschlagen. Dieser Fehler verhindert jedoch nicht die Erstellung zukünftiger Snapshots, egal ob manuell oder geplant. Sollte ein Snapshot während des Upgrades fehlschlagen, können Sie manuell einen neuen Snapshot erstellen, um den Schutz Ihrer Anwendung sicherzustellen.
+
+Um mögliche Fehler zu vermeiden, können Sie alle Snapshot-Zeitpläne vor dem Upgrade deaktivieren und anschließend wieder aktivieren. Dies führt jedoch dazu, dass während des Upgrade-Zeitraums alle geplanten Snapshots fehlen.
+
+====
 Führen Sie zum Upgrade von Trident Protect die folgenden Schritte aus.
 
 .Schritte
@@ -27,14 +34,32 @@ helm repo update
 ----
 . Aktualisieren Sie die Trident-Schutz-CRDs:
 +
+
+NOTE: Dieser Schritt ist erforderlich, wenn Sie von einer Version vor 25.06 aktualisieren, da die CRDs jetzt im Trident Protect Helm-Diagramm enthalten sind.
+
++
+.. Führen Sie diesen Befehl aus, um die Verwaltung von CRDs zu verschieben von  `trident-protect-crds` Zu  `trident-protect` :
++
 [source, console]
 ----
-helm upgrade trident-protect-crds netapp-trident-protect/trident-protect-crds --version 100.2502.0  --namespace trident-protect
+kubectl get crd | grep protect.trident.netapp.io | awk '{print $1}' | xargs -I {} kubectl patch crd {} --type merge -p '{"metadata":{"annotations":{"meta.helm.sh/release-name": "trident-protect"}}}'
 ----
+.. Führen Sie diesen Befehl aus, um das Helm-Geheimnis für das  `trident-protect-crds` Diagramm:
++
+
+NOTE: Deinstallieren Sie nicht die  `trident-protect-crds` Diagramm mit Helm, da dadurch Ihre CRDs und alle zugehörigen Daten entfernt werden könnten.
+
++
+[source, console]
+----
+kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
+----
+
+
 . Upgrade-Trident-Schutz:
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2502.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
 ----
 

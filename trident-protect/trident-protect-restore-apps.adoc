@@ -16,9 +16,13 @@ summary: Sie können Trident Protect verwenden, um Ihre Anwendung aus einem Snap
 [role="lead"]
 Sie können Trident Protect verwenden, um Ihre Anwendung aus einem Snapshot oder einem Backup wiederherzustellen. Das Wiederherstellen aus einem vorhandenen Snapshot erfolgt schneller, wenn die Anwendung auf dasselbe Cluster wiederhergestellt wird.
 
+[NOTE]
+====
+* Wenn Sie eine Anwendung wiederherstellen, werden alle für die Anwendung konfigurierten Ausführungshaken mit der App wiederhergestellt. Wenn ein Hook für die Ausführung nach der Wiederherstellung vorhanden ist, wird er automatisch als Teil des Wiederherstellungsvorgangs ausgeführt.
+* Die Wiederherstellung aus einer Sicherung in einem anderen Namespace oder im ursprünglichen Namespace wird für Qtree-Volumes unterstützt. Die Wiederherstellung aus einem Snapshot in einem anderen Namespace oder im ursprünglichen Namespace wird für Qtree-Volumes jedoch nicht unterstützt.
 
-NOTE: Wenn Sie eine Anwendung wiederherstellen, werden alle für die Anwendung konfigurierten Ausführungshaken mit der App wiederhergestellt. Wenn ein Hook für die Ausführung nach der Wiederherstellung vorhanden ist, wird er automatisch als Teil des Wiederherstellungsvorgangs ausgeführt.
 
+====
 
 
 == Namespace-Annotationen und -Labels bei Restore- und Failover-Vorgängen
@@ -97,6 +101,22 @@ In der folgenden Tabelle wird der Status des Beispiel-Ziel-Namespace nach der Wi
 * Rolle=Datenbank
 
 
+|===
+
+
+== Unterstützte Anmerkungen
+
+In diesem Abschnitt werden die unterstützten Anmerkungen zum Konfigurieren verschiedener Verhaltensweisen im System aufgelistet. Wenn eine Anmerkung nicht explizit vom Benutzer festgelegt wird, verwendet das System den Standardwert.
+
+[cols="1,1,3,1"]
+|===
+| Anmerkung | Typ | Beschreibung | Standardwert 
+
+
+| protect.trident.netapp.io/data-mover-timeout-sec | Zeichenfolge | Die maximal zulässige Zeit (in Sekunden), für die der Data Mover-Vorgang angehalten werden darf. | 300 
+
+
+| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | Ganzzahl | Die maximale Größenbeschränkung (in Megabyte) für den Kopia-Inhaltscache. | 1000 
 |===
 
 

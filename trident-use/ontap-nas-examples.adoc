@@ -87,7 +87,7 @@ NOTE: Wenn das Aggregat in einer SVM aktualisiert wird, wird es automatisch in T
 
 
 
-| `limitAggregateUsage` | Bereitstellung fehlgeschlagen, wenn die Nutzung über diesem Prozentsatz liegt. *Gilt nicht für Amazon FSX für ONTAP* | „“ (nicht standardmäßig durchgesetzt) 
+| `limitAggregateUsage` | Bereitstellung fehlgeschlagen, wenn die Nutzung über diesem Prozentsatz liegt. *Gilt nicht für Amazon FSx für ONTAP*. | „“ (nicht standardmäßig durchgesetzt) 
 
 
 | FlexgroupAggregateList  a| 
@@ -125,6 +125,9 @@ Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und ben
 
 
 | `denyNewVolumePools` | Schränkt das `ontap-nas-economy` Erstellen neuer FlexVol Volumes für Back-Ends ein, um ihre qtrees zu enthalten Zur Bereitstellung neuer PVS werden nur vorbestehende FlexVols verwendet. |  
+
+
+| `adAdminUser` | Active Directory-Administratorbenutzer oder -Benutzergruppe mit Vollzugriff auf SMB-Freigaben. Verwenden Sie diesen Parameter, um der SMB-Freigabe Administratorrechte mit Vollzugriff zu erteilen. |  
 |===
 
 
@@ -682,3 +685,185 @@ tridentctl update backend <backend-name> -f <path-to-backend-json-file-with-upda
 ----
 
 NOTE: Wenn PVCs an einen oder mehrere Pods angeschlossen sind, müssen Sie alle entsprechenden Pods herunterfahren und sie dann wieder erstellen, damit die neue DataLIF wirksam wird.
+
+
+
+== Beispiele für sichere SMBs
+
+
+
+=== Backend-Konfiguration mit Ontap-Nas-Treiber
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: 10.0.0.1
+  svm: svm2
+  nasType: smb
+  defaults:
+    adAdminUser: tridentADtest
+  credentials:
+    name: backend-tbc-ontap-invest-secret
+----
+
+
+=== Backend-Konfiguration mit dem Ontap-Nas-Economy-Treiber
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas-economy
+  managementLIF: 10.0.0.1
+  svm: svm2
+  nasType: smb
+  defaults:
+    adAdminUser: tridentADtest
+  credentials:
+    name: backend-tbc-ontap-invest-secret
+----
+
+
+=== Backend-Konfiguration mit Speicherpool
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: 10.0.0.1
+  svm: svm0
+  useREST: false
+  storage:
+  - labels:
+      app: msoffice
+    defaults:
+      adAdminUser: tridentADuser
+  nasType: smb
+  credentials:
+    name: backend-tbc-ontap-invest-secret
+
+----
+
+
+=== Beispiel einer Speicherklasse mit dem Ontap-Nas-Treiber
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-smb-sc
+  annotations:
+    trident.netapp.io/smbShareAdUserPermission: change
+    trident.netapp.io/smbShareAdUser: tridentADtest
+parameters:
+  backendType: ontap-nas
+  csi.storage.k8s.io/node-stage-secret-name: smbcreds
+  csi.storage.k8s.io/node-stage-secret-namespace: trident
+  trident.netapp.io/nasType: smb
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+
+NOTE: Stellen Sie sicher, dass Sie hinzufügen  `annotations` um sicheres SMB zu aktivieren. Sicheres SMB funktioniert ohne die Anmerkungen nicht, unabhängig von den im Backend oder PVC festgelegten Konfigurationen.
+
+
+
+=== Beispiel einer Speicherklasse mit dem Treiber ontap-nas-economy
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-smb-sc
+  annotations:
+    trident.netapp.io/smbShareAdUserPermission: change
+    trident.netapp.io/smbShareAdUser: tridentADuser3
+parameters:
+  backendType: ontap-nas-economy
+  csi.storage.k8s.io/node-stage-secret-name: smbcreds
+  csi.storage.k8s.io/node-stage-secret-namespace: trident
+  trident.netapp.io/nasType: smb
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+
+
+=== PVC-Beispiel mit einem einzelnen AD-Benutzer
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc4
+  namespace: trident
+  annotations:
+    trident.netapp.io/smbShareAccessControl: |
+      change:
+        - tridentADtest
+      read:
+        - tridentADuser
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ontap-smb-sc
+----
+
+
+=== PVC-Beispiel mit mehreren AD-Benutzern
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-test-pvc
+  annotations:
+    trident.netapp.io/smbShareAccessControl: |
+      full_control:
+        - tridentTestuser
+        - tridentuser
+        - tridentTestuser1
+        - tridentuser1
+      change:
+        - tridentADuser
+        - tridentADuser1
+        - tridentADuser4
+        - tridentTestuser2
+      read:
+        - tridentTestuser2
+        - tridentTestuser3
+        - tridentADuser2
+        - tridentADuser3
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+----

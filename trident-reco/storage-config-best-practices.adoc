@@ -72,6 +72,15 @@ Beispielsweise kann ein ONTAP Cluster mit zwei Nodes maximal 2000 FlexVol Volume
 
 
 
+=== Klonen Sie ein Volume
+
+NetApp Trident unterstützt das Klonen von Volumes bei Verwendung der  `ontap-nas` ,  `ontap-san` ,  `solidfire-san` , Und  `gcp-cvs` Speichertreiber. Wenn Sie die oder `ontap-nas-economy`-Treiber verwenden `ontap-nas-flexgroup`, wird das Klonen nicht unterstützt. Wenn Sie ein neues Volume von einem vorhandenen Volume erstellen, wird ein neuer Snapshot erstellt.
+
+
+WARNING: Vermeiden Sie das Klonen eines PVC, das einer anderen StorageClass zugeordnet ist. Führen Sie Klonvorgänge innerhalb derselben StorageClass durch, um die Kompatibilität sicherzustellen und unerwartetes Verhalten zu vermeiden.
+
+
+
 === Begrenzung der maximalen Größe der durch Trident erstellten Volumes
 
 Verwenden Sie das, um die maximale Größe für Volumes zu konfigurieren, die mit Trident erstellt werden können `limitVolumeSize` Parameter in im `backend.json` Definition:

@@ -441,3 +441,92 @@ NOTE: Siehe link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-tas
 | `unixPermissions` | Modus für neue Volumes. *Muss für SMB Volumes leer gelassen werden.* | „“ 
 |===
 
+
+
+
+=== Sicheres SMB aktivieren
+
+Ab der Version 25.06 unterstützt NetApp Trident die sichere Bereitstellung von SMB-Volumes, die mit  `ontap-nas` Und  `ontap-nas-economy` Backends. Wenn sicheres SMB aktiviert ist, können Sie mithilfe von Zugriffssteuerungslisten (ACLs) kontrollierten Zugriff auf SMB-Freigaben für Active Directory (AD)-Benutzer und -Benutzergruppen bereitstellen.
+
+.Zeigt auf, wie man sich merken sollte
+* Importieren  `ontap-nas-economy` Volumes werden nicht unterstützt.
+* Es werden nur schreibgeschützte Klone unterstützt für  `ontap-nas-economy` Bände.
+* Wenn Secure SMB aktiviert ist, ignoriert Trident die im Backend angegebene SMB-Freigabe.
+* Durch das Aktualisieren der PVC-Annotation, der Speicherklassenannotation und des Backend-Felds wird die SMB-Freigabe-ACL nicht aktualisiert.
+* Die in der Anmerkung des Klon-PVC angegebene SMB-Freigabe-ACL hat Vorrang vor denen im Quell-PVC.
+* Stellen Sie sicher, dass Sie beim Aktivieren von Secure SMB gültige AD-Benutzer angeben. Ungültige Benutzer werden nicht zur ACL hinzugefügt.
+* Wenn Sie demselben AD-Benutzer im Backend, in der Speicherklasse und im PVC unterschiedliche Berechtigungen erteilen, lautet die Berechtigungspriorität: PVC, Speicherklasse und dann Backend.
+* Secure SMB wird unterstützt für  `ontap-nas` verwaltete Volumenimporte und gilt nicht für nicht verwaltete Volumenimporte.
+
+
+.Schritte
+. Geben Sie adAdminUser in TridentBackendConfig an, wie im folgenden Beispiel gezeigt:
++
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap
+  namespace: trident
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: 10.193.176.x
+  svm: svm0
+  useREST: true
+  defaults:
+    adAdminUser: tridentADtest
+  credentials:
+    name: backend-tbc-ontap-invest-secret
+----
+. Fügen Sie die Anmerkung in der Speicherklasse hinzu.
++
+Fügen Sie die  `trident.netapp.io/smbShareAdUser` Annotation zur Speicherklasse, um sicheres SMB fehlerfrei zu aktivieren. Der für die Annotation angegebene Benutzerwert  `trident.netapp.io/smbShareAdUser` sollte mit dem Benutzernamen übereinstimmen, der in der  `smbcreds` geheim. ist  `full_control` .
+
+
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-smb-sc
+  annotations:
+    trident.netapp.io/smbShareAdUserPermission: change
+    trident.netapp.io/smbShareAdUser: tridentADuser
+parameters:
+  backendType: ontap-nas
+  csi.storage.k8s.io/node-stage-secret-name: smbcreds
+  csi.storage.k8s.io/node-stage-secret-namespace: trident
+  trident.netapp.io/nasType: smb
+provisioner: csi.trident.netapp.io
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+----
+. Erstellen Sie eine PVC.
++
+Das folgende Beispiel erstellt einen PVC:
+
+
+
+[listing]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc4
+  namespace: trident
+  annotations:
+    trident.netapp.io/snapshotDirectory: "true"
+    trident.netapp.io/smbShareAccessControl: |
+      read:
+        - tridentADtest
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ontap-smb-sc
+----

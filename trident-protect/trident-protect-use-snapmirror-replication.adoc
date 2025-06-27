@@ -100,6 +100,18 @@ NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während d
 
 
 
+== Ausführungs-Hooks während Failover- und Reverse-Operationen
+
+Wenn Sie zum Schutz Ihrer Anwendung eine AppMirror-Beziehung verwenden, gibt es bestimmte Verhaltensweisen im Zusammenhang mit Ausführungs-Hooks, die Sie bei Failover- und Reverse-Vorgängen beachten sollten.
+
+* Während des Failovers werden die Ausführungs-Hooks automatisch vom Quellcluster in den Zielcluster kopiert. Sie müssen sie nicht manuell neu erstellen. Nach dem Failover sind Ausführungs-Hooks in der Anwendung vorhanden und werden bei allen relevanten Aktionen ausgeführt.
+* Beim Reverse- oder Reverse-Resync werden alle vorhandenen Ausführungs-Hooks der Anwendung entfernt. Wenn die Quellanwendung zur Zielanwendung wird, sind diese Ausführungs-Hooks ungültig und werden gelöscht, um ihre Ausführung zu verhindern.
+
+
+Weitere Informationen zu Ausführungs-Hooks finden Sie unter link:../trident-protect/trident-protect-use-execution-hooks.html["Managen von Trident Protect-Ausführungshaken"] .
+
+
+
 == Richten Sie eine Replikationsbeziehung ein
 
 Die Einrichtung einer Replikationsbeziehung umfasst Folgendes:
@@ -216,11 +228,21 @@ tridentctl-protect create app <my-app-name> --namespaces <namespaces-to-be-inclu
 
 --
 ====
-. Optional können Sie auf dem Quellcluster einen Snapshot zum Herunterfahren der Quellanwendung erstellen. Dieser Snapshot wird als Basis für die Anwendung auf dem Zielcluster verwendet. Wenn Sie diesen Schritt überspringen, müssen Sie warten, bis der nächste geplante Snapshot ausgeführt wird, damit Sie über einen aktuellen Snapshot verfügen.
+. Erstellen Sie optional im Quellcluster einen Snapshot der Quellanwendung. Dieser Snapshot wird als Basis für die Anwendung auf dem Zielcluster verwendet. Wenn Sie diesen Schritt überspringen, müssen Sie warten, bis der nächste geplante Snapshot ausgeführt wird, damit Sie über einen aktuellen Snapshot verfügen.
++
+[NOTE]
+====
+Zusätzlich zum unten aufgeführten Zeitplan empfiehlt es sich, einen separaten täglichen Snapshot-Zeitplan mit einer Aufbewahrungsdauer von 7 Tagen zu erstellen, um einen gemeinsamen Snapshot zwischen den Peering-ONTAP-Clustern zu gewährleisten. Dadurch sind Snapshots bis zu 7 Tage lang verfügbar. Die Aufbewahrungsdauer kann jedoch an die Benutzeranforderungen angepasst werden.
+
+Im Falle eines Failovers kann das System diese Snapshots bis zu sieben Tage lang für Rückwärtsvorgänge verwenden. Dieser Ansatz beschleunigt und optimiert den Rückwärtsvorgang, da nur die seit dem letzten Snapshot vorgenommenen Änderungen und nicht alle Daten übertragen werden.
+
+Wenn ein vorhandener Zeitplan für die Anwendung bereits die gewünschten Aufbewahrungsanforderungen erfüllt, sind keine zusätzlichen Zeitpläne erforderlich.
+
+====
 +
 [role="tabbed-block"]
 ====
-.Erstellen Sie einen Snapshot zum Herunterfahren mit einem CR
+.Erstellen Sie einen Schnappschuss mit einem CR-System
 --
 .. Erstellen Sie einen Replikationszeitplan für die Quellanwendung:
 +
@@ -271,7 +293,7 @@ kubectl apply -f trident-protect-schedule.yaml -n my-app-namespace
 
 
 --
-.Erstellen Sie einen Snapshot zum Herunterfahren mit der CLI
+.Erstellen Sie einen Snapshot mit der CLI
 --
 .. Erstellen Sie den Snapshot, und ersetzen Sie Werte in Klammern durch Informationen aus Ihrer Umgebung. Beispiel:
 +

@@ -72,7 +72,7 @@ Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identitä
 Automatisch | `false` 
 
 
-| `autosupportImage` | Das Container-Image für AutoSupport Telemetrie | `"netapp/trident-autosupport:25.02"` 
+| `autosupportImage` | Das Container-Image für AutoSupport Telemetrie | `"netapp/trident-autosupport:25.06"` 
 
 
 | `autosupportProxy` | Die Adresse/den Port eines Proxys zum Senden von AutoSupport
@@ -85,7 +85,7 @@ Telemetrie | `"http://proxy.example.com:8888"`
 | `logFormat` | Verwendetes Trident-Protokollierungsformat [Text,json] | `"text"` 
 
 
-| `tridentImage` | Zu installierendes Trident-Image | `"netapp/trident:25.02"` 
+| `tridentImage` | Zu installierendes Trident-Image | `"netapp/trident:25.06"` 
 
 
 | `imageRegistry` | Pfad zur internen Registrierung des Formats

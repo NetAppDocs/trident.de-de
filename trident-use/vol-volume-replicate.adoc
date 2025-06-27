@@ -9,7 +9,7 @@ summary: Trident unterstützt die Erstellung von Spiegelungsbeziehungen zwischen
 
 
 [role="lead"]
-Trident unterstützt Spiegelungsbeziehungen zwischen einem Quell-Volume auf einem Cluster und dem Ziel-Volume auf dem Peering-Cluster, damit Daten für Disaster Recovery repliziert werden. Sie können eine benutzerdefinierte Ressourcendefinition (CRD, Namested Custom Resource Definition) verwenden, um die folgenden Vorgänge auszuführen:
+Trident unterstützt Spiegelungsbeziehungen zwischen einem Quell-Volume auf einem Cluster und dem Ziel-Volume auf dem Peering-Cluster, damit Daten für Disaster Recovery repliziert werden.  Sie können eine benutzerdefinierte Ressourcendefinition (CRD) mit Namespace, genannt Trident Mirror Relationship (TMR), verwenden, um die folgenden Vorgänge auszuführen:
 
 * Erstellen von Spiegelbeziehungen zwischen Volumes (VES)
 * Entfernen Sie Spiegelungsbeziehungen zwischen Volumes
@@ -27,6 +27,13 @@ Stellen Sie sicher, dass die folgenden Voraussetzungen erfüllt sind, bevor Sie 
 .ONTAP Cluster
 * *Trident*: Trident Version 22.10 oder höher muss sowohl auf den Quell- als auch auf den Ziel-Kubernetes-Clustern existieren, die ONTAP als Backend nutzen.
 * *Lizenzen*: Asynchrone Lizenzen von ONTAP SnapMirror, die das Datensicherungspaket verwenden, müssen sowohl auf den Quell- als auch auf den Ziel-ONTAP-Clustern aktiviert sein. Weitere Informationen finden Sie unter https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-licensing-concept.html["Übersicht über die SnapMirror Lizenzierung in ONTAP"^] .
++
+Ab ONTAP 9.10.1 werden alle Lizenzen als NetApp-Lizenzdatei (NLF) bereitgestellt. Dabei handelt es sich um eine einzelne Datei, die mehrere Funktionen ermöglicht. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap/system-admin/manage-licenses-concept.html#licenses-included-with-ontap-one["In ONTAP One enthaltene Lizenzen"^] .
+
++
+
+NOTE: Es wird nur der asynchrone Schutz von SnapMirror unterstützt.
+
 
 
 .Peering
@@ -39,8 +46,10 @@ IMPORTANT: Vergewissern Sie sich, dass die in der Replizierungsbeziehung zwische
 
 
 .Unterstützte Treiber
-* Die Volume-Replizierung wird von ontap-nas und ontap-san Treibern unterstützt.
+NetApp Trident unterstützt die Volume-Replikation mit der NetApp SnapMirror-Technologie unter Verwendung von Speicherklassen, die von den folgenden Treibern unterstützt werden: **  `ontap-nas` : NFS **  `ontap-san` : iSCSI **  `ontap-san` : FC **  `ontap-san` : NVMe/TCP (erfordert mindestens ONTAP-Version 9.15.1)
 
+
+NOTE: Die Volume-Replikation mit SnapMirror wird für ASA R2-Systeme nicht unterstützt. Informationen zu ASA R2-Systemen finden Sie unter link:https://docs.netapp.com/us-en/asa-r2/get-started/learn-about.html["Erfahren Sie mehr über ASA r2 Storage-Systeme"^] .
 
 
 
