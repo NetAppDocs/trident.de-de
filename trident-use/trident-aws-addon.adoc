@@ -69,6 +69,13 @@ NOTE: Wenn Sie für die Konfliktlösungsmethode Überschreiben auswählen, könn
 +
 image::../media/aws-eks-06.png[aws eks, 06]
 
+
+
+
+NOTE: Überspringen Sie diesen Schritt, wenn Sie die Pod Identity-Zuordnung verwenden.
+
++
+
 . Wählen Sie *Erstellen*.
 . Überprüfen Sie, ob der Status des Add-ons _Active_ lautet.
 +

@@ -77,7 +77,7 @@ Weitere Informationen zur Aktivierung der Authentifizierung finden Sie in der Au
 
 == Getestete Amazon Machine Images (Amis)
 
-Der EKS Cluster unterstützt zwar verschiedene Betriebssysteme, AWS hat jedoch bestimmte Amazon Machine Images (Amis) für Container und EKS optimiert. Die folgenden Amis wurden mit Trident 24.10 getestet.
+Der EKS Cluster unterstützt zwar verschiedene Betriebssysteme, AWS hat jedoch bestimmte Amazon Machine Images (Amis) für Container und EKS optimiert. Die folgenden AMIs wurden mit NetApp Trident 25.02 getestet.
 
 |===
 
@@ -85,33 +85,34 @@ Der EKS Cluster unterstützt zwar verschiedene Betriebssysteme, AWS hat jedoch b
 | AMI | NAS | NAS-Wirtschaftlichkeit | San | SAN-Economy 
 
 
-| AL2023_x86_64_STANDARD | Ja. | Ja. | Ja. | Ja. 
+| AL2023_x86_64_STANDARD | Ja. | Ja. | Ja* | Ja* 
 
 
 | AL2_x86_64 | Ja. | Ja. | Ja** | Ja** 
 
 
-| BOTTLEROCKET_x86_64 | Ja* | Ja. | K. A. | K. A. 
+| BOTTLEROCKET_x86_64 | Ja*** | Ja. | K. A. | K. A. 
 
 
-| AL2023_ARM_64_STANDARD | Ja. | Ja. | Ja. | Ja. 
+| AL2023_ARM_64_STANDARD | Ja. | Ja. | Ja* | Ja* 
 
 
 | AL2_ARM_64 | Ja. | Ja. | Ja** | Ja** 
 
 
-| BOTTLEROCKET_ARM_64 | Ja* | Ja. | K. A. | K. A. 
+| BOTTLEROCKET_ARM_64 | Ja*** | Ja. | K. A. | K. A. 
 |===
-* *Muss "nolock" in Mount-Optionen verwenden.
+* * Unterstützt nodePrep nur mit iSCSI.
 * ** Das PV kann nicht gelöscht werden, ohne den Knoten neu zu starten
+* *** Funktioniert nicht mit NFSv3 mit Trident Version 25.02, aber mit Version 24.10. Funktioniert mit NFSv4.1 mit beiden Versionen.
 
 
 
-NOTE: Wenn Ihr gewünschtes AMI hier nicht aufgeführt ist, bedeutet dies nicht, dass es nicht unterstützt wird, sondern dass es einfach nicht getestet wurde. Diese Liste dient als Leitfaden für Amis, die bekannt sind zu arbeiten.
+NOTE: Wenn Ihr gewünschtes AMI hier nicht aufgeführt ist, bedeutet dies nicht, dass es nicht unterstützt wird, sondern dass es einfach nicht getestet wurde. Diese Liste dient als Leitfaden für AMIs, von denen bekannt ist, dass sie funktionieren.
 
 *Tests durchgeführt mit*:
 
-* EKS-Version: 1.30
+* EKS-Version: 1.31
 * Installationsmethode: Helm und als AWS Add-on
 * Für NAS wurden sowohl NFSv3 als auch NFSv4.1 getestet.
 * Für SAN wurde nur iSCSI getestet, nicht NVMe-of.
