@@ -42,7 +42,7 @@ Die Zusammenfassung der Neuigkeiten enthält Einzelheiten zu Verbesserungen, Feh
 ** Verbesserte LUKS-Bereinigung für ausgefallene, aber teilweise formatierte LUKS-Geräte.
 ** Verbesserte Trident-Knoten-Idempotenz zum Anhängen und Trennen von NVMe-Volumes.
 ** Hinzugefügt  `internalID` Feld zur Trident-Volume-Konfiguration für den ONTAP-SAN-Economy-Treiber.
-** Unterstützung für die Volume-Replikation mit SnapMirror für NVMe-Backends hinzugefügt. Siehe link:../trident-use/vol-volume-replicate.html["Replizieren Sie Volumes mit SnapMirror"^].
+** Unterstützung für die Volume-Replikation mit SnapMirror für NVMe-Backends hinzugefügt. Siehe link:https://docs.netapp.com/us-en/trident/trident-use/vol-volume-replicate.html["Replizieren Sie Volumes mit SnapMirror"^].
 
 
 
