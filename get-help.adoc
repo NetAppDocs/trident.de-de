@@ -8,7 +8,7 @@ summary: NetApp unterstützt Trident auf unterschiedliche Weise. Umfassende, kos
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

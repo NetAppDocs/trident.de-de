@@ -8,7 +8,7 @@ summary: Mit der Versionsauswahl können Sie zwischen der aktuellen Version und 
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

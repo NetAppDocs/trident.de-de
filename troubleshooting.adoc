@@ -8,7 +8,7 @@ summary: Verwenden Sie die hier angegebenen Zeiger zur Fehlerbehebung bei Proble
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]

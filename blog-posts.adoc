@@ -8,7 +8,7 @@ summary: Hier finden Sie einige großartige Blogs zum Schutz von NetApp Trident 
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
-:imagesdir: ../media/
+:imagesdir: ./media/
 
 
 [role="lead"]
