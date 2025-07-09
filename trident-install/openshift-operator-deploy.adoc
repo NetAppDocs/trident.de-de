@@ -14,6 +14,8 @@ summary: Wenn Sie Red hat OpenShift verwenden, können Sie das Trident über ein
 [role="lead"]
 Wenn Sie Red hat OpenShift verwenden, können Sie NetApp Trident mit dem zertifizierten Red hat Operator installieren. Gehen Sie wie folgt vor, um Trident von der Red hat OpenShift-Container-Plattform zu installieren.
 
+<<Updating screens on this page>>
+
 .Bevor Sie beginnen
 Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
 
@@ -47,13 +49,7 @@ image::../media/openshift-operator-04.png[Installiert]
 
 .Schritte
 . Wählen Sie den Trident-Operator aus der Liste des installierten Operators aus.
-+
-image::../media/openshift-operator-05.png[Installieren]
-
 . Wählen Sie diese Option aus, wenn Sie die gesamte Operanden-Instanz vom Operator löschen möchten.
-+
-image::../media/openshift-operator-06.png[Installiert]
-
 +
 
 WARNING: Wenn Sie nicht das Kontrollkästchen *Alle Operanden-Instanzen von diesem Operator löschen* aktivieren, wird Trident nicht deinstalliert.
