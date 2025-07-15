@@ -55,6 +55,9 @@ Jedes Back-End stellt Volumes in einer einzigen Google Cloud-Region bereit. Um V
 | `serviceLevel` | Service-Level eines Storage-Pools und seiner Volumes. Die Werte sind `flex`, , `standard` `premium`oder `extreme`. |  
 
 
+| `labels` | Satz willkürlicher JSON-formatierter Etiketten für Volumes | „“ 
+
+
 | `network` | Für GCNV-Volumes verwendetes Google Cloud-Netzwerk |  
 
 
