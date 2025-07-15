@@ -199,9 +199,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `encryption` | Aktivieren Sie NetApp Volume Encryption (NVE) auf dem neuen Volume, Standardeinstellung ist `false`. NVE muss im Cluster lizenziert und aktiviert sein, damit diese Option verwendet werden kann. Wenn auf dem Backend NAE aktiviert ist, wird jedes in Trident bereitgestellte Volume NAE aktiviert. Weitere Informationen finden Sie unter link:../trident-reco/security-reco.html["Funktionsweise von Trident mit NVE und NAE"]. | "false" *Wenn angegeben, setzen auf  `true` für ASA r2-Systeme*. 
 
 
-| `luksEncryption` | Aktivieren Sie die LUKS-Verschlüsselung. Siehe link:../trident-reco/security-luks.html["Linux Unified Key Setup (LUKS) verwenden"].
-
-LUKS-Verschlüsselung wird für NVMe/TCP nicht unterstützt. | "" *Eingestellt auf  `false` für ASA r2-Systeme*. 
+| `luksEncryption` | Aktivieren Sie die LUKS-Verschlüsselung. Siehe link:../trident-reco/security-luks.html["Linux Unified Key Setup (LUKS) verwenden"]. | "" *Eingestellt auf  `false` für ASA r2-Systeme*. 
 
 
 | `tieringPolicy` | Tiering-Richtlinie zur Verwendung von „keine“ *Nicht für ASA R2-Systeme angeben*. |  
