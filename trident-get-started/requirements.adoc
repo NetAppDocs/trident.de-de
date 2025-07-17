@@ -108,8 +108,6 @@ Trident unterstützt die folgenden ONTAP-Treiber für die KubeVirt- und OpenShif
 
 Die folgende Tabelle bietet einen Überblick über die mit dieser Version von Trident verfügbaren Funktionen und die unterstützten Versionen von Kubernetes.
 
-<<check for 25.06>>
-
 [cols="3"]
 |===
 | Merkmal | Kubernetes-Version | Funktionstore erforderlich? 
@@ -219,8 +217,6 @@ link:../trident-reference/ports.html["Trident-Ports"]
 == Container-Images und entsprechende Kubernetes-Versionen
 
 Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz für Container-Images, die zur Installation von Trident erforderlich sind. Überprüfen Sie mit dem `tridentctl images` Befehl die Liste der erforderlichen Container-Images.
-
-<<check for 25.06>>
 
 [cols="2"]
 |===

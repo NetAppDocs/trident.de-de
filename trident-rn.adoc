@@ -34,6 +34,10 @@ Die Zusammenfassung der Neuigkeiten enthält Einzelheiten zu Verbesserungen, Feh
 * *Kubernetes*:
 +
 ** Unterstützung für CSI Volume Group Snapshots mit  `v1beta1` Volume Group Snapshot Kubernetes-APIs für ONTAP-SAN iSCSI-Treiber. Siehe link:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["Arbeiten mit Volumegruppen-Snapshots"^].
++
+
+NOTE: VolumeGroupSnapshot ist eine Beta-Funktion in Kubernetes mit Beta-APIs. Für VolumeGroupSnapshot ist mindestens Kubernetes 1.32 erforderlich.
+
 ** Zusätzlich zu iSCSI wurde Unterstützung für ONTAP ASA r2 für NVMe/TCP hinzugefügt. Siehe link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["ONTAP SAN-Konfigurationsoptionen und -Beispiele"^].
 ** Sichere SMB-Unterstützung für ONTAP-NAS- und ONTAP-NAS-Economy-Volumes hinzugefügt. Active Directory-Benutzer und -Gruppen können jetzt mit SMB-Volumes für erhöhte Sicherheit verwendet werden. Siehe link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["Sicheres SMB aktivieren"^].
 ** Verbesserte Trident-Knoten-Parallelität für höhere Skalierbarkeit bei Knotenvorgängen für iSCSI-Volumes.
