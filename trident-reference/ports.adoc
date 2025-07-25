@@ -18,7 +18,7 @@ Erfahren Sie mehr über die Ports, die Trident für die Kommunikation verwendet.
 
 == Trident-Ports
 
-Trident kommuniziert über folgende Ports:
+Trident verwendet die folgenden Ports für die Kommunikation innerhalb von Kubernetes:
 
 [cols="2,4"]
 |===
