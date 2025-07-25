@@ -141,6 +141,7 @@ Installieren Sie die iSCSI-Tools mit den Befehlen für Ihr Betriebssystem.
 sudo sed -i 's/^\(node.session.auth.chap_algs\).*/\1 = MD5/' /etc/iscsi/iscsid.conf
 ----
 * Geben Sie bei der Verwendung von Worker-Nodes, die RHEL/Red hat Enterprise Linux CoreOS (RHCOS) mit iSCSI-PVs ausführen, die Option mountOption in der StorageClass an `discard`, um Inline-Speicherplatz zurückzunehmen. Siehe https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat Dokumentation"^].
+* Stellen Sie sicher, dass Sie auf die neueste Version aktualisiert haben.  `multipath-tools` .
 
 
 [role="tabbed-block"]
