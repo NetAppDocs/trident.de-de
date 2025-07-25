@@ -16,7 +16,7 @@ Sie können den Trident-Operator manuell bereitstellen, um Trident zu installier
 
 
 
-== Wichtige Informationen zu Trident 25.05
+== Wichtige Informationen zu Trident 25.06
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 
