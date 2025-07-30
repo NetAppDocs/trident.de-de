@@ -34,7 +34,7 @@ docker volume create -d ntap_bronze --name bronzeVolume
 
 NOTE: Falls Sie keine angeben link:volume-driver-options.html["Optionen"^], Die Standardeinstellungen für den Treiber werden verwendet.
 
-* Überschreiben Sie die Standard-Volume-Größe. Beachten Sie das folgende Beispiel, um ein 20 gib-Volume mit einem Treiber zu erstellen:
+* Überschreiben Sie die Standard-Volumegröße. Im folgenden Beispiel wird gezeigt, wie Sie ein 20-GiB-Volume mit einem Treiber erstellen:
 +
 [source, console]
 ----

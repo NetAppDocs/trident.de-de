@@ -389,7 +389,7 @@ spec:
       storage: 20Mi
   storageClassName: ontapnas
 ----
-Trident sollte ein 20MiB NFS PV für die folgende PVC erstellen:
+Trident sollte für dieses PVC ein 20 MiB NFS PV erstellen:
 
 [listing]
 ----
@@ -405,7 +405,7 @@ pvc-08f3d561-b199-11e9-8d9f-5254004dfdb7   20Mi       RWO            Delete     
 
 === Schritt 3: Erweitern Sie das PV
 
-Um die Größe des neu erstellten 20MiB PV auf 1 gib zu ändern, bearbeiten Sie die PVC und den Satz `spec.resources.requests.storage` Bis 1 gib:
+Um die Größe des neu erstellten 20 MiB PV auf 1 GiB zu ändern, bearbeiten Sie den PVC und legen Sie fest  `spec.resources.requests.storage` bis 1 GiB:
 
 [listing]
 ----

@@ -268,7 +268,7 @@ NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenm
 * Verringerte Azure NetApp Files-Mindestgröße für ein Volume auf 50 gib. Azure neue Mindestgröße wird voraussichtlich ab November verfügbar sein.
 * Konfigurationsparameter hinzugefügt `denyNewVolumePools`, um ONTAP-NAS-Economy- und ONTAP-SAN-Economy-Treiber auf vorhandene FlexVol-Pools zu beschränken.
 * Erkennung für das Hinzufügen, Entfernen oder Umbenennen von Aggregaten aus der SVM über alle ONTAP-Treiber hinweg hinzugefügt.
-* LUKS LUNs wurde um 18 MiB Overhead erweitert, um sicherzustellen, dass die gemeldete PVC-Größe verwendet werden kann.
+* 18 MiB Overhead wurden zu LUKS-LUNs hinzugefügt, um sicherzustellen, dass die gemeldete PVC-Größe nutzbar ist.
 * Verbesserte ONTAP-SAN- und ONTAP-SAN-Economy-Knotenstufe und Entstaunung der Fehlerbehandlung, damit Geräte nach einem Ausfall nicht mehr entfernt werden können.
 * Es wurde ein benutzerdefinierter Rollengenerator hinzugefügt, mit dem Kunden eine minimalistische Rolle für Trident in ONTAP erstellen können.
 * Zusätzliche Protokollierung für die Fehlerbehebung hinzugefügt `lsscsi` (link:https://github.com/NetApp/trident/issues/792["Ausgabe #792"]).
@@ -374,7 +374,7 @@ Ab Version 24.10 wird Astra Trident unter dem neuen Namen Trident (NetApp Triden
 * Fehler bei der Trident-Installation aufgrund veralteter Transaktionen behoben.
 * Tridentctl wurde behoben, um Warnmeldungen von Kubernetes ( ) zu ignorierenlink:https://github.com/NetApp/trident/issues/892["Ausgabe #892"].
 * Die Priorität des Trident-Controllers wurde in `0` (link:https://github.com/NetApp/trident/issues/887["Ausgabe #887"]) geändert `SecurityContextConstraint`.
-* ONTAP-Treiber akzeptieren jetzt Volumengrößen unter 20MiB (link:https://github.com/NetApp/trident/issues/885["Problem[#885"]).
+* ONTAP -Treiber akzeptieren jetzt Volume-Größen unter 20 MiB ( link:https://github.com/NetApp/trident/issues/885["Problem[#885"] ).
 * Trident wurde korrigiert, um zu verhindern, dass FlexVol Volumes während des Größenänderungsvorgangs für den ONTAP-SAN-Treiber verkleinert werden.
 * Fehler beim Import von ANF-Volumes mit NFS v4.1 behoben.
 
