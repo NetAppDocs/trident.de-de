@@ -16,19 +16,22 @@ summary: 'Die benutzerdefinierte Bucket-Ressource (CR) für Trident Protect wird
 [role="lead"]
 Die benutzerdefinierte Bucket-Ressource (CR) für Trident Protect wird als AppVault bezeichnet. AppVault-Objekte sind die deklarative Kubernetes-Workflow-Darstellung eines Storage-Buckets. Ein AppVault CR enthält die Konfigurationen, die für einen Bucket erforderlich sind, der für Schutzvorgänge verwendet werden kann, z. B. Backups, Snapshots, Wiederherstellungsvorgänge und SnapMirror-Replikation. Nur Administratoren können AppVaults erstellen.
 
-Sie müssen einen AppVault CR entweder manuell oder über die Befehlszeile erstellen, wenn Sie Datensicherheitsvorgänge in einer Anwendung ausführen. Der AppVault CR muss sich auf dem Cluster befinden, auf dem Trident Protect installiert ist. Der AppVault CR ist spezifisch für Ihre Umgebung. Sie können die Beispiele auf dieser Seite als Leitfaden für die Erstellung von AppVault CRS verwenden.
+Sie müssen eine AppVault-CR manuell oder über die Befehlszeile erstellen, wenn Sie Datenschutzvorgänge für eine Anwendung ausführen. Die AppVault-CR ist spezifisch für Ihre Umgebung. Die Beispiele auf dieser Seite können Ihnen beim Erstellen von AppVault-CRs als Leitfaden dienen.
+
+
+NOTE: Stellen Sie sicher, dass sich der AppVault CR auf dem Cluster befindet, auf dem Trident Protect installiert ist. Wenn der AppVault CR nicht vorhanden ist oder Sie nicht darauf zugreifen können, wird in der Befehlszeile ein Fehler angezeigt.
 
 
 
 == Konfigurieren Sie die AppVault-Authentifizierung und Passwörter
 
-Bevor Sie ein AppVault CR-System erstellen, müssen Sie sicherstellen, dass sich AppVault und der von Ihnen ausgewählte Data Mover beim Anbieter und den zugehörigen Ressourcen authentifizieren können.
+Bevor Sie einen AppVault CR erstellen, stellen Sie sicher, dass sich der AppVault und der von Ihnen gewählte Datenverschieber beim Anbieter und allen zugehörigen Ressourcen authentifizieren können.
 
 
 
 === Passwörter für Data Mover Repository
 
-Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen, können Sie optional Trident Protect anweisen, einen Kubernetes-Schlüssel zu verwenden, der benutzerdefinierte Passwörter für die Restic- und Kopia-Repository-Verschlüsselung enthält. Wenn Sie keinen Schlüssel angeben, verwendet Trident Protect ein Standardpasswort.
+Wenn Sie AppVault-Objekte mit CRs oder dem Trident Protect CLI-Plugin erstellen, können Sie ein Kubernetes-Geheimnis mit benutzerdefinierten Passwörtern für die Restic- und Kopia-Verschlüsselung angeben. Wenn Sie kein Geheimnis angeben, verwendet Trident Protect ein Standardpasswort.
 
 * Wenn Sie AppVault CRs manuell erstellen, verwenden Sie das Feld *spec.dataMoverPasswordSecretRef*, um das Geheimnis anzugeben.
 * Wenn Sie AppVault-Objekte mit der Trident Protect-CLI erstellen, verwenden Sie die  `--data-mover-password-secret-ref` Argument zum Angeben des Geheimnisses.
@@ -40,9 +43,13 @@ Wenn Sie AppVault-Objekte mit CRS oder dem Trident Protect CLI-Plugin erstellen,
 
 Verwenden Sie die folgenden Beispiele, um den Kennwortschlüssel zu erstellen. Wenn Sie AppVault-Objekte erstellen, können Sie Trident Protect anweisen, diesen Schlüssel zum Authentifizieren beim Data Mover-Repository zu verwenden.
 
+[NOTE]
+====
+* Je nachdem, welchen Data Mover Sie verwenden, müssen Sie nur das entsprechende Passwort für diesen Data Mover angeben. Wenn Sie beispielsweise Restic verwenden und Kopia in Zukunft nicht verwenden möchten, können Sie beim Erstellen des Geheimnisses nur das Restic-Kennwort eingeben.
+* Bewahren Sie das Passwort an einem sicheren Ort auf. Sie benötigen es, um Daten auf demselben oder einem anderen Cluster wiederherzustellen. Wenn der Cluster oder die  `trident-protect` Namespace gelöscht wird, können Sie Ihre Backups oder Snapshots ohne das Passwort nicht wiederherstellen.
 
-NOTE: Je nachdem, welchen Data Mover Sie verwenden, müssen Sie nur das entsprechende Passwort für diesen Data Mover angeben. Wenn Sie beispielsweise Restic verwenden und Kopia in Zukunft nicht verwenden möchten, können Sie beim Erstellen des Geheimnisses nur das Restic-Kennwort eingeben.
 
+====
 [role="tabbed-block"]
 ====
 .CR verwenden
