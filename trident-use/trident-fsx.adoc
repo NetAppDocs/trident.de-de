@@ -82,29 +82,28 @@ Der EKS Cluster unterstützt zwar verschiedene Betriebssysteme, AWS hat jedoch b
 |===
 
 
-| AMI | NAS | NAS-Wirtschaftlichkeit | San | SAN-Economy 
+| AMI | NAS | NAS-Wirtschaftlichkeit | ISCSI | iSCSI-Economy 
 
 
-| AL2023_x86_64_STANDARD | Ja. | Ja. | Ja* | Ja* 
+| AL2023_x86_64_STANDARD | Ja. | Ja. | Ja. | Ja. 
 
 
-| AL2_x86_64 | Ja. | Ja. | Ja** | Ja** 
+| AL2_x86_64 | Ja. | Ja. | Ja* | Ja* 
 
 
-| BOTTLEROCKET_x86_64 | Ja*** | Ja. | K. A. | K. A. 
+| BOTTLEROCKET_x86_64 | Ja** | Ja. | K. A. | K. A. 
 
 
-| AL2023_ARM_64_STANDARD | Ja. | Ja. | Ja* | Ja* 
+| AL2023_ARM_64_STANDARD | Ja. | Ja. | Ja. | Ja. 
 
 
-| AL2_ARM_64 | Ja. | Ja. | Ja** | Ja** 
+| AL2_ARM_64 | Ja. | Ja. | Ja* | Ja* 
 
 
-| BOTTLEROCKET_ARM_64 | Ja*** | Ja. | K. A. | K. A. 
+| BOTTLEROCKET_ARM_64 | Ja** | Ja. | K. A. | K. A. 
 |===
-* * Unterstützt nodePrep nur mit iSCSI.
-* ** Das PV kann nicht gelöscht werden, ohne den Knoten neu zu starten
-* *** Funktioniert nicht mit NFSv3 mit Trident Version 25.02, aber mit Version 24.10. Funktioniert mit NFSv4.1 mit beiden Versionen.
+* * Das Löschen des PV ist ohne Neustart des Knotens nicht möglich
+* ** Funktioniert nicht mit NFSv3 mit Trident Version 25.02.
 
 
 
@@ -112,8 +111,8 @@ NOTE: Wenn Ihr gewünschtes AMI hier nicht aufgeführt ist, bedeutet dies nicht,
 
 *Tests durchgeführt mit*:
 
-* EKS-Version: 1.31
-* Installationsmethode: Helm und als AWS Add-on
+* EKS-Version: 1.32
+* Installationsmethode: Helm 25.06 und als AWS-Add-On 25.06
 * Für NAS wurden sowohl NFSv3 als auch NFSv4.1 getestet.
 * Für SAN wurde nur iSCSI getestet, nicht NVMe-of.
 
