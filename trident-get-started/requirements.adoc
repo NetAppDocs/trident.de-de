@@ -43,7 +43,7 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
 * Kubernetes 1.27 – 1.33
 * OpenShift 4.14 – 4.18
-* Rancher Kubernetes Engine 2 (RKE2) v1.26.7+rke2r1, v1.28.5+rke2r1
+* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x
 
 
 Der Trident-Operator wird durch folgende Versionen unterstützt:
@@ -51,8 +51,11 @@ Der Trident-Operator wird durch folgende Versionen unterstützt:
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
 * Kubernetes 1.27 – 1.33
 * OpenShift 4.14 – 4.18
-* Rancher Kubernetes Engine 2 (RKE2) v1.26.7+rke2r1, v1.28.5+rke2r1
+* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.33.x
 
+
+
+NOTE: _Während Trident auf Rancher Kubernetes Engine 2 (RKE2) Versionen 1.27.x – 1.33.x unterstützt wird, ist Trident derzeit nur auf RKE2 v1.28.5+rke2r1 qualifiziert._
 
 Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbst gemanagter Kubernetes-Angebote eingesetzt werden, wie z. B. Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) und VMware Tanzu Portfolio.
 
