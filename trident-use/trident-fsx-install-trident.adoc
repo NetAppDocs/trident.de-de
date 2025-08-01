@@ -30,7 +30,7 @@ Wenn Sie die Snapshot-Funktionalität nutzen möchten, installieren Sie das Add-
 ====
 .Pod-Identität
 --
-. Fügen Sie der Helm-Konfiguration das NetApp Trident-Repo hinzu:
+. Trident Helm Repository hinzufügen:
 +
 [source, console]
 ----
@@ -62,7 +62,7 @@ trident-operator    trident     1           2024-10-14 14:31:22.463122 +0300 IDT
 --
 .Dienstkontozuordnung (IRSA)
 --
-. Fügen Sie der Helm-Konfiguration das NetApp Trident-Repo hinzu:
+. Trident Helm Repository hinzufügen:
 +
 [source, console]
 ----
