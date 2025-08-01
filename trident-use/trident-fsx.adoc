@@ -55,24 +55,6 @@ NOTE: Wenn Sie eine IAM-Rolle als Trident angeben, können Sie die Felder , `api
 
 
 
-=== Parallele Nutzung des Trident SAN/iSCSI- und EBS-CSI-Treibers
-
-Wenn Sie beabsichtigen, `ontap-san` Treiber (z. B. iSCSI) kann es bei der erforderlichen Multipathing-Einrichtung auf den Knoten zu Konflikten mit dem CSI-Treiber von Amazon Elastic Block Store (EBS) kommen.  Um sicherzustellen, dass Multipathing funktioniert, ohne EBS-Festplatten auf demselben Knoten zu beeinträchtigen, müssen Sie EBS in Ihrem Multipathing-Setup ausschließen.  Nachfolgend sehen Sie ein Beispiel für eine `multipath.conf` Datei, die die erforderlichen Trident Einstellungen enthält und EBS-Festplatten vom Multipathing ausschließt:
-
-[listing]
-----
-defaults {
-    find_multipaths no
-}
-blacklist {
-    device {
-        vendor "NVME"
-        product "Amazon Elastic Block Store"
-    }
-}
-----
-
-
 == Authentifizierung
 
 Trident bietet zwei Authentifizierungsmodi.
