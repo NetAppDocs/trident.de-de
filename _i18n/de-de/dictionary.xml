@@ -5351,8 +5351,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="f19e5d93360a2cdbfe64b6c513e8d263" category="list-text">Klicken Sie Auf *Installieren*.</block>
   <block id="86499c179913093d38f20a089bb4967f" category="list-text">Wählen Sie die gewünschten Optionen aus und klicken Sie auf *Installieren*.</block>
   <block id="301a8f7d2ea6785da5f183d668f629b2" category="list-text">Nach Abschluss der Installation wird der Bediener in der Liste der installierten Bediener angezeigt.</block>
-  <block id="daf49607bdd50d5294748814ce67ed21" category="list-text">Erstellen Sie ein TORC wie das Operator Bundle installieren.</block>
-  <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Deinstallieren Sie den Trident-Operator</block>
   <block id="9838ab5306db947832d94d1cd49a486a" category="list-text">Wählen Sie den Trident-Operator aus der Liste des installierten Operators aus.</block>
   <block id="b5a7424a278ddd01fa4e381b58d1e00d" category="list-text">Wählen Sie diese Option aus, wenn Sie die gesamte Operanden-Instanz vom Operator löschen möchten.</block>
   <block id="28ed84868f638999e59e306d6b87b07c" category="admonition">Wenn Sie nicht das Kontrollkästchen *Alle Operanden-Instanzen von diesem Operator löschen* aktivieren, wird Trident nicht deinstalliert.</block>
@@ -5774,4 +5772,5 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="99be75de31964ff7afed59629c2827c9" category="list-text">Zahlen<block ref="415d01607bfb64fa0b7efaf0fe064e86" prefix=" " category="inline-code"></block></block>
   <block id="f0fbfac7ddb67830c39dcddb2e0101aa" category="list-text">Unterstriche<block ref="b14a7b8059d9c055954c92674ce60032" prefix=" " category="inline-code"></block></block>
   <block id="c76231732eebaec2e2411ed7cfd30e2c" category="list-text">Bindestriche<block ref="336d5ebc5436534e61d16e63ddfca327" prefix=" " category="inline-code"></block></block>
+  <block id="3304691bb80d9d42f8bae0707e46c701" category="paragraph">== Trident -Operator deinstallieren</block>
 </blocks>

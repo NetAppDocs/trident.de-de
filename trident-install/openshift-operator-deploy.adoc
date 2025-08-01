@@ -40,12 +40,10 @@ image::../media/openshift-operator-03.png[Installieren]
 +
 image::../media/openshift-operator-04.png[Installiert]
 
-. Erstellen Sie ein TORC wie das Operator Bundle installieren.
++
+== Trident -Operator deinstallieren
 
 
-
-
-== Deinstallieren Sie den Trident-Operator
 
 .Schritte
 . Wählen Sie den Trident-Operator aus der Liste des installierten Operators aus.
