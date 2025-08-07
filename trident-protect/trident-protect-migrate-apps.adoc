@@ -14,7 +14,7 @@ summary: Sie können Ihre Backup- oder Snapshot-Daten auf einem anderen Cluster 
 
 
 [role="lead"]
-Sie können Ihre Applikationen zwischen Clustern oder Storage-Klassen migrieren, indem Sie Ihre Backup- oder Snapshot-Daten in einem anderen Cluster oder einer anderen Storage-Klasse wiederherstellen.
+Sie können Ihre Anwendungen zwischen Clustern oder in verschiedene Speicherklassen migrieren, indem Sie Sicherungsdaten wiederherstellen.
 
 
 NOTE: Wenn Sie eine Anwendung migrieren, werden alle für die Anwendung konfigurierten Ausführungshaken mit der App migriert. Wenn ein Hook für die Ausführung nach der Wiederherstellung vorhanden ist, wird er automatisch als Teil des Wiederherstellungsvorgangs ausgeführt.
@@ -65,7 +65,7 @@ NOTE: Sie können eine Anwendung zwischen verschiedenen Clustern mit replizieren
 
 == Migrieren von Applikationen von einer Storage-Klasse zu einer anderen Storage-Klasse
 
-Sie können Anwendungen von einer Storage-Klasse zu einer anderen Storage-Klasse migrieren, indem Sie einen Snapshot auf der anderen Ziel-Storage-Klasse wiederherstellen.
+Sie können Anwendungen von einer Speicherklasse in eine andere Speicherklasse migrieren, indem Sie eine Sicherung in der Zielspeicherklasse wiederherstellen.
 
 Beispiel: (Ohne die Geheimnisse aus dem Wiederherstellungs-CR):
 
@@ -79,11 +79,11 @@ spec:
   appArchivePath: "${snapshotArchivePath}"
   appVaultRef: "${appVaultCRName}"
   namespaceMapping:
-    destination: "${destinationNamespace}"
-    source: "${sourceNamespace}"
+    - destination: "${destinationNamespace}"
+      source: "${sourceNamespace}"
   storageClassMapping:
-    destination: "${destinationStorageClass}"
-    source: "${sourceStorageClass}"
+    - destination: "${destinationStorageClass}"
+      source: "${sourceStorageClass}"
   resourceFilter:
     resourceMatchers:
       kind: Secret
