@@ -5796,4 +5796,5 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="5df2f935f2bc3df2c6378f665b3d6659" category="list-text">Sie können hinzufügen<block ref="e9a7558decb5e432d8b7c4d536cc9876" prefix=" " category="inline-code"></block> Parameter zum Konfigurieren und Aktivieren von iSCSI- und Multipath-Diensten auf allen OpenShift-Workerknoten.</block>
   <block id="f61306bfa8c6de676059739358d4479f" category="list-text">Klicken Sie auf *Erstellen*; der Trident Orchestrator wird vollständig installiert.</block>
   <block id="7f95b6a9d45bd5ee11107a5abb5dd69c" category="section-title">Deinstallieren Sie den Trident -Operator</block>
+  <block id="b94d4c5305d8d32a875a24a5b1501274" category="admonition">Kunden, die SolidFire verwenden, sollten aufgrund eines bekannten Problems beim Aufheben der Veröffentlichung von Volumes kein Upgrade auf 25.06.1 durchführen.  Um dieses Problem zu beheben, wird in Kürze 25.06.2 veröffentlicht.</block>
 </blocks>

@@ -28,6 +28,9 @@ Die Zusammenfassung der Neuigkeiten enthält Einzelheiten zu Verbesserungen, Feh
 === Trident
 
 
+IMPORTANT: Kunden, die SolidFire verwenden, sollten aufgrund eines bekannten Problems beim Aufheben der Veröffentlichung von Volumes kein Upgrade auf 25.06.1 durchführen.  Um dieses Problem zu beheben, wird in Kürze 25.06.2 veröffentlicht.
+
+
 
 ==== Korrekturen
 
