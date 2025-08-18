@@ -251,9 +251,9 @@ Sie können den Backend-Status auch über das Feld in der Backend-Konfigurations
 Führen Sie die folgenden Schritte aus, um die mit der Datei zu aktualisieren `userState` `backend.json` :
 
 . Bearbeiten Sie die `backend.json` Datei, um das Feld mit dem Wert „suspendiert“ aufzunehmen `userState` .
-. Aktualisieren Sie das Backend mit dem `tridentctl backend update` Befehl und dem Pfad zur aktualisierten `backend.json` Datei.
+. Aktualisieren Sie das Backend mithilfe der `tridentctl update backend` Befehl und den Pfad zur aktualisierten `backend.json` Datei.
 +
-*Beispiel*: `tridentctl backend update -f /<path to backend JSON file>/backend.json`
+*Beispiel*: `tridentctl update backend  -f /<path to backend JSON file>/backend.json -n trident`
 
 
 
