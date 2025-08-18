@@ -14,7 +14,7 @@ summary: 'Mit Trident Protect können Administratoren Bundles erstellen, die fü
 
 
 [role="lead"]
-Mit Trident Protect können Administratoren Bundles erstellen, die für die Unterstützung von NetApp nützliche Informationen enthalten, einschließlich Protokollen, Kennzahlen und Topologieinformationen zu den zu managenden Clustern und Apps. Wenn Sie mit dem Internet verbunden sind, können Sie Supportpakete mithilfe einer benutzerdefinierten Ressourcendatei (CR) auf die NetApp-Support-Website (NSS) hochladen.
+Mit Trident Protect können Administratoren Pakete erstellen, die für den NetApp Support nützliche Informationen enthalten, darunter Protokolle, Metriken und Topologieinformationen zu den verwalteten Clustern und Apps.  Wenn Sie mit dem Internet verbunden sind, können Sie Support-Pakete mithilfe einer benutzerdefinierten Ressourcendatei (CR) auf die NetApp Support Site (NSS) hochladen.
 
 [role="tabbed-block"]
 ====
@@ -56,11 +56,11 @@ spec:
 ----
 
 
-. Nachdem Sie die Datei mit den richtigen Werten ausgefüllt `astra-support-bundle.yaml` haben, wenden Sie den CR an:
+. Nachdem Sie die `trident-protect-support-bundle.yaml` Datei mit den richtigen Werten, wenden Sie den CR an:
 +
 [source, console]
 ----
-kubectl apply -f trident-protect-support-bundle.yaml
+kubectl apply -f trident-protect-support-bundle.yaml -n trident-protect
 ----
 
 
@@ -75,9 +75,32 @@ Beispiel:
 +
 [source, console]
 ----
-tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <trigger-type>
+tridentctl-protect create autosupportbundle <my-bundle-name> --trigger-type <trigger-type> -n trident-protect
 ----
 
 
 --
 ====
+
+
+== Überwachen und Abrufen des Support-Pakets
+
+Nachdem Sie mit einer der beiden Methoden ein Support-Paket erstellt haben, können Sie den Generierungsfortschritt überwachen und es auf Ihr lokales System abrufen.
+
+.Schritte
+. Warten Sie auf die `status.generationState` erreichen `Completed` Zustand.  Sie können den Generierungsfortschritt mit dem folgenden Befehl überwachen:
++
+[source, console]
+----
+kubectl get autosupportbundle trident-protect-support-bundle -n trident-protect
+----
+. Rufen Sie das Support-Paket auf Ihr lokales System ab.  Holen Sie sich den Kopierbefehl aus dem vollständigen AutoSupport Paket:
++
+[source, console]
+----
+kubectl describe autosupportbundle trident-protect-support-bundle -n trident-protect
+----
++
+Finden Sie die `kubectl cp` Befehl aus der Ausgabe und führen Sie ihn aus, wobei Sie das Zielargument durch Ihr bevorzugtes lokales Verzeichnis ersetzen.
+
+
