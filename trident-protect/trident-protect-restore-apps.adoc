@@ -279,6 +279,7 @@ Stellen Sie sicher, dass die folgenden Voraussetzungen erfüllt sind:
 
 * Auf dem Zielcluster ist Trident Protect installiert.
 * Der Zielcluster hat Zugriff auf den Bucket-Pfad desselben AppVault wie das Quellcluster, in dem das Backup gespeichert ist.
+* Stellen Sie sicher, dass Ihre lokale Umgebung eine Verbindung zum im AppVault CR definierten Objektspeicher-Bucket herstellen kann, wenn Sie den `tridentctl-protect get appvaultcontent` Befehl.  Wenn Netzwerkeinschränkungen den Zugriff verhindern, führen Sie stattdessen die Trident Protect-CLI innerhalb eines Pods auf dem Zielcluster aus.
 * Stellen Sie sicher, dass der Ablauf des AWS-Sitzungstokens für alle Wiederherstellungsvorgänge mit langer Laufzeit ausreicht. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
 +
 ** Weitere Informationen zum Überprüfen des Ablaufes des aktuellen Sitzungstokens finden Sie im https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html["AWS API-Dokumentation"^].
