@@ -140,3 +140,6 @@ Trident unterstützt Folgendes nicht:
 * Multipathing für Device Mapper (DM
 * LUKS-Verschlüsselung
 
+
+
+NOTE: NVMe wird nur mit ONTAP REST APIs unterstützt und nicht mit ONTAPI (ZAPI).
