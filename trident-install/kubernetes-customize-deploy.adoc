@@ -65,7 +65,7 @@ Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identitä
 | `IPv6` | Installieren Sie Trident über IPv6 | Falsch 
 
 
-| `k8sTimeout` | Zeitüberschreitung für Kubernetes-Betrieb | `30sec` 
+| `k8sTimeout` | Zeitüberschreitung für Kubernetes-Betrieb | `180sec` 
 
 
 | `silenceAutosupport` | Senden Sie keine AutoSupport Bundles an NetApp
