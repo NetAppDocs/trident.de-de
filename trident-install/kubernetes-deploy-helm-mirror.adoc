@@ -202,7 +202,12 @@ WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. W
 | `tridentIPv6` | Ermöglicht die Aktivierung von Trident für die Arbeit in IPv6-Clustern. | `false` 
 
 
-| `tridentK8sTimeout` | Überschreibt das standardmäßige Timeout von 180 Sekunden für die meisten Kubernetes-API-Operationen (falls ungleich Null, in Sekunden). | `180` 
+| `tridentK8sTimeout`  a| 
+Überschreibt das standardmäßige Timeout von 180 Sekunden für die meisten Kubernetes-API-Operationen (falls ungleich Null, in Sekunden).
+
+
+NOTE: Der `tridentK8sTimeout` Der Parameter ist nur für die Trident -Installation anwendbar.
+| `180` 
 
 
 | `tridentHttpRequestTimeout` | Setzt das standardmäßige 90-Sekunden-Timeout für die HTTP-Anforderungen mit außer Kraft `0s` Ist eine unendliche Dauer für das Timeout. Negative Werte sind nicht zulässig. | `"90s"` 
