@@ -80,7 +80,7 @@ Trident erstellt das PV und das zugehörige Back-End Storage Volume.
 
 
 ====
-. *Cluster admin:* Erstellen Sie die benutzerdefinierte Rolle und kubeconfig, um dem Ziel-Namespace-Eigentümer die Berechtigung zu erteilen, den TridentVolume Reference CR im Ziel-Namespace zu erstellen(`namespace2` ).
+. *Clusteradministrator:* Stellen Sie sicher, dass die richtige RBAC vorhanden ist, um dem Besitzer des Zielnamespace die Berechtigung zum Erstellen des TridentVolumeReference CR im Zielnamespace zu erteilen.(`namespace2` ).
 . *Zielgebietes-Namespace-Eigentümer:* Erstellen Sie ein TridentVolumeReference CR im Ziel-Namespace, der sich auf den Quell-Namespace bezieht `pvc1`.
 +
 [source, yaml]
