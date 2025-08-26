@@ -107,9 +107,50 @@ Weitere Informationen zu Amazon S3-Richtlinien finden Sie in den Beispielen im  
 
 
 
+=== EKS Pod Identity für Amazon S3 (AWS)-Authentifizierung
+
+Trident Protect unterstützt EKS Pod Identity für Kopia-Datenverschiebungsvorgänge.  Diese Funktion ermöglicht den sicheren Zugriff auf S3-Buckets, ohne AWS-Anmeldeinformationen in Kubernetes-Geheimnissen zu speichern.
+
+*Anforderungen für EKS Pod Identity mit Trident Protect*
+
+Bevor Sie EKS Pod Identity mit Trident Protect verwenden, stellen Sie Folgendes sicher:
+
+* In Ihrem EKS-Cluster ist Pod Identity aktiviert.
+* Sie haben eine IAM-Rolle mit den erforderlichen S3-Bucket-Berechtigungen erstellt. Weitere Informationen finden Sie unterlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-appvault-custom-resources.html#s3-compatible-storage-iam-permissions["S3-kompatible Speicher-IAM-Berechtigungen"] .
+* Die IAM-Rolle ist mit den folgenden Trident Protect-Dienstkonten verknüpft:
++
+** `<trident-protect>-controller-manager`
+** `<trident-protect>-resource-backup`
+** `<trident-protect>-resource-restore`
+** `<trident-protect>-resource-delete`
+
+
+
+
+Ausführliche Anweisungen zum Aktivieren der Pod-Identität und zum Zuordnen von IAM-Rollen zu Dienstkonten finden Sie im https://docs.aws.amazon.com/eks/latest/userguide/pod-identities.html["AWS EKS Pod Identity-Dokumentation"^] .
+
+*AppVault-Konfiguration* Konfigurieren Sie bei Verwendung der EKS Pod Identity Ihren AppVault CR mit dem `useIAM: true` Flag anstelle expliziter Anmeldeinformationen:
+
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: eks-protect-vault
+  namespace: trident-protect
+spec:
+  providerType: AWS
+  providerConfig:
+    s3:
+      bucketName: trident-protect-aws
+      endpoint: s3.example.com
+      useIAM: true
+----
+
+
 === Beispiele für die Schlüsselgeneration von AppVault für Cloud-Provider
 
-Beim Definieren eines AppVault CR müssen Sie Anmeldeinformationen eingeben, um auf die vom Anbieter gehosteten Ressourcen zugreifen zu können. Die Art und Weise, wie Sie die Schlüssel für die Anmeldeinformationen generieren, hängt vom Anbieter ab. Im Folgenden finden Sie Beispiele für die Generierung von Kommandozeilen-Schlüsseln für mehrere Anbieter. In den folgenden Beispielen können Sie Schlüssel für die Anmeldedaten der einzelnen Cloud-Provider erstellen.
+Wenn Sie eine AppVault CR definieren, müssen Sie Anmeldeinformationen für den Zugriff auf die vom Anbieter gehosteten Ressourcen angeben, es sei denn, Sie verwenden die IAM-Authentifizierung.  Die Art und Weise, wie Sie die Schlüssel für die Zugangsdaten generieren, unterscheidet sich je nach Anbieter.  Nachfolgend finden Sie Beispiele für die Schlüsselgenerierung über die Befehlszeile für mehrere Anbieter.  Sie können die folgenden Beispiele verwenden, um Schlüssel für die Anmeldeinformationen jedes Cloud-Anbieters zu erstellen.
 
 [role="tabbed-block"]
 ====
@@ -249,6 +290,9 @@ spec:
         key: sessionToken
         name: s3-secret
 ----
+
+NOTE: Für EKS-Umgebungen, die Pod Identity mit Kopia Data Mover verwenden, können Sie die `providerCredentials` Abschnitt und fügen Sie hinzu `useIAM: true` unter dem `s3` Konfiguration stattdessen.
+
 --
 .Microsoft Azure
 --
