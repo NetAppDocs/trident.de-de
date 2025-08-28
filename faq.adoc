@@ -86,7 +86,7 @@ Trident liest vom Kubernetes-API-Server, um zu bestimmen, wann Applikationen neu
 
 === Welche Rollen und Privileges verwendet Trident?
 
-Das Trident-Installationsprogramm erstellt ein Kubernetes ClusterRole, das spezifischen Zugriff auf die Ressourcen PersistentVolume, PersistentVolumeClaim, StorageClass und Secret des Kubernetes-Clusters hat. Siehe link:../trident-get-started/kubernetes-customize-deploy-tridentctl.html["Die tridentctl-Installation anpassen"^].
+Das Trident -Installationsprogramm erstellt eine Kubernetes-ClusterRole, die spezifischen Zugriff auf die PersistentVolume-, PersistentVolumeClaim-, StorageClass- und Secret-Ressourcen des Kubernetes-Clusters hat. Weitere Informationen finden Sie unter link:trident-get-started/kubernetes-customize-deploy-tridentctl.html["Die tridentctl-Installation anpassen"^] .
 
 
 
