@@ -149,6 +149,10 @@ Stellen Sie sicher, dass folgende Voraussetzungen erfüllt sind, bevor Sie das T
 
 . Gehen Sie auf der Seite *Ausgewählte Add-Ons konfigurieren*-Einstellungen wie folgt vor:
 +
+
+NOTE: *Überspringen Sie diese Schritte, wenn Sie die Pod Identity-Zuordnung verwenden.*
+
++
 .. Wählen Sie die *Version* aus, die Sie verwenden möchten.
 .. Wenn Sie die IRSA-Authentifizierung verwenden, achten Sie darauf, die in den optionalen Konfigurationseinstellungen verfügbaren Konfigurationseinstellungen festzulegen:
 +

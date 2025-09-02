@@ -48,35 +48,11 @@ image::../media/aws-eks-02.png[aws eks, 02]
 +
 image::../media/aws-eks-03.png[aws eks, 03]
 
-. Wählen Sie die Option IAM-Rolle aus, die vom Knoten übernommen werden soll.
+. Konfigurieren Sie die erforderlichen Add-On-Einstellungen.
 +
 image::../media/aws-eks-04.png[aws eks, 04]
 
-. Folgen Sie dem *Add-on-Konfigurationsschema* und setzen Sie den Parameter Konfigurationswerte im Abschnitt *Konfigurationswerte* auf die Rolle-arn, die Sie im vorherigen Schritt (Schritt 1) erstellt haben. Der Wert muss das folgende Format haben:
-+
-[source, JSON]
-----
-{
-
-  "cloudIdentity": "'eks.amazonaws.com/role-arn: <role ARN>'",
-  "cloudProvider": "AWS"
-
-}
-----
-+
-
-NOTE: Wenn Sie für die Konfliktlösungsmethode Überschreiben auswählen, können eine oder mehrere Einstellungen für das vorhandene Add-On mit den Amazon EKS-Zusatzeinstellungen überschrieben werden. Wenn Sie diese Option nicht aktivieren und es einen Konflikt mit Ihren bestehenden Einstellungen gibt, schlägt der Vorgang fehl. Sie können die resultierende Fehlermeldung verwenden, um den Konflikt zu beheben. Bevor Sie diese Option auswählen, stellen Sie sicher, dass das Amazon EKS-Add-On keine Einstellungen verwaltet, die Sie selbst verwalten müssen.
-
-+
-image::../media/aws-eks-06.png[aws eks, 06]
-
-
-
-
-NOTE: Überspringen Sie diesen Schritt, wenn Sie die Pod Identity-Zuordnung verwenden.
-
-+
-
+. Wenn Sie IRSA (IAM-Rollen für Dienstkonten) verwenden, lesen Sie die zusätzlichen Konfigurationsschrittelink:https://docs.netapp.com/us-en/trident/trident-use/trident-fsx-install-trident.html#enable-the-trident-add-on-for-aws["Hier"] .
 . Wählen Sie *Erstellen*.
 . Überprüfen Sie, ob der Status des Add-ons _Active_ lautet.
 +
