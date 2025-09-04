@@ -15,7 +15,7 @@ Sie können verhindern, dass bestimmte Annotationen im Ziel-Namespace überschri
 
 [source, console]
 ----
-helm install trident-protect --set tridentProtectControllerManager.env.RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
 NOTE: Bei der Wiederherstellung oder beim Failover werden alle Namespace-Anmerkungen und -Bezeichnungen, die in `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind vom Wiederherstellungs- oder Failover-Vorgang ausgeschlossen.  Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unterlink:../trident-protect/trident-protect-customize-installation.html#configure-autoSupport-and-namespace-filtering-options["Konfigurieren Sie AutoSupport und Namespace-Filteroptionen"] .

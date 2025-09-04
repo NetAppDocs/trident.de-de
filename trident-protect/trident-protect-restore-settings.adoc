@@ -29,7 +29,7 @@ Sie können verhindern, dass bestimmte Annotationen im Ziel-Namespace überschri
 
 [source, console]
 ----
-helm install trident-protect --set tridentProtectControllerManager.env.RESTORE_SKIP_NAMESPACE_ANNOTATIONS=<annotation_key_to_skip_1>,<annotation_key_to_skip_2>
+helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
 NOTE: Bei der Wiederherstellung oder beim Failover werden alle Namespace-Anmerkungen und -Bezeichnungen, die in `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind vom Wiederherstellungs- oder Failover-Vorgang ausgeschlossen.  Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unterlink:../trident-protect/trident-protect-customize-installation.html#configure-autoSupport-and-namespace-filtering-options["Konfigurieren Sie AutoSupport und Namespace-Filteroptionen"] .
@@ -131,8 +131,8 @@ In diesem Abschnitt werden die unterstützten Anmerkungen zum Konfigurieren vers
 | Anmerkung | Typ | Beschreibung | Standardwert 
 
 
-| protect.trident.netapp.io/data-mover-timeout-sec | Zeichenfolge | Die maximal zulässige Zeit (in Sekunden), für die der Data Mover-Vorgang angehalten werden darf. | 300 
+| protect.trident.netapp.io/data-mover-timeout-sec | Zeichenfolge | Die maximal zulässige Zeit (in Sekunden), für die der Data Mover-Vorgang angehalten werden darf. | "300" 
 
 
-| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | Ganzzahl | Die maximale Größenbeschränkung (in Megabyte) für den Kopia-Inhaltscache. | 1000 
+| protect.trident.netapp.io/kopia-content-cache-size-limit-mb | Zeichenfolge | Die maximale Größenbeschränkung (in Megabyte) für den Kopia-Inhaltscache. | "1000" 
 |===
