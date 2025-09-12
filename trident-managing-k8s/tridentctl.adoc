@@ -158,12 +158,13 @@ Flags:: `--autosupport-image string`: Das Container-Image für Autosupport Telem
 `--k8s-timeout duration` : Das Timeout für alle Kubernetes-Operationen (Standard 3 Min. und 0 Sek.).
 `--kubelet-dir string` : Der Host-Speicherort des internen Status von Kubelet (Standard „/var/lib/kubelet“).
 `--log-format string` : Das Trident -Protokollierungsformat (Text, JSON) (Standard „Text“).
-`--node-prep` : Ermöglicht Trident , die Knoten des Kubernetes-Clusters für die Verwaltung von Volumes mithilfe des angegebenen Datenspeicherprotokolls vorzubereiten.  *Momentan, `iscsi` ist der einzige unterstützte Wert.  Ab OpenShift 4.19 ist die für diese Funktion unterstützte Mindestversion von Trident 25.06.1.*
+`--node-prep` : Ermöglicht Trident , die Knoten des Kubernetes-Clusters für die Verwaltung von Volumes mithilfe des angegebenen Datenspeicherprotokolls vorzubereiten. *Momentan, `iscsi` ist der einzige unterstützte Wert. Ab OpenShift 4.19 ist die für diese Funktion unterstützte Mindestversion von Trident 25.06.1.*
 `--pv string` : Der Name des von Trident verwendeten Legacy-PV. Stellt sicher, dass dieser nicht vorhanden ist (Standard: „Trident“).
 `--pvc string` : Der Name des von Trident verwendeten Legacy-PVC. Stellt sicher, dass dieser nicht vorhanden ist (Standard: „Trident“).
 `--silence-autosupport` : Autosupport-Pakete nicht automatisch an NetApp senden (Standard: „true“).
 `--silent` : Deaktivieren Sie die meisten Ausgaben während der Installation.
 `--trident-image string` : Das zu installierende Trident -Image.
+`--k8s-api-qps` : Das Limit für Abfragen pro Sekunde (QPS) für Kubernetes-API-Anfragen (Standard 100; optional).
 `--use-custom-yaml` : Verwenden Sie alle vorhandenen YAML-Dateien, die im Setup-Verzeichnis vorhanden sind.
 `--use-ipv6` : Verwenden Sie IPv6 für die Kommunikation von Trident.
 

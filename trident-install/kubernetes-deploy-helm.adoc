@@ -246,6 +246,11 @@ Ermöglicht Trident, die Nodes des Kubernetes-Clusters so vorzubereiten, dass Vo
 
 NOTE: Ab OpenShift 4.19 ist die für diese Funktion unterstützte Mindestversion von Trident 25.06.1.
 |  
+
+
+| `k8sAPIQPS`  a| 
+Das vom Controller bei der Kommunikation mit dem Kubernetes-API-Server verwendete Limit für Abfragen pro Sekunde (QPS).  Der Burst-Wert wird automatisch basierend auf dem QPS-Wert festgelegt.
+| `100`; optional 
 |===
 
 
