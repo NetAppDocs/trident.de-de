@@ -195,3 +195,16 @@ Weitere Informationen zum gewaltsam Lösen finden Sie unter link:..trident-get-s
 tridentctl install --enable-force-detach=true -n trident
 ----
 ====
+.Aktivieren Sie gleichzeitige Trident -Controller-Operationen
+[%collapsible]
+====
+Um gleichzeitige Trident -Controller-Operationen für einen verbesserten Durchsatz zu ermöglichen, fügen Sie die `--enable-concurrency` Option während der Installation, wie in diesem Beispiel gezeigt.
+
+
+NOTE: *Technische Vorschau*: Diese Funktion ist in NetApp Trident 25.06 experimentell und unterstützt derzeit begrenzte parallele Workflows mit dem ONTAP-SAN-Treiber (iSCSI- und FCP-Protokolle).
+
+[listing]
+----
+tridentctl install --enable-concurrency -n trident
+----
+====
