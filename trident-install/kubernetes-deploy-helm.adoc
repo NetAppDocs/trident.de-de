@@ -254,6 +254,11 @@ NOTE: *Technische Vorschau*: Diese Funktion ist in NetApp Trident 25.06 experime
 | `k8sAPIQPS`  a| 
 Das vom Controller bei der Kommunikation mit dem Kubernetes-API-Server verwendete Limit für Abfragen pro Sekunde (QPS).  Der Burst-Wert wird automatisch basierend auf dem QPS-Wert festgelegt.
 | `100`; optional 
+
+
+| `k8sAPIQPS`  a| 
+Das vom Controller bei der Kommunikation mit dem Kubernetes-API-Server verwendete Limit für Abfragen pro Sekunde (QPS).  Der Burst-Wert wird automatisch basierend auf dem QPS-Wert festgelegt.
+| `100`; optional 
 |===
 
 
