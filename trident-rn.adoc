@@ -19,9 +19,24 @@ WARNING: Der `tridentctl` Binary for Linux, die in der ZIP-Datei des Installatio
 
 
 
-== Was ist neu in 25.06.1
+== Was ist neu in 25.06.2
 
 Die Zusammenfassung der Neuigkeiten enthält Einzelheiten zu Verbesserungen, Fehlerbehebungen und veralteten Funktionen für die Versionen Trident und Trident Protect.
+
+
+
+=== Trident
+
+
+
+==== Korrekturen
+
+* *Kubernetes*: Kritisches Problem behoben, bei dem beim Trennen von Volumes von Kubernetes-Knoten falsche iSCSI-Geräte erkannt wurden.
+
+
+
+
+== Änderungen in 25.06.1
 
 
 
@@ -49,8 +64,6 @@ IMPORTANT: Kunden, die SolidFire verwenden, sollten aufgrund eines bekannten Pro
 
 
 == Änderungen in 25.06
-
-Die Zusammenfassung der Neuigkeiten enthält Einzelheiten zu Verbesserungen, Fehlerbehebungen und veralteten Funktionen für die Versionen Trident und Trident Protect.
 
 
 

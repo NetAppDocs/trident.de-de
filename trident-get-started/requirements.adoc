@@ -218,6 +218,31 @@ link:../trident-reference/ports.html["Trident-Ports"]
 
 Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz für Container-Images, die zur Installation von Trident erforderlich sind. Überprüfen Sie mit dem `tridentctl images` Befehl die Liste der erforderlichen Container-Images.
 
+
+
+=== Für Trident 25.06.2 erforderliche Container-Images
+
+[cols="2"]
+|===
+| Kubernetes-Versionen | Container-Image 
+
+
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0  a| 
+* docker.io/netapp/trident:25.06.2
+* docker.io/netapp/Trident-AutoSupport:25.06
+* Registry.k8s.io/SIG-Storage/csi-provisioner:v5.2.0
+* Registry.k8s.io/SIG-Storage/csi-Attacher:v4.8.1
+* Registry.k8s.io/SIG-Storage/csi-resizer:v1.13.2
+* Registry.k8s.io/SIG-Storage/csi-snapshotter:v8.2.1
+* Registry.k8s.io/SIG-Storage/csi-Node-driver-Registrar:v2.13.0
+* docker.io/netapp/trident-operator:25.06.2 (optional)
+
+
+|===
+
+
+=== Für Trident 25.06 erforderliche Container-Images
+
 [cols="2"]
 |===
 | Kubernetes-Versionen | Container-Image 
