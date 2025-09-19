@@ -21,6 +21,9 @@ Mit Trident können Sie neue Volumes unter Verwendung vorhandener Volumes oder V
 Stellen Sie vor dem Klonen von Volumes sicher, dass die Quell- und Ziel-Back-Ends vom gleichen Typ sind und dieselbe Storage-Klasse aufweisen.
 
 
+NOTE: Das Klonen über Namespaces hinweg wird nur für die `ontap-san` Und `ontap-nas` Speichertreiber.  Schreibgeschützte Klone werden nicht unterstützt.
+
+
 
 == Schnellstart
 
