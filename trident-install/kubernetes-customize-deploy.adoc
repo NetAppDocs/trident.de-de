@@ -151,7 +151,7 @@ NOTE: Weitere Informationen zum Formatieren von Pod-Parametern finden Sie unter 
 
 === Details zum Ablösen von Krafteinwirkung
 
-Die Trennung erzwingen ist `onatp-nas` nur für, , `ontap-san-economy` und `onatp-nas-economy` verfügbar `ontap-san`. Vor der Aktivierung von Force Trennen muss das nicht-anmutige Herunterfahren des Node (NGNS) auf dem Kubernetes-Cluster aktiviert sein. NGNS sind standardmäßig für Kubernetes 1.28 und höher aktiviert. Weitere Informationen finden Sie unter link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Nicht ordnungsgemäßes Herunterfahren von Nodes"^].
+Force Detach ist verfügbar für `ontap-san` , `ontap-san-economy` , `ontap-nas` , Und `ontap-nas-economy` nur. Bevor Sie die erzwungene Trennung aktivieren, muss das Non-Graceful Node Shutdown (NGNS) im Kubernetes-Cluster aktiviert werden. NGNS ist standardmäßig für Kubernetes 1.28 und höher aktiviert. Weitere Informationen finden Sie unter link:https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/#non-graceful-node-shutdown["Kubernetes: Nicht ordnungsgemäßes Herunterfahren von Nodes"^] .
 
 
 NOTE: Wenn Sie den Treiber oder `ontap-nas-economy` verwenden, müssen Sie den Parameter in der Back-End-Konfiguration auf `true` so einstellen `autoExportPolicy`, dass Trident den Zugriff auf den Kubernetes-Node bei der Verwendung der unter Verwendung `ontap-nas` von verwalteten Exportrichtlinien angewandten Beschränkung einschränken kann.
