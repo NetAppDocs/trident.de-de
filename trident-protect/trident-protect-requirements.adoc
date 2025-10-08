@@ -166,3 +166,16 @@ NOTE: Vergewissern Sie sich, dass die in der Replizierungsbeziehung zwischen zwe
 === Trident/ONTAP-Konfiguration für SnapMirror-Replikation
 
 Trident Protect setzt voraus, dass Sie mindestens ein Storage-Back-End konfigurieren, das die Replizierung sowohl für die Quell- als auch für Ziel-Cluster unterstützt. Wenn die Quell- und Ziel-Cluster identisch sind, sollte die Zielanwendung ein anderes Speicher-Back-End als die Quellanwendung verwenden, um die beste Ausfallsicherheit zu erreichen.
+
+
+
+=== Kubernetes-Clusteranforderungen für die SnapMirror -Replikation
+
+Stellen Sie sicher, dass Ihre Kubernetes-Cluster die folgenden Anforderungen erfüllen:
+
+* *AppVault-Zugriff*: Sowohl Quell- als auch Zielcluster müssen über Netzwerkzugriff verfügen, um für die Replikation von Anwendungsobjekten aus dem AppVault lesen und in diesen schreiben zu können.
+* *Netzwerkkonnektivität*: Konfigurieren Sie Firewall-Regeln, Bucket-Berechtigungen und IP-Zulassungslisten, um die Kommunikation zwischen beiden Clustern und dem AppVault über WANs zu ermöglichen.
+
+
+
+NOTE: Viele Unternehmensumgebungen implementieren strenge Firewall-Richtlinien für WAN-Verbindungen.  Überprüfen Sie diese Netzwerkanforderungen mit Ihrem Infrastrukturteam, bevor Sie die Replikation konfigurieren.
