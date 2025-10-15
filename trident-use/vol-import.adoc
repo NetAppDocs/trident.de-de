@@ -100,7 +100,7 @@ Trident unterstützt den Import von Volumes mit den `ontap-nas` Treibern und `on
 
 [NOTE]
 ====
-* Der `ontap-nas-economy` Der Treiber kann qtrees nicht importieren und verwalten.
+* Trident unterstützt keinen Volumenimport mit dem `ontap-nas-economy` Treiber.
 * Der `ontap-nas` Und `ontap-nas-flexgroup` Treiber erlauben keine doppelten Volume-Namen.
 
 
