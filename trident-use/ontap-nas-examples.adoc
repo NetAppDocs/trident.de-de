@@ -223,7 +223,7 @@ Die Berechnung ist wie folgt:
 
 [listing]
 ----
-Total volume size = (PVC requested size) / (1 - (snapshotReserve percentage) / 100)
+Total volume size = <PVC requested size> / (1 - (<snapshotReserve percentage> / 100))
 ----
 Bei SnapshotReserve = 50 % und PVC-Anforderung = 5 GiB beträgt die Gesamtgröße des Volumes 5/.5 = 10 GiB und die verfügbare Größe beträgt 5 GiB, was der vom Benutzer in der PVC-Anforderung angeforderten Größe entspricht. Die  `volume show` Der Befehl sollte ähnliche Ergebnisse wie in diesem Beispiel anzeigen:
 
