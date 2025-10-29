@@ -75,6 +75,9 @@ Zusätzlich zur Standardspezifikation können Benutzer mit Trident die folgenden
 
 
 | trident.netapp.io/blockSize | Blocksize | solidfire-san 
+
+
+| trident.netapp.io/skipRecoveryQueue | skipRecoveryQueue | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy 
 |===
 Wenn das erstellte PV über den verfügt `Delete` Rückgewinnungsrichtlinie: Trident löscht sowohl das PV als auch das Backvolume, wenn das PV freigegeben wird (d. h. wenn der Benutzer die PVC löscht). Sollte die Löschaktion fehlschlagen, markiert Trident den PV als solche und wiederholt den Vorgang periodisch, bis er erfolgreich ist oder der PV manuell gelöscht wird. Wenn das PV den verwendet `+Retain+` Richtlinie: Trident ignoriert es und geht davon aus, dass der Administrator die Datei über Kubernetes und das Backend bereinigt, damit das Volume vor dem Entfernen gesichert oder inspiziert werden kann. Beachten Sie, dass das Löschen des PV nicht dazu führt, dass Trident das Backing-Volume löscht. Sie sollten es mit DER REST API entfernen (`tridentctl`).
 
@@ -435,6 +438,9 @@ Eine Volume-Konfiguration definiert die Eigenschaften, über die ein bereitgeste
 
 
 | Dateisystem | Zeichenfolge | Nein | Typ des Filesystems 
+
+
+| skipRecoveryQueue | Zeichenfolge | Nein | Beim Löschen eines Volumes wird die Wiederherstellungswarteschlange im Speicher umgangen und das Volume sofort gelöscht. 
 |===
 Trident generiert `internalName` Beim Erstellen des Volumes. Dies besteht aus zwei Schritten. Zuerst wird das Speicherpräfix (entweder der Standard) voreingestellt `trident` Oder das Präfix in der Backend-Konfiguration) zum Volume-Namen, was zu einem Namen des Formulars führt `<prefix>-<volume-name>`. Anschließend wird der Name desinfiziert und die im Backend nicht zulässigen Zeichen ersetzt. Bei ONTAP Back-Ends werden Bindestriche mit Unterstriche ersetzt (d. h., der interne Name wird aus `<prefix>_<volume-name>`). Bei Element-Back-Ends werden Unterstriche durch Bindestriche ersetzt.
 

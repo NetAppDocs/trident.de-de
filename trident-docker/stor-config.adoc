@@ -264,6 +264,13 @@ Zu verwendende Tiering-Richtlinie, Standardwert ist `none`.
  a| 
 `none`
 
+
+
+| `skipRecoveryQueue`  a| 
+Beim Löschen eines Volumes wird die Wiederherstellungswarteschlange im Speicher umgangen und das Volume sofort gelöscht.
+ a| 
+``
+
 |===
 
 
