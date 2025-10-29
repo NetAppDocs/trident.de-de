@@ -98,7 +98,7 @@ NOTE: Bei einer Aktualisierung der Aggregatliste in der SVM wird die Liste autom
 | „“ 
 
 
-| `limitVolumeSize` | Bereitstellung fehlgeschlagen, wenn die angeforderte Volume-Größe über diesem Wert liegt. Beschränkt darüber hinaus die maximale Größe der Volumes, die es für qtrees managt, und `qtreesPerFlexvol` ermöglicht die Anpassung der maximalen Anzahl an qtrees pro FlexVol volume | „“ (standardmäßig nicht erzwungen) 
+| `limitVolumeSize` | Die Bereitstellung schlägt fehl, wenn die angeforderte Volume-Größe diesen Wert überschreitet. | „“ (standardmäßig nicht erzwungen) 
 
 
 | `debugTraceFlags` | Fehler-Flags bei der Fehlerbehebung beheben. Beispiel, {„API“:false, „method“:true}
