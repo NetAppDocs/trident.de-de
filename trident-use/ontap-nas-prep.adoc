@@ -14,6 +14,13 @@ summary: Verstehen Sie die Anforderungen, Authentifizierungsoptionen und Exportr
 [role="lead"]
 Verstehen Sie die Anforderungen, Authentifizierungsoptionen und Exportrichtlinien für die Konfiguration eines ONTAP-Backends mit ONTAP-NAS-Treibern.
 
+Ab Version 25.10 unterstützt NetApp Tridentlink:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX Speichersystem"^] Die NetApp AFX-Speichersysteme unterscheiden sich von anderen ONTAP Systemen (ASA, AFF und FAS) in der Implementierung ihrer Speicherschicht.
+
+
+NOTE: Nur die `ontap-nas` Der Treiber (mit NFS-Protokoll) wird für AFX-Systeme unterstützt; das SMB-Protokoll wird nicht unterstützt.
+
+In der Trident Backend-Konfiguration müssen Sie nicht angeben, dass Ihr System AFX ist. Wenn Sie auswählen `ontap-nas` als die `storageDriverName` Trident erkennt die AFX-Systeme automatisch.
+
 
 
 == Anforderungen

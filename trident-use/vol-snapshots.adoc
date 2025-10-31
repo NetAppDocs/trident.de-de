@@ -18,7 +18,7 @@ Kubernetes Volume Snapshots von Persistent Volumes (PVs) ermöglichen zeitpunktg
 
 == Überblick
 
-Volume-Snapshots werden unterstützt von `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , `gcp-cvs` , `azure-netapp-files` , Und `google-cloud-netapp-volumes` Fahrer.
+Volume-Snapshots werden unterstützt von `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , `azure-netapp-files` , Und `google-cloud-netapp-volumes` Fahrer.
 
 .Bevor Sie beginnen
 Sie benötigen einen externen Snapshot-Controller und benutzerdefinierte Ressourcendefinitionen (CRDs), um mit Snapshots arbeiten zu können. Dies ist die Aufgabe des Kubernetes Orchestrator (z. B. Kubeadm, GKE, OpenShift).
@@ -257,7 +257,7 @@ NOTE: Wenn Sie eine Snapshot-Kopie wiederherstellen, wird die vorhandene Volume-
 
 Trident ermöglicht mithilfe des CR-Systems (TASR) eine schnelle Wiederherstellung von in-Place-Volumes aus einem Snapshot `TridentActionSnapshotRestore`. Dieser CR fungiert als eine zwingend notwendige Kubernetes-Aktion und bleibt nach Abschluss des Vorgangs nicht erhalten.
 
-Trident unterstützt die Wiederherstellung von Snapshots auf dem `ontap-san` , `ontap-san-economy` , `ontap-nas` , `ontap-nas-flexgroup` , `azure-netapp-files` , `gcp-cvs` , `google-cloud-netapp-volumes` , Und `solidfire-san` Fahrer.
+Trident unterstützt die Wiederherstellung von Snapshots auf dem `ontap-san` , `ontap-san-economy` , `ontap-nas` , `ontap-nas-flexgroup` , `azure-netapp-files` , `google-cloud-netapp-volumes` , Und `solidfire-san` Fahrer.
 
 .Bevor Sie beginnen
 Sie müssen über einen gebundenen PVC-Snapshot und einen verfügbaren Volume-Snapshot verfügen.

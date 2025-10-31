@@ -20,9 +20,6 @@ Informieren Sie sich über die Backend-Konfigurationsoptionen NFS und SMB für A
 
 Trident erstellt mithilfe Ihrer Backend-Konfiguration (Subnetz, virtuelles Netzwerk, Service Level und Standort) Azure NetApp Files Volumes in Kapazitätspools, die am angeforderten Standort verfügbar sind und mit dem angeforderten Service-Level und Subnetz übereinstimmen.
 
-
-NOTE: * Ab der Version NetApp Trident 25.06 werden manuelle QoS-Kapazitätspools als technische Vorschau unterstützt.*
-
 Azure NetApp Files Back-Ends bieten diese Konfigurationsoptionen.
 
 [cols="3"]
@@ -100,10 +97,10 @@ Optional, wenn verwaltete Identitäten auf einem AKS-Cluster aktiviert sind. |
 | `supportedTopologies` | Stellt eine Liste von Regionen und Zonen dar, die von diesem Backend unterstützt werden. Weitere Informationen finden Sie unter link:../trident-use/csi-topology.html["Verwenden Sie die CSI-Topologie"]. |  
 
 
-| `qosType` | Stellt den QoS-Typ dar: Automatisch oder Manuell. *Technische Vorschau für Trident 25.06* | Automatisch 
+| `qosType` | Stellt den QoS-Typ dar: Automatisch oder Manuell. | Automatisch 
 
 
-| `maxThroughput` | Legt den maximal zulässigen Durchsatz in MiB/Sek. fest. Wird nur für manuelle QoS-Kapazitätspools unterstützt. *Technische Vorschau für Trident 25.06* | `4 MiB/sec` 
+| `maxThroughput` | Legt den maximal zulässigen Durchsatz in MiB/Sek. fest. Wird nur für manuelle QoS-Kapazitätspools unterstützt. | `4 MiB/sec` 
 |===
 
 NOTE: Weitere Informationen zu den Netzwerkfunktionen finden Sie unter link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/configure-network-features["Konfigurieren Sie Netzwerkfunktionen für ein Azure NetApp Files Volume"^].
@@ -267,7 +264,7 @@ capacityPools:
 .Backend-Beispiel mit manuellen QoS-Kapazitätspools
 [%collapsible]
 ====
-Diese Backend-Konfiguration platziert Volumes in Azure `eastus` Standort mit manuellen QoS-Kapazitätspools. *Technische Vorschau in NetApp Trident 25.06*.
+Diese Backend-Konfiguration platziert Volumes in Azure `eastus` Standort mit manuellen QoS-Kapazitätspools.
 
 [source, yaml]
 ----

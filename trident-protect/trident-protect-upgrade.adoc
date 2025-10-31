@@ -18,9 +18,12 @@ Sie können ein Upgrade von Trident Protect auf die neueste Version durchführen
 
 [NOTE]
 ====
-Beim Upgrade von Version 24.10 können Snapshots während des Upgrades fehlschlagen. Dieser Fehler verhindert jedoch nicht die Erstellung zukünftiger Snapshots, egal ob manuell oder geplant. Sollte ein Snapshot während des Upgrades fehlschlagen, können Sie manuell einen neuen Snapshot erstellen, um den Schutz Ihrer Anwendung sicherzustellen.
-
+* Beim Upgrade von Version 24.10 können Snapshots während des Upgrades fehlschlagen. Dieser Fehler verhindert jedoch nicht die Erstellung zukünftiger Snapshots, egal ob manuell oder geplant. Sollte ein Snapshot während des Upgrades fehlschlagen, können Sie manuell einen neuen Snapshot erstellen, um den Schutz Ihrer Anwendung sicherzustellen.
++
 Um mögliche Fehler zu vermeiden, können Sie alle Snapshot-Zeitpläne vor dem Upgrade deaktivieren und anschließend wieder aktivieren. Dies führt jedoch dazu, dass während des Upgrade-Zeitraums alle geplanten Snapshots fehlen.
+
+* Bei Installationen in privaten Registrys stellen Sie sicher, dass das erforderliche Helm-Chart und die Images für die Zielversion in Ihrer privaten Registry verfügbar sind, und überprüfen Sie, ob Ihre benutzerdefinierten Helm-Werte mit der neuen Chart-Version kompatibel sind. Weitere Informationen finden Sie unterlink:trident-protect-installation.html["Installieren Sie Trident Protect aus einer privaten Registrierung"] .
+
 
 ====
 Führen Sie zum Upgrade von Trident Protect die folgenden Schritte aus.
@@ -60,6 +63,10 @@ kubectl delete secret -n trident-protect -l name=trident-protect-crds,owner=helm
 +
 [source, console]
 ----
-helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2506.0 --namespace trident-protect
+helm upgrade trident-protect netapp-trident-protect/trident-protect --version 100.2510.0 --namespace trident-protect
 ----
++
+
+NOTE: Sie können den Protokollierungsgrad während des Upgrades konfigurieren, indem Sie Folgendes hinzufügen `--set logLevel=debug` zum Upgrade-Befehl. Die Standardprotokollierungsstufe ist `warn` Die Für die Fehlerbehebung wird die Verwendung von Debug-Protokollierung empfohlen, da sie dem NetApp Support hilft, Probleme zu diagnostizieren, ohne dass Änderungen am Protokollierungsgrad oder eine Reproduktion des Problems erforderlich sind.
+
 

@@ -35,7 +35,7 @@ Wenn Sie die Installation anpassen müssen, die über die Argumente des Installe
 * `trident-service.yaml`
 * `trident-namespace.yaml`
 * `trident-serviceaccount.yaml`
-* `trident-resourcequota.yaml`
+* `trident-resourcequota.yaml`*
 
 
 Nachdem Sie diese Dateien erstellt haben, können Sie sie nach Ihren Bedürfnissen ändern und dann verwenden `--use-custom-yaml` Um Ihre benutzerdefinierte Bereitstellung zu installieren.
