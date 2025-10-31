@@ -14,6 +14,13 @@ summary: Erfahren Sie, wie Sie ONTAP-NAS-Treiber mit Ihrer Trident-Installation 
 [role="lead"]
 Lernen Sie, wie Sie ONTAP NAS-Treiber mit Ihrer Trident-Installation erstellen und verwenden. Dieser Abschnitt enthält Beispiele und Details zur Back-End-Konfiguration für die Zuordnung von Back-Ends zu StorageClasses.
 
+Ab Version 25.10 unterstützt NetApp Tridentlink:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX Speichersysteme"^] Die  NetApp AFX-Speichersysteme unterscheiden sich von anderen ONTAP-basierten Systemen (ASA, AFF und FAS) in der Implementierung ihrer Speicherschicht.
+
+
+NOTE: Nur die `ontap-nas` Der Treiber (mit NFS-Protokoll) wird für NetApp AFX-Systeme unterstützt; das SMB-Protokoll wird nicht unterstützt.
+
+In der Trident Backend-Konfiguration müssen Sie nicht angeben, dass es sich bei Ihrem System um ein NetApp AFX-Speichersystem handelt.  Wenn Sie auswählen `ontap-nas` als die `storageDriverName` Trident erkennt das AFX-Speichersystem automatisch.  Einige Backend-Konfigurationsparameter sind für AFX-Speichersysteme nicht anwendbar, wie in der folgenden Tabelle vermerkt.
+
 
 
 == Back-End-Konfigurationsoptionen
@@ -28,7 +35,12 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `version` |  | Immer 1 
 
 
-| `storageDriverName` | Name des Speichertreibers | `ontap-nas`, `ontap-nas-economy` Oder `ontap-nas-flexgroup` 
+| `storageDriverName`  a| 
+Name des Speichertreibers
+
+
+NOTE: Nur für NetApp AFX-Systeme `ontap-nas` wird unterstützt.
+| `ontap-nas`, `ontap-nas-economy` Oder `ontap-nas-flexgroup` 
 
 
 | `backendName` | Benutzerdefinierter Name oder das Storage-Backend | Treibername + „_“ + DatenLIF 
@@ -82,12 +94,14 @@ Aggregat für die Bereitstellung (optional, wenn eingestellt, muss der SVM zugew
 
 
 NOTE: Wenn das Aggregat in einer SVM aktualisiert wird, wird es automatisch in Trident aktualisiert, indem es die SVM abfragt, ohne den Trident Controller neu starten zu müssen. Wenn Sie ein bestimmtes Aggregat in Trident für die Bereitstellung von Volumes konfiguriert haben, wird das Back-End Trident bei der Abfrage des SVM-Aggregats in den Status „Fehlgeschlagen“ verschoben. Sie müssen entweder das Aggregat zu einem auf der SVM vorhandenen Aggregat ändern oder es komplett entfernen, um das Back-End wieder online zu schalten.
+
+*Nicht für AFX-Speichersysteme angeben.*
  a| 
 „“
 
 
 
-| `limitAggregateUsage` | Bereitstellung fehlgeschlagen, wenn die Nutzung über diesem Prozentsatz liegt. *Gilt nicht für Amazon FSx für ONTAP*. | „“ (nicht standardmäßig durchgesetzt) 
+| `limitAggregateUsage` | Die Bereitstellung schlägt fehl, wenn die Auslastung diesen Prozentsatz überschreitet. *Gilt nicht für Amazon FSx für ONTAP*. *Nicht für AFX-Speichersysteme angeben.* | „“ (nicht standardmäßig durchgesetzt) 
 
 
 | FlexgroupAggregateList  a| 
@@ -106,7 +120,7 @@ NOTE: Bei einer Aktualisierung der Aggregatliste in der SVM wird die Liste autom
 Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und benötigen einen detaillierten Log Dump. | Null 
 
 
-| `nasType` | Konfiguration der Erstellung von NFS- oder SMB-Volumes Die Optionen lauten `nfs`, `smb` Oder null. Einstellung auf null setzt standardmäßig auf NFS-Volumes. | `nfs` 
+| `nasType` | Konfiguration der Erstellung von NFS- oder SMB-Volumes. Optionen sind `nfs` , `smb` oder null. Bei der Einstellung „null“ werden standardmäßig NFS-Volumes verwendet. *Falls angegeben, immer auf setzen `nfs` für AFX-Speichersysteme*. | `nfs` 
 
 
 | `nfsMountOptions` | Kommagetrennte Liste von NFS-Mount-Optionen. Die Mount-Optionen für persistente Kubernetes-Volumes werden normalerweise in Storage-Klassen angegeben. Wenn jedoch keine Mount-Optionen in einer Storage-Klasse angegeben sind, verwendet Trident die Mount-Optionen, die in der Konfigurationsdatei des Storage-Backends angegeben sind. Wenn in der Storage-Klasse oder in der Konfigurationsdatei keine Mount-Optionen angegeben sind, legt Trident keine Mount-Optionen auf einem zugeordneten persistenten Volume fest. | „“ 
@@ -118,7 +132,7 @@ Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und ben
 | `smbShare` | Sie können eine der folgenden Optionen angeben: Den Namen einer SMB-Freigabe, die mit der Microsoft Verwaltungskonsole oder der ONTAP-CLI erstellt wurde, einen Namen, über den Trident die SMB-Freigabe erstellen kann, oder Sie können den Parameter leer lassen, um den Zugriff auf gemeinsame Freigaben auf Volumes zu verhindern. Dieser Parameter ist für On-Premises-ONTAP optional. Dieser Parameter ist für Amazon FSX for ONTAP-Back-Ends erforderlich und darf nicht leer sein. | `smb-share` 
 
 
-| `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST` Wenn auf festgelegt `true`, verwendet Trident ONTAP REST APIs, um mit dem Backend zu kommunizieren; wenn auf gesetzt `false`, verwendet Trident ONTAPI (ZAPI) Aufrufe, um mit dem Backend zu kommunizieren. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP-Anmelderolle Zugriff auf die Anwendung haben `ontapi` . Dies wird durch die vordefinierten `vsadmin` Rollen und `cluster-admin` erreicht. Ab Trident 24.06-Version und ONTAP 9.15.1 oder höher `useREST` ist standardmäßig auf gesetzt `true`. Wechseln Sie `useREST` zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
+| `useREST` | Boolescher Parameter zur Verwendung von ONTAP REST-APIs.  `useREST`Wenn eingestellt auf `true` Trident verwendet ONTAP REST-APIs zur Kommunikation mit dem Backend; wenn eingestellt auf `false` Trident verwendet ONTAPI (ZAPI)-Aufrufe zur Kommunikation mit dem Backend. Diese Funktion erfordert ONTAP 9.11.1 und höher. Darüber hinaus muss die verwendete ONTAP Anmelderolle Zugriff auf die `ontapi` Anwendung. Dies wird durch die vordefinierte Bedingung erfüllt. `vsadmin` Und `cluster-admin` Rollen. Ab der Trident Version 24.06 und ONTAP 9.15.1 oder höher, `useREST` ist eingestellt auf `true` Standardmäßig; ändern `useREST` Zu `false` ONTAPI (ZAPI)-Aufrufe verwenden. *Falls angegeben, immer auf setzen `true` für AFX-Speichersysteme*. | `true` Für ONTAP 9.15.1 oder höher, andernfalls `false`. 
 
 
 | `limitVolumePoolSize` | Maximale anforderbare FlexVol-Größe bei Verwendung von Qtrees im ONTAP-nas-Economy Backend. | „“ (nicht standardmäßig durchgesetzt) 
@@ -217,7 +231,7 @@ defaults:
   snapshotPolicy: default
   snapshotReserve: "10"
 ----
-Für  `ontap-nas` Und  `ontap-nas-flexgroups` Trident verwendet jetzt eine neue Berechnung, um sicherzustellen, dass das FlexVol mit dem SnapshotReserve-Prozentsatz und dem PVC die richtige Größe hat. Wenn der Benutzer ein PVC anfordert, erstellt Trident das ursprüngliche FlexVol mit mehr Speicherplatz mithilfe der neuen Berechnung. Diese Berechnung stellt sicher, dass der Benutzer den im PVC angeforderten beschreibbaren Speicherplatz erhält und nicht weniger. Vor Version 21.07 erhielt der Benutzer, wenn er ein PVC (z. B. 5 GiB) mit einem SnapshotReserve von 50 Prozent anforderte, nur 2,5 GiB beschreibbaren Speicherplatz. Dies liegt daran, dass der Benutzer das gesamte Volume angefordert hat und  `snapshotReserve` ist ein Prozentsatz davon. Mit Trident 21.07 fordert der Benutzer den beschreibbaren Speicherplatz an und Trident definiert den  `snapshotReserve` Zahl als Prozentsatz des Gesamtvolumens. Dies gilt nicht für  `ontap-nas-economy` . Wie das funktioniert, sehen Sie im folgenden Beispiel:
+Für `ontap-nas` Und `ontap-nas-flexgroups` Trident verwendet nun eine neue Berechnung, um sicherzustellen, dass FlexVol mit dem SnapshotReserve-Prozentsatz und PVC korrekt dimensioniert wird. Wenn der Benutzer ein PVC anfordert, erstellt Trident das ursprüngliche FlexVol mit mehr Speicherplatz mithilfe der neuen Berechnung. Diese Berechnung stellt sicher, dass der Benutzer den von ihm angeforderten beschreibbaren Speicherplatz im PVC erhält und nicht weniger Speicherplatz als angefordert. Vor Version 21.07 erhielt der Benutzer, wenn er ein PVC (z. B. 5 GiB) mit einem SnapshotReserve von 50 Prozent anforderte, nur 2,5 GiB beschreibbaren Speicherplatz. Dies liegt daran, dass der Benutzer das gesamte Volumen angefordert hat. `snapshotReserve` ist ein Prozentsatz davon. Mit Trident 21.07 fordert der Benutzer den beschreibbaren Speicherplatz an, und Trident definiert diesen. `snapshotReserve` Zahl als Prozentsatz des Gesamtvolumens. Dies gilt nicht für `ontap-nas-economy` . Wie das funktioniert, sehen Sie im folgenden Beispiel:
 
 Die Berechnung ist wie folgt:
 

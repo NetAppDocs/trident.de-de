@@ -19,9 +19,100 @@ WARNING: Der `tridentctl` Binary for Linux, die in der ZIP-Datei des Installatio
 
 
 
-== Was ist neu in 25.06.2
+== Was ist neu in Version 25.10?
 
-Die Zusammenfassung der Neuigkeiten enthält Einzelheiten zu Verbesserungen, Fehlerbehebungen und veralteten Funktionen für die Versionen Trident und Trident Protect.
+Erfahren Sie mehr über die Neuerungen in Trident und Trident Protect, einschließlich Verbesserungen, Fehlerbehebungen und veralteter Funktionen.
+
+
+
+=== Trident
+
+
+
+==== Vorgestellt Werden
+
+* *Kubernetes*:
++
+** Zusätzlich zu ONTAP -SAN (iSCSI und FC) wurde die Unterstützung für CSI Volume Group Snapshots mit den v1beta1 Volume Group Snapshot Kubernetes APIs für ONTAP-NAS NFS- und ONTAP -SAN-Economy-Treiber hinzugefügt. Sehenlink:https://docs.netapp.com/us-en/trident/trident-use/vol-group-snapshots.html["Arbeiten mit Volumegruppen-Snapshots"^] .
+** Unterstützung für automatisiertes Workload-Failover mit erzwungener Volume-Trennung für die Treiber ONTAP-NAS und ONTAP-NAS-Economy (ohne SMB in beiden NAS-Treibern) sowie für die Treiber ONTAP-SAN und ONTAP-SAN-Economy hinzugefügt. Sehenlink:../trident-reco/force-detach.html["Details zum Ablösen von Krafteinwirkung"^] .
+** Verbesserte Trident Knotenkonkurrenz für höhere Skalierbarkeit bei Knotenoperationen für FCP-Volumes.
+** ONTAP AFX-Unterstützung für den ONTAP NAS-Treiber hinzugefügt. Sehenlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-examples.html["ONTAP NAS-Konfigurationsoptionen und -Beispiele"^] .
+** Es wurde Unterstützung für die Konfiguration von CPU- und Speicherressourcenanforderungen und -grenzen für Trident Container über TridentOrchestrator CR- und Helm-Chart-Werte hinzugefügt.  (link:https://github.com/NetApp/trident/issues/1000["Ausgabe Nr. 1000"] ,link:https://github.com/NetApp/trident/issues/927["Ausgabe Nr. 927"] ,link:https://github.com/NetApp/trident/issues/853["Ausgabe Nr. 853"] ,link:https://github.com/NetApp/trident/issues/592["Ausgabe Nr. 592"] ,link:https://github.com/NetApp/trident/issues/110["Ausgabe Nr. 110"] ).
+** FC-Unterstützung für die ASAr2-Persönlichkeit hinzugefügt. Sehenlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["ONTAP SAN-Konfigurationsoptionen und -Beispiele"^] .
+** Es wurde eine Option hinzugefügt, um Prometheus-Metriken mit HTTPS anstelle von HTTP bereitzustellen. Sehenlink:../trident-use/monitor-trident.html["Monitoring von Trident"^] .
+** Eine Option wurde hinzugefügt `--no-rename` Beim Importieren eines Volumes soll der ursprüngliche Name beibehalten werden, die Verwaltung des Lebenszyklus des Volumes soll jedoch Trident überlassen werden. Sehenlink:../trident-use/vol-import.html["Volumes importieren"^] .
+** Die Trident Bereitstellung erfolgt nun mit der Prioritätsklasse „system-cluster-kritisch“.
+
+
+* Es wurde eine Option hinzugefügt, mit der der Trident -Controller die Host-Netzwerkfunktionen über Helm, Operator und tridentctl nutzen kann (link:https://github.com/NetApp/trident/issues/858["Ausgabe Nr. 858"] ).
+* Dem ANF-Treiber wurde die manuelle QoS-Unterstützung hinzugefügt, wodurch er in Trident 25.10 produktionsreif ist; diese experimentelle Erweiterung wurde in Trident 25.06 eingeführt.
+
+
+
+
+==== Experimentelle Verbesserungen
+
+
+NOTE: Nicht für den Einsatz in Produktionsumgebungen.
+
+* *[Technische Vorschau]*: Zusätzlich zur bereits vorhandenen technischen Vorschau für den ONTAP -SAN-Treiber (iSCSI- und FCP-Protokolle in Unified ONTAP 9) wurde die Unterstützung für Parallelverarbeitung für ONTAP-NAS (nur NFS) und ONTAP -SAN (NVMe für Unified ONTAP 9) hinzugefügt.
+
+
+
+
+==== Korrekturen
+
+* **Kubernetes**:
++
+** Die Namensinkonsistenz des CSI node-driver-registrar-Containers wurde behoben, indem Linux DaemonSet auf node-driver-registrar standardisiert wurde, um der Namensgebung von Windows DaemonSet und Container-Images zu entsprechen.
+** Es wurde ein Problem behoben, bei dem Exportrichtlinien für ältere Qtrees nicht ordnungsgemäß aktualisiert wurden.
+
+
+* *Openshift*:
++
+** Problem behoben: Trident -Node-Pod startete auf Windows-Nodes in Openshift nicht, weil SCC allowHostDirVolumePlugin auf false gesetzt hatte (link:https://github.com/NetApp/trident/issues/950["Ausgabe Nr. 950"] ).
+
+
+* Behoben: Kubernetes API QPS wurde nicht über Helm festgelegt (link:https://github.com/NetApp/trident/issues/975["Ausgabe Nr. 975"] ).
+* Es wurde ein Fehler behoben, der das Mounten eines Persistent Volume Claim (PVC) basierend auf einem Snapshot eines NVMe-basierten XFS-Dateisystems auf demselben Kubernetes-Knoten unmöglich machte.
+* Das Problem mit der Änderung der UUID nach einem Neustart des Hosts/Docker im NDVP-Modus wurde behoben, indem pro Backend eindeutige/gemeinsame Subsystemnamen hinzugefügt wurden (z. B. netappdvp_subsystem).
+* Behobene Mount-Fehler für iSCSI-Volumes beim Trident Upgrade von Versionen vor 23.10 auf 24.10 und höher, wodurch das Problem „ungültiger SANType“ behoben wurde.
+* Problem behoben, bei dem der Trident Backend-Status nicht ohne Neustart des Trident -Controllers auf Online/Offline umgeschaltet wurde.
+* Behoben wurde ein zeitweise auftretender Rennfehler, der zu einer langsamen PVC-Größenänderung führte.
+* Behoben: Snapshots wurden bei Fehlern beim Klonen von Volumes nicht bereinigt.
+* Es wurde ein Fehler behoben, der dazu führte, dass ein Volume nicht mehr freigegeben wurde, wenn sein Gerätepfad vom Kernel geändert wurde.
+* Behoben: Fehler beim Entfernen des Volumes aus der Bereitstellungsphase aufgrund eines bereits geschlossenen LUKS-Geräts.
+* Problem behoben, bei dem langsame Speicheroperationen zu ContextDeadline-Fehlern führten.
+* Der Trident Operator wartet bis zum Erreichen des konfigurierbaren k8s-Timeouts, um die Trident -Version zu überprüfen.
+
+
+
+
+=== Trident Protect
+
+NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenmanagement, mit denen die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Applikationen auf der Basis von NetApp ONTAP Storage-Systemen und der NetApp Trident CSI Storage-bereitstellung verbessert werden.
+
+
+
+==== Vorgestellt Werden
+
+* Hinzugefügte Anmerkungen zur Steuerung der Snapshot-CR-Timeouts für geplante und Backup-CRs:
++
+** `protect.trident.netapp.io/snapshot-completion-timeout`
+** `protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout`
+** `protect.trident.netapp.io/volume-snapshots-created-timeout`
++
+Sehenlink:trident-protect-protect-apps.html["Unterstützte Backup- und Zeitplananmerkungen"^] .
+
+
+
+* Dem Zeitplan-CR wurde eine Anmerkung hinzugefügt, um das PVC-Bindungs-Timeout zu konfigurieren, das vom Backup-CR verwendet wird: `protect.trident.netapp.io/pvc-bind-timeout-sec` Die Sehenlink:trident-protect-protect-apps.html["Unterstützte Backup- und Zeitplananmerkungen"^] .
+* Verbessert `tridentctl-protect` Backup- und Snapshot-Listen mit einem neuen Feld zur Anzeige von Ausführungs-Hook-Fehlern.
+
+
+
+
+== Änderungen vom 25.06.2
 
 
 
@@ -80,7 +171,7 @@ IMPORTANT: Kunden, die SolidFire verwenden, sollten aufgrund eines bekannten Pro
 
 NOTE: VolumeGroupSnapshot ist eine Beta-Funktion in Kubernetes mit Beta-APIs. Für VolumeGroupSnapshot ist mindestens Kubernetes 1.32 erforderlich.
 
-** Zusätzlich zu iSCSI wurde Unterstützung für ONTAP ASA r2 für NVMe/TCP hinzugefügt. Siehe link:link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["ONTAP SAN-Konfigurationsoptionen und -Beispiele"^].
+** Zusätzlich zu iSCSI wurde die Unterstützung für ONTAP ASA r2 für NVMe/TCP hinzugefügt. Sehenlink:https://docs.netapp.com/us-en/trident/trident-use/ontap-san-examples.html["ONTAP SAN-Konfigurationsoptionen und -Beispiele"^] .
 ** Sichere SMB-Unterstützung für ONTAP-NAS- und ONTAP-NAS-Economy-Volumes hinzugefügt. Active Directory-Benutzer und -Gruppen können jetzt mit SMB-Volumes für erhöhte Sicherheit verwendet werden. Siehe link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas-prep.html#enable-secure-smb["Sicheres SMB aktivieren"^].
 ** Verbesserte Trident-Knoten-Parallelität für höhere Skalierbarkeit bei Knotenvorgängen für iSCSI-Volumes.
 ** Hinzugefügt  `--allow-discards` beim Öffnen von LUKS-Volumes, um Discard/TRIM-Befehle zur Speicherplatzrückgewinnung zu ermöglichen.
@@ -123,7 +214,6 @@ NOTE: Diese Funktion ist experimentell und unterstützt derzeit begrenzte parall
 ** Problem bei der Verwendung von NFSv3 mit Bottlerocket behoben.
 
 
-* Timeout beim Klonen eines Volumes mit SolidFire-Backends behoben ( link:https://github.com/NetApp/trident/issues/1008["Ausgabe #1008"] ).
 * Problem behoben, bei dem ONTAP-NAS-Economy-Volumes trotz Größenänderungsfehlern auf bis zu 300 TB erweitert wurden.
 * Problem behoben, bei dem Klon-Split-Vorgänge bei Verwendung der ONTAP REST API synchron ausgeführt wurden.
 

@@ -50,7 +50,7 @@ Zusätzlich zur Standardspezifikation können Benutzer mit Trident die folgenden
 | trident.netapp.io/fileSystem | Dateisystem | ontap-san, solidfire-san, ontap-san-Economy 
 
 
-| trident.netapp.io/cloneFromPVC | KlonSourceVolume | ontap-nas, ontap-san, solidfire-san, Azure-netapp-Dateien, gcp-cvs, ontap-san-Ökonomie 
+| trident.netapp.io/cloneFromPVC | KlonSourceVolume | ontap-nas, ontap-san, solidfire-san, azure-netapp-files, ontap-san-economy 
 
 
 | trident.netapp.io/splitOnClone | SPlitOnClone | ontap-nas, ontap-san 
@@ -65,7 +65,7 @@ Zusätzlich zur Standardspezifikation können Benutzer mit Trident die folgenden
 | trident.netapp.io/snapshotPolicy | SnapshotPolicy | ontap-nas, ontap-nas-Economy, ontap-nas-Flexgroup, ontap-san 
 
 
-| trident.netapp.io/snapshotReserve | SnapshotReserve | ontap-nas, ontap-nas-Flexgroup, ontap-san, gcp-cvs 
+| trident.netapp.io/snapshotReserve | SnapshotReserve | ontap-nas, ontap-nas-flexgroup, ontap-san 
 
 
 | trident.netapp.io/snapshotDirectory | SnapshotDirectory | ontap-nas, ontap-nas-Economy, ontap-nas-Flexgroup 
@@ -173,14 +173,14 @@ Diese Parameter bestimmen, welche in Trident gemanagten Storage Pools zur Bereit
 
 
 | BackendType | Zeichenfolge  a| 
-ontap-nas, ontap-nas-Economy, ontap-nas-Flexgroup, ontap-san, solidfire-san, gcp-cvs, Azure-netapp-Files, ontap-san-Wirtschaftlichkeit
+ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, solidfire-san, azure-netapp-files, ontap-san-economy
 | Pool gehört zu dieser Art von Backend | Back-End angegeben | Alle Treiber 
 
 
-| Snapshots | bool | Richtig, falsch | Pool unterstützt Volumes mit Snapshots | Volume mit aktivierten Snapshots | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
+| Snapshots | bool | Richtig, falsch | Pool unterstützt Volumes mit Snapshots | Volume mit aktivierten Snapshots | ontap-nas, ontap-san, solidfire-san 
 
 
-| Klone | bool | Richtig, falsch | Pool unterstützt das Klonen von Volumes | Volume mit aktivierten Klonen | ontap-nas, ontap-san, solidfire-san, gcp-cvs 
+| Klone | bool | Richtig, falsch | Pool unterstützt das Klonen von Volumes | Volume mit aktivierten Klonen | ontap-nas, ontap-san, solidfire-san 
 
 
 | Verschlüsselung | bool | Richtig, falsch | Pool unterstützt verschlüsselte Volumes | Volume mit aktivierter Verschlüsselung | ontap-nas, ontap-nas-Economy, ontap-nas-Flexgroups, ontap-san 
@@ -218,7 +218,7 @@ Diese Attribute haben keine Auswirkung auf die Auswahl von Storage-Pools/Back-En
 | Fstype | Zeichenfolge | Ext4, ext3, xfs | Der Filesystem-Typ für Block-Volumes | solidfire-san, ontap-nas, ontap-nas-Economy, ontap-nas-Flexgroup, ontap-san, ontap-san-Ökonomie | Alle 
 
 
-| VolumeErweiterung | boolesch | Richtig, falsch | Aktivieren oder deaktivieren Sie die Unterstützung für das Vergrößern der PVC-Größe | ontap-nas, ontap-nas-Ökonomie, ontap-nas-Flexgroup, ontap-san, ontap-san-Ökonomie, solidfire-san, gcp-cvs, Azure-netapp-Files | 1.11 und höher 
+| VolumeErweiterung | boolesch | Richtig, falsch | Aktivieren oder deaktivieren Sie die Unterstützung für das Vergrößern der PVC-Größe | ontap-nas, ontap-nas-economy, ontap-nas-flexgroup, ontap-san, ontap-san-economy, solidfire-san, azure-netapp-files | 1.11 und höher 
 
 
 | VolumeBindingmodus | Zeichenfolge | Sofort, WaitForFirstConsumer | Legen Sie fest, wann Volume Binding und dynamische Bereitstellung stattfindet | Alle | 1.19 - 1.26 
@@ -371,7 +371,7 @@ Weitere Informationen zum Erstellen dieser Objekte finden Sie unter link:../trid
 
 == Trident-Objekte `StoragePool`
 
-Storage-Pools stellen die verschiedenen Standorte dar, die für die Provisionierung an jedem Back-End verfügbar sind. Für ONTAP entsprechen diese Aggregaten in SVMs. Bei NetApp HCI/SolidFire entsprechen diese den vom Administrator festgelegten QoS-Bands. Für Cloud Volumes Service entsprechen diese Regionen Cloud-Provider. Jeder Storage-Pool verfügt über eine Reihe individueller Storage-Attribute, die seine Performance-Merkmale und Datensicherungsmerkmale definieren.
+Speicherpools stellen die verschiedenen Speicherorte dar, die auf jedem Backend für die Bereitstellung zur Verfügung stehen. Für ONTAP entsprechen diese Aggregaten in SVMs. Bei NetApp HCI/ SolidFire entsprechen diese den vom Administrator festgelegten QoS-Bändern. Jeder Speicherpool verfügt über eine Reihe unterschiedlicher Speicherattribute, die seine Leistungsmerkmale und Datenschutzeigenschaften definieren.
 
 Im Gegensatz zu den anderen Objekten hier werden Storage-Pool-Kandidaten immer automatisch erkannt und gemanagt.
 
