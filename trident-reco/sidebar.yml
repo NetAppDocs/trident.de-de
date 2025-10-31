@@ -10,8 +10,6 @@ entries:
   url: "/trident-reco/integrate-trident.html"
 - title: Datensicherung und Disaster Recovery
   url: "/trident-reco/backup.html"
-- title: Automatisierung des Failovers zustandsbehafteter Anwendungen mit Trident
-  url: "/trident-reco/force-detach.html"
 - title: Sicherheit
   entries:
   - title: Sicherheitsempfehlungen

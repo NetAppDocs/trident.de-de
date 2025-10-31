@@ -46,6 +46,7 @@ NOTE: Im Umfang des Clusters enthaltene Ressourcen werden in einem Backup, einem
 +
 [source, yaml]
 ----
+---
 apiVersion: protect.trident.netapp.io/v1
 kind: Snapshot
 metadata:
@@ -122,6 +123,7 @@ Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwier
 
 
 ** *spec.snapshotRef*: (_Optional_): Name des Snapshots, der als Quelle der Sicherung verwendet werden soll. Falls nicht angegeben, wird ein temporärer Snapshot erstellt und gesichert.
+** *metadata.annotations.protect.trident.netapp.io/full-backup* : (_Optional_) Mit dieser Annotation kann festgelegt werden, ob ein Backup nicht inkrementell sein soll. Standardmäßig sind alle Sicherungen inkrementell. Wenn diese Annotation jedoch auf „“ gesetzt ist, … `true` , die Datensicherung wird nicht mehr inkrementell. Sofern nicht anders angegeben, erfolgt die Datensicherung gemäß der Standardeinstellung für inkrementelle Datensicherung. Es empfiehlt sich, regelmäßig eine vollständige Datensicherung durchzuführen und zwischen den vollständigen Datensicherungen inkrementelle Datensicherungen vorzunehmen, um das mit der Wiederherstellung verbundene Risiko zu minimieren.
 +
 Beispiel YAML:
 
@@ -134,6 +136,8 @@ kind: Backup
 metadata:
   namespace: my-app-namespace
   name: my-cr-name
+  annotations:
+    protect.trident.netapp.io/full-backup: "true"
 spec:
   applicationRef: my-application
   appVaultRef: appvault-name
@@ -166,31 +170,6 @@ Optional können Sie mit dem `--full-backup` Flag angeben, ob ein Backup nicht i
 
 --
 ====
-
-
-=== Unterstützte Sicherungsanmerkungen
-
-Die folgende Tabelle beschreibt die Anmerkungen, die Sie beim Erstellen eines Backup-CR verwenden können:
-
-[cols="2,1,3,1"]
-|===
-| Anmerkung | Typ | Beschreibung | Standardwert 
-
-
-| protect.trident.netapp.io/full-backup | Zeichenfolge | Legt fest, ob eine Sicherung nicht inkrementell sein soll.  Auf einstellen `true` um ein nicht-inkrementelles Backup zu erstellen. Es empfiehlt sich, regelmäßig eine vollständige Datensicherung durchzuführen und zwischen den vollständigen Datensicherungen inkrementelle Datensicherungen vorzunehmen, um das mit der Wiederherstellung verbundene Risiko zu minimieren. | „Falsch“ 
-
-
-| protect.trident.netapp.io/snapshot-completion-timeout | Zeichenfolge | Die maximal zulässige Zeit für den Abschluss des gesamten Snapshot-Vorgangs. | "60 m" 
-
-
-| protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout | Zeichenfolge | Die maximal zulässige Zeitspanne, bis Volume-Snapshots den einsatzbereiten Zustand erreichen. | "30m" 
-
-
-| protect.trident.netapp.io/volume-snapshots-created-timeout | Zeichenfolge | Die maximal zulässige Zeitspanne für die Erstellung von Volume-Snapshots. | "5 m" 
-
-
-| protect.trident.netapp.io/pvc-bind-timeout-sec | Zeichenfolge | Maximale Wartezeit (in Sekunden), bis neu erstellte PersistentVolumeClaims (PVCs) die Zieladresse erreichen. `Bound` Phase vor dem Fehlschlagen der Operationen. | "1200" (20 Minuten) 
-|===
 
 
 == Erstellen Sie einen Zeitplan für die Datensicherung
@@ -236,6 +215,7 @@ Eine Schutzrichtlinie schützt eine App, indem sie nach einem festgelegten Zeitp
 ** *spec.dayOfWeek*: (_Optional_) Der Wochentag (0 - 7), an dem der Zeitplan ausgeführt werden soll.  Werte von 0 oder 7 zeigen Sonntag an.  Dieses Feld ist erforderlich, wenn die Granularität auf `Weekly` .  Der Wert muss als Zeichenfolge angegeben werden.
 ** *spec.hour*: (_Optional_) Die Stunde des Tages (0 - 23), zu der der Zeitplan ausgeführt werden soll.  Dieses Feld ist erforderlich, wenn die Granularität auf `Daily` , `Weekly` , oder `Monthly` .  Der Wert muss als Zeichenfolge angegeben werden.
 ** *spec.minute*: (_Optional_) Die Minute der Stunde (0 – 59), zu der der Zeitplan ausgeführt werden soll.  Dieses Feld ist erforderlich, wenn die Granularität auf `Hourly` , `Daily` , `Weekly` , oder `Monthly` .  Der Wert muss als Zeichenfolge angegeben werden.
+** *metadata.annotations.protect.trident.netapp.io/full-backup-rule*: (_Optional_) Diese Annotation dient zur Angabe der Regel für die Planung einer vollständigen Datensicherung. Sie können es einstellen auf `always` für eine kontinuierliche vollständige Datensicherung oder zur individuellen Anpassung an Ihre Bedürfnisse. Wenn Sie beispielsweise die tägliche Granularität wählen, können Sie die Wochentage festlegen, an denen eine vollständige Datensicherung erfolgen soll.
 +
 Beispiel-YAML für Sicherungs- und Snapshot-Zeitplan:
 
@@ -248,6 +228,8 @@ kind: Schedule
 metadata:
   namespace: my-app-namespace
   name: my-cr-name
+  annotations:
+    protect.trident.netapp.io/full-backup-rule: "Monday,Thursday"
 spec:
   dataMover: Kopia
   applicationRef: my-application
@@ -313,31 +295,6 @@ Für Snapshot-only-Zeitpläne legen Sie fest `--backup-retention 0` und geben Si
 
 --
 ====
-
-
-=== Unterstützte Zeitplananmerkungen
-
-Die folgende Tabelle beschreibt die Anmerkungen, die Sie beim Erstellen eines Zeitplan-CR verwenden können:
-
-[cols="2,1,3,1"]
-|===
-| Anmerkung | Typ | Beschreibung | Standardwert 
-
-
-| protect.trident.netapp.io/full-backup-rule | Zeichenfolge | Legt die Regel für die Planung vollständiger Datensicherungen fest. Sie können es einstellen auf `always` für eine kontinuierliche vollständige Datensicherung oder zur individuellen Anpassung an Ihre Bedürfnisse.  Wenn Sie beispielsweise die tägliche Granularität wählen, können Sie die Wochentage angeben, an denen eine vollständige Datensicherung erfolgen soll (zum Beispiel, `"Monday,Thursday"` ). | Nicht festgelegt (alle Backups sind inkrementell) 
-
-
-| protect.trident.netapp.io/snapshot-completion-timeout | Zeichenfolge | Die maximal zulässige Zeit für den Abschluss des gesamten Snapshot-Vorgangs. | "60 m" 
-
-
-| protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout | Zeichenfolge | Die maximal zulässige Zeitspanne, bis Volume-Snapshots den einsatzbereiten Zustand erreichen. | "30m" 
-
-
-| protect.trident.netapp.io/volume-snapshots-created-timeout | Zeichenfolge | Die maximal zulässige Zeitspanne für die Erstellung von Volume-Snapshots. | "5 m" 
-
-
-| protect.trident.netapp.io/pvc-bind-timeout-sec | Zeichenfolge | Maximale Wartezeit (in Sekunden), bis neu erstellte PersistentVolumeClaims (PVCs) die Zieladresse erreichen. `Bound` Phase vor dem Fehlschlagen der Operationen. | "1200" (20 Minuten) 
-|===
 
 
 == Löschen Sie einen Snapshot

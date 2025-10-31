@@ -16,7 +16,7 @@ Um sicherzustellen, dass Trident in einer Vielzahl von Umgebungen und Organisati
 
 
 
-== Wichtige Informationen zu Trident 25.10
+== Wichtige Informationen zu Trident 25.06
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 

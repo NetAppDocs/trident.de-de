@@ -16,7 +16,7 @@ Sie können den Trident-Operator bereitstellen und Trident mit Helm installieren
 
 
 
-== Wichtige Informationen zu Trident 25.10
+== Wichtige Informationen zu Trident 25.06
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 
@@ -222,161 +222,38 @@ WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. W
 | `windows` | Aktiviert die Installation von Trident auf dem Windows-Arbeitsknoten. | `false` 
 
 
-| `enableForceDetach` | Ermöglicht die Aktivierung der Funktion zum Abtrennen erzwingen. | Sie können den erzwungenen Trennvorgang durch die Integration mit dem Node Health Check (NHC)-Operator automatisieren. Weitere Informationen finden Sie unterlink:../trident-reco/force-detach.html["Automatisierung des Failovers zustandsbehafteter Anwendungen mit Trident"] . 
+| `enableForceDetach` | Ermöglicht die Aktivierung der Funktion zum Abtrennen erzwingen. | `false` 
 
 
-| `false` | `excludePodSecurityPolicy` | Schließt die Sicherheitsrichtlinie des Operator POD von der Erstellung aus. 
+| `excludePodSecurityPolicy` | Schließt die Sicherheitsrichtlinie des Operator POD von der Erstellung aus. | `false` 
 
 
-| `false` | `cloudProvider` | Auf einstellen `"Azure"` Bei Verwendung von verwalteten Identitäten oder einer Cloud-Identität auf einem AKS-Cluster. Bei Verwendung einer Cloud-Identität auf einem EKS Cluster auf „AWS“ einstellen. 
+| `cloudProvider` | Auf einstellen `"Azure"` Bei Verwendung von verwalteten Identitäten oder einer Cloud-Identität auf einem AKS-Cluster. Bei Verwendung einer Cloud-Identität auf einem EKS Cluster auf „AWS“ einstellen. | `""` 
 
 
-| `""` | `cloudIdentity` | Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle (“'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role') einstellen. 
+| `cloudIdentity` | Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle (“'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role') einstellen. | `""` 
 
 
-| `""` | `iscsiSelfHealingInterval` | Das Intervall, in dem die iSCSI-Selbstheilung aufgerufen wird. 
+| `iscsiSelfHealingInterval` | Das Intervall, in dem die iSCSI-Selbstheilung aufgerufen wird. | `5m0s` 
 
 
-| `5m0s` | `iscsiSelfHealingWaitTime` | Die Dauer, nach der die iSCSI-Selbstheilung den Versuch startet, eine veraltete Sitzung durch Abmeldung und anschließende Anmeldung aufzulösen. 
+| `iscsiSelfHealingWaitTime` | Die Dauer, nach der die iSCSI-Selbstheilung den Versuch startet, eine veraltete Sitzung durch Abmeldung und anschließende Anmeldung aufzulösen. | `7m0s` 
 
 
-| `7m0s` | `nodePrep` | Ermöglicht Trident , die Knoten des Kubernetes-Clusters für die Verwaltung von Volumes mithilfe des angegebenen Datenspeicherprotokolls vorzubereiten.  *Momentan, `iscsi` ist der einzige unterstützte Wert.*  HINWEIS: Ab OpenShift 4.19 ist die für diese Funktion unterstützte Mindestversion von Trident 25.06.1. 
+| `nodePrep` | Ermöglicht Trident , die Knoten des Kubernetes-Clusters für die Verwaltung von Volumes mithilfe des angegebenen Datenspeicherprotokolls vorzubereiten.  *Momentan, `iscsi` ist der einzige unterstützte Wert.*  HINWEIS: Ab OpenShift 4.19 ist die für diese Funktion unterstützte Mindestversion von Trident 25.06.1. |  
 
 
-|  | `enableConcurrency`  a| 
+| `enableConcurrency`  a| 
 Ermöglicht gleichzeitige Trident -Controller-Operationen für verbesserten Durchsatz.
 
 
-NOTE: *Technische Vorschau*: Diese Funktion ist experimentell und unterstützt derzeit eingeschränkte parallele Arbeitsabläufe mit den Treibern ONTAP-NAS (nur NFS) und ONTAP-SAN (NVMe für Unified ONTAP 9) sowie die bestehende technische Vorschau für den Treiber ONTAP-SAN (iSCSI- und FCP-Protokolle in Unified ONTAP 9).
+NOTE: *Technische Vorschau*: Diese Funktion ist in NetApp Trident 25.06 experimentell und unterstützt derzeit begrenzte parallele Workflows mit dem ONTAP-SAN-Treiber (iSCSI- und FCP-Protokolle).
+| Falsch 
 
 
-
-| Falsch | `k8sAPIQPS`  a| 
+| `k8sAPIQPS`  a| 
 Das vom Controller bei der Kommunikation mit dem Kubernetes-API-Server verwendete Limit für Abfragen pro Sekunde (QPS).  Der Burst-Wert wird automatisch basierend auf dem QPS-Wert festgelegt.
-
-
-
-| `100`; optional | `resources`  a| 
-Legt Kubernetes-Ressourcenlimits und -anforderungen für den Trident -Controller, den Knoten und die Operator-Pods fest.  Sie können CPU und Arbeitsspeicher für jeden Container und Sidecar konfigurieren, um die Ressourcenzuweisung in Kubernetes zu verwalten.
-
-Weitere Informationen zum Konfigurieren von Ressourcenanforderungen und -limits finden Sie unterlink:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Ressourcenverwaltung für Pods und Container"^] Die
-
-[WARNING]
-====
-* Ändern Sie NICHT die Namen von Containern oder Feldern.
-* Ändern Sie die Einrückung NICHT – die YAML-Einrückung ist für die korrekte Analyse entscheidend.
-
-
-====
-[NOTE]
-====
-* Standardmäßig gelten keine Limits – nur Anfragen haben Standardwerte, die automatisch angewendet werden, sofern keine anderen Werte angegeben sind.
-* Die Containernamen werden so aufgelistet, wie sie in den Pod-Spezifikationen erscheinen.
-* Die Beiwagen sind unter jedem Hauptcontainer aufgeführt.
-* Überprüfen Sie die TORCs `status.CurrentInstallationParams` Feld zur Anzeige der aktuell angewendeten Werte.
-
-
-====
-
-
- a| 
-[source, yaml]
-----
-resources:
-  controller:
-    trident-main:
-      requests:
-        cpu: 10m
-        memory: 80Mi
-      limits:
-          cpu:
-          memory:
-    csi-provisioner:
-      requests:
-        cpu: 2m
-        memory: 20Mi
-      limits:
-        cpu:
-        memory:
-    csi-attacher:
-      requests:
-        cpu: 2m
-        memory: 20Mi
-      limits:
-        cpu:
-        memory:
-    csi-resizer:
-      requests:
-        cpu: 3m
-        memory: 20Mi
-      limits:
-        cpu:
-        memory:
-    csi-snapshotter:
-      requests:
-        cpu: 2m
-        memory: 20Mi
-      limits:
-        cpu:
-        memory:
-    trident-autosupport:
-      requests:
-        cpu: 1m
-        memory: 30Mi
-      limits:
-        cpu:
-        memory:
-  node:
-    linux:
-      trident-main:
-        requests:
-          cpu: 10m
-          memory: 60Mi
-        limits:
-          cpu:
-          memory:
-      node-driver-registrar:
-        requests:
-          cpu: 1m
-          memory: 10Mi
-        limits:
-          cpu:
-          memory:
-    windows:
-      trident-main:
-        requests:
-          cpu: 6m
-          memory: 40Mi
-        limits:
-          cpu:
-          memory:
-      node-driver-registrar:
-        requests:
-          cpu: 6m
-          memory: 40Mi
-        limits:
-          cpu:
-          memory:
-      liveness-probe:
-        requests:
-          cpu: 2m
-          memory: 40Mi
-        limits:
-          cpu:
-          memory:
-  operator:
-    requests:
-      cpu: 10m
-      memory: 40Mi
-    limits:
-      cpu:
-      memory:
-----| `httpsMetrics` | Aktivieren Sie HTTPS für den Prometheus-Metrikendpunkt. 
-
-
-| Falsch | `hostNetwork`  a| 
-Ermöglicht die Host-Netzwerkverbindung für den Trident -Controller.  Dies ist nützlich, wenn Sie den Frontend- und Backend-Datenverkehr in einem Netzwerk mit mehreren Heimnetzwerken trennen möchten.
-
+| `100`; optional 
 |===
 
 

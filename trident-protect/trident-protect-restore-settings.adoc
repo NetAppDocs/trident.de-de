@@ -135,7 +135,4 @@ In diesem Abschnitt werden die unterstützten Anmerkungen zum Konfigurieren vers
 
 
 | protect.trident.netapp.io/kopia-content-cache-size-limit-mb | Zeichenfolge | Die maximale Größenbeschränkung (in Megabyte) für den Kopia-Inhaltscache. | "1000" 
-
-
-| protect.trident.netapp.io/pvc-bind-timeout-sec | Zeichenfolge | Maximale Wartezeit (in Sekunden), bis neu erstellte PersistentVolumeClaims (PVCs) die Zieladresse erreichen. `Bound` Phase vor dem Fehlschlagen der Operationen.  Gilt für alle Wiederherstellungs-CR-Typen (BackupRestore, BackupInplaceRestore, SnapshotRestore, SnapshotInplaceRestore).  Verwenden Sie einen höheren Wert, wenn Ihr Speichersystem oder Cluster häufig mehr Zeit benötigt. | "1200" (20 Minuten) 
 |===
