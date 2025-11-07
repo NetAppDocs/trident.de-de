@@ -164,11 +164,10 @@ Verwenden Sie `formatOptions` zum Angeben von Befehlszeilenargumenten für den `
 
 === Empfehlungen für die Verwendung von FormatOptions
 
-Trident empfiehlt die folgende Option, um den Formatierungsprozess zu beschleunigen:
+Trident empfiehlt die folgenden Optionen, um den Formatierungsprozess zu beschleunigen:
 
-*-E nodiscard:*
-
-* Beibehalten, versuchen Sie nicht, Blöcke zur mkfs-Zeit zu verwerfen (das Verwerfen von Blöcken ist zunächst auf Solid State-Geräten und selten/Thin Provisioning-Storage nützlich). Dies ersetzt die veraltete Option "-K" und ist auf alle Dateisysteme anwendbar (xfs, ext3 und ext4).
+* *-E nodiscard (ext3, ext4):* Versuche nicht, Blöcke während der mkfs-Erstellung zu verwerfen (das anfängliche Verwerfen von Blöcken ist auf Solid-State-Geräten und Sparse-/Thin-Provisioned-Speichern sinnvoll). Dies ersetzt die veraltete Option "-K" und ist auf ext3- und ext4-Dateisysteme anwendbar.
+* *-K (xfs):* Versuche nicht, Blöcke während der mkfs-Zeit zu verwerfen. Diese Option ist für das XFS-Dateisystem anwendbar.
 
 
 

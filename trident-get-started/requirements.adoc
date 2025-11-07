@@ -47,7 +47,7 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 
 NOTE: Trident unterstützt weiterhin ältere OpenShift-Versionen im Einklang mit derlink:https://access.redhat.com/support/policy/updates/openshift["Red Hat Extended Update Support (EUS) Release-Lebenszyklus"] , auch wenn sie auf Kubernetes-Versionen basieren, die vom Upstream nicht mehr offiziell unterstützt werden.  In solchen Fällen können Sie bei der Installation von Trident alle Warnmeldungen zur Kubernetes-Version getrost ignorieren.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.27.x - 1.34.x
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.34.x
 +
 
 NOTE: _Während Trident auf Rancher Kubernetes Engine 2 (RKE2) Versionen 1.27.x – 1.34.x unterstützt wird, ist Trident derzeit nur auf RKE2 v1.28.5+rke2r1 qualifiziert._
