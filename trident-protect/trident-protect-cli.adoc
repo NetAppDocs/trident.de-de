@@ -122,11 +122,11 @@ Nachdem Sie das Trident Protect CLI-Plugin installiert haben, können Sie die au
 .Aktivieren Sie die automatische Vervollständigung für die Bash-Shell
 --
 .Schritte
-. Download des Abschlussskripts:
+. Erstellen Sie das Vervollständigungsskript:
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.bash
+tridentctl-protect completion bash > tridentctl-completion.bash
 ----
 . Erstellen Sie ein neues Verzeichnis in Ihrem Home-Verzeichnis, um das Skript zu enthalten:
 +
@@ -152,11 +152,11 @@ source ~/.bash/completions/tridentctl-completion.bash
 .Aktivieren Sie die automatische Vervollständigung für die Z-Shell
 --
 .Schritte
-. Download des Abschlussskripts:
+. Erstellen Sie das Vervollständigungsskript:
 +
 [source, console]
 ----
-curl -L -O https://github.com/NetApp/tridentctl-protect/releases/download/25.10.0/tridentctl-completion.zsh
+tridentctl-protect completion zsh > tridentctl-completion.zsh
 ----
 . Erstellen Sie ein neues Verzeichnis in Ihrem Home-Verzeichnis, um das Skript zu enthalten:
 +

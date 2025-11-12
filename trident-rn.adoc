@@ -102,11 +102,11 @@ NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenm
 ** `protect.trident.netapp.io/volume-snapshots-ready-to-use-timeout`
 ** `protect.trident.netapp.io/volume-snapshots-created-timeout`
 +
-Sehenlink:trident-protect-protect-apps.html["Unterstützte Backup- und Zeitplananmerkungen"^] .
+Sehenlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Unterstützte Backup- und Zeitplananmerkungen"^] .
 
 
 
-* Dem Zeitplan-CR wurde eine Anmerkung hinzugefügt, um das PVC-Bindungs-Timeout zu konfigurieren, das vom Backup-CR verwendet wird: `protect.trident.netapp.io/pvc-bind-timeout-sec` Die Sehenlink:trident-protect-protect-apps.html["Unterstützte Backup- und Zeitplananmerkungen"^] .
+* Dem Zeitplan-CR wurde eine Anmerkung hinzugefügt, um das PVC-Bindungs-Timeout zu konfigurieren, das vom Backup-CR verwendet wird: `protect.trident.netapp.io/pvc-bind-timeout-sec` Die Sehenlink:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Unterstützte Backup- und Zeitplananmerkungen"^] .
 * Verbessert `tridentctl-protect` Backup- und Snapshot-Listen mit einem neuen Feld zur Anzeige von Ausführungs-Hook-Fehlern.
 
 
