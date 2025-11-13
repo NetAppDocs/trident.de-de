@@ -24,12 +24,12 @@ NOTE: VolumeGroupSnapshot ist eine Beta-Funktion in Kubernetes mit Beta-APIs. F�
 Die Snapshot-Funktion für Volumengruppen wird von den folgenden Speichertreibern unterstützt:
 
 * `ontap-san`Treiber - nur für die iSCSI- und FC-Protokolle, nicht für das NVMe/TCP-Protokoll.
-* `ontap-san-economy`
+* `ontap-san-economy` - nur für das iSCSI-Protokoll.
 * `ontap-nas`
 
 
 
-NOTE: Die Snapshot-Funktion für Volume-Gruppen wird für NetApp AFX-Speichersysteme nicht unterstützt.
+NOTE: Die Erstellung von Volume-Group-Snapshots wird für NetApp ASA r2- oder AFX-Speichersysteme nicht unterstützt.
 
 .Bevor Sie beginnen
 * Stellen Sie sicher, dass Ihre Kubernetes-Version K8s 1.32 oder höher ist.
