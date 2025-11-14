@@ -20,25 +20,26 @@ Mit Trident können Sie Volumes, die Sie erstellen, aussagekräftige Namen und L
 
 Anpassbare Volumennamen und Beschriftungen unterstützen:
 
-. Volume-Erstellung, -Import und -Klonen
-. Im Fall des ontap-nas-Economy-Treibers entspricht nur der Name des Qtree-Volumes der Namensvorlage.
-. Im Fall des ontap-san-Economy-Treibers entspricht nur der LUN-Name der Namensvorlage.
+* Volume-Erstellung, -Import und -Klonen
+* Im Falle des `ontap-nas-economy` Beim Treiber entspricht nur der Name des Qtree-Volumes der Namensvorlage.
+* Im Falle des `ontap-san-economy` Beim Treiber entspricht nur der LUN-Name der Namensvorlage.
 
 
 
 
 == Einschränkungen
 
-. Anpassbare Volume-Namen sind nur mit ONTAP On-Premises-Treibern kompatibel.
-. Anpassbare Volume-Namen gelten nicht für vorhandene Volumes.
+* Benutzerdefinierte Volumennamen sind nur mit ONTAP -Treibern für lokale Installationen kompatibel.
+* Benutzerdefinierte Etiketten werden nur für die `ontap-san`, `ontap-nas`, Und `ontap-nas-flexgroup` Fahrer.
+* Benutzerdefinierte Volumennamen gelten nicht für bereits vorhandene Volumen.
 
 
 
 
 == Wichtige Verhaltensweisen anpassbarer Volumennamen
 
-. Wenn ein Fehler aufgrund einer ungültigen Syntax in einer Namensvorlage auftritt, schlägt die Back-End-Erstellung fehl. Wenn jedoch die Vorlagenapplikation fehlschlägt, wird das Volume gemäß der bestehenden Namenskonvention benannt.
-. Storage-Präfix ist nicht anwendbar, wenn ein Volume mit einer Namensvorlage aus der Back-End-Konfiguration benannt wird. Jeder gewünschte Präfixwert kann direkt zur Vorlage hinzugefügt werden.
+* Wenn ein Fehler aufgrund einer ungültigen Syntax in einer Namensvorlage auftritt, schlägt die Back-End-Erstellung fehl. Wenn jedoch die Vorlagenapplikation fehlschlägt, wird das Volume gemäß der bestehenden Namenskonvention benannt.
+* Storage-Präfix ist nicht anwendbar, wenn ein Volume mit einer Namensvorlage aus der Back-End-Konfiguration benannt wird. Jeder gewünschte Präfixwert kann direkt zur Vorlage hinzugefügt werden.
 
 
 
