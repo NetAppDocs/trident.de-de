@@ -278,64 +278,6 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 |===
 
 
-== Vorbereitung zur Bereitstellung von SMB Volumes
+== Bereitstellung von SMB-Volumina
 
-Sie können SMB-Volumes mit bereitstellen `ontap-nas` Treiber. Bevor Sie fertig sind <<Integration von ONTAP-SAN- und NAS-Treibern>> Führen Sie die folgenden Schritte aus.
-
-.Bevor Sie beginnen
-Bevor Sie SMB-Volumes mit bereitstellen können `ontap-nas` Treiber, müssen Sie Folgendes haben.
-
-* Kubernetes-Cluster mit einem Linux-Controller-Knoten und mindestens einem Windows-Worker-Node, auf dem Windows Server 2019 ausgeführt wird. Trident unterstützt nur SMB Volumes, die in Pods gemountet sind, die nur auf Windows Nodes ausgeführt werden.
-* Mindestens ein Trident-Schlüssel, der Ihre Active Directory-Anmeldeinformationen enthält. So generieren Sie ein Geheimnis `smbcreds`:
-+
-[source, console]
-----
-kubectl create secret generic smbcreds --from-literal username=user --from-literal password='password'
-----
-* Ein CSI-Proxy, der als Windows-Dienst konfiguriert ist. Zum Konfigurieren von A `csi-proxy`Weitere Informationen finden Sie unter link:https://github.com/kubernetes-csi/csi-proxy["GitHub: CSI-Proxy"^] Oder link:https://github.com/Azure/aks-engine/blob/master/docs/topics/csi-proxy-windows.md["GitHub: CSI Proxy für Windows"^] Für Kubernetes-Knoten, die auf Windows ausgeführt werden.
-
-
-.Schritte
-. Erstellen von SMB-Freigaben Sie können SMB-Admin-Freigaben auf zwei Arten erstellen: Mit link:https://learn.microsoft.com/en-us/troubleshoot/windows-server/system-management-components/what-is-microsoft-management-console["Microsoft Management Console"^] Snap-in für freigegebene Ordner oder mit der ONTAP-CLI. So erstellen Sie SMB-Freigaben mithilfe der ONTAP-CLI:
-+
-.. Erstellen Sie bei Bedarf die Verzeichnispfadstruktur für die Freigabe.
-+
-Der `vserver cifs share create` Der Befehl überprüft während der Freigabenerstellung den in der Option -path angegebenen Pfad. Wenn der angegebene Pfad nicht vorhanden ist, schlägt der Befehl fehl.
-
-.. Erstellen einer mit der angegebenen SVM verknüpften SMB-Freigabe:
-+
-[source, console]
-----
-vserver cifs share create -vserver vserver_name -share-name share_name -path path [-share-properties share_properties,...] [other_attributes] [-comment text]
-----
-.. Vergewissern Sie sich, dass die Freigabe erstellt wurde:
-+
-[source, console]
-----
-vserver cifs share show -share-name share_name
-----
-+
-
-NOTE: Siehe link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["Erstellen Sie eine SMB-Freigabe"^] Vollständige Informationen.
-
-
-
-. Beim Erstellen des Backend müssen Sie Folgendes konfigurieren, um SMB-Volumes festzulegen. Alle FSX-Konfigurationsoptionen für ONTAP-Backend finden Sie unter link:trident-fsx-examples.html["FSX für ONTAP Konfigurationsoptionen und Beispiele"].
-+
-[cols="3"]
-|===
-| Parameter | Beschreibung | Beispiel 
-
-
-| `smbShare` | Sie können eine der folgenden Optionen angeben: Den Namen einer SMB-Freigabe, die mit der Microsoft Verwaltungskonsole oder der ONTAP-CLI erstellt wurde, oder einen Namen, mit dem Trident die SMB-Freigabe erstellen kann. Dieser Parameter ist für Amazon FSX for ONTAP Back-Ends erforderlich. | `smb-share` 
-
-
-| `nasType` | *Muss auf eingestellt sein `smb`.* Wenn Null, wird standardmäßig auf gesetzt `nfs`. | `smb` 
-
-
-| `securityStyle` | Sicherheitstyp für neue Volumes. *Muss auf eingestellt sein `ntfs` Oder `mixed` Für SMB Volumes.* | `ntfs` Oder `mixed` Für SMB Volumes 
-
-
-| `unixPermissions` | Modus für neue Volumes. *Muss für SMB Volumes leer gelassen werden.* | „“ 
-|===
-
+Sie können SMB-Volumes mithilfe von … bereitstellen. `ontap-nas` Treiber. Bevor Sie fertigstellen <<Integration von ONTAP-SAN- und NAS-Treibern>> Führen Sie diese Schritte aus: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Vorbereitung zur Bereitstellung von SMB Volumes"]Die
