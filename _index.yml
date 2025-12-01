@@ -44,11 +44,11 @@ indexpage:
       url: "/trident-use/vol-operations.html"
   - title: Erweitertes Datenmanagement und Datensicherung
     links:
-    - title: Erweiterte Datensicherung mit Trident Protect
+    - title: Erweiterter Datenschutz mit Trident Protect
       url: "/trident-protect/learn-about-trident-protect.html"
-    - title: Implementieren Sie Trident Protect
+    - title: Trident Protect einsetzen
       url: "/trident-protect/trident-protect-installation.html"
-    - title: Upgrade von Trident Protect
+    - title: Upgrade Trident Protect
       url: "/trident-protect/trident-protect-upgrade.html"
   - title: Demos Tutorials
     links:
@@ -56,7 +56,7 @@ indexpage:
       url: https://media.netapp.com/video-detail/c5bebae0-aab6-5fed-ae16-df6a3a8b260d/netapp-trident-advanced-data-protection-for-kubernetes-applications
   - title: Blogs Community
     links:
-    - title: Trident und Trident schützen Blogs
+    - title: Blogs zu Trident und Trident Protect
       url: "/blog-posts.html"
     - title: NetApp.io
       url: https://netapp.io/

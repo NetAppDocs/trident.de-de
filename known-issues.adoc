@@ -20,4 +20,4 @@ Die folgenden bekannten Probleme wirken sich auf die aktuelle Version aus:
 
 == Die Wiederherstellung von Restic-Backups großer Dateien kann fehlschlagen
 
-Bei der Wiederherstellung von Dateien mit 30 GB oder mehr aus einem Amazon S3-Backup, das mit Restic erstellt wurde, kann der Wiederherstellungsvorgang fehlschlagen. Sichern Sie als Workaround die Daten mit Kopia als Data Mover (Kopia ist der Standard Data Mover für Backups). Anweisungen hierzu finden Sie unter https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Sicherung von Applikationen mit Trident Protect"^] .
+Beim Wiederherstellen von 30 GB oder größeren Dateien aus einem Amazon S3-Backup, das mit Restic erstellt wurde, kann der Wiederherstellungsvorgang fehlschlagen. Als Ausweichlösung können Sie die Daten mit Kopia als Datenmigrationsprogramm sichern (Kopia ist das Standardprogramm für Datenmigration bei Backups). Siehe https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-protect-apps.html["Schützen Sie Ihre Anwendungen mit Trident Protect."^] für Anweisungen.

@@ -2,7 +2,7 @@
 :allow-uri-read: 
 
 
-Trident Protect bietet Funktionen zum Einfrieren und Auftauen des Dateisystems von KubeVirt-VMs während Datensicherungsvorgängen, um die Datenkonsistenz zu gewährleisten. Die Konfigurationsmethode und das Standardverhalten für VM-Freeze-Operationen variieren je nach Trident Protect-Version. Neuere Versionen bieten eine vereinfachte Konfiguration über Helm-Chart-Parameter.
+Trident Protect bietet Funktionen zum Einfrieren und Auftauen des Dateisystems von KubeVirt-VMs während Datensicherungsvorgängen, um die Datenkonsistenz zu gewährleisten.  Die Konfigurationsmethode und das Standardverhalten für VM-Einfriervorgänge variieren je nach Trident Protect-Version. Neuere Versionen bieten eine vereinfachte Konfiguration über Helm-Chart-Parameter.
 
 
 NOTE: Während der Wiederherstellung  `VirtualMachineSnapshots` für eine virtuelle Maschine (VM) erstellt wurden, werden nicht wiederhergestellt.
@@ -10,17 +10,17 @@ NOTE: Während der Wiederherstellung  `VirtualMachineSnapshots` für eine virtue
 .Trident Protect 25.10 und neuer
 [%collapsible%open]
 ====
-Trident Protect friert KubeVirt-Dateisysteme während Datensicherungsvorgängen automatisch ein und wieder auf, um die Datenkonsistenz zu gewährleisten. Ab Trident Protect 25.10 kann dieses Verhalten über die folgende Funktion deaktiviert werden: `vm.freeze` Parameter während der Helm-Chart-Installation. Der Parameter ist standardmäßig aktiviert.
+Trident Protect friert KubeVirt-Dateisysteme während Datensicherungsvorgängen automatisch ein und wieder auf, um die Konsistenz zu gewährleisten.  Ab Trident Protect 25.10 können Sie dieses Verhalten mit folgender Methode deaktivieren: `vm.freeze` Parameter während der Helm-Chart-Installation. Der Parameter ist standardmäßig aktiviert.
 
 [source, console]
 ----
 helm install ... --set vm.freeze=false ...
 ----
 ====
-.Trident schützt vom 24.10.1 bis 25.06
+.Trident Protect 24.10.1 bis 25.06
 [%collapsible]
 ====
-Ab Trident Protect 24.10.1 friert Trident Protect KubeVirt-Dateisysteme während der Datensicherheitsvorgänge automatisch ein und entfriert diese. Optional können Sie dieses automatische Verhalten mit dem folgenden Befehl deaktivieren:
+Ab Trident Protect 24.10.1 friert Trident Protect KubeVirt-Dateisysteme während Datensicherungsvorgängen automatisch ein und wieder auf. Optional können Sie dieses automatische Verhalten mit folgendem Befehl deaktivieren:
 
 [source, console]
 ----
@@ -30,9 +30,9 @@ kubectl set env deployment/trident-protect-controller-manager NEPTUNE_VM_FREEZE=
 .Trident Protect 24.10
 [%collapsible]
 ====
-Trident Protect 24.10 stellt nicht automatisch einen konsistenten Zustand für KubeVirt VM-Dateisysteme während Datensicherheitsvorgängen sicher. Wenn Sie Ihre KubeVirt VM-Daten mit Trident Protect 24.10 schützen möchten, müssen Sie die Freeze/Unfreeze-Funktion für die Dateisysteme vor dem Datenschutzvorgang manuell aktivieren. Dadurch wird sichergestellt, dass sich die Dateisysteme in einem konsistenten Zustand befinden.
+Trident Protect 24.10 gewährleistet nicht automatisch einen konsistenten Zustand der KubeVirt VM-Dateisysteme während Datensicherungsvorgängen.  Wenn Sie Ihre KubeVirt VM-Daten mit Trident Protect 24.10 schützen möchten, müssen Sie die Freeze/Unfreeze-Funktionalität für die Dateisysteme vor dem Datensicherungsvorgang manuell aktivieren. Dadurch wird sichergestellt, dass sich die Dateisysteme in einem konsistenten Zustand befinden.
 
-Sie können Trident Protect 24.10 so konfigurieren, dass das Einfrieren und Entfrieren des VM-Dateisystems während der Datenschutzvorgänge verwaltet wird, indem link:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["Konfiguration der Virtualisierung"^]Sie dann den folgenden Befehl verwenden:
+Sie können Trident Protect 24.10 so konfigurieren, dass das Einfrieren und Auftauen des VM-Dateisystems während Datensicherungsvorgängen verwaltet wird, indemlink:https://docs.openshift.com/container-platform/4.16/virt/install/installing-virt.html["Konfiguration der Virtualisierung"^] und anschließend mit folgendem Befehl:
 
 [source, console]
 ----

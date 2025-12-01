@@ -4,7 +4,7 @@ permalink: trident-protect/trident-protect-protect-apps.html
 keywords: protect, snapshots, demand, configuration, cluster, appvault 
 summary: Alle Applikationen werden gesichert, indem Snapshots und Backups über eine automatisierte Sicherungsrichtlinie oder im Ad-hoc-Verfahren erstellt werden. 
 ---
-= Sicherung von Applikationen mit Trident Protect
+= Schützen Sie Ihre Anwendungen mit Trident Protect.
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,10 +14,10 @@ summary: Alle Applikationen werden gesichert, indem Snapshots und Backups über 
 
 
 [role="lead"]
-Sie können alle von Trident Protect gemanagten Applikationen schützen, indem Sie Snapshots und Backups mithilfe einer automatisierten Sicherungsrichtlinie oder ad hoc erstellen.
+Sie können alle von Trident Protect verwalteten Apps schützen, indem Sie mithilfe einer automatisierten Schutzrichtlinie oder ad hoc Snapshots und Backups erstellen.
 
 
-NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während des Datenschutzes eingefroren und wieder eingefroren werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über das Konfigurieren des Dateisystemfrierens mit Trident Protect"].
+NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während Datensicherungsvorgängen eingefroren und wieder freigegeben werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über die Konfiguration des Einfrierens von Dateisystemen mit Trident Protect."].
 
 
 
@@ -390,13 +390,13 @@ kubectl get backup -n <namespace_name> <my_backup_cr_name> -o jsonpath='{.status
 
 == Backup und Restore für Azure-NetApp-Files (ANF)-Vorgänge
 
-Falls Sie Trident Protect installiert haben, können Sie die platzsparenden Backup- und Restore-Funktionen für Storage-Back-Ends aktivieren, die die Azure-NetApp-Files Storage-Klasse verwenden und vor Trident 24.06 erstellt wurden. Diese Funktion arbeitet mit NFSv4-Volumes zusammen und verbraucht keinen zusätzlichen Speicherplatz aus dem Kapazitäts-Pool.
+Wenn Sie Trident Protect installiert haben, können Sie die speichereffiziente Sicherungs- und Wiederherstellungsfunktionalität für Speicher-Backends aktivieren, die die Speicherklasse azure-netapp-files verwenden und vor Trident 24.06 erstellt wurden. Diese Funktionalität funktioniert mit NFSv4-Volumes und verbraucht keinen zusätzlichen Speicherplatz aus dem Kapazitätspool.
 
 .Bevor Sie beginnen
 Stellen Sie Folgendes sicher:
 
 * Sie haben Trident Protect installiert.
-* Sie haben eine Anwendung in Trident Protect definiert. Diese Anwendung verfügt nur über begrenzte Schutzfunktionen, bis Sie diesen Vorgang abgeschlossen haben.
+* Sie haben eine Anwendung in Trident Protect definiert. Diese Anwendung bietet nur eingeschränkten Schutz, bis Sie dieses Verfahren abgeschlossen haben.
 * Sie haben `azure-netapp-files` als Standard-Storage-Klasse für Ihr Storage-Back-End ausgewählt.
 
 
@@ -426,13 +426,13 @@ Antwort:
 snapshotDirectory: "true"
 ----
 +
-Wenn das Snapshot-Verzeichnis nicht aktiviert ist, wählt Trident Protect die regelmäßige Backup-Funktion aus, die während des Backup-Prozesses vorübergehend Speicherplatz im Kapazitäts-Pool verbraucht. Stellen Sie in diesem Fall sicher, dass im Kapazitätspool ausreichend Speicherplatz verfügbar ist, um ein temporäres Volume der Größe des zu sichernden Volumes zu erstellen.
+Wenn das Snapshot-Verzeichnis nicht aktiviert ist, wählt Trident Protect die reguläre Backup-Funktionalität, die während des Backup-Vorgangs vorübergehend Speicherplatz im Kapazitätspool belegt. Stellen Sie in diesem Fall sicher, dass im Kapazitätspool ausreichend Speicherplatz vorhanden ist, um ein temporäres Volume in der Größe des zu sichernden Volumes zu erstellen.
 
 
 
 
 
 .Ergebnis
-Die Applikation ist mit Trident Protect für die Sicherung und Wiederherstellung bereit. Jede PVC kann auch von anderen Anwendungen für Backups und Wiederherstellungen verwendet werden.
+Die Anwendung ist für die Datensicherung und -wiederherstellung mit Trident Protect bereit. Jede PVC kann auch von anderen Anwendungen für Backups und Wiederherstellungen verwendet werden.
 
 ====

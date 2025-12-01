@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-snapmirror-replication.html 
 keywords: trident, protect, netapp, snapmirror, data, asynchronous, replication, clusters 
-summary: Mit Trident Protect können Sie die asynchronen Replizierungsfunktionen der NetApp SnapMirror Technologie verwenden, um Daten und Applikationsänderungen von einem Storage-Back-End auf ein anderes zu replizieren, im selben Cluster oder zwischen verschiedenen Clustern. 
+summary: Mit Trident Protect können Sie die asynchronen Replikationsfunktionen der NetApp SnapMirror Technologie nutzen, um Daten und Anwendungsänderungen von einem Speichersystem auf ein anderes zu replizieren, entweder innerhalb desselben Clusters oder zwischen verschiedenen Clustern. 
 ---
-= Replizieren Sie Applikationen mit NetApp SnapMirror und Trident Protect
+= Anwendungen mit NetApp SnapMirror und Trident Protect replizieren
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: Mit Trident Protect können Sie die asynchronen Replizierungsfunktionen
 
 
 [role="lead"]
-Mit Trident Protect können Sie die asynchronen Replizierungsfunktionen der NetApp SnapMirror Technologie verwenden, um Daten und Applikationsänderungen von einem Storage-Back-End auf ein anderes zu replizieren, im selben Cluster oder zwischen verschiedenen Clustern.
+Mit Trident Protect können Sie die asynchronen Replikationsfunktionen der NetApp SnapMirror Technologie nutzen, um Daten und Anwendungsänderungen von einem Speichersystem auf ein anderes zu replizieren, entweder innerhalb desselben Clusters oder zwischen verschiedenen Clustern.
 
 
 
@@ -32,9 +32,9 @@ Sie können verhindern, dass bestimmte Annotationen im Ziel-Namespace überschri
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: Bei der Durchführung einer Wiederherstellungs- oder Failover-Operation werden alle in angegebenen Namespace-Annotationen und -Labels berücksichtigt. `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind von der Wiederherstellungs- oder Failover-Operation ausgeschlossen. Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unter link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Konfigurieren Sie zusätzliche Trident Protect-Helm-Chart-Einstellungen"].
+NOTE: Bei der Durchführung einer Wiederherstellungs- oder Failover-Operation werden alle in angegebenen Namespace-Annotationen und -Labels berücksichtigt. `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind von der Wiederherstellungs- oder Failover-Operation ausgeschlossen. Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unter link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Konfigurieren Sie zusätzliche Trident Protect Helm-Chart-Einstellungen"].
 
-Wenn Sie die Quellanwendung mit Helm mit dem Flag installiert haben, wird der Label-Schlüssel mit `--create-namespace` einer speziellen Bestrahlung `name` versehen. Während des Wiederherstellungs- oder Failover-Prozesses kopiert Trident Protect dieses Label in den Ziel-Namespace, aktualisiert jedoch den Wert auf den Ziel-Namespace-Wert, wenn der Wert von Quell-Namespace mit dem Quell-Namespace übereinstimmt. Wenn dieser Wert nicht mit dem Quell-Namespace übereinstimmt, wird er ohne Änderungen in den Ziel-Namespace kopiert.
+Wenn Sie die Quellanwendung mit Helm installiert haben `--create-namespace` Flagge, besondere Behandlung wird der `name` Legende mit Beschriftung. Während des Wiederherstellungs- oder Failover-Prozesses kopiert Trident Protect diese Bezeichnung in den Ziel-Namespace, aktualisiert aber den Wert auf den Wert des Ziel-Namespace, wenn der Wert aus der Quelle mit dem Quell-Namespace übereinstimmt. Stimmt dieser Wert nicht mit dem Quell-Namespace überein, wird er unverändert in den Ziel-Namespace kopiert.
 
 
 
@@ -99,7 +99,7 @@ In der folgenden Tabelle wird der Status des Beispiel-Ziel-Namespace nach der Wi
 
 |===
 
-NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während des Datenschutzes eingefroren und wieder eingefroren werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über das Konfigurieren des Dateisystemfrierens mit Trident Protect"].
+NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während Datensicherungsvorgängen eingefroren und wieder freigegeben werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über die Konfiguration des Einfrierens von Dateisystemen mit Trident Protect."].
 
 
 
@@ -111,7 +111,7 @@ Wenn Sie zum Schutz Ihrer Anwendung eine AppMirror-Beziehung verwenden, gibt es 
 * Beim Reverse- oder Reverse-Resync werden alle vorhandenen Ausführungs-Hooks der Anwendung entfernt. Wenn die Quellanwendung zur Zielanwendung wird, sind diese Ausführungs-Hooks ungültig und werden gelöscht, um ihre Ausführung zu verhindern.
 
 
-Weitere Informationen zu Ausführungs-Hooks finden Sie unter link:../trident-protect/trident-protect-use-execution-hooks.html["Managen von Trident Protect-Ausführungshaken"] .
+Weitere Informationen zu Ausführungshooks finden Sie unterlink:../trident-protect/trident-protect-use-execution-hooks.html["Trident Protect-Ausführungshooks verwalten"] .
 
 
 
@@ -119,7 +119,7 @@ Weitere Informationen zu Ausführungs-Hooks finden Sie unter link:../trident-pro
 
 Die Einrichtung einer Replikationsbeziehung umfasst Folgendes:
 
-* Festlegen der Häufigkeit, die Trident schützen soll, um einen App-Snapshot zu erstellen (was die Kubernetes-Ressourcen der Applikation sowie die Volume-Snapshots für die Volumes der Applikation umfasst)
+* Auswahl der Häufigkeit, mit der Trident Protect einen App-Snapshot erstellen soll (der sowohl die Kubernetes-Ressourcen der App als auch die Volume-Snapshots für jedes der App-Volumes umfasst).
 * Auswahl des Replizierungszeitplans (einschließlich Kubernetes-Ressourcen und persistenter Volume-Daten)
 * Einstellen der Uhrzeit für die Erstellung des Snapshots
 
@@ -448,7 +448,7 @@ kubectl get amr -n my-app-namespace <relationship name> -o=jsonpath='{.status}' 
 
 === Failover zum Ziel-Cluster
 
-Mit Trident Protect können Sie ein Failover replizierter Applikationen auf ein Ziel-Cluster durchführen. Durch dieses Verfahren wird die Replikationsbeziehung angehalten und die App wird auf dem Ziel-Cluster online geschaltet. Trident Protect stoppt die App auf dem Quell-Cluster nicht, wenn sie betriebsbereit war.
+Mit Trident Protect können Sie replizierte Anwendungen auf einen Zielcluster verschieben, ohne dass es zu einem Failover kommt. Dieses Verfahren beendet die Replikationsbeziehung und schaltet die Anwendung auf dem Zielcluster online.  Trident Protect stoppt die Anwendung auf dem Quellcluster nicht, wenn sie betriebsbereit war.
 
 .Schritte
 . Bearbeiten Sie im Zielcluster die AppMirrorRelationship CR-Datei (z. B. `trident-protect-relationship.yaml` ) und ändern Sie den Wert von *spec.desiredState* in `Promoted`.
@@ -509,7 +509,7 @@ Wenn Sie eine Failover-Replikationsbeziehung umkehren, wird die Zielanwendung zu
 
 == Richtung der Anwendungsreplikation umkehren
 
-Wenn Sie die Replizierungsrichtung umkehren, verschiebt Trident Protect die Applikation auf das Ziel-Storage-Back-End, während die Replikation zurück zum ursprünglichen Quell-Storage-Back-End fortgesetzt wird. Trident Protect stoppt die Quellapplikation und repliziert die Daten zum Ziel, bevor ein Failover zur Zielapplikation erfolgt.
+Wenn Sie die Replikationsrichtung umkehren, verschiebt Trident Protect die Anwendung zum Ziel-Speicher-Backend, während die Replikation zurück zum ursprünglichen Quell-Speicher-Backend fortgesetzt wird.  Trident Protect stoppt die Quellanwendung und repliziert die Daten zum Ziel, bevor ein Failover zur Zielanwendung erfolgt.
 
 In dieser Situation tauschen Sie Quelle und Ziel aus.
 
@@ -609,7 +609,7 @@ Die folgenden Aktionen werden aufgrund der umgekehrten Replikation durchgeführt
 
 === Führen Sie ein Failback von Anwendungen auf das ursprüngliche Quellcluster durch
 
-Mithilfe von Trident Protect können Sie nach einem Failover-Vorgang ein Failback durchführen, indem Sie die folgende Sequenz von Vorgängen verwenden. In diesem Workflow zur Wiederherstellung der ursprünglichen Replikationsrichtung repliziert Trident Protect alle Anwendungsänderungen zurück zur ursprünglichen Quellanwendung, bevor die Replikationsrichtung rückgängig gemacht wird.
+Mit Trident Protect können Sie nach einem Failover-Vorgang ein „Failback“ erreichen, indem Sie die folgende Abfolge von Operationen verwenden.  In diesem Workflow zur Wiederherstellung der ursprünglichen Replikationsrichtung repliziert (resynchronisiert) Trident Protect alle Anwendungsänderungen zurück in die ursprüngliche Quellanwendung, bevor die Replikationsrichtung umgekehrt wird.
 
 Dieser Prozess beginnt mit einer Beziehung, bei der ein Failover zu einem Ziel durchgeführt wurde, und umfasst die folgenden Schritte:
 

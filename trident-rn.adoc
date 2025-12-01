@@ -90,7 +90,7 @@ NOTE: Nicht für den Einsatz in Produktionsumgebungen.
 
 === Trident Protect
 
-NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenmanagement, mit denen die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Applikationen auf der Basis von NetApp ONTAP Storage-Systemen und der NetApp Trident CSI Storage-bereitstellung verbessert werden.
+NetApp Trident Protect bietet fortschrittliche Anwendungsdatenverwaltungsfunktionen, die die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Anwendungen verbessern, die von NetApp ONTAP -Speichersystemen und dem NetApp Trident CSI-Speicherbereitsteller unterstützt werden.
 
 
 
@@ -229,7 +229,7 @@ NOTE: Diese Funktion ist experimentell und unterstützt derzeit begrenzte parall
 
 === Trident Protect
 
-NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenmanagement, mit denen die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Applikationen auf der Basis von NetApp ONTAP Storage-Systemen und der NetApp Trident CSI Storage-bereitstellung verbessert werden.
+NetApp Trident Protect bietet fortschrittliche Anwendungsdatenverwaltungsfunktionen, die die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Anwendungen verbessern, die von NetApp ONTAP -Speichersystemen und dem NetApp Trident CSI-Speicherbereitsteller unterstützt werden.
 
 
 
@@ -280,7 +280,7 @@ NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenm
 
 == Änderungen in 25.02
 
-Ab Trident 25.02 enthält die neue Zusammenfassung weitere Informationen zu Verbesserungen, Fixes und Korrekturen für Trident und Trident Protect Versionen.
+Ab Trident 25.02 enthält die Zusammenfassung „Neuerungen“ Details zu Verbesserungen, Fehlerbehebungen und veralteten Funktionen sowohl für Trident als auch für Trident Protect-Versionen.
 
 
 
@@ -335,19 +335,19 @@ Ab Trident 25.02 enthält die neue Zusammenfassung weitere Informationen zu Verb
 
 === Trident Protect
 
-NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenmanagement, mit denen die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Applikationen auf der Basis von NetApp ONTAP Storage-Systemen und der NetApp Trident CSI Storage-bereitstellung verbessert werden.
+NetApp Trident Protect bietet fortschrittliche Anwendungsdatenverwaltungsfunktionen, die die Funktionalität und Verfügbarkeit zustandsbehafteter Kubernetes-Anwendungen verbessern, die von NetApp ONTAP -Speichersystemen und dem NetApp Trident CSI-Speicherbereitsteller unterstützt werden.
 
 
 
 ==== Vorgestellt Werden
 
-* Backup- und Restore-Unterstützung für KubeVirt/OpenShift-Virtualisierungs-VMs für Volumes-Modus: Datei- und Volume-Modus: Block (RAW-Gerät)-Storage hinzugefügt. Diese Unterstützung ist mit allen Trident-Treibern kompatibel und erweitert die vorhandenen Schutzfunktionen bei der Replizierung von Speicher mithilfe von NetApp SnapMirror mit Trident Protect.
+* Unterstützung für Backup und Wiederherstellung von KubeVirt / OpenShift Virtualisierungs-VMs für volumeMode: File und volumeMode: Block (raw device) Speicher hinzugefügt. Diese Unterstützung ist mit allen Trident -Treibern kompatibel und erweitert die bestehenden Schutzfunktionen bei der Replikation von Speicher mit NetApp SnapMirror und Trident Protect.
 * Es wurde die Möglichkeit hinzugefügt, das Freeze-Verhalten auf Anwendungsebene für Kubevirt-Umgebungen zu kontrollieren.
 * Unterstützung für die Konfiguration von AutoSupport-Proxy-Verbindungen wurde hinzugefügt.
 * Es wurde die Möglichkeit hinzugefügt, einen Schlüssel für die Data Mover-Verschlüsselung (Kopia/Restic) zu definieren.
 * Es wurde die Möglichkeit hinzugefügt, einen Ausführungshaken manuell auszuführen.
-* Es wurde die Möglichkeit hinzugefügt, während der Installation von Trident Protect Sicherheitskontext Constraints (SCCs) zu konfigurieren.
-* Unterstützung für die Konfiguration von nodeSelector während der Installation von Trident Protect hinzugefügt.
+* Die Möglichkeit, Sicherheitskontextbeschränkungen (SCCs) während der Installation von Trident Protect zu konfigurieren, wurde hinzugefügt.
+* Unterstützung für die Konfiguration des NodeSelectors während der Installation von Trident Protect hinzugefügt.
 * Unterstützung für HTTP-/HTTPS-Egress-Proxy für AppVault-Objekte wurde hinzugefügt.
 * Erweiterter Ressourcenfilter zum Aktivieren des Ausschlusses von Ressourcen mit Clusterbereich.
 * Unterstützung für das AWS-Sitzungs-Token in S3 AppVault-Anmeldedaten wurde hinzugefügt.
@@ -417,7 +417,7 @@ NetApp Trident Protect bietet erweiterte Funktionen für das Applikations-Datenm
 ** Disaster Recovery
 ** Applikationsmobilität
 +
-link:./trident-protect/learn-about-trident-protect.html["Erfahren Sie mehr über Trident Protect"].
+link:./trident-protect/learn-about-trident-protect.html["Erfahren Sie mehr über Trident Protect."].
 
 
 

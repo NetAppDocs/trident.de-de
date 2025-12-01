@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-restore-settings.html 
 keywords: trident, protect, restore, data, backup 
-summary: Sie können Trident Protect-Wiederherstellungsvorgänge mithilfe von Anmerkungen, Namespace-Einstellungen und Speicheroptionen anpassen. 
+summary: Sie können die Wiederherstellungsvorgänge von Trident Protect mithilfe von Annotationen, Namespace-Einstellungen und Speicheroptionen anpassen. 
 ---
-= Verwenden Sie die erweiterten Wiederherstellungseinstellungen von Trident Protect
+= Verwenden Sie die erweiterten Trident Protect-Wiederherstellungseinstellungen.
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -32,9 +32,9 @@ Sie können verhindern, dass bestimmte Annotationen im Ziel-Namespace überschri
 helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
 ----
 
-NOTE: Bei der Durchführung einer Wiederherstellungs- oder Failover-Operation werden alle in angegebenen Namespace-Annotationen und -Labels berücksichtigt. `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind von der Wiederherstellungs- oder Failover-Operation ausgeschlossen. Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unter link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Konfigurieren Sie zusätzliche Trident Protect-Helm-Chart-Einstellungen"].
+NOTE: Bei der Durchführung einer Wiederherstellungs- oder Failover-Operation werden alle in angegebenen Namespace-Annotationen und -Labels berücksichtigt. `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind von der Wiederherstellungs- oder Failover-Operation ausgeschlossen. Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unter link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Konfigurieren Sie zusätzliche Trident Protect Helm-Chart-Einstellungen"].
 
-Wenn Sie die Quellanwendung mit Helm mit dem Flag installiert haben, wird der Label-Schlüssel mit `--create-namespace` einer speziellen Bestrahlung `name` versehen. Während des Wiederherstellungs- oder Failover-Prozesses kopiert Trident Protect dieses Label in den Ziel-Namespace, aktualisiert jedoch den Wert auf den Ziel-Namespace-Wert, wenn der Wert von Quell-Namespace mit dem Quell-Namespace übereinstimmt. Wenn dieser Wert nicht mit dem Quell-Namespace übereinstimmt, wird er ohne Änderungen in den Ziel-Namespace kopiert.
+Wenn Sie die Quellanwendung mit Helm installiert haben `--create-namespace` Flagge, besondere Behandlung wird der `name` Legende mit Beschriftung. Während des Wiederherstellungs- oder Failover-Prozesses kopiert Trident Protect diese Bezeichnung in den Ziel-Namespace, aktualisiert aber den Wert auf den Wert des Ziel-Namespace, wenn der Wert aus der Quelle mit dem Quell-Namespace übereinstimmt. Stimmt dieser Wert nicht mit dem Quell-Namespace überein, wird er unverändert in den Ziel-Namespace kopiert.
 
 
 

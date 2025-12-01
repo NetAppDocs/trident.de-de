@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-use-execution-hooks.html 
 keywords: trident, protect, execution hooks 
-summary: Mit Trident Protect können Sie einen benutzerdefinierten Ausführungshaken für eine App erstellen. Sie müssen über die Berechtigungen Eigentümer, Administrator oder Mitglied verfügen, um Testausführungshaken zu erstellen. 
+summary: Sie können mit Trident Protect einen benutzerdefinierten Ausführungs-Hook für eine App erstellen. Sie benötigen die Berechtigungen Eigentümer, Administrator oder Mitglied, um Ausführungs-Hooks zu erstellen. 
 ---
-= Managen von Trident Protect-Ausführungshaken
+= Trident Protect-Ausführungshooks verwalten
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -20,7 +20,7 @@ Ein Execution Hook ist eine benutzerdefinierte Aktion, die Sie so konfigurieren 
 
 == Arten von Ausführungshaken
 
-Trident Protect unterstützt die folgenden Typen von Ausführungshaken, je nachdem, wann sie ausgeführt werden können:
+Trident Protect unterstützt die folgenden Arten von Ausführungs-Hooks, je nachdem, wann sie ausgeführt werden können:
 
 * Vor dem Snapshot
 * Nach dem Snapshot
@@ -37,7 +37,7 @@ Trident Protect unterstützt die folgenden Typen von Ausführungshaken, je nachd
 Wenn ein Datenschutzvorgang ausgeführt wird, finden Hakenereignisse in der folgenden Reihenfolge statt:
 
 . Alle entsprechenden benutzerdefinierten Testhaken für die Ausführung vor dem Betrieb werden auf den entsprechenden Containern ausgeführt. Sie können beliebig viele benutzerdefinierte Hooks für die Vorbedienung erstellen und ausführen, aber die Reihenfolge der Ausführung dieser Haken vor der Operation ist weder garantiert noch konfigurierbar.
-. Das Dateisystem hängt sich ggf. ein. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über das Konfigurieren des Dateisystemfrierens mit Trident Protect"].
+. Gegebenenfalls kommt es zum Einfrieren des Dateisystems. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über die Konfiguration des Einfrierens von Dateisystemen mit Trident Protect."].
 . Der Vorgang der Datensicherung wird durchgeführt.
 . Eingefrorene Dateisysteme werden gegebenenfalls nicht eingefroren.
 . Alle entsprechenden benutzerdefinierten Testhaken für die Ausführung nach der Operation werden auf den entsprechenden Containern ausgeführt. Sie können beliebig viele benutzerdefinierte Haken für die Nachbearbeitung erstellen und ausführen, aber die Reihenfolge der Ausführung dieser Haken nach der Operation ist weder garantiert noch konfigurierbar.
@@ -67,9 +67,9 @@ NOTE: Wenn ein Hook aus einer Phase vor der Snapshot-Ausführung Kubernetes-Ress
 Bei der Planung von Testausführungshooks für Ihre Apps sollten Sie Folgendes berücksichtigen:
 
 * Ein Testsuite muss ein Skript verwenden, um Aktionen durchzuführen. Viele Testsuitehaoks können auf dasselbe Skript verweisen.
-* Trident Protect erfordert, dass die Skripte, die Ausführungshaken verwenden, im Format ausführbarer Shell-Skripte geschrieben werden.
+* Trident Protect verlangt, dass die Skripte, die von den Ausführungs-Hooks verwendet werden, im Format ausführbarer Shell-Skripte geschrieben sind.
 * Die Skriptgröße ist auf 96 KB begrenzt.
-* Trident Protect verwendet Execution Hook-Einstellungen und alle übereinstimmenden Kriterien, um zu ermitteln, welche Hooks für einen Snapshot-, Backup- oder Wiederherstellungsvorgang gelten.
+* Trident Protect verwendet die Einstellungen für Ausführungs-Hooks und alle übereinstimmenden Kriterien, um zu bestimmen, welche Hooks für einen Snapshot-, Backup- oder Wiederherstellungsvorgang anwendbar sind.
 
 
 
@@ -81,7 +81,7 @@ NOTE: Da Testsuitehingel die Funktionalität der Anwendung, für die sie ausgef�
 
 Wenn Sie einen Ausführungshaken für eine Anwendung hinzufügen oder bearbeiten, können Sie dem Ausführungshaken Filter hinzufügen, um zu verwalten, welche Container der Hook entsprechen soll. Filter sind für Applikationen nützlich, die in allen Containern dasselbe Container-Image nutzen. Jedes Image kann jedoch für einen anderen Zweck (wie Elasticsearch) verwendet werden. Mit Filtern können Sie Szenarien erstellen, in denen Ausführungshaken auf einigen, aber nicht unbedingt allen identischen Containern ausgeführt werden. Wenn Sie mehrere Filter für einen einzelnen Testausführungshaken erstellen, werden diese mit einem logischen UND einem Operator kombiniert. Pro Testsuite können Sie bis zu 10 aktive Filter haben.
 
-Jeder Filter, den Sie einem Execution Hook hinzufügen, verwendet einen regulären Ausdruck, um Container in Ihrem Cluster zu entsprechen. Wenn ein Haken einem Container entspricht, führt der Haken sein zugehöriges Skript auf diesem Container aus. Reguläre Ausdrücke für Filter verwenden die Syntax des regulären Ausdrucks 2 (RE2), die das Erstellen eines Filters nicht unterstützt, der Container aus der Liste der Übereinstimmungen ausschließt. Informationen zur Syntax, die Trident Protect für reguläre Ausdrücke in Ausführungshook-Filtern unterstützt, finden Sie unter https://github.com/google/re2/wiki/Syntax["Syntaxunterstützung für regulären Ausdruck 2 (RE2)"^].
+Jeder Filter, den Sie einem Ausführungs-Hook hinzufügen, verwendet einen regulären Ausdruck, um Container in Ihrem Cluster abzugleichen. Wenn ein Hook mit einem Container übereinstimmt, führt der Hook das zugehörige Skript auf diesem Container aus. Reguläre Ausdrücke für Filter verwenden die Syntax „Regulärer Ausdruck 2“ (RE2), die das Erstellen eines Filters, der Container aus der Liste der Übereinstimmungen ausschließt, nicht unterstützt. Informationen zur Syntax, die Trident Protect für reguläre Ausdrücke in Ausführungs-Hook-Filtern unterstützt, finden Sie unter https://github.com/google/re2/wiki/Syntax["Syntaxunterstützung für regulären Ausdruck 2 (RE2)"^] Die
 
 
 NOTE: Wenn Sie einem Ausführungs-Hook einen Namespace-Filter hinzufügen, der nach einer Wiederherstellung oder einem Klonvorgang ausgeführt wird, und die Wiederherstellungs- oder Klonquelle und das Ziel in verschiedenen Namespaces liegen, wird der Namespace-Filter nur auf den Ziel-Namespace angewendet.
@@ -96,7 +96,7 @@ Besuchen Sie die https://github.com/NetApp/Verda["NetApp Verda GitHub Projekt"] 
 
 == Erstellen Sie einen Ausführungshaken
 
-Mit Trident Protect können Sie einen benutzerdefinierten Ausführungshaken für eine App erstellen. Sie müssen über die Berechtigungen Eigentümer, Administrator oder Mitglied verfügen, um Testausführungshaken zu erstellen.
+Sie können mit Trident Protect einen benutzerdefinierten Ausführungs-Hook für eine App erstellen. Sie benötigen die Berechtigungen Eigentümer, Administrator oder Mitglied, um Ausführungs-Hooks zu erstellen.
 
 [role="tabbed-block"]
 ====
@@ -104,7 +104,7 @@ Mit Trident Protect können Sie einen benutzerdefinierten Ausführungshaken für
 --
 .Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-hook.yaml`.
-. Konfigurieren Sie die folgenden Attribute entsprechend Ihrer Trident Protect-Umgebung und Cluster-Konfiguration:
+. Konfigurieren Sie die folgenden Attribute so, dass sie Ihrer Trident Protect-Umgebung und Clusterkonfiguration entsprechen:
 +
 ** *metadata.name*: (_required_) der Name dieser benutzerdefinierten Ressource; wählen Sie einen eindeutigen und sinnvollen Namen für Ihre Umgebung.
 ** *Spec.applicationRef*: (_required_) der Kubernetes-Name der Anwendung, für die der Ausführungshaken ausgeführt werden soll.
@@ -221,7 +221,7 @@ Das manuelle Ausführen eines Ausführungshakens besteht aus zwei grundlegenden 
 --
 .Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-resource-backup.yaml`.
-. Konfigurieren Sie die folgenden Attribute entsprechend Ihrer Trident Protect-Umgebung und Cluster-Konfiguration:
+. Konfigurieren Sie die folgenden Attribute so, dass sie Ihrer Trident Protect-Umgebung und Clusterkonfiguration entsprechen:
 +
 ** *metadata.name*: (_required_) der Name dieser benutzerdefinierten Ressource; wählen Sie einen eindeutigen und sinnvollen Namen für Ihre Umgebung.
 ** *Spec.applicationRef*: (_required_) der Kubernetes-Name der Applikation, für die das Ressourcen-Backup erstellt werden soll.
@@ -294,7 +294,7 @@ kubectl describe resourcebackup <my_backup_name>
 --
 .Schritte
 . Erstellen Sie die benutzerdefinierte Ressourcendatei (CR) und benennen Sie sie `trident-protect-hook-run.yaml`.
-. Konfigurieren Sie die folgenden Attribute entsprechend Ihrer Trident Protect-Umgebung und Cluster-Konfiguration:
+. Konfigurieren Sie die folgenden Attribute so, dass sie Ihrer Trident Protect-Umgebung und Clusterkonfiguration entsprechen:
 +
 ** *metadata.name*: (_required_) der Name dieser benutzerdefinierten Ressource; wählen Sie einen eindeutigen und sinnvollen Namen für Ihre Umgebung.
 ** *Spec.applicationRef*: (_required_) Stellen Sie sicher, dass dieser Wert mit dem Anwendungsnamen aus dem ResourceBackup CR übereinstimmt, den Sie in Schritt 1 erstellt haben.

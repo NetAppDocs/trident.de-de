@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: trident-protect/trident-protect-cli.html 
 keywords: trident, protect, command line utility, cli, netapp, custom, resources 
-summary: Sie können den Befehl protectctctcttl verwenden, um benutzerdefinierte Trident Protect-Ressourcen zu erstellen und mit ihnen zu interagieren. 
+summary: Mit dem Befehl protectctl können Sie benutzerdefinierte Ressourcen von Trident Protect erstellen und mit ihnen interagieren. 
 ---
-= Installieren Sie das Trident Protect CLI-Plug-in
+= Installieren Sie das Trident Protect CLI-Plugin.
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,11 +14,11 @@ summary: Sie können den Befehl protectctctcttl verwenden, um benutzerdefinierte
 
 
 [role="lead"]
-Sie können das Befehlszeilenplugin Trident Protect verwenden, das eine Erweiterung des Dienstprogramms Trident ist `tridentctl`, um benutzerdefinierte Ressourcen (Trident Protect Custom Resources, CRS) zu erstellen und mit ihnen zu interagieren.
+Sie können das Trident Protect-Befehlszeilen-Plugin verwenden, das eine Erweiterung von Trident ist. `tridentctl` Hilfsprogramm zum Erstellen und Interagieren mit benutzerdefinierten Ressourcen (CRs) von Trident Protect.
 
 
 
-== Installieren Sie das Trident Protect CLI-Plug-in
+== Installieren Sie das Trident Protect CLI-Plugin.
 
 Bevor Sie das Befehlszeilendienstprogramm verwenden, müssen Sie es auf dem Computer installieren, mit dem Sie auf das Cluster zugreifen. Befolgen Sie diese Schritte, je nachdem, ob Ihr Computer eine x64- oder ARM-CPU verwendet.
 
@@ -27,7 +27,7 @@ Bevor Sie das Befehlszeilendienstprogramm verwenden, müssen Sie es auf dem Comp
 .Laden Sie das Plugin für Linux AMD64 CPUs herunter
 --
 .Schritte
-. Laden Sie das Trident Protect CLI-Plug-in herunter:
+. Laden Sie das Trident Protect CLI-Plugin herunter:
 +
 [source, console]
 ----
@@ -39,7 +39,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Download Plugin für Linux ARM64 CPUs
 --
 .Schritte
-. Laden Sie das Trident Protect CLI-Plug-in herunter:
+. Laden Sie das Trident Protect CLI-Plugin herunter:
 +
 [source, console]
 ----
@@ -51,7 +51,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Laden Sie das Plugin für Mac AMD64 CPUs herunter
 --
 .Schritte
-. Laden Sie das Trident Protect CLI-Plug-in herunter:
+. Laden Sie das Trident Protect CLI-Plugin herunter:
 +
 [source, console]
 ----
@@ -63,7 +63,7 @@ curl -L -o tridentctl-protect https://github.com/NetApp/tridentctl-protect/relea
 .Download Plugin für Mac ARM64 CPUs
 --
 .Schritte
-. Laden Sie das Trident Protect CLI-Plug-in herunter:
+. Laden Sie das Trident Protect CLI-Plugin herunter:
 +
 [source, console]
 ----
@@ -115,7 +115,7 @@ tridentctl-protect help
 
 == Aktivieren Sie die automatische Vervollständigung von Befehlen
 
-Nachdem Sie das Trident Protect CLI-Plugin installiert haben, können Sie die automatische Vervollständigung für bestimmte Befehle aktivieren.
+Nach der Installation des Trident Protect CLI-Plugins können Sie die automatische Vervollständigung für bestimmte Befehle aktivieren.
 
 [role="tabbed-block"]
 ====
