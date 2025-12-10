@@ -35,6 +35,7 @@ Trident Protect ist mit einer Vielzahl von vollständig verwalteten und selbstve
 ====
 * Trident Protect-Backups werden nur auf Linux-Rechenknoten unterstützt. Windows-Rechenknoten werden für Sicherungsvorgänge nicht unterstützt.
 * Stellen Sie sicher, dass der Cluster, auf dem Sie Trident Protect installieren, mit einem laufenden Snapshot-Controller und den zugehörigen CRDs konfiguriert ist. Informationen zur Installation eines Snapshot-Controllers finden Sie unter https://docs.netapp.com/us-en/trident/trident-use/vol-snapshots.html#deploy-a-volume-snapshot-controller["Diese Anweisungen"] .
+* Stellen Sie sicher, dass mindestens eine VolumeSnapshotClass vorhanden ist. Weitere Informationen finden Sie unterlink:https://docs.netapp.com/us-en/trident_main/trident-reference/objects.html#kubernetes-volumesnapshotclass-objects["VolumeSnapshotKlasse"] .
 
 
 ====

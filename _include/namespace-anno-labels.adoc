@@ -15,7 +15,9 @@ Sie können verhindern, dass bestimmte Annotationen im Ziel-Namespace überschri
 
 [source, console]
 ----
-helm upgrade trident-protect --set restoreSkipNamespaceAnnotations=<annotation_key_to_skip_1>,<annotation_key_to_skip_2> --reuse-values
+helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-protect \
+  --set-string restoreSkipNamespaceAnnotations="{<annotation_key_to_skip_1>,<annotation_key_to_skip_2>}" \
+  --reuse-values
 ----
 
 NOTE: Bei der Durchführung einer Wiederherstellungs- oder Failover-Operation werden alle in angegebenen Namespace-Annotationen und -Labels berücksichtigt. `restoreSkipNamespaceAnnotations` Und `restoreSkipNamespaceLabels` sind von der Wiederherstellungs- oder Failover-Operation ausgeschlossen. Stellen Sie sicher, dass diese Einstellungen während der ersten Helm-Installation konfiguriert werden. Weitere Informationen finden Sie unter link:../trident-protect/trident-protect-customize-installation.html#configure-additional-trident-protect-helm-chart-settings["Konfigurieren Sie zusätzliche Trident Protect Helm-Chart-Einstellungen"].
