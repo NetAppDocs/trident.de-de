@@ -364,7 +364,11 @@ kubectl apply -f trident-protect-appvault-secondary-destination.yaml -n trident-
 ----
 
 
-. Erstellen Sie auf dem Zielcluster eine AppMirrorRelationship CR-Datei:
+. Erstellen Sie auf dem Zielcluster eine AppMirrorRelationship CR-Datei.
++
+
+NOTE: Bei Verwendung eines CR muss der Ziel-Namespace vor dem Anwenden des CR manuell erstellt werden. Trident Protect erstellt Namensräume automatisch nur bei Verwendung der Befehlszeilenschnittstelle (CLI).
+
 +
 [role="tabbed-block"]
 ====

@@ -30,9 +30,13 @@ Mit Trident Protect können Sie Ihre Anwendung aus einem Snapshot oder einer Sic
 
 Wenn Sie eine Sicherung mithilfe eines BackupRestore CR in einen anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her und erstellt einen Anwendungs-CR für die wiederhergestellte Anwendung. Um die wiederhergestellte Anwendung zu schützen, erstellen Sie bei Bedarf Backups oder Snapshots oder legen Sie einen Schutzzeitplan fest.
 
+[NOTE]
+====
+* Wenn Sie ein Backup in einem anderen Namespace mit vorhandenen Ressourcen wiederherstellen, werden keine Ressourcen verändert, die Namen mit denen im Backup teilen. Um alle Ressourcen im Backup wiederherzustellen, löschen Sie entweder den Ziel-Namespace und erstellen Sie ihn neu, oder stellen Sie das Backup in einem neuen Namespace wieder her.
+* Wenn Sie eine CR verwenden, um in einem neuen Namespace wiederherzustellen, müssen Sie den Ziel-Namespace manuell erstellen, bevor Sie die CR anwenden. Trident Protect erstellt Namensräume automatisch nur bei Verwendung der Befehlszeilenschnittstelle (CLI).
 
-NOTE: Wenn Sie ein Backup in einem anderen Namespace mit vorhandenen Ressourcen wiederherstellen, werden keine Ressourcen verändert, die Namen mit denen im Backup teilen. Um alle Ressourcen im Backup wiederherzustellen, löschen Sie entweder den Ziel-Namespace und erstellen Sie ihn neu, oder stellen Sie das Backup in einem neuen Namespace wieder her.
 
+====
 .Bevor Sie beginnen
 Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
 
@@ -271,9 +275,13 @@ tridentctl-protect create backupinplacerestore <my_restore_name> \
 
 Sie können ein Backup in einem anderen Cluster wiederherstellen, wenn ein Problem mit dem ursprünglichen Cluster auftritt.
 
+[NOTE]
+====
+* Wenn Sie Sicherungen mit Kopia als Datenverschieber wiederherstellen, können Sie optional Anmerkungen im CR angeben oder die CLI verwenden, um das Verhalten des von Kopia verwendeten temporären Speichers zu steuern. Siehe die https://kopia.io/docs/getting-started/["Kopia-Dokumentation"^] Weitere Informationen zu den konfigurierbaren Optionen finden Sie hier. Verwenden Sie die `tridentctl-protect create --help` Befehl für weitere Informationen zum Festlegen von Annotationen mit der Trident Protect CLI.
+* Wenn Sie eine CR verwenden, um in einem neuen Namespace wiederherzustellen, müssen Sie den Ziel-Namespace manuell erstellen, bevor Sie die CR anwenden. Trident Protect erstellt Namensräume automatisch nur bei Verwendung der Befehlszeilenschnittstelle (CLI).
 
-NOTE: Wenn Sie Sicherungen mit Kopia als Datenverschieber wiederherstellen, können Sie optional Anmerkungen im CR angeben oder die CLI verwenden, um das Verhalten des von Kopia verwendeten temporären Speichers zu steuern. Siehe die https://kopia.io/docs/getting-started/["Kopia-Dokumentation"^] Weitere Informationen zu den konfigurierbaren Optionen finden Sie hier. Verwenden Sie die `tridentctl-protect create --help` Befehl für weitere Informationen zum Festlegen von Annotationen mit der Trident Protect CLI.
 
+====
 .Bevor Sie beginnen
 Stellen Sie sicher, dass die folgenden Voraussetzungen erfüllt sind:
 
@@ -397,9 +405,13 @@ tridentctl-protect create backuprestore <restore_name> \
 
 Sie können Daten aus einem Snapshot mithilfe einer benutzerdefinierten Ressourcendatei (CR-Datei) entweder in einem anderen Namensraum oder im ursprünglichen Quellnamensraum wiederherstellen. Wenn Sie einen Snapshot mithilfe eines SnapshotRestore CR in einem anderen Namespace wiederherstellen, stellt Trident Protect die Anwendung in einem neuen Namespace wieder her und erstellt einen Anwendungs-CR für die wiederhergestellte Anwendung. Um die wiederhergestellte Anwendung zu schützen, erstellen Sie bei Bedarf Backups oder Snapshots oder legen Sie einen Schutzzeitplan fest.
 
+[NOTE]
+====
+* SnapshotRestore unterstützt die `spec.storageClassMapping` Attribut, aber nur, wenn die Quell- und Zielspeicherklassen dasselbe Speicher-Backend verwenden.  Wenn Sie versuchen, eine `StorageClass` das ein anderes Speicher-Backend verwendet, schlägt der Wiederherstellungsvorgang fehl.
+* Wenn Sie eine CR verwenden, um in einem neuen Namespace wiederherzustellen, müssen Sie den Ziel-Namespace manuell erstellen, bevor Sie die CR anwenden. Trident Protect erstellt Namensräume automatisch nur bei Verwendung der Befehlszeilenschnittstelle (CLI).
 
-NOTE: SnapshotRestore unterstützt die `spec.storageClassMapping` Attribut, aber nur, wenn die Quell- und Zielspeicherklassen dasselbe Speicher-Backend verwenden.  Wenn Sie versuchen, eine `StorageClass` das ein anderes Speicher-Backend verwendet, schlägt der Wiederherstellungsvorgang fehl.
 
+====
 .Bevor Sie beginnen
 Vergewissern Sie sich, dass der Ablauf des AWS-Sitzungstokens für alle langwierigen s3-Wiederherstellungsvorgänge ausreichend ist. Wenn das Token während des Wiederherstellungsvorgangs abläuft, kann der Vorgang fehlschlagen.
 
