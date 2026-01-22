@@ -189,6 +189,9 @@ Nachdem die Installation des Add-ons abgeschlossen ist, wird das installierte Ad
 
 *Verwenden Sie für die Pod-Identität das folgende Format*:
 
+
+NOTE: Verwenden Sie die
+
 [source, json]
 ----
 {
