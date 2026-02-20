@@ -799,16 +799,9 @@
   <block id="e9c3828cd06711f9036bb4ce862a32c5" category="doc">Volume Snapshots</block>
   <block id="a6fbed601c3d014f6d8342990aeee0b5" category="section-title">Erfahren Sie mehr über die Erstellung von Volume Snapshots</block>
   <block id="9dbabbadda024bb7b1d0db43ab31b45f" category="list-text">Für das<block ref="c0d2a793e71b152662b3e8cd2da00620" prefix=" " category="inline-code"></block> Treiber: Jedes PV wird einer auf der NetApp Element Software/dem NetApp HCI Cluster erstellten LUN zugeordnet. VolumeSnapshots werden durch Element Snapshots der zugrunde liegenden LUN dargestellt. Diese Snapshots sind zeitpunktgenaue Kopien, die nur eine kleine Menge an Systemressourcen und Platz beanspruchen.</block>
-  <block id="60aaf44d4b562252c04db7f98497e9aa" category="cell">Port</block>
   <block id="261addf78c7b2c961032b3dd08ba0b1f" category="cell">Zweck</block>
-  <block id="7e6b20d014d1c659e4eaf20dc2dcd7eb" category="cell">8443</block>
   <block id="69bbf3571db03f0487c04a8254d15c75" category="cell">Backchannel HTTPS</block>
-  <block id="bc3c4a6331a8a9950945a1aa8c95ab8a" category="cell">8001</block>
-  <block id="e5a4c481cc6f5935efb2c9d381f2e342" category="cell">Endpunkt der Prometheus Kennzahlen</block>
-  <block id="67ff32d40fb51f1a2fd2c4f1b1019785" category="cell">8000</block>
   <block id="10f5b805a46ea829cc3b9d8560a224ae" category="cell">Trident REST-Server</block>
-  <block id="35cf0f704286108deb76366a16415140" category="cell">17546</block>
-  <block id="fb1396f82d0096741ea1b06f8cee2340" category="cell">Anschluss für Liveness/Readiness-Sonde, der von Trident Demonset-Pods verwendet wird</block>
   <block id="afe272beb780ad53d441c342bf1c8c77" category="summary">Erfahren Sie mehr über tridentctl, ein Befehlszeilenprogramm mit einfachem Zugriff auf Trident.</block>
   <block id="319c1a7b5479ffa2a028b658ad5b7033" category="doc">Tridentctl-Befehle und -Optionen</block>
   <block id="7358b1fd077fa65f88fff87888fd2547" category="inline-link">Trident Installationspaket</block>
@@ -4547,7 +4540,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="97949d2167cfb02925ebeb5fbc18e41c" category="admonition">Wenn Sie den Treiber oder<block ref="caafdf62a2c609bfa5316118231a1007" prefix=" " category="inline-code"></block> verwenden, müssen Sie den Parameter in der Back-End-Konfiguration auf<block ref="b326b5062b2f0e69046810717534cb09" prefix=" " category="inline-code"></block> so einstellen<block ref="323e871cfe2e70ead9c713e8f3164f8f" prefix=" " category="inline-code"></block>, dass Trident den Zugriff auf den Kubernetes-Node bei der Verwendung der unter Verwendung<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> von verwalteten Exportrichtlinien angewandten Beschränkung einschränken kann.</block>
   <block id="f27e6cf95381139bd9916c64f178d212" category="list-text">Verwenden Sie für Cluster mit Kubernetes 1.24 <block ref="ccef28639b5a7d8b851d32c1ca719ce3" category="inline-link-macro-rx"></block>.</block>
   <block id="b9f6abf28d1518cdaae0ed7e29a5727e" category="list-text">Verwenden Sie für Cluster mit Kubernetes 1.25 oder höher <block ref="d1039b29d019902f70f499d65ede99cb" category="inline-link-macro-rx"></block>.</block>
-  <block id="701fc71f0daf0d596d98b3af41d195dd" category="list-text">On-Premises-NetApp FAS-, AFF- und ASA-Cluster</block>
   <block id="405c5315f2ee81c7d907857a97bc9ccc" category="list-text">Platzieren Sie die Backup-Artefakte auf einer FlexVol volume</block>
   <block id="f4d58905240b9c44d84e6ee73c8499ac" category="admonition">NetApp empfiehlt die Sicherung der SVM, auf der sich die FlexVol mit einer SnapMirror-Beziehung zu einer anderen SVM befindet.</block>
   <block id="2e465fe2a334bfbbd0254091d76e5cf5" category="cell">NOfootnote:3[]</block>
@@ -5223,7 +5215,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="674d1c5daba14e57bb12199e316a830d" category="list-text">Sichere SMB-Unterstützung für ONTAP-NAS- und ONTAP-NAS-Economy-Volumes hinzugefügt. Active Directory-Benutzer und -Gruppen können jetzt mit SMB-Volumes für erhöhte Sicherheit verwendet werden. Siehe <block ref="4f989a35378d98430cb4c4899de0cc08" category="inline-link-macro-rx"></block>.</block>
   <block id="68e904dfe8bbc558c556cc39aaca54b6" category="list-text">Unterstützung für die Volume-Replikation mit SnapMirror für NVMe-Backends hinzugefügt. Siehe <block ref="0837d9a30d067376d83aa60bb79334f8" category="inline-link-macro-rx"></block>.</block>
   <block id="b71ccf1062cee8c376a7eb37e3c42603" category="cell">Aktivieren Sie die LUKS-Verschlüsselung. Siehe <block ref="569f9f91cdcc19909b8acbf6f423daf7" category="inline-link-macro-rx"></block>.</block>
-  <block id="af4e755c6284fa61e563c93320e97aaa" category="paragraph">Trident verwendet die folgenden Ports für die Kommunikation innerhalb von Kubernetes:</block>
   <block id="ef46cb32ba76d79fbc7bfb7586fff578" category="list-text">Stellen Sie sicher, dass Sie auf die neueste Version aktualisiert haben. <block ref="452b142235e718663e27bc4f162c14ca" prefix=" " category="inline-code"></block> .</block>
   <block id="aa56a1d260c6089f006323437ab5613f" category="list-text">Die empfohlene Mindestgröße für FlexGroup Mitglieder/Volumes beträgt 100 GiB.</block>
   <block id="006ae665d682a3f9a5488cf901070b36" category="list-text">Erstellen Sie ein 10-GiB-Volume:</block>
@@ -6019,4 +6010,107 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="3a175f8153aad5b64492df6eadb5a5af" category="paragraph">Die folgenden Beispiele zeigen, wie verwaltete und nicht verwaltete Volumes importiert werden:</block>
   <block id="ae3918e109e702f2d03b5027de8a73eb" category="paragraph">Das folgende Beispiel importiert ein Volume auf Backend<block ref="c082d32d434314708cccf35dd974ac32" prefix=" " category="inline-code"></block> mit dem Volume<block ref="acdf8df0c694db089171ecaf51f80166" prefix=" " category="inline-code"></block>.</block>
   <block id="36a57158e28c15925c88aebde90472b6" category="admonition">Nach Ausführung dieses Befehls fordert ONTAP die Eingabe des Zertifikats an. Fügen Sie den Inhalt der <block ref="0c7b1ee06b5fdaab7c83f24275255cf5" prefix=" " category="inline-code"></block> Datei ein, die in Schritt 1 generiert wurde, und geben Sie <block ref="b1a326c06d88bf042f73d70f50197905" prefix=" " category="inline-code"></block> ein, um die Installation abzuschließen.</block>
+  <block id="02356881e19a0d2738b050b76923c98e" category="doc">Unterstützte Operationen</block>
+  <block id="7620488d5fb7b77dda771508677fd29e" category="paragraph">sidebar: sidebar permalink: trident-asar2-support.html keywords: asar2, trident, fcp, nvme, tcp, nvme/tcp, fibre channel summary: NetApp Trident unterstützt ONTAP ASA r2 für iSCSI und NVMe/TCP. --- = NetApp Trident Support für ONTAP ASA r2 Storage-Systeme :hardbreaks: :icons: font :imagesdir: ./media/</block>
+  <block id="9d20e3956cff4f7ce8f40089410b6eda" category="paragraph">NetApp Trident 25.02 und höher unterstützt NetApp ASA r2-Systeme als Speicher-Backends. Weitere Informationen finden Sie unter <block ref="9f40590ca1185cea7261c2a60fc922ea" category="inline-link-macro-rx"></block>.</block>
+  <block id="1be09f20bc514ebd461d2bb177d2eb7f" category="paragraph">ASA r2-Systeme benötigen den<block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> Treiber. Trident unterstützt den<block ref="3016c12c1db45f14c80c9c1731b9c26a" prefix=" " category="inline-code"></block> Treiber für ASA r2-Systeme nicht.</block>
+  <block id="a7feabe5a282558971f299220f74bae8" category="paragraph">Wenn Sie <block ref="73a3350a1b91aeb6e2836fdf5975672c" prefix=" " category="inline-code"></block> als <block ref="d45aebe724c55b101f2ae8924ba3d486" prefix=" " category="inline-code"></block> in der Backend-Konfiguration angeben, erkennt Trident das ASA r2-Speichersystem automatisch.</block>
+  <block id="03019553d9edba0e6e0c0a6a69b87704" category="paragraph">Trident bietet eingeschränkten Datenschutz für ASA r2-Systeme mit Trident protect.</block>
+  <block id="cffdc7c8af3edd8e2ab5d0909a02f4de" category="paragraph">Unterstützte SAN-Protokolle hängen von Ihrer Trident Version ab:</block>
+  <block id="03d5e46618c7e3ad868d5cc4c591541d" category="list-text">Trident 25.02 und höher unterstützt iSCSI.</block>
+  <block id="24525e30a5445d5265dd96c923474e0b" category="list-text">Trident 25.06 und höher unterstützt NVMe/TCP zusätzlich zu iSCSI.</block>
+  <block id="ecca84ff6726050090920a9604fbfcd7" category="inline-link-macro">Zuweisung von Aggregaten zu SVMs in ASA r2 systems</block>
+  <block id="836a7be3aded6bf9559fc22ee97ff832" category="paragraph">Sie müssen der Storage Virtual Machine (SVM) für ONTAP-Backend-Speicher mindestens ein Aggregat zuweisen. Siehe <block ref="bd23fed717350000765127c8eeba8bcd" category="inline-link-macro-rx"></block> für Anweisungen.</block>
+  <block id="ac0a767cbb7c3c86dc3232476a98bbc3" category="list-text">Bereitstellung persistenter Volumes (PVs)</block>
+  <block id="ada2ae8373a77b5749935256495dfb92" category="list-text">Dynamische Volumenbereitstellung</block>
+  <block id="089b1a74c440f41311e9edfc9ff25527" category="list-text">Erstellen und Löschen von Volumes</block>
+  <block id="e77f59d55c87b3814d3c452702e1dfba" category="list-text">Klonen von Volumes</block>
+  <block id="eee7162a80343b2de9595157208fa532" category="list-text">Erweiterung von Volumes</block>
+  <block id="b1b368e04c91cca604a13b06c7dfb557" category="list-text">Verwaltung von Speicherklassen</block>
+  <block id="e870a9b4efff663e4e1757bb4a0aa6f8" category="section-title">Nicht unterstützte Operationen</block>
+  <block id="d384359ca03c8d46191c719c57744679" category="list-text">SnapMirror Volume-Replikation</block>
+  <block id="1ff3ec0458fe354a7b9f7acc8fb7b9f5" category="list-text">Begrenzung der Aggregatnutzung</block>
+  <block id="1f32a40978f39d073c959d3ec9961b1f" category="list-text">Platzreservierungsmodus</block>
+  <block id="337c62c6b6eb7319bae58701105e889c" category="list-text">Tiering</block>
+  <block id="454ba6b6bbd094d40f864704d90b4115" category="paragraph">Weitere Informationen finden Sie unter <block ref="f2fd3fe662daf33e514604a72251389c" category="inline-link-macro-rx"></block>.</block>
+  <block id="1f5fbd447c15161203715e6f0823f9b9" category="list-text">Lokale NetApp FAS, AFF und ASA Systeme. SnapMirror-Replikation mit Trident protect wird derzeit für ASA r2 Systeme nicht unterstützt.</block>
+  <block id="5fe3ac61fd2f23e7440a79d235449950" category="paragraph">Trident nutzt verschiedene Ports für die Kommunikation innerhalb von Kubernetes-Clustern und mit Storage-Backends. Im Folgenden finden Sie eine Zusammenfassung der wichtigsten Ports, ihrer Zwecke und Sicherheitsaspekte.</block>
+  <block id="e2982759423bea2e9baa4036efa43f81" category="list-text">**Ausgehender Fokus**: Kubernetes-Knoten (Controller und Worker) initiieren primär Datenverkehr zu Storage-LIFs/IPs, daher sollten iptables-Regeln ausgehenden Datenverkehr von Knoten-IPs zu bestimmten Storage-IPs auf diesen Ports zulassen. Vermeiden Sie allgemeine „Beliebig-zu-Beliebig“-Regeln.</block>
+  <block id="681cfe808cf35feaa5d801ba50b9c5cc" category="list-text">**Eingehende Beschränkungen**: Beschränken Sie interne Trident-Ports auf clusterinternen Datenverkehr (zum Beispiel mit CNI wie Calico). Keine unnötige eingehende Exponierung auf den Host-Firewalls.</block>
+  <block id="f29e70ae71d7c67e0e41be9d799c9758" category="list-text">**Protokollsicherheit**:</block>
+  <block id="2f6bfc90489de7a6d13557b533b73460" category="list-text">Verwenden Sie nach Möglichkeit TCP (zuverlässiger).</block>
+  <block id="7bf05dc714b02fad656efe3370a56e01" category="list-text">Aktivieren Sie CHAP/IPsec für iSCSI, falls sensibel; TLS/HTTPS für das Management (Port 443/8443).</block>
+  <block id="f62007db80d73ad43dce4c1fa0334b16" category="list-text">Für NFSv4 (Standard in Trident) entfernen Sie UDP-/ältere NFSv3-Ports (zum Beispiel 4045-4049), wenn sie nicht benötigt werden.</block>
+  <block id="751bb9af94ec54a8edaca4c36a03f76c" category="list-text">Beschränken Sie auf vertrauenswürdige Subnetze; überwachen Sie mit Tools wie Prometheus (optional Port 8001).</block>
+  <block id="565b3a71c341951cb7f354a90940b314" category="section-title">Anschlüsse für Controller-Knoten</block>
+  <block id="783c8826af4fe8c51d5710ed5e3d6c58" category="paragraph">Diese Ports sind primär für den Trident operator (Backend-Management) vorgesehen. Alle internen Ports sind auf Pod-Ebene; erlauben Sie sie auf Knoten nur, wenn die Host-Firewall mit CNI interferiert.</block>
+  <block id="49cb55259b6d9f7eff23cbf8f9750d2a" category="cell">Port/Protokoll</block>
+  <block id="02674a4ef33e11c879283629996c8ff8" category="cell">Richtung</block>
+  <block id="9a7986fa4f21a724e065da32ce7d3066" category="cell">Treiber/Protokoll</block>
+  <block id="2d3dc2a8d266c55a1864348f4ea58c78" category="cell">Sicherheitshinweise</block>
+  <block id="ed79fc67fc7562b584de17e5742957b1" category="cell">TCP 8000</block>
+  <block id="16fca17bec0c66d6aa78c616ca13106b" category="cell">Eingehend/Ausgehend (cluster-intern)</block>
+  <block id="a61cba730436c85663a090b4228935c5" category="cell">Trident REST server (Operator-Controller-Kommunikation)</block>
+  <block id="8a8f9f4c3a3787f1beebb13b7b03fe07" category="cell">Beschränken Sie auf Pod-CIDRs; keine externe Exposition.</block>
+  <block id="9f8b178d72fff26453bd078cf20f89af" category="cell">TCP 8443</block>
+  <block id="5a8608210bb719e47153c9e710f2b605" category="cell">Backchannel HTTPS (sichere interne API)</block>
+  <block id="19234386359486cb6edf789dc52f67be" category="cell">TLS-verschlüsselt; auf Kubernetes Service Mesh beschränken, falls verwendet.</block>
+  <block id="63d8247b7d66e8caf2f2b5b5e87711e2" category="cell">TCP 8001</block>
+  <block id="de02f7d96ec96f8e02385ab82def439d" category="cell">Eingehend (clusterintern, optional)</block>
+  <block id="b423acbee70ba15b7aac2689d6dea6e8" category="cell">Prometheus-Metriken</block>
+  <block id="28f8d2aaf87b70e75aa6cb3773525ee1" category="cell">Nur für Überwachungstools (zum Beispiel mit RBAC) zugänglich machen; deaktivieren, wenn nicht verwendet.</block>
+  <block id="5f76d762520637f1eb1b8dd5e4b71129" category="cell">TCP 443</block>
+  <block id="4c32be4a0b4f48cdd593aef35fd69e44" category="cell">Ausgehend</block>
+  <block id="cf67cfc68c8e1671ed7d3ad8cac69c46" category="cell">HTTPS zu ONTAP SVM/Cluster-Mgmt LIF</block>
+  <block id="6650aa04d5ec7c2961db034c14303e0f" category="cell">ONTAP (alle), ANF</block>
+  <block id="10e43a998d86b200b20657f765ddd75b" category="cell">TLS-Zertifikatvalidierung erforderlich; nur auf mgmt LIF-IPs beschränken.</block>
+  <block id="46c9630e17f6ff51a1956eb0c7182222" category="cell">HTTPS-zu-E-Series-Web Services Proxy</block>
+  <block id="545e0bbe79f819dd2f2cabc97dd208ce" category="cell">E-Series (iSCSI)</block>
+  <block id="4aa291503889bd2e31fa7f227ae35e0c" category="cell">Standardmäßige REST API; Verwendung von Zertifikaten; konfigurierbar im Backend-YAML.</block>
+  <block id="843f43e25b08cd1f2c8762e49c96a5bf" category="section-title">Ports für Worker-Knoten</block>
+  <block id="c50e450235c9b86b6cb22269b47efcb6" category="paragraph">Diese Ports sind für CSI-Knoten-Daemonsets und Pod-Mounts vorgesehen. Datenports sind ausgehende Verbindungen zu Storage Data LIFs; fügen Sie NFSv3-Extras hinzu, wenn Sie NFSv3 verwenden (optional für NFSv4).</block>
+  <block id="794520b5e223ab54911ea56429f96a91" category="cell">TCP 17546</block>
+  <block id="b7c4daebc7f2ca5e5eea2603b9a8f807" category="cell">Eingehend (lokal zum Pod)</block>
+  <block id="df2d51347a3094292537492dd5e61719" category="cell">CSI-Knoten-Liveness/Readiness-Probes</block>
+  <block id="06432368f5e2df3d3bb0fcd07dcf1dd3" category="cell">Konfigurierbar (--probe-port); sicherstellen, dass keine Host-Konflikte bestehen; nur lokal.</block>
+  <block id="6c5435b7d0340c74ab42c32c0387929e" category="cell">Wie oben; pod-internal.</block>
+  <block id="a1f4108def709cd298286164d2417d92" category="cell">Wie oben.</block>
+  <block id="03630046046996e9534e611992df8433" category="cell">Wie oben; wird zur Ermittlung verwendet.</block>
+  <block id="7dc6151116748c06820707b3267ee0b6" category="cell">TCP/UDP 111</block>
+  <block id="3ee12b938a2552d8e7e829deac4f0d88" category="cell">RPCBIND/portmapper</block>
+  <block id="ee36adb297d92e86dd9cb9a6294bafe2" category="cell">ONTAP-NAS (NFSv3/v4), ANF (NFS)</block>
+  <block id="22514c1437249e60404f00fd34a14237" category="cell">Erforderlich für v3; optional für v4 (firewall offload); einschränken, wenn ausschließlich NFSv4 verwendet wird.</block>
+  <block id="a44b673cbbbd63bfa33d42c853f57439" category="cell">TCP/UDP 2049</block>
+  <block id="5cf46b19bdb5ea243def7352324db5af" category="cell">NFS-Daemon</block>
+  <block id="a3d5e36471b118748b9809c728b8706e" category="cell">Kerndaten; bekannt; TCP für Zuverlässigkeit verwenden.</block>
+  <block id="dadf63f06e80201d3184f2640cd298b6" category="cell">TCP/UDP 635</block>
+  <block id="5e2f8c4b43975de24c7ce83515735445" category="cell">Mount-Daemon</block>
+  <block id="e5244c0346406a928b4ea917313fa4cc" category="cell">Montage; bidirektionale Rückrufe möglich (bei Bedarf eingehende ephemere Verbindungen zulassen).</block>
+  <block id="efa93c17e157e1d5090386967cdb26d5" category="cell">UDP 4045</block>
+  <block id="e34b81b15f0605845bbab2e62b941e95" category="cell">NFS-Sperrmanager (nlockmgr)</block>
+  <block id="b4d2b01fa2642e452f75d6c9ea84c896" category="cell">ONTAP-NAS (NFSv3)</block>
+  <block id="c9757b3b9c0d43496934cc5c61f0ea25" category="cell">Dateisperrung; für v4 überspringen (pNFS handles); nur UDP.</block>
+  <block id="0ad88ddb156af6c77a62e3c422bb6ed6" category="cell">UDP 4046</block>
+  <block id="0c07a3f50bfead8133f677c80315e5d8" category="cell">NFS-Statusmonitor (statd)</block>
+  <block id="03d50f6c0f603a7631c255847730fefb" category="cell">Benachrichtigungen; möglicherweise werden eingehende ephemere Ports (1024-65535) für Rückrufe benötigt.</block>
+  <block id="e8ca37106ef4a4e019c15bac46839edf" category="cell">UDP 4049</block>
+  <block id="d79dad3c12c4aa05664c9bfe4f78c368" category="cell">NFS-Quota-Daemon (rquotad)</block>
+  <block id="e716de1c754186f3826191be4310a6ec" category="cell">Kontingente; für v4 überspringen.</block>
+  <block id="7225e1eb3c81ceb83eca870b64334c8e" category="cell">TCP 3260</block>
+  <block id="10dea8cd911f137e3f289e9bc8c190fd" category="cell">iSCSI-Ziel (Erkennung/Daten/CHAP)</block>
+  <block id="c3968e18b5ea3f1ad6700d9f28c5b63c" category="cell">ONTAP-SAN (iSCSI), E-Series (iSCSI)</block>
+  <block id="f4900033adabb00fef579ccb7d75c8e4" category="cell">Bekannt; CHAP-Authentifizierung über diesen Port; gegenseitiges CHAP zur Sicherheit aktivieren.</block>
+  <block id="044b07266a6afd8cc1a38120b7907315" category="cell">TCP 445</block>
+  <block id="8d3f3d8ac4e0e2e8685821807920a78e" category="cell">SMB/CIFS</block>
+  <block id="6394b139c6fcce1d63f8ea67aefe460e" category="cell">ONTAP-NAS (SMB), ANF (SMB)</block>
+  <block id="918bdaecf248faba54fe168bb49b4ff7" category="cell">Bekannt; verwenden Sie SMB3 mit Verschlüsselung (Trident annotation netapp.io/smb-encryption=true).</block>
+  <block id="f95ea8d2892ce46d82a41cfe5cc6c7fc" category="cell">TCP/UDP 88 (optional)</block>
+  <block id="9294e74dcbe2d6fc0a9314c3ffc93c9e" category="cell">Kerberos-Authentifizierung</block>
+  <block id="193d69cdf4103022467d6eb1dda6d79a" category="cell">ONTAP (NFS/SMB/iSCSI mit Kerb)</block>
+  <block id="b4c57a4577c26a1346db38afa8cf748a" category="cell">Bei Verwendung von Kerberos (nicht Standardeinstellung); zu AD-Servern, nicht zum Storage.</block>
+  <block id="b7b67c3b8a1dc9a73ad39cc47db63176" category="cell">TCP/UDP 389 (optional)</block>
+  <block id="2363dee608bcd9f6ce7f980bfdad5789" category="cell">LDAP</block>
+  <block id="1dba8f0975c45572eb495fa5122b37e8" category="cell">ONTAP (NFS/SMB mit LDAP)</block>
+  <block id="b7f43df36fb2e13c1c3d456da9ceba9e" category="cell">Ähnlich; für Namensauflösung/Authentifizierung; auf AD beschränken.</block>
+  <block id="e447b6c9645ce6cd63337d813a552cd5" category="sidebar">Trident Support für ASA r2-Speichersysteme</block>
 </blocks>

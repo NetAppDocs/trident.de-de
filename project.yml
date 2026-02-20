@@ -41,6 +41,8 @@ sidebar:
       url: "/trident-rn.html"
     - title: Frühere Versionen
       url: "/earlier-versions.html"
+    - title: Trident Support für ASA r2-Speichersysteme
+      url: "/trident-asar2-support.html"
     - title: Bekannte Probleme
       url: "/known-issues.html"
   - section: trident-get-started

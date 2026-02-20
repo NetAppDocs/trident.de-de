@@ -16,25 +16,104 @@ Erfahren Sie mehr über die Ports, die Trident für die Kommunikation verwendet.
 
 
 
-== Trident-Ports
+== Überblick
 
-Trident verwendet die folgenden Ports für die Kommunikation innerhalb von Kubernetes:
+Trident nutzt verschiedene Ports für die Kommunikation innerhalb von Kubernetes-Clustern und mit Storage-Backends. Im Folgenden finden Sie eine Zusammenfassung der wichtigsten Ports, ihrer Zwecke und Sicherheitsaspekte.
 
-[cols="2,4"]
+* **Ausgehender Fokus**: Kubernetes-Knoten (Controller und Worker) initiieren primär Datenverkehr zu Storage-LIFs/IPs, daher sollten iptables-Regeln ausgehenden Datenverkehr von Knoten-IPs zu bestimmten Storage-IPs auf diesen Ports zulassen. Vermeiden Sie allgemeine „Beliebig-zu-Beliebig“-Regeln.
+* **Eingehende Beschränkungen**: Beschränken Sie interne Trident-Ports auf clusterinternen Datenverkehr (zum Beispiel mit CNI wie Calico). Keine unnötige eingehende Exponierung auf den Host-Firewalls.
+* **Protokollsicherheit**:
++
+** Verwenden Sie nach Möglichkeit TCP (zuverlässiger).
+** Aktivieren Sie CHAP/IPsec für iSCSI, falls sensibel; TLS/HTTPS für das Management (Port 443/8443).
+** Für NFSv4 (Standard in Trident) entfernen Sie UDP-/ältere NFSv3-Ports (zum Beispiel 4045-4049), wenn sie nicht benötigt werden.
+** Beschränken Sie auf vertrauenswürdige Subnetze; überwachen Sie mit Tools wie Prometheus (optional Port 8001).
+
+
+
+
+
+
+=== Anschlüsse für Controller-Knoten
+
+Diese Ports sind primär für den Trident operator (Backend-Management) vorgesehen. Alle internen Ports sind auf Pod-Ebene; erlauben Sie sie auf Knoten nur, wenn die Host-Firewall mit CNI interferiert.
+
+[cols="1,1,2,1,2"]
 |===
-| Port | Zweck 
+| Port/Protokoll | Richtung | Zweck | Treiber/Protokoll | Sicherheitshinweise 
 
 
-| 8443 | Backchannel HTTPS 
+| TCP 8000 | Eingehend/Ausgehend (cluster-intern) | Trident REST server (Operator-Controller-Kommunikation) | Alle | Beschränken Sie auf Pod-CIDRs; keine externe Exposition. 
 
 
-| 8001 | Endpunkt der Prometheus Kennzahlen 
+| TCP 8443 | Eingehend/Ausgehend (cluster-intern) | Backchannel HTTPS (sichere interne API) | Alle | TLS-verschlüsselt; auf Kubernetes Service Mesh beschränken, falls verwendet. 
 
 
-| 8000 | Trident REST-Server 
+| TCP 8001 | Eingehend (clusterintern, optional) | Prometheus-Metriken | Alle | Nur für Überwachungstools (zum Beispiel mit RBAC) zugänglich machen; deaktivieren, wenn nicht verwendet. 
 
 
-| 17546 | Anschluss für Liveness/Readiness-Sonde, der von Trident Demonset-Pods verwendet wird 
+| TCP 443 | Ausgehend | HTTPS zu ONTAP SVM/Cluster-Mgmt LIF | ONTAP (alle), ANF | TLS-Zertifikatvalidierung erforderlich; nur auf mgmt LIF-IPs beschränken. 
+
+
+| TCP 8443 | Ausgehend | HTTPS-zu-E-Series-Web Services Proxy | E-Series (iSCSI) | Standardmäßige REST API; Verwendung von Zertifikaten; konfigurierbar im Backend-YAML. 
+|===
+
+
+=== Ports für Worker-Knoten
+
+Diese Ports sind für CSI-Knoten-Daemonsets und Pod-Mounts vorgesehen. Datenports sind ausgehende Verbindungen zu Storage Data LIFs; fügen Sie NFSv3-Extras hinzu, wenn Sie NFSv3 verwenden (optional für NFSv4).
+
+[cols="1,1,2,1,2"]
+|===
+| Port/Protokoll | Richtung | Zweck | Treiber/Protokoll | Sicherheitshinweise 
+
+
+| TCP 17546 | Eingehend (lokal zum Pod) | CSI-Knoten-Liveness/Readiness-Probes | Alle | Konfigurierbar (--probe-port); sicherstellen, dass keine Host-Konflikte bestehen; nur lokal. 
+
+
+| TCP 8000 | Eingehend/Ausgehend (cluster-intern) | Trident REST-Server | Alle | Wie oben; pod-internal. 
+
+
+| TCP 8443 | Eingehend/Ausgehend (cluster-intern) | Backchannel HTTPS | Alle | Wie oben. 
+
+
+| TCP 8001 | Eingehend (clusterintern, optional) | Prometheus-Metriken | Alle | Wie oben. 
+
+
+| TCP 443 | Ausgehend | HTTPS zu ONTAP SVM/Cluster-Mgmt LIF | ONTAP (alle), ANF | Wie oben; wird zur Ermittlung verwendet. 
+
+
+| TCP 8443 | Ausgehend | HTTPS-zu-E-Series-Web Services Proxy | E-Series (iSCSI) | Wie oben. 
+
+
+| TCP/UDP 111 | Ausgehend | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Erforderlich für v3; optional für v4 (firewall offload); einschränken, wenn ausschließlich NFSv4 verwendet wird. 
+
+
+| TCP/UDP 2049 | Ausgehend | NFS-Daemon | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Kerndaten; bekannt; TCP für Zuverlässigkeit verwenden. 
+
+
+| TCP/UDP 635 | Ausgehend | Mount-Daemon | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Montage; bidirektionale Rückrufe möglich (bei Bedarf eingehende ephemere Verbindungen zulassen). 
+
+
+| UDP 4045 | Ausgehend | NFS-Sperrmanager (nlockmgr) | ONTAP-NAS (NFSv3) | Dateisperrung; für v4 überspringen (pNFS handles); nur UDP. 
+
+
+| UDP 4046 | Ausgehend | NFS-Statusmonitor (statd) | ONTAP-NAS (NFSv3) | Benachrichtigungen; möglicherweise werden eingehende ephemere Ports (1024-65535) für Rückrufe benötigt. 
+
+
+| UDP 4049 | Ausgehend | NFS-Quota-Daemon (rquotad) | ONTAP-NAS (NFSv3) | Kontingente; für v4 überspringen. 
+
+
+| TCP 3260 | Ausgehend | iSCSI-Ziel (Erkennung/Daten/CHAP) | ONTAP-SAN (iSCSI), E-Series (iSCSI) | Bekannt; CHAP-Authentifizierung über diesen Port; gegenseitiges CHAP zur Sicherheit aktivieren. 
+
+
+| TCP 445 | Ausgehend | SMB/CIFS | ONTAP-NAS (SMB), ANF (SMB) | Bekannt; verwenden Sie SMB3 mit Verschlüsselung (Trident annotation netapp.io/smb-encryption=true). 
+
+
+| TCP/UDP 88 (optional) | Ausgehend | Kerberos-Authentifizierung | ONTAP (NFS/SMB/iSCSI mit Kerb) | Bei Verwendung von Kerberos (nicht Standardeinstellung); zu AD-Servern, nicht zum Storage. 
+
+
+| TCP/UDP 389 (optional) | Ausgehend | LDAP | ONTAP (NFS/SMB mit LDAP) | Ähnlich; für Namensauflösung/Authentifizierung; auf AD beschränken. 
 |===
 
 NOTE: Der Anschluss der Liveness/Readiness-Sonde kann während der Installation mit dem geändert werden `--probe-port` Flagge. Es ist wichtig, sicherzustellen, dass dieser Port nicht von einem anderen Prozess auf den Worker-Knoten verwendet wird.
