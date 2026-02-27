@@ -248,6 +248,7 @@ Eine Schutzrichtlinie schützt eine App, indem sie nach einem festgelegten Zeitp
 ** *spec.dayOfWeek*: (_Optional_) Der Wochentag (0 - 7), an dem der Zeitplan ausgeführt werden soll.  Werte von 0 oder 7 zeigen Sonntag an.  Dieses Feld ist erforderlich, wenn die Granularität auf `Weekly` .  Der Wert muss als Zeichenfolge angegeben werden.
 ** *spec.hour*: (_Optional_) Die Stunde des Tages (0 - 23), zu der der Zeitplan ausgeführt werden soll.  Dieses Feld ist erforderlich, wenn die Granularität auf `Daily` , `Weekly` , oder `Monthly` .  Der Wert muss als Zeichenfolge angegeben werden.
 ** *spec.minute*: (_Optional_) Die Minute der Stunde (0 – 59), zu der der Zeitplan ausgeführt werden soll.  Dieses Feld ist erforderlich, wenn die Granularität auf `Hourly` , `Daily` , `Weekly` , oder `Monthly` .  Der Wert muss als Zeichenfolge angegeben werden.
+** *spec.runImmediately*: (_Optional_) Auf  `true` setzen, um beim Erstellen des Zeitplans einen einmaligen, sofortigen Baseline-Lauf (Backup und/oder Snapshot gemäß den Aufbewahrungseinstellungen) auszulösen. Standardmäßig  `false`. Dies ändert die nachfolgende Wiederholung nicht.
 +
 Beispiel-YAML für Sicherungs- und Snapshot-Zeitplan:
 
@@ -290,6 +291,28 @@ spec:
   granularity: Daily
   hour: "2"
   minute: "0"
+----
++
+Beispiel-YAML für einen Zeitplan mit sofortiger Ausführung:
+
++
+[source, yaml]
+----
+---
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  namespace: my-app-namespace
+  name: my-daily-schedule-run-immediately
+spec:
+  applicationRef: my-application
+  appVaultRef: appvault-name
+  backupRetention: "7"
+  snapshotRetention: "7"
+  granularity: Daily
+  hour: "3"
+  minute: "0"
+  runImmediately: true
 ----
 
 
@@ -345,6 +368,7 @@ NOTE: Der `--full-backup-rule` Die Kennzeichnung funktioniert nicht bei stündli
 
 
 
+** *Sofortiger Basisdatenschutz*: Verwenden Sie  `--run-immediately true`, um sofort bei der Erstellung des Zeitplans ein erstes Backup oder einen Snapshot zu erstellen, anstatt auf die erste geplante Ausführung zu warten. Standard ist  `false`.
 ** *Nur Momentaufnahmen-Zeitpläne*: Festlegen `--backup-retention 0` und geben Sie einen Wert größer als Null an für `--snapshot-retention`Die
 
 

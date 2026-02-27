@@ -26,6 +26,25 @@ Um mögliche Fehler zu vermeiden, können Sie alle Snapshot-Zeitpläne vor dem U
 
 
 ====
+
+
+== Schritt 1: Wählen Sie eine Version
+
+Trident Protect-Versionen folgen einer datumsbasierten `YY.MM` Namenskonvention, wobei „YY“ die letzten beiden Ziffern des Jahres und „MM“ der Monat sind. Dot-Releases folgen einer `YY.MM.X` Konvention, wobei „X“ das Patch-Level ist. Sie wählen die Version aus, auf die Sie aktualisieren möchten, basierend auf der Version, von der Sie aktualisieren.
+
+* Sie können ein direktes Upgrade auf jede Zielversion durchführen, die innerhalb eines Vier-Versions-Fensters Ihrer installierten Version liegt. Beispielsweise können Sie direkt von 24.10 (oder jeder 24.10 dot release) auf 25.10 aktualisieren.
+* Wenn Sie von einer Version außerhalb des Vier-Versions-Fensters aktualisieren, führen Sie ein mehrstufiges Upgrade durch. Verwenden Sie die Upgrade-Anweisungen für die link:../earlier-versions.html["Frühere Version"] Version, von der Sie aktualisieren, um auf die neueste Version zu aktualisieren, die in das Vier-Versions-Fenster passt. Wenn Sie beispielsweise 24.10 verwenden und auf 26.02 aktualisieren möchten:
++
+.. Erstes Upgrade von 24.10 auf 25.02.
+.. Führen Sie dann ein Upgrade von 25.02 auf 26.02 durch.
+
+
+
+
+
+
+== Schritt 2: Trident Protect aktualisieren
+
 Um Trident Protect zu aktualisieren, führen Sie die folgenden Schritte aus.
 
 .Schritte

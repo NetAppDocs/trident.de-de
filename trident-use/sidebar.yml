@@ -20,6 +20,8 @@ entries:
     entries:
     - title: Überblick
       url: "/trident-use/gcnv.html"
+    - title: Blockspeicher konfigurieren
+      url: "/trident-use/gcnv-block.html"
     - title: Konfiguration vorbereiten
       url: "/trident-use/gcnv-prep.html"
     - title: Konfigurationsoptionen und Beispiele
@@ -52,6 +54,8 @@ entries:
       url: "/trident-use/trident-fsx-install-trident.html"
     - title: Konfiguration des Storage-Back-End
       url: "/trident-use/trident-fsx-storage-backend.html"
+    - title: Automatische Backend-Konfiguration konfigurieren
+      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
     - title: Storage-Klasse und PVC konfigurieren
       url: "/trident-use/trident-fsx-storageclass-pvc.html"
     - title: Beispielanwendung bereitstellen
@@ -80,6 +84,12 @@ entries:
     url: "/trident-use/vol-provision.html"
   - title: Erweitern Sie Volumes
     url: "/trident-use/vol-expansion.html"
+  - title: Grenzen des RWX NVMe-Subsystems verstehen
+    url: "/trident-use/trident-nvme-rwx-subsystem-limits.html"
+  - title: Controller-Skalierbarkeit
+    url: "/trident-use/controller-scalability.html"
+  - title: Automatische Volumenerweiterung
+    url: "/trident-use/automatic-volume-expansion.html"
   - title: Volumes importieren
     url: "/trident-use/vol-import.html"
   - title: Anpassen von Volume-Namen
