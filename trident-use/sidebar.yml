@@ -26,6 +26,8 @@ entries:
       url: "/trident-use/gcnv-prep.html"
     - title: Konfigurationsoptionen und Beispiele
       url: "/trident-use/gcnv-examples.html"
+    - title: Automatisches Tiering konfigurieren
+      url: "/trident-use/gcnv-auto-tiering.html"
   - title: NetApp HCI oder SolidFire
     url: "/trident-use/element.html"
   - title: ONTAP-SAN-Treiber
@@ -54,8 +56,10 @@ entries:
       url: "/trident-use/trident-fsx-install-trident.html"
     - title: Konfiguration des Storage-Back-End
       url: "/trident-use/trident-fsx-storage-backend.html"
-    - title: Automatische Backend-Konfiguration konfigurieren
-      url: "/trident-use/trident-fsx-auto-backend-configuration.html"
+    - title: Erstellen Sie eine Autogrow-Richtlinie
+      url: "/trident-use/automatic-volume-expansion.html"
+    - title: Eine Autogrow-Richtlinie verwalten
+      url: "/trident-use/create-autogrow-policy.html"
     - title: Storage-Klasse und PVC konfigurieren
       url: "/trident-use/trident-fsx-storageclass-pvc.html"
     - title: Beispielanwendung bereitstellen

@@ -26,6 +26,7 @@ Trident Protect ist mit einer Vielzahl von vollständig verwalteten und selbstve
 * Google Kubernetes Engine (GKE)
 * Microsoft Azure Kubernetes Service (AKS)
 * Red hat OpenShift
+* SUSE Harvester 1.7.0 (ONTAP iSCSI)
 * SUSE Rancher
 * VMware Tanzu Portfolio
 * Vorgelagerte Kubernetes-Systeme

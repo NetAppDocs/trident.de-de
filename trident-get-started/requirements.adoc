@@ -42,16 +42,12 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
 * Kubernetes 1.27 - 1.35
-* OpenShift 4.12, 4.14 - 4.20 (Wenn Sie die iSCSI-Knotenvorbereitung mit OpenShift 4.19 verwenden möchten, ist die minimal unterstützte Trident Version 25.06.1.)
+* OpenShift 4.12, 4.14 - 4.21 (Wenn Sie die iSCSI-Knotenvorbereitung mit OpenShift 4.19 verwenden möchten, ist die minimal unterstützte Trident-Version 25.06.1.)
 +
 
 NOTE: Trident unterstützt weiterhin ältere OpenShift-Versionen im Einklang mit derlink:https://access.redhat.com/support/policy/updates/openshift["Red Hat Extended Update Support (EUS) Release-Lebenszyklus"] , auch wenn sie auf Kubernetes-Versionen basieren, die vom Upstream nicht mehr offiziell unterstützt werden.  In solchen Fällen können Sie bei der Installation von Trident alle Warnmeldungen zur Kubernetes-Version getrost ignorieren.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.34.x
-+
-
-NOTE: _Während Trident auf Rancher Kubernetes Engine 2 (RKE2) Versionen 1.27.x – 1.34.x unterstützt wird, ist Trident derzeit nur auf RKE2 v1.28.5+rke2r1 qualifiziert._
-
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.35.x
 
 
 Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbst gemanagter Kubernetes-Angebote eingesetzt werden, wie z. B. Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) und VMware Tanzu Portfolio.
@@ -228,8 +224,8 @@ Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz 
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0  a| 
-* docker.io/netapp/trident:26.02.0
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.35.0  a| 
+* docker.io/netapp/trident:25.10.0
 * docker.io/netapp/trident-autosupport:25.10
 * registry.k8s.io/sig-storage/csi-provisioner:v5.3.0
 * registry.k8s.io/sig-storage/csi-attacher:v4.10.0
