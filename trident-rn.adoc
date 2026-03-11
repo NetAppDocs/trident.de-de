@@ -122,7 +122,7 @@ Zwei Workarounds sind verfügbar:
 
 
 
-== Was ist neu in Version 25.10?
+== Was ist neu in 26.02
 
 Erfahren Sie mehr über die Neuerungen in Trident und Trident Protect, einschließlich Verbesserungen, Fehlerbehebungen und veralteter Funktionen.
 
@@ -148,7 +148,7 @@ Erfahren Sie mehr über die Neuerungen in Trident und Trident Protect, einschlie
 
 
 * Es wurde eine Option hinzugefügt, mit der der Trident -Controller die Host-Netzwerkfunktionen über Helm, Operator und tridentctl nutzen kann (link:https://github.com/NetApp/trident/issues/858["Ausgabe Nr. 858"] ).
-* Dem ANF-Treiber wurde die manuelle QoS-Unterstützung hinzugefügt, wodurch er in Trident 25.10 produktionsreif ist; diese experimentelle Erweiterung wurde in Trident 25.06 eingeführt.
+* Dem ANF-Treiber wurde die manuelle QoS-Unterstützung hinzugefügt, wodurch er in Trident 26.02 produktionsreif ist; diese experimentelle Erweiterung wurde in Trident 25.06 eingeführt.
 
 
 

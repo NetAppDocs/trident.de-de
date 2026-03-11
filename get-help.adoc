@@ -33,6 +33,11 @@ Self-Support:: Die Trident-Dokumentation ist ab Veröffentlichungsdatum für die
 
 
  a| 
+link:https://docs.netapp.com/us-en/trident/index.html["26,02"^]
+| Februar 2026 | Februar 2027 | Februar 2028 
+
+
+ a| 
 link:https://docs.netapp.com/us-en/trident/index.html["25,10"^]
 | Oktober 2026 | Oktober 2027 | Oktober 2028 
 
