@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/openshift-certified-operator-deploy.html 
-keywords: deploy, trident, methods, operator, openshift, operatorhub, certified operator, community operator 
-summary: Wenn Sie Red hat OpenShift verwenden, können Sie das Trident über einen Operator installieren. 
+permalink: trident-install/openshift-certified-operator-deploy.html 
+keywords: deploy, trident, methods, operator, openshift, operatorhub, certified operator, community operator, helm 
+summary: Wenn Sie Red Hat OpenShift verwenden, können Sie vom Community-Operator, einer Helm-basierten Installation oder einem manuell bereitgestellten Operator zum zertifizierten Trident-Operator wechseln. 
 ---
-= Wechseln Sie vom Trident-Community-Betreiber zum zertifizierten Betreiber von OpenShift
+= Wechseln Sie zum OpenShift zertifizierten Trident Operator
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -12,14 +12,17 @@ summary: Wenn Sie Red hat OpenShift verwenden, können Sie das Trident über ein
 
 
 [role="lead"]
-Um vom NetApp Community Trident Operator zum Red hat OpenShift zertifizierten Trident Operator zu wechseln, müssen Sie den Community Operator deinstallieren und anschließend den zertifizierten Operator über den OperatorHub installieren.
+Sie können vom Community-Operator, einer Helm-basierten Installation oder einem manuell bereitgestellten Operator zum Red Hat OpenShift zertifizierten Trident-Operator wechseln. Der Vorgang umfasst bei jeder Methode die Deinstallation des vorhandenen Operators und anschließend die Installation des zertifizierten Operators mithilfe des OperatorHub.
 
 .Bevor Sie beginnen
 Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirements.html["Bereiten Sie Ihre Umgebung für die Trident-Installation vor"].
 
 
+IMPORTANT: Löschen Sie die `TridentOrchestrator` benutzerdefinierte Ressource (CR) während des Deinstallationsvorgangs nicht. Die `TridentOrchestrator` CR bewahrt Ihre Backend- und Speicherklassenkonfiguration, die nach der Installation des zertifizierten Operators erforderlich ist.
 
-== Deinstallieren Sie den NetApp Trident-Community-Operator
+
+
+== Wechseln Sie vom Community Operator
 
 .Schritte
 . Verwenden Sie die OpenShift-Konsole, um zum OperatorHub zu navigieren.
@@ -35,11 +38,48 @@ image::../media/openshift-operator-06.png[Installiert]
 WARNING: Wählen Sie nicht *Alle Operanden-Instanzen von diesem Operator löschen*.
 
 . Klicken Sie Auf *Deinstallieren*.
+. Nach Abschluss der Deinstallation fahren Sie mit <<install-certified,Installieren Sie den OpenShift zertifizierten Operator>> fort.
 
 
 
 
-== Installieren Sie den OpenShift Certified Operator
+== Wechsel von einer Helm-basierten Operator-Installation
+
+.Schritte
+. Listen Sie das Helm-Release für Ihre Trident Installation auf:
++
+[listing]
+----
+helm ls -n trident
+----
+. Deinstallieren Sie das Helm-Release:
++
+[listing]
+----
+helm uninstall <release-name> -n trident
+----
+. Nach Abschluss der Deinstallation fahren Sie mit <<install-certified,Installieren Sie den OpenShift zertifizierten Operator>> fort.
+
+
+
+
+== Wechsel von einem manuell bereitgestellten Operator
+
+Wenn Sie Trident durch manuelle Bereitstellung des Operators mithilfe eines  `bundle.yaml` aus dem Installationspaket installiert haben, entfernen Sie ihn, indem Sie dasselbe Manifest löschen.
+
+.Schritte
+. Löschen Sie die Operator-Bereitstellung mithilfe des Bundle-Manifests:
++
+[listing]
+----
+kubectl delete -f deploy/bundle.yaml -n trident
+----
+. Nach Abschluss der Deinstallation fahren Sie mit <<install-certified,Installieren Sie den OpenShift zertifizierten Operator>> fort.
+
+
+
+
+== Installieren Sie den OpenShift zertifizierten Operator
 
 .Schritte
 . Navigieren Sie zum Red hat OperatorHub.
