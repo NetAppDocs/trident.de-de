@@ -86,7 +86,7 @@ Diese Ports sind für CSI-Knoten-Daemonsets und Pod-Mounts vorgesehen. Datenport
 | TCP 8443 | Ausgehend | HTTPS-zu-E-Series-Web Services Proxy | E-Series (iSCSI) | Wie oben. 
 
 
-| TCP/UDP 111 | Ausgehend | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Erforderlich für v3; optional für v4 (firewall offload); einschränken, wenn -only verwendet wird. 
+| TCP/UDP 111 | Ausgehend | RPCBIND/portmapper | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Erforderlich für v3; optional für v4 (firewall offload); einschränken, wenn ausschließlich NFSv4 verwendet wird. 
 
 
 | TCP/UDP 2049 | Ausgehend | NFS-Daemon | ONTAP-NAS (NFSv3/v4), ANF (NFS) | Kerndaten; bekannt; TCP für Zuverlässigkeit verwenden. 

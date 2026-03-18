@@ -16,7 +16,7 @@ Mit der Kerberos-Verschlüsselung während der Übertragung können Sie die Date
 
 Trident unterstützt Kerberos Verschlüsselung für ONTAP als Storage-Back-End:
 
-* *On-premise ONTAP* - Trident unterstützt Kerberos-Verschlüsselung über NFSv3 und Verbindungen von Red Hat OpenShift und Upstream-Kubernetes-Clustern zu On-premise ONTAP Volumes.
+* *On-premise ONTAP* - Trident unterstützt die Kerberos-Verschlüsselung über NFSv3- und NFSv4-Verbindungen von Red Hat OpenShift und Upstream-Kubernetes-Clustern zu On-premise ONTAP Volumes.
 
 
 Sie können Snapshots, Klone, schreibgeschütztes Klonen und Importieren von Volumes mit NFS-Verschlüsselung.
@@ -35,7 +35,7 @@ NOTE: Kerberos-Verschlüsselung für NFS-Datenverkehr mit On-Premise ONTAP-Stora
 * Stellen Sie sicher, dass Sie Administratorzugriff auf das ONTAP Storage Back-End haben.
 * Stellen Sie sicher, dass Sie den Namen des Volumes oder der Volumes kennen, die Sie über das ONTAP-Speicher-Back-End freigeben werden.
 * Stellen Sie sicher, dass Sie die ONTAP-Storage-VM auf die Unterstützung der Kerberos-Verschlüsselung für NFS-Volumes vorbereitet haben. Anweisungen hierzu finden Sie unter https://docs.netapp.com/us-en/ontap/nfs-config/create-kerberos-config-task.html["Aktivieren Sie Kerberos auf einer Daten-LIF"^] .
-* Stellen Sie sicher, dass alle Volumes, die Sie mit Kerberos-Verschlüsselung verwenden, korrekt konfiguriert sind. Siehe den Abschnitt NetApp Domain Configuration (Seite 13) des  https://www.netapp.com/media/16398-tr-3580.pdf["NetApp Enhancements und Best Practices-Leitfaden"^].
+* Stellen Sie sicher, dass alle NFSv4-Volumes, die Sie mit Kerberos-Verschlüsselung verwenden, korrekt konfiguriert sind. Siehe den Abschnitt NetApp NFSv4-Domänenkonfiguration (Seite 13) des  https://www.netapp.com/media/16398-tr-3580.pdf["NetApp NFSv4-Verbesserungen und Best Practices-Leitfaden"^].
 
 
 
@@ -45,7 +45,7 @@ NOTE: Kerberos-Verschlüsselung für NFS-Datenverkehr mit On-Premise ONTAP-Stora
 Sie müssen bestehenden ONTAP-Exportrichtlinien Regeln hinzufügen oder neue Exportrichtlinien erstellen, die Kerberos-Verschlüsselung für das ONTAP Storage-VM-Root-Volume sowie alle mit dem Upstream-Kubernetes-Cluster gemeinsam genutzten ONTAP-Volumes unterstützen. Die von Ihnen hinzugefügten Regeln für die Exportrichtlinie oder neu erstellte Richtlinien für den Export müssen die folgenden Zugriffsprotokolle und Zugriffsberechtigungen unterstützen:
 
 .Zugriffsprotokolle
-Konfigurieren Sie die Exportrichtlinie mit NFS, NFSv3 und Zugriffsprotokollen.
+Konfigurieren Sie die Exportrichtlinie mit den Zugriffsprotokollen NFS, NFSv3 und NFSv4.
 
 .Zugriffsdetails
 Sie können eine von drei verschiedenen Versionen der Kerberos-Verschlüsselung konfigurieren, je nach Ihren Anforderungen für das Volume:
@@ -216,7 +216,7 @@ Sie können die Kerberos-Verschlüsselung für den Storage-Datenverkehr zwischen
 * Stellen Sie sicher, dass Sie Trident auf dem verwalteten Red hat OpenShift-Cluster aktiviert haben.
 * Stellen Sie sicher, dass Sie Zugriff auf das Dienstprogramm haben `tridentctl` .
 * Stellen Sie sicher, dass Sie das Azure NetApp Files-Speicher-Back-End für die Kerberos-Verschlüsselung vorbereitet haben, indem Sie die Anforderungen beachten und die Anweisungen in befolgen https://learn.microsoft.com/en-us/azure/azure-netapp-files/configure-kerberos-encryption["Azure NetApp Files-Dokumentation"^].
-* Stellen Sie sicher, dass alle Volumes, die Sie mit Kerberos-Verschlüsselung verwenden, korrekt konfiguriert sind. Siehe den Abschnitt NetApp Domain Configuration (Seite 13) des  https://www.netapp.com/media/16398-tr-3580.pdf["NetApp Enhancements und Best Practices-Leitfaden"^].
+* Stellen Sie sicher, dass alle NFSv4-Volumes, die Sie mit Kerberos-Verschlüsselung verwenden, korrekt konfiguriert sind. Siehe den Abschnitt NetApp NFSv4-Domänenkonfiguration (Seite 13) des  https://www.netapp.com/media/16398-tr-3580.pdf["NetApp NFSv4-Verbesserungen und Best Practices-Leitfaden"^].
 
 
 
