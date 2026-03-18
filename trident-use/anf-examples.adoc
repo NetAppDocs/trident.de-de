@@ -166,7 +166,7 @@ Sie können die Standard-Volume-Bereitstellung steuern, indem Sie die folgenden 
 `exportRule` Muss eine kommagetrennte Liste beliebiger Kombinationen von IPv4-Adressen oder IPv4-Subnetzen in CIDR-Notation sein. Für SMB Volumes ignoriert. | „0.0.0.0/0“ 
 
 
-| `snapshotDir` | Steuert die Sichtbarkeit des .Snapshot-Verzeichnisses | „Wahr“ für NFSv4 „falsch“ für NFSv3 
+| `snapshotDir` | Zugriff auf die `.snapshot` Verzeichnis | `true`, `false` (explizit festlegen). 
 
 
 | `size` | Die Standardgröße der neuen Volumes | „100 GB“ 

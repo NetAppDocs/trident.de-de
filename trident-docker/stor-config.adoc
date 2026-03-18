@@ -232,7 +232,16 @@ NAS-Option für bereitgestellte NFS-Volumes, standardmäßig auf `777`
 | `snapshotDir`  a| 
 NAS-Option für den Zugriff auf das `.snapshot` Verzeichnis.
  a| 
-„Wahr“ für NFSv4 „falsch“ für NFSv3
+Aktiviert oder deaktiviert den Zugriff auf das `.snapshot` Verzeichnis.
+
+
+
+| `snapshotDir`  a| 
+NAS-Option für den Zugriff auf das `.snapshot` Verzeichnis.
+ a| 
+Aktiviert oder deaktiviert den Zugriff auf das `.snapshot` Verzeichnis.
+
+Gültige Werte: `true`, `false`. Das Standardverhalten kann je nach ONTAP und Trident Version variieren. Werte explizit festlegen, um ein einheitliches Verhalten sicherzustellen.
 
 
 

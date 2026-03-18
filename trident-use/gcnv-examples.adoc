@@ -86,7 +86,7 @@ Sie können die Standard-Volume-Bereitstellung im steuern `defaults` Abschnitt d
 | `exportRule` | Die Exportregeln für neue Volumes. Muss eine kommagetrennte Liste einer beliebigen Kombination von IPv4-Adressen sein. | „0.0.0.0/0“ 
 
 
-| `snapshotDir` | Zugriff auf die `.snapshot` Verzeichnis | „Wahr“ für NFSv4 „falsch“ für NFSv3 
+| `snapshotDir` | Zugriff auf die `.snapshot` Verzeichnis | `true`, `false` (Das Standardverhalten kann abweichen. Stellen Sie es explizit auf „false“ für NFSv3 ein 
 
 
 | `snapshotReserve` | Prozentsatz des für Snapshots reservierten Volumes | „“ (Standardeinstellung 0 akzeptieren) 
