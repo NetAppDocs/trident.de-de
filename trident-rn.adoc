@@ -122,7 +122,7 @@ Zwei Workarounds sind verfügbar:
 
 
 
-== Was ist neu in 26.02
+== Was ist neu in 25.10
 
 Erfahren Sie mehr über die Neuerungen in Trident und Trident Protect, einschließlich Verbesserungen, Fehlerbehebungen und veralteter Funktionen.
 
