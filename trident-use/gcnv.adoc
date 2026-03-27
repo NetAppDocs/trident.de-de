@@ -29,7 +29,7 @@ iSCSI-Block-Volumes bieten rohen Blockspeicher und werden als Blockgeräte an Ku
 Dies gilt für die folgenden Umgebungen:
 
 * Trident 26.02 und später
-* Google Kubernetes Engine (GKE)
+* Google Kubernetes Engine (GKE) oder Red Hat OpenShift
 * Google Cloud NetApp Volumes NAS-Pools
 * NFS- und SMB-Workloads
 

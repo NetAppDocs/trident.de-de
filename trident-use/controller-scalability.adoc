@@ -38,12 +38,16 @@ Trident unterstützt die Skalierbarkeit des Controllers mit unterschiedlichen Re
 
 Die folgenden Treiber unterstützen die Controller-Skalierbarkeit bei allgemeiner Verfügbarkeit in Trident 26.02:
 
-* `san`
-* `nas`
-* `san-nvme`
+* `ontap-san`
+* `ontap-nas`
 * `google-cloud-netapp-volumes`
 
 
+[NOTE]
+====
+Die `google-cloud-netapp-volumes` und `google-cloud-netapp-volumes-san` Treiber sind unterschiedlich. Nur `google-cloud-netapp-volumes` wird unterstützt. Verwenden Sie `google-cloud-netapp-volumes-san` nicht in Backend-Konfigurationen oder Beispielen.
+
+====
 
 
 == Controller-Skalierbarkeit aktivieren

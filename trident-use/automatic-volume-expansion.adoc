@@ -31,10 +31,10 @@ Bevor Sie die automatische Volumenerweiterung konfigurieren, stellen Sie sicher,
 * StorageClasses konfiguriert mit `allowVolumeExpansion: true`
 * Unterstützte ONTAP-Protokolle:
 +
-** Netzwerkdateisystem
-** Internet Small Computer Systems Interface
-** Fibre Channel-Protokoll
-** Non-Volatile Memory Express über Fabrics
+** Netzwerkdateisystem (NFS)
+** Internet Small Computer Systems Interface (iSCSI)
+** Fibre Channel Protocol (NVMe)
+** Non-Volatile Memory Express over Fabrics (FCP)
 
 
 
@@ -49,10 +49,10 @@ Bevor Sie die automatische Volumenerweiterung konfigurieren, stellen Sie sicher,
 * Wenn ein Volumen  `maxSize` erreicht, findet keine weitere Erweiterung statt.
 * Unterstützte Protokolle für die automatische Volumenerweiterung:
 +
-** Netzwerkdateisystem
-** Internet Small Computer Systems Interface
-** Fibre Channel-Protokoll
-** Non-Volatile Memory Express über Fabrics
+** Netzwerkdateisystem (NFS)
+** Internet Small Computer Systems Interface (iSCSI)
+** Fibre Channel Protocol (NVMe)
+** Non-Volatile Memory Express over Fabrics (FCP)
 
 
 

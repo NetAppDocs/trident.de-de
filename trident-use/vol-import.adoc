@@ -316,6 +316,63 @@ image:./san-import-igroup.png["Image der LUNS, die iqn und Cluster-iqn zugeordne
 ====
 
 
+== ONTAP SAN-economy Beispiele
+
+Die folgenden Beispiele zeigen, wie verwaltete und nicht verwaltete Volumes für das  `ontap-san-economy` Backend importiert werden.
+
+[role="tabbed-block"]
+====
+.Gemanagtes Volume
+--
+Wenn Sie ein verwaltetes Volume importieren, übernimmt Trident die Eigentümerschaft des FlexVol und benennt es um. Sie müssen diese Umbenennung berücksichtigen, wenn Sie mehrere LUNs aus demselben FlexVol importieren.
+
+Das folgende Beispiel importiert `lun1` aus der FlexVol `toimport` als verwaltetes Volume mit dem Namen  `vol-managed-saneco`:
+
+[listing]
+----
+tridentctl import volume vol-managed-saneco toimport/lun1 -f import1.yaml
+----
+Nach dem Import `lun1` benennt Trident die FlexVol (zum Beispiel in  `trident_lun_pool_xyz`) um. Um zusätzliche LUNs aus derselben FlexVol zu importieren, verwenden Sie den neuen FlexVol-Namen:
+
+[listing]
+----
+tridentctl import volume vol-managed-saneco trident_lun_pool_xyz/lun2 -f import2.yaml
+----
+
+NOTE: Das `ontap-san-economy` Backend importiert jeweils eine LUN. Sie können mehrere Importe mithilfe eines Skripts automatisieren.
+
+--
+.Nicht verwaltetes Volume
+--
+Wenn Sie ein nicht verwaltetes Volume importieren, übernimmt Trident nicht die Besitzrechte an dem FlexVol. Allerdings müssen das FlexVol und die LUN den Trident-Namenskonventionen entsprechen.
+
+FlexVol-Benennungsformat::
++
+--
+[listing]
+----
+trident_lun_pool_STORAGEPREFIX_RANDOMSTRING
+----
+* `STORAGEPREFIX` ist der Wert von  `storagePrefix` in Ihrer Backend-Konfiguration. Der Standardwert ist  `trident`.
+* `RANDOMSTRING` ist eine beliebige Zeichenkette Ihrer Wahl.
+
+
+--
+LUN-Benennungsanforderung:: Der LUN muss mit einem Namen versehen werden `lun0`.
+Beispiel:: Wenn Ihre  `storagePrefix`  `xyz` ist, lautet der vollständige Pfad zur LUN:
++
+--
+[listing]
+----
+trident_lun_pool_xyz_randomstring/lun0
+----
+--
+
+
+--
+====
+
+
 === Element
 
 Trident unterstützt NetApp Element-Software und NetApp HCI-Volume-Import mit dem `solidfire-san` Treiber.
