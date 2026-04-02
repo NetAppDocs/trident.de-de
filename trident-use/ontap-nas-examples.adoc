@@ -12,20 +12,18 @@ summary: Erfahren Sie, wie Sie ONTAP-NAS-Treiber mit Ihrer Trident-Installation 
 
 
 [role="lead"]
-Lernen Sie, wie Sie ONTAP NAS-Treiber mit Ihrer Trident-Installation erstellen und verwenden. Dieser Abschnitt enthält Beispiele und Details zur Back-End-Konfiguration für die Zuordnung von Back-Ends zu StorageClasses.
-
-Ab Version 25.10 unterstützt NetApp Tridentlink:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX Speichersysteme"^] Die NetApp AFX-Speichersysteme unterscheiden sich von anderen ONTAP-basierten Systemen (ASA, AFF und FAS) in der Implementierung ihrer Speicherschicht.
+Lernen Sie, wie Sie ONTAP NAS-Treiber mit Ihrer Trident-Installation erstellen und verwenden. Dieser Abschnitt enthält Beispiele für die Backend-Konfiguration und Details zur Zuordnung von Backends zu StorageClasses. Ab der Version 25.10 unterstützt NetApp Trident link:https://docs.netapp.com/us-en/ontap-afx/index.html["NetApp AFX Speichersysteme"^]. NetApp AFX-Speichersysteme unterscheiden sich von anderen ONTAP-basierten Systemen (ASA, AFF und FAS) in der Implementierung ihrer Speicherschicht.
 
 
 NOTE: Nur die `ontap-nas` Der Treiber (mit NFS-Protokoll) wird für NetApp AFX-Systeme unterstützt; das SMB-Protokoll wird nicht unterstützt.
-
-In der Trident Backend-Konfiguration müssen Sie nicht angeben, dass es sich bei Ihrem System um ein NetApp AFX-Speichersystem handelt. Wenn Sie auswählen `ontap-nas` als die `storageDriverName` Trident erkennt das AFX-Speichersystem automatisch. Einige Backend-Konfigurationsparameter sind für AFX-Speichersysteme nicht anwendbar, wie in der folgenden Tabelle vermerkt.
 
 
 
 == Back-End-Konfigurationsoptionen
 
-Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
+In der Trident-Backend-Konfiguration müssen Sie nicht angeben, dass Ihr System ein NetApp AFX-Speichersystem ist. Wenn Sie  `ontap-nas` als  `storageDriverName` auswählen, erkennt Trident das AFX-Speichersystem automatisch. Einige Backend-Konfigurationsparameter sind für AFX-Speichersysteme nicht anwendbar.
+
+Die folgende Tabelle zeigt die Backend-Konfigurationsoptionen:
 
 [cols="1,3,2"]
 |===

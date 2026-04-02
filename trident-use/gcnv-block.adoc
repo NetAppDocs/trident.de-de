@@ -9,10 +9,10 @@ summary: 'Konfigurieren Sie Trident, um Block-Volumes (iSCSI) aus Google Cloud N
 
 
 [role="lead"]
-Sie können Trident so konfigurieren, dass Block-Storage-Volumes über das iSCSI-Protokoll von Google Cloud NetApp Volumes bereitgestellt werden. SAN-Volumes werden aus *Flex Unified*-Speicherpools mithilfe des 
-`google-cloud-netapp-volumes-san` Speichertreibers bereitgestellt.
+Sie können Trident so konfigurieren, dass Block-Storage-Volumes über das iSCSI-Protokoll von Google Cloud NetApp Volumes bereitgestellt werden. SAN-Volumes werden mithilfe des  `google-cloud-netapp-volumes-san` Speichertreibers aus Flex Unified Storage Pools bereitgestellt.
 
-Dieser Treiber ist für Block-Workloads ausgelegt und unterstützt keine NAS-Protokolle.
+
+NOTE: Dieser Treiber ist für Block-Workloads ausgelegt und unterstützt keine NAS-Protokolle.
 
 
 NOTE: Das `google-cloud-netapp-volumes-san` Backend ist erforderlich, um iSCSI-Blockvolumes bereitzustellen. Das `google-cloud-netapp-volumes` Backend unterstützt nur NAS-Protokolle und kann nicht für SAN-Workloads verwendet werden.

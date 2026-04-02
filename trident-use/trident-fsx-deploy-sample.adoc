@@ -4,7 +4,7 @@ permalink: trident-use/trident-fsx-deploy-sample.html
 keywords: map backends, storage classes, trident backend, ontap-nas, ontap-nas-economy, ontap-nas-flexgroups, options, storageclasses, fsx 
 summary: Erfahren Sie mehr über Back-End-Konfigurationsoptionen für Amazon FSX für ONTAP. Dieser Abschnitt enthält Beispiele für die Back-End-Konfiguration. 
 ---
-= Beispielanwendung bereitstellen
+= Eine Anwendung bereitstellen
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
@@ -13,6 +13,10 @@ summary: Erfahren Sie mehr über Back-End-Konfigurationsoptionen für Amazon FSX
 
 [role="lead"]
 Wenn die Storage-Klasse und die PVC erstellt wurden, können Sie das PV an einem Pod mounten. In diesem Abschnitt werden der Beispielbefehl und die Konfiguration zum Anbinden des PV an einen Pod aufgeführt.
+
+
+
+= Eine Beispielanwendung bereitstellen
 
 .Schritte
 . Mounten Sie das Volume in einem Pod.

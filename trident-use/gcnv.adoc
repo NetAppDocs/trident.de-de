@@ -8,12 +8,14 @@ summary: 'Konfigurieren Sie Trident, um NAS-Volumes (NFS und SMB) von Google Clo
 :allow-uri-read: 
 
 
-[role="lead lead"]
+[role="lead"]
 Sie können Google Cloud NetApp Volumes als Backend für Trident konfigurieren, um dateibasierte Speichervolumes bereitzustellen. Trident kann NFS- und SMB-Volumes mithilfe eines Google Cloud NetApp Volumes-Backends einbinden.
 
-Trident verwendet separate Backends für NAS- und SAN-Workloads in Google Cloud NetApp Volumes. Der  `google-cloud-netapp-volumes` Backend unterstützt ausschließlich dateibasierte Protokolle und kann nicht zur Bereitstellung von iSCSI-Volumes verwendet werden.
 
-Um iSCSI-Blockvolumes bereitzustellen, verwenden Sie das 
+NOTE: Trident verwendet separate Backends für NAS- und SAN-Workloads in Google Cloud NetApp Volumes. Der  `google-cloud-netapp-volumes` Backend unterstützt ausschließlich dateibasierte Protokolle und kann nicht zur Bereitstellung von iSCSI-Volumes verwendet werden.
+
+
+NOTE: Um iSCSI-Blockvolumes bereitzustellen, verwenden Sie das 
 `google-cloud-netapp-volumes-san` Backend, das ein separater Backend-Typ ist, der speziell für SAN-Workloads entwickelt wurde.
 
 

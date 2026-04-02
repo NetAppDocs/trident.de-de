@@ -90,7 +90,7 @@ link:https://docs.netapp.com/us-en/trident-2301/index.html["23.01"^]
 
 == Self-Support
 
-Eine umfassende Liste von Artikeln zur Fehlerbehebung finden Sie unter https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp Knowledge Base (Anmeldung erforderlich)"^].
+Eine vollständige Liste der Artikel zur Fehlerbehebung finden Sie unter https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Trident_Kubernetes["NetApp Knowledge Base (Anmeldung erforderlich)"^].
 
 
 

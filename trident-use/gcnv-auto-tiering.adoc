@@ -13,7 +13,7 @@ summary: Konfigurieren Sie Google Cloud NetApp Volumes Auto-Tiering mithilfe von
 
 
 [role="lead"]
-Diese Seite beschreibt, wie Sie die automatische Speicherverwaltung für Google Cloud NetApp Volumes mit Trident konfigurieren. Die automatische Speicherverwaltung wird über Trident-Backend-Parameter und PersistentVolumeClaim-Annotationen während der Volume-Bereitstellung konfiguriert.
+Auto-Tiering wird über Trident-Backend-Parameter und PersistentVolumeClaim-Annotationen während der Volume-Bereitstellung konfiguriert. Sie können Auto-Tiering für Google Cloud NetApp Volumes mit Trident konfigurieren.
 
 
 
