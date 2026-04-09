@@ -29,7 +29,7 @@ link:../trident-use/worker-node-prep.html["Bereiten Sie den Knoten „Worker“ 
 Trident bietet verschiedene Installationsmethoden und -Modi, die für eine Vielzahl von Umgebungen und Organisationen optimiert sind.
 
 [role="quick-margin-para"]
-link:../trident-get-started/kubernetes-deploy.html["Installation Von Trident"]
+link:../trident-install/kubernetes-deploy.html["Installation Von Trident"]
 
 .image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Drittens"] Erstellen Sie ein Backend
 [role="quick-margin-para"]

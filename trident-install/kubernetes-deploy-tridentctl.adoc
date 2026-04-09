@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy-tridentctl.html 
+permalink: trident-install/kubernetes-deploy-tridentctl.html 
 keywords: deploy, Trident, methods, tridentctl, windows 
 summary: 'Sie können Trident mit installieren `tridentctl`. Dieser Vorgang gilt für Installationen, bei denen die von Trident benötigten Container-Images entweder in einer privaten Registrierung gespeichert werden oder nicht.' 
 ---
@@ -35,7 +35,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 
 == Installieren Sie Trident mit `tridentctl`
 
-Prüfen link:../trident-get-started/kubernetes-deploy.html["Die Übersicht über die Installation"] Um sicherzustellen, dass Sie die Installationsvoraussetzungen erfüllt haben, und die richtige Installationsoption für Ihre Umgebung ausgewählt haben.
+Überprüfen Sie link:kubernetes-deploy.html["Die Übersicht über die Installation"], um sicherzustellen, dass Sie die Installationsvoraussetzungen erfüllt und die richtige Installationsoption für Ihre Umgebung ausgewählt haben.
 
 .Bevor Sie beginnen
 Melden Sie sich vor der Installation beim Linux-Host an, und überprüfen Sie, ob er einen funktionierenden link:requirements.html["Unterstützter Kubernetes-Cluster"^] Und dass Sie die erforderlichen Berechtigungen haben.

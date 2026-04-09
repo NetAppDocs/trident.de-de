@@ -141,7 +141,7 @@ Sie können ein Volume löschen, das über mehrere Namespaces hinweg gemeinsam g
 
 == Nutzung `tridentctl get` Zum Abfragen von untergeordneten Volumes
 
-Verwenden der[`tridentctl` Das Dienstprogramm kann ausgeführt werden `get` Befehl zum Abrufen untergeordneter Volumes. Weitere Informationen finden Sie unter Link:../Trident-Referenz/tridentctl.html[`tridentctl` Befehle und Optionen].
+Mit dem[`tridentctl` Dienstprogramm können Sie den `get` Befehl ausführen, um untergeordnete Volumes abzurufen. Weitere Informationen finden Sie unter link:../trident-reference/trident-cl.html[`tridentctl` commands and options].
 
 [listing]
 ----

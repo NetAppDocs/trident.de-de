@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: trident-get-started/kubernetes-deploy.html 
+permalink: trident-install/kubernetes-deploy.html 
 keywords: deploy, Trident, methods, operator, tridentctl, helm, tanzu, vmware 
 summary: 'Sie können Trident mit dem Trident-Operator (manuell oder mit Helm) oder mit installieren `tridentctl`. In diesem Thema finden Sie wichtige Informationen zur Auswahl des richtigen Installationsprozesses.' 
 ---
@@ -62,7 +62,7 @@ Wählen Sie die für Sie richtige Installationsmethode aus. Sie sollten auch die
 
 === Verwenden des Betreibers von Trident
 
-Egal, ob Sie sie manuell bereitstellen oder mithilfe von Helm arbeiten – der Trident Operator ist eine hervorragende Möglichkeit, die Installation zu vereinfachen und Trident-Ressourcen dynamisch zu managen. Sie können sogar link:../trident-get-started/kubernetes-customize-deploy.html["Individuelle Anpassung der Trident Implementierung"]die Attribute in der benutzerdefinierten Ressource (CR) verwenden `TridentOrchestrator`.
+Ob manuell oder mit Helm – der Trident-Operator ist eine großartige Möglichkeit, die Installation zu vereinfachen und Trident-Ressourcen dynamisch zu verwalten. Sie können sogar link:kubernetes-customize-deploy.html["Individuelle Anpassung der Trident Implementierung"] mithilfe der Attribute in der  `TridentOrchestrator` benutzerdefinierten Ressource (CR) vorgehen.
 
 Die Vorteile der Verwendung des Trident-Mitarbeiters:
 
