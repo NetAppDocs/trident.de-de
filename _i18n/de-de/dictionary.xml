@@ -6751,6 +6751,6 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="395717e339150790e9789265ce54670c" category="image-alt">Trident-Add-on-Konfigurationseinstellungen</block>
   <block id="7d46dc6377e8ce5df89a34c4ad4e2991" category="image-alt">Aktiver Status des Trident-Add-ons</block>
   <block id="2c0204a63fd46aab7636df3eb5f83972" category="paragraph">Mit dem<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix=" " category="inline-code"></block> Dienstprogramm können Sie den<block ref="b5eda0a74558a342cf659187f06f746f" prefix=" " category="inline-code"></block> Befehl ausführen, um untergeordnete Volumes abzurufen. Weitere Informationen finden Sie unter link:../trident-reference/trident-cl.html<block ref="c67fd1b99934afa248dfeb285a9a4191" prefix="[" category="inline-code"></block> commands and options].</block>
-  <block id="69ce754add983294c9646b227af63485" category="list-text">Fibre Channel Protocol (FCP)</block>
-  <block id="95879db8219c8aca8e161d3712e8b423" category="list-text">Non-Volatile Memory Express over Fabrics (NVMe)</block>
+  <block id="ce1ff0a6a194c07d183ef0de076f81ae" category="list-text">Fibre Channel Protocol (NVMe)</block>
+  <block id="062d8e05f949590d9b752838eb96ff40" category="list-text">Non-Volatile Memory Express over Fabrics (FCP)</block>
 </blocks>
