@@ -95,6 +95,11 @@ tridentctl install \
 == NAS-Speicher konfigurieren
 
 
+NOTE: Für Google Cloud NetApp Volumes UNIFIED-Speicherpools wendet Trident während der Volume-Operationen UNIFIED-spezifische Namens- und Validierungsregeln an.
+
+Beim Auffinden eines Volumes kann Trident mehrere kompatible Varianten des Volumennamens (z. B. Bindestrich- und Unterstrichformate) auswerten, um die Zuverlässigkeit von Import und Erkennung zu verbessern.
+
+
 
 === Treiberdetails
 

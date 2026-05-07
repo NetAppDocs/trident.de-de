@@ -24,6 +24,7 @@ Unterstützte SAN-Protokolle hängen von Ihrer Trident Version ab:
 
 * Trident 25.02 und höher unterstützt iSCSI.
 * Trident 25.06 und höher unterstützt NVMe/TCP zusätzlich zu iSCSI.
+* Trident 25.10 und höher unterstützt neben iSCSI und NVMe/TCP auch FC.
 
 
 Sie müssen der Storage Virtual Machine (SVM) für ONTAP-Backend-Speicher mindestens ein Aggregat zuweisen. Siehe link:https://kb.netapp.com/on-prem/ASAr2/ASAr2_KBs/su_create_by_SVM_admin_using_CLI_fails_with_error_No_candidate_aggregates_are_available_for_storage_services["Zuweisung von Aggregaten zu SVMs in ASA r2 systems"^] für Anweisungen.
