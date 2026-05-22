@@ -6802,4 +6802,14 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="b808c0f6c02a2bfc490cec673c19e395" category="cell">IP-Adresse des Protokoll-LIF. *ONTAP NAS-Treiber*: NetApp empfiehlt, dataLIF anzugeben. Falls nicht angegeben, ruft Trident dataLIFs vom SVM ab. Sie können einen vollqualifizierten Domänennamen (FQDN) für die NFS-Mount-Operationen angeben, sodass Sie einen Round-Robin-DNS für den Lastausgleich über mehrere dataLIFs erstellen können. Kann nach der ersten Einstellung geändert werden. *ONTAP SAN-Treiber*: Für iSCSI nicht angeben. Trident verwendet ONTAP Selective LUN Map, um die für den Aufbau einer Multipath-Sitzung benötigten iSCSI-LIFs zu ermitteln. Es wird eine Warnung ausgegeben, wenn dataLIF explizit definiert wird. Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, zum Beispiel [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555].</block>
   <block id="c0f12f4cfb79ab18be46d9a2f0eccd58" category="sidebar">Speicherklasse konfigurieren</block>
   <block id="6c8701a99958ffdb3999e3f1f6e5fdbf" category="sidebar">Automatische Volumenerweiterung verwalten</block>
+  <block id="ca98c81b13d8207d786f43bf91fb1214" category="paragraph">Trident Protect-Abhängigkeiten wurden aktualisiert, um Sicherheitslücken zu beheben:</block>
+  <block id="1e814d791d35fa19b57c4145b3286329" category="inline-link-macro">CVE-2026-33186</block>
+  <block id="afa5c2c58b0ea0edf4224d65e5937d55" category="list-text">gRPC-Go: <block ref="1c9c3ccc32b9c44006ccf474ce58b736" category="inline-link-macro-rx"></block></block>
+  <block id="d4d19dcac0c9bbf8965fcda3320fccfb" category="inline-link-macro">CVE-2024-45337</block>
+  <block id="b5dd9eebb8922267c5bd4f5556d26701" category="list-text">Go x/crypto SSH: <block ref="f482c36ed3999907815ac53d6074ec2f" category="inline-link-macro-rx"></block></block>
+  <block id="3ae92ebfe83269512ddaa15612a81256" category="list-text">OpenTelemetry-Go: <block ref="4699607a06f93475b0f8f4a13bd690dc" category="inline-link-macro-rx"></block></block>
+  <block id="b78ae2b3b9e5d50bcd9c234029141082" category="inline-link-macro">CVE-2025-22871</block>
+  <block id="8e31ed98521d2fbd01629de60bdbfd6a" category="list-text">Go-Laufzeit: <block ref="472bd143483bc49bc89effbd314435c0" category="inline-link-macro-rx"></block></block>
+  <block id="278b5284fc6585f71203297ebab6500e" category="inline-link-macro">CVE-2025-23109</block>
+  <block id="fd2c12a453dd202f7117b96858090a49" category="list-text">Zusätzliche Abhängigkeiten: <block ref="7beaa9a23a5ebb4abc880f48947240a7" category="inline-link-macro-rx"></block></block>
 </blocks>

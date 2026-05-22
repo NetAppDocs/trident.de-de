@@ -52,6 +52,23 @@ Erfahren Sie, was neu ist in NetApp Trident und Trident Protect, einschließlich
 
 
 
+=== Trident Protect
+
+
+
+==== Korrekturen
+
+Trident Protect-Abhängigkeiten wurden aktualisiert, um Sicherheitslücken zu beheben:
+
+* gRPC-Go: link:https://nvd.nist.gov/vuln/detail/CVE-2026-33186["CVE-2026-33186"^]
+* Go x/crypto SSH: link:https://nvd.nist.gov/vuln/detail/CVE-2024-45337["CVE-2024-45337"^]
+* OpenTelemetry-Go: link:https://nvd.nist.gov/vuln/detail/CVE-2026-24051["CVE-2026-24051"^]
+* Go-Laufzeit: link:https://nvd.nist.gov/vuln/detail/CVE-2025-22871["CVE-2025-22871"^]
+* Zusätzliche Abhängigkeiten: link:https://nvd.nist.gov/vuln/detail/CVE-2025-23109["CVE-2025-23109"^]
+
+
+
+
 == Was ist neu in 26.02
 
 Erfahren Sie, was neu ist in NetApp Trident und Trident Protect, einschließlich Verbesserungen, Fehlerbehebungen und veralteter Funktionen.
