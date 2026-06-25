@@ -25,7 +25,7 @@ Vor der Installation von Trident sollten Sie die folgenden allgemeinen Systemanf
 ====
 []
 =====
-* Kubernetes 1.35 wird nun in Trident unterstützt. Aktualisieren Sie Trident, bevor Sie Kubernetes aktualisieren.
+* Kubernetes 1.36 wird jetzt in Trident unterstützt. Trident sollte vor Kubernetes aktualisiert werden.
 * Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
@@ -41,13 +41,13 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, darunter:
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
-* Kubernetes 1.27 - 1.35
+* Kubernetes 1.27 - 1.36
 * OpenShift 4.12, 4.14 - 4.21 (Wenn Sie die iSCSI-Knotenvorbereitung mit OpenShift 4.19 verwenden möchten, ist die minimal unterstützte Trident-Version 25.06.1.)
 +
 
 NOTE: Trident unterstützt weiterhin ältere OpenShift-Versionen im Einklang mit derlink:https://access.redhat.com/support/policy/updates/openshift["Red Hat Extended Update Support (EUS) Release-Lebenszyklus"] , auch wenn sie auf Kubernetes-Versionen basieren, die vom Upstream nicht mehr offiziell unterstützt werden.  In solchen Fällen können Sie bei der Installation von Trident alle Warnmeldungen zur Kubernetes-Version getrost ignorieren.
 
-* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.35.x
+* Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.36.x
 
 
 Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbst gemanagter Kubernetes-Angebote eingesetzt werden, wie z. B. Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) und VMware Tanzu Portfolio.
@@ -109,56 +109,56 @@ Die folgende Tabelle bietet einen Überblick über die mit dieser Version von Tr
 
 
 | Trident  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | Volume Snapshots  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | PVC aus Volume Snapshots  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | ISCSI PV-Größe  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | Bidirektionales ONTAP-CHAP  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | Dynamische Exportrichtlinien  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | Trident Operator  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
 
 
 | CSI-Topologie  a| 
-1.27 - 1.35
+1.27 - 1.36
  a| 
 Nein
 
@@ -223,7 +223,7 @@ Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz 
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0
