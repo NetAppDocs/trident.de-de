@@ -108,7 +108,7 @@ Fußnote: Jafootnote:1[]: Nicht verwaltet von Trident Yesfootnote:2[]: Unterstü
 
 === Back-End-Treiber für Azure NetApp Files
 
-Trident verwendet den `azure-netapp-files` Treiber für die Verwaltung des link:https://azure.microsoft.com/en-us/services/netapp/["Azure NetApp Dateien"^] Dienstes.
+Trident verwendet den  `azure-netapp-files`-Treiber, um den link:https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Dateien"^]-Dienst zu verwalten.
 
 Weitere Informationen zu diesem Treiber und zur Konfiguration finden Sie unter link:https://docs.netapp.com/us-en/trident/trident-use/anf.html["Trident Back-End-Konfiguration für Azure NetApp Files"^].
 

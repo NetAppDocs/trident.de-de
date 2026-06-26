@@ -12,7 +12,7 @@ summary: Sie können den REST-Endpunkt direkt verwenden, um mit der REST-API von
 
 
 [role="lead"]
-Sie link:tridentctl.html["Tridentctl-Befehle und -Optionen"] sind die einfachste Möglichkeit zur Interaktion mit der Trident REST-API, können Sie, falls gewünscht, den REST-Endpunkt direkt verwenden.
+Während link:../trident-managing-k8s/tridentctl.html["Tridentctl-Befehle und -Optionen"] die einfachste Möglichkeit sind, mit der Trident REST API zu interagieren, können Sie den REST-Endpunkt auch direkt verwenden, wenn Sie dies bevorzugen.
 
 
 

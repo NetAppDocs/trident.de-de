@@ -298,7 +298,7 @@ Wählen Sie den `ontap-nas-flexgroup` Treiber, um die Parallelität zu einem ein
 * Klonen wird für FlexGroup Volumes nicht unterstützt.
 
 
-Informationen zu FlexGroups und Workloads, die für FlexGroups geeignet sind, finden Sie im https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf["Best Practices und Implementierungsleitfaden für NetApp FlexGroup Volumes"^].
+Weitere Informationen zu FlexGroups und Arbeitslasten, die für FlexGroups geeignet sind, finden Sie im  https://www.netapp.com/pdf.html?item=/media/12385-tr4571.pdf["Best Practices und Implementierungsleitfaden für NetApp FlexGroup Volumes"^].
 
 Um erweiterte Funktionen und umfassende Skalierbarkeit in derselben Umgebung zu erhalten, können Sie mehrere Instanzen des Docker Volume Plug-ins ausführen, wobei eine verwendet und eine andere `ontap-nas-economy` verwendet `ontap-nas` wird.
 

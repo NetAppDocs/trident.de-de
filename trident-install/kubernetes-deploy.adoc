@@ -56,7 +56,7 @@ TIP: Wenn Sie sich nicht mit dem vertraut gemacht habenlink:../trident-get-start
 
 == Wählen Sie Ihre Installationsmethode
 
-Wählen Sie die für Sie richtige Installationsmethode aus. Sie sollten auch die Überlegungen zu prüfen link:kubernetes-deploy.html#move-between-installation-methods["Bewegen zwischen Methoden"] Bevor Sie Ihre Entscheidung treffen.
+Wählen Sie die für Sie passende Installationsmethode. Sie sollten auch die Überlegungen zu link:kubernetes-deploy.html#moving-between-installation-methods["Bewegen zwischen Methoden"] prüfen, bevor Sie Ihre Entscheidung treffen.
 
 
 

@@ -23,7 +23,7 @@ Bevor Sie Volumes mit Trident bereitstellen können, müssen Sie Ihr Storage-Bac
 
 Es gibt zwei Möglichkeiten, das Trident-Backend für die Verwendung eines FSx for ONTAP-Dateisystems zu konfigurieren: * Erstellen Sie eine StorageClass, die die Automatic Backend-Funktion nutzt. * Erstellen Sie das Backend und die StorageClass separat.
 
-Die Schritte in diesem Abschnitt beschreiben, wie Sie das Backend separat erstellen. Informationen zur Verwendung der Funktion „Automatisches Backend“ finden Sie im xref:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap[Konfigurieren StorageClass und PVC] Abschnitt.
+Die Schritte in diesem Abschnitt beschreiben, wie Sie das Backend separat erstellen. Informationen zur Verwendung der Funktion „Automatisches Backend“ finden Sie im link:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap["Konfigurieren StorageClass und PVC"] Abschnitt.
 
 Um ein Storage-Backend zu erstellen, müssen Sie eine Konfigurationsdatei im JSON- oder YAML-Format erstellen. Die Datei muss den gewünschten Speichertyp (NAS oder SAN), das Dateisystem und die SVM angeben, von der sie abgerufen werden soll, und wie die Authentifizierung mit ihr durchgeführt werden soll. Im folgenden Beispiel wird gezeigt, wie NAS-basierter Storage definiert wird und wie ein AWS-Schlüssel zum Speichern der Zugangsdaten für die zu verwendende SVM verwendet wird:
 
@@ -163,7 +163,7 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `managementLIF` | IP-Adresse eines Clusters oder einer SVM-Management-LIF Ein vollständig qualifizierter Domain-Name (FQDN) kann angegeben werden. Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. Wenn Sie den im `aws` Feld angeben `fsxFilesystemID`, müssen Sie den nicht angeben `managementLIF`, da Trident die SVM-Informationen von AWS abruft `managementLIF`. Daher müssen Sie die Anmeldedaten für einen Benutzer unter der SVM (z. B. vsadmin) angeben, und der Benutzer muss über die Rolle verfügen `vsadmin` . | „10.0.0.1“, „[2001:1234:abcd::fefe]“ 
 
 
-| `dataLIF` | IP-Adresse des LIF-Protokolls. *ONTAP NAS-Treiber*: NetApp empfiehlt die Angabe der DatenLIF. Wenn nicht angegeben, ruft Trident die DatenLIFs von der SVM ab. Sie können einen vollständig qualifizierten Domänennamen (FQDN) angeben, der für die NFS-Mount-Vorgänge verwendet werden soll. Dadurch können Sie ein Round-Robin-DNS erstellen, um den Lastausgleich über mehrere DatenLIFs hinweg zu ermöglichen. Kann nach der Anfangseinstellung geändert werden. Siehe . *ONTAP-SAN-Treiber*: Geben Sie nicht für iSCSI an. Trident verwendet die selektive LUN-Zuordnung von ONTAP, um die iSCI LIFs zu ermitteln, die für die Einrichtung einer Multi-Path-Sitzung erforderlich sind. Eine Warnung wird erzeugt, wenn dataLIF explizit definiert ist. Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern definiert werden, z. B. [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. |  
+| `dataLIF` | IP-Adresse des Protokoll-LIF. *ONTAP NAS-Treiber*: NetApp empfiehlt, dataLIF anzugeben. Falls nicht angegeben, ruft Trident dataLIFs vom SVM ab. Ein vollqualifizierter Domainname (FQDN) kann für die NFS-Mount-Operationen angegeben werden, wodurch die Erstellung eines Round-Robin-DNS zur Lastverteilung über mehrere dataLIFs ermöglicht wird. Kann nach der Ersteinrichtung geändert werden. Siehe  https://kb.netapp.com/Cloud/Astra/Trident/Is_it_possible_to_update_the_DataLIF_on_the_trident_backend["dataLIF nach der Erstkonfiguration aktualisieren"^]. *ONTAP SAN-Treiber*: Für iSCSI nicht angeben. Trident verwendet ONTAP Selective LUN Map, um die für den Aufbau einer Multipath-Sitzung benötigten iSCSI-LIFs zu ermitteln. Eine Warnung wird ausgegeben, wenn dataLIF explizit definiert ist. Kann so eingestellt werden, dass IPv6-Adressen verwendet werden, wenn Trident mit dem IPv6-Flag installiert wurde. IPv6-Adressen müssen in eckigen Klammern angegeben werden, zum Beispiel [28e8:d9fb:a825:b7bf:69a8:d02f:9e7b:3555]. |  
 
 
 | `autoExportPolicy` | Aktivieren Sie die automatische Erstellung von Exportrichtlinien und aktualisieren Sie [Boolean]. Mithilfe der `autoExportPolicy` Optionen und `autoExportCIDRs` kann Trident Exportrichtlinien automatisch managen. | `false` 
@@ -275,7 +275,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `encryption` | Aktivieren Sie NetApp Volume Encryption (NVE) auf dem neuen Volume, Standardeinstellung ist `false`. NVE muss im Cluster lizenziert und aktiviert sein, damit diese Option verwendet werden kann. Wenn auf dem Backend NAE aktiviert ist, wird jedes in Trident bereitgestellte Volume NAE aktiviert. Weitere Informationen finden Sie unter link:../trident-reco/security-reco.html["Funktionsweise von Trident mit NVE und NAE"]. | `false` 
 
 
-| `luksEncryption` | Aktivieren Sie die LUKS-Verschlüsselung. Siehe link:../trident-reco/security-reco.html#Use-Linux-Unified-Key-Setup-(LUKS)["Linux Unified Key Setup (LUKS) verwenden"]. Nur SAN | „“ 
+| `luksEncryption` | LUKS-Verschlüsselung aktivieren. Siehe link:../trident-reco/security-luks.html["Linux Unified Key Setup (LUKS) verwenden"]. Nur SAN. | „“ 
 
 
 | `tieringPolicy` | Tiering-Richtlinie für die Nutzung	`none` |  
@@ -290,4 +290,4 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 
 == Bereitstellung von SMB-Volumina
 
-Sie können SMB-Volumes mithilfe von … bereitstellen. `ontap-nas` Treiber. Bevor Sie fertigstellen <<ONTAP SAN and NAS driver integration>> Führen Sie diese Schritte aus: link:https://docs.netapp.com/us-en/trident/trident-use/worker-node-prep.html#prepare-to-provision-smb-volumes["Vorbereitung zur Bereitstellung von SMB Volumes"]Die
+Sie können SMB-Volumes mithilfe des  `ontap-nas` Treibers bereitstellen. Bevor Sie link:trident-fsx-storage-backend.html#ontap-san-and-nas-driver-integration["ONTAP SAN- und NAS-Treiberintegration"] abschließen, führen Sie diese Schritte aus: link:worker-node-prep.html#prepare-to-provision-smb-volumes.html["Vorbereitung zur Bereitstellung von SMB Volumes"].
