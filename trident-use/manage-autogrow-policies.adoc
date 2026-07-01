@@ -9,7 +9,7 @@ summary: Automatische Volumenerweiterung mit Trident Autogrow Policies verwalten
 
 
 [role="lead"]
-Nachdem Sie Autogrow Policies erstellt haben, können Sie diese nach Bedarf anzeigen, aktualisieren und löschen. Sie können außerdem überwachen, welche Volumes eine bestimmte Policy verwenden.
+Nachdem Sie Autogrow Policies erstellt haben, können Sie diese anzeigen, aktualisieren und löschen. Es besteht außerdem die Möglichkeit zu überwachen, welche Volumes eine bestimmte Policy verwenden.
 
 
 
@@ -54,7 +54,7 @@ tridentctl get autogrowpolicy production-db-policy -o yaml
 Sie können eine bestehende Richtlinie anpassen, um deren Schwellenwert, Wachstumsbetrag oder maximale Größe zu ändern. Änderungen werden sofort für alle Volumes wirksam, die diese Richtlinie verwenden.
 
 
-IMPORTANT: Änderungen betreffen alle Volumes, die derzeit die Richtlinie verwenden. Testen Sie Änderungen nach Möglichkeit zuerst in einer Nicht-Produktionsumgebung.
+IMPORTANT: Änderungen betreffen alle Volumes, die diese Richtlinie verwenden. Änderungen sollten nach Möglichkeit zunächst in einer Nicht-Produktionsumgebung getestet werden.
 
 .Schritte
 . Richtlinie bearbeiten:
@@ -79,7 +79,7 @@ spec:
 
 === Aktualisierungsüberlegungen
 
-* *Sofortige Wirkung:* Alle Volumes, die die Richtlinie nutzen, übernehmen bei der nächsten Wachstumsbewertung die neuen Parameter.
+* *Sofortige Wirkung:* Alle Volumina, die die Richtlinie anwenden, übernehmen die neuen Parameter bei der nächsten Wachstumsbewertung.
 * *Kein Neustart des Volumes erforderlich:* Änderungen gelten für den nächsten Wachstumsvorgang.
 * *Erst testen:* Validieren Sie Änderungen nach Möglichkeit in einer Nicht-Produktionsumgebung.
 * *Änderungen kommunizieren:* Benachrichtigen Sie die Teams, wenn Sie gemeinsam genutzte Richtlinien ändern.
@@ -89,7 +89,7 @@ spec:
 
 == Löschen einer Autogrow-Richtlinie
 
-Autogrow-Richtlinien verwenden Finalizer-Schutz, um eine versehentliche Löschung zu verhindern, während Volumes sie aktiv verwenden.
+Autogrow Policies verwenden Finalizer-Schutz, um eine versehentliche Löschung zu verhindern, während Volumes sie aktiv verwenden.
 
 .Schritte
 . Löschen Sie die Richtlinie:
@@ -98,7 +98,7 @@ Autogrow-Richtlinien verwenden Finalizer-Schutz, um eine versehentliche Löschun
 ----
 kubectl delete tridentautogrowpolicy production-db-policy
 ----
-. Wenn Volumes die Richtlinie noch verwenden, wechselt die Löschung in einen  `Deleting` Status. Prüfen Sie, welche Volumes betroffen sind:
+. Wenn die Volumes die Richtlinie noch verwenden, wechselt der Löschvorgang in einen  `Deleting`Status. Es kann geprüft werden, welche Volumes betroffen sind:
 +
 [source, console]
 ----
@@ -189,10 +189,16 @@ NOTE: Für SAN-Volumes, wenn die konfigurierte `growthAmount` 50 MiB oder wenige
 
 
 
+== Unterstützte Backends
+
+Autogrow unterstützt ONTAP Backends. Autogrow unterstützt außerdem Google Cloud NetApp Volumes (GCNV) sowohl für NAS- als auch für SAN Volumes.
+
+
+
 == Bekannte Einschränkungen
 
 * *ONTAP NVMe raw block volumes:* Volumes, die mit ONTAP Versionen vor 9.16.1 erstellt wurden, unterstützen kein automatisches Wachstum.
-* *Vorhandene Volumes (Brownfield-Bereitstellungen):* Die automatische Vergrößerung funktioniert möglicherweise nicht für vorhandene Volumes, selbst wenn eine gültige Autogrow Policy angewendet wird. Dies liegt an einer laufenden Migration der Volume-Veröffentlichungen. Um zu bestätigen, dass die Migration abgeschlossen ist, überprüfen Sie die Trident Controller-Protokolle auf  `"Migration completed"` Meldungen.
+* *Vorhandene Volumes (Brownfield-Bereitstellungen):* Die automatische Vergrößerung funktioniert möglicherweise nicht für vorhandene Volumes, selbst wenn eine gültige Autogrow-Richtlinie angewendet wird. Diese Einschränkung ist auf eine laufende Migration der Volume-Veröffentlichungen zurückzuführen. Zur Bestätigung, dass die Migration abgeschlossen ist, sind die Trident Controller-Protokolle auf  `"Migration completed"` Meldungen zu prüfen.
 
 
 
@@ -283,7 +289,7 @@ Trident verwendet `logs-policy` für `database-pvc`, nicht `standard-agp`.
 
 === Wie deaktiviere ich Autogrow für ein bestimmtes Volume?
 
-Setzen Sie die PVC-Annotation auf  `"none"`. Dadurch wird jede StorageClass-Richtlinie für dieses Volume überschrieben:
+Die PVC-Annotation wird auf  `"none"` gesetzt. Diese Einstellung überschreibt jede Richtlinie auf StorageClass-Ebene für dieses Volume:
 
 [source, console]
 ----
@@ -306,9 +312,9 @@ none
 
 === Was passiert, wenn ein Volumen maxSize erreicht?
 
-Trident stellt die Erweiterung des Volumes ein. Es werden keine weiteren Größenänderungsanforderungen für dieses Volume erstellt, selbst wenn die Nutzung weiterhin über den  `usedThreshold` hinaus ansteigt.
+Trident stellt die Erweiterung des Volumes ein. Es werden keine weiteren Größenänderungsanforderungen für dieses Volume erstellt, selbst wenn die Nutzung über den  `usedThreshold` hinaus weiter zunimmt.
 
-Beispielsweise stoppt Trident mit dieser Richtlinie das Wachstum des Volumens, sobald es 100 GiB erreicht:
+Beispielsweise wird mit dieser Richtlinie das Wachstum des Volumens durch Trident gestoppt, sobald es 100 GiB erreicht:
 
 [source, yaml]
 ----
@@ -337,7 +343,7 @@ spec:
 
 === Kann ich eine Richtlinie ändern, ohne die Volumes neu zu starten?
 
-Ja. Wenn Sie eine Richtlinie aktualisieren, übernehmen alle Volumes, die diese Richtlinie verwenden, die neuen Parameter bei der nächsten Wachstumsbewertung. Ein Neustart der Volumes ist nicht erforderlich.
+Ja. Wenn eine Richtlinie aktualisiert wird, übernehmen alle Volumes, die diese Richtlinie verwenden, die neuen Parameter bei der nächsten Wachstumsbewertung. Ein Neustart der Volumes ist nicht erforderlich.
 
 Um eine Richtlinie zu aktualisieren:
 
@@ -386,7 +392,7 @@ kubectl apply -f autogrow-policy.yaml
 
 === Warum kann ich eine Richtlinie nicht löschen?
 
-Richtlinien verwenden einen Finalisierungsschutz. Wenn Volumes die Richtlinie noch verwenden, wechselt der Löschvorgang in einen  `Deleting` Zustand und wartet, bis alle Volumes aus der Richtlinie entfernt wurden.
+Richtlinien verwenden einen Finalisierungsschutz. Wenn Volumes die Richtlinie noch verwenden, wechselt der Löschvorgang in einen `Deleting` Status und wartet, bis alle Volumes aus der Richtlinie entfernt wurden.
 
 Identifizieren Sie die betroffenen Volumes:
 
@@ -407,15 +413,17 @@ kubectl annotate pvc <pvc-name> \
 kubectl annotate pvc <pvc-name> \
   trident.netapp.io/autogrowPolicy-
 ----
-Nachdem alle Volumes entfernt wurden, wird der Finalizer freigegeben und die Richtlinie gelöscht.
+Nachdem alle Volumes entfernt wurden, gibt Trident den Finalizer frei und löscht die Richtlinie.
 
 
 
-=== Funktioniert autogrow mit allen ONTAP Backends?
+=== Welche Backends unterstützt Autogrow?
 
-Autogrow unterstützt NFS-, iSCSI-, FCP- und NVMe-Protokolle. NVMe Raw Block Volumes erfordern jedoch ONTAP 9.16.1 oder höher.
+Autogrow unterstützt ONTAP Backends. Unterstützt werden außerdem Google Cloud NetApp Volumes (GCNV) sowohl für NAS- als auch für SAN-Volumes.
 
-Bei bestehenden Volumes in Brownfield-Umgebungen muss die Migration der Volume-Veröffentlichung möglicherweise abgeschlossen sein, bevor das automatische Wachstum wirksam wird. Überprüfen Sie den Migrationsstatus, indem Sie die Trident-Controller-Protokolle prüfen:
+Autogrow unterstützt die Protokolle NFS, iSCSI, FCP und NVMe. NVMe Raw-Block-Volumes erfordern ONTAP 9.16.1 oder höher.
+
+Bei bestehenden Volumes in Brownfield-Umgebungen muss die Migration der Volume-Veröffentlichung möglicherweise abgeschlossen sein, bevor das automatische Wachstum wirksam wird. Zum Überprüfen des Migrationsstatus sind die Trident Controller-Protokolle zu prüfen:
 
 [source, console]
 ----

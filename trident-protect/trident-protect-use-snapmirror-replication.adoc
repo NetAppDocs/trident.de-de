@@ -384,6 +384,17 @@ NOTE: Bei Verwendung eines CR muss der Ziel-Namespace vor dem Anwenden des CR ma
 *** *Spec.sourceApplicationName*: (_required_) dieser Wert muss mit dem Namen der Quellanwendung übereinstimmen, die Sie in der Quellanwendung CR definiert haben.
 *** *spec.sourceApplicationUID*: (Erforderlich) Dieser Wert muss mit der UID der Quellanwendung übereinstimmen, die Sie im Quellanwendungs-CR definiert haben.
 *** *spec.storageClassName*: (_Optional_) Wählen Sie den Namen einer gültigen Speicherklasse im Cluster. Die Speicherklasse muss mit einer ONTAP Speicher-VM verknüpft sein, die mit der Quellumgebung per Peering verbunden ist. Wird keine Speicherklasse angegeben, wird standardmäßig die im Cluster vorhandene Standard-Speicherklasse verwendet.
+*** *spec.storageClassMapping*: (_Optional_) Ordnet Quellspeicherklassen Zielspeicherklassen für einzelne PVCs innerhalb desselben AMR zu. Jeder Eintrag erfordert einen  `source` und  `destination` Namen für die Speicherklasse. Wenn festgelegt,  `storageClassMapping` überschreibt  `storageClassName` vollständig; PVCs ohne übereinstimmenden Quelleintrag verwenden die Standardspeicherklasse des Clusters, nicht  `storageClassName`.
++
+Bei der Verwendung von  `storageClassMapping` in einem AppMirrorRelationship CR sind die folgenden Einschränkungen zu beachten:
+
++
+**** `storageClassMapping`überschreibt `storageClassName`vollständig. Wenn beide Felder gesetzt sind,  `storageClassName`wird ignoriert.
+**** PVCs mit Quellspeicherklassen, die keinen passenden Eintrag in `storageClassMapping` haben, verwenden die Standardspeicherklasse des Clusters, nicht `storageClassName`.
+**** Jeder Eintrag erfordert sowohl ein  `source` als auch  `destination` Wert.
+**** Durch die Änderung der Zielspeicherklasse kann das Löschen und Neuerstellen vorhandener Ziel-PVCs erzwungen werden.
+
+
 *** *Spec.recurrenceRule*: Definieren Sie ein Startdatum in UTC-Zeit und ein Wiederholungsintervall.
 +
 Beispiel YAML:
@@ -428,10 +439,14 @@ kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
 +
 [source, console]
 ----
-tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> -n <application_namespace>
+tridentctl-protect create appmirrorrelationship <name_of_appmirorrelationship> --destination-app-vault <my_vault_name> --source-app-vault <my_vault_name> --recurrence-rule <rule> --namespace-mapping <ns_mapping> --source-app-id <source_app_UID> --source-app <my_source_app_name> --storage-class <storage_class_name> --storageclass-mapping  <src_class:dst_class> -n <application_namespace>
 ----
 +
-*Beispiel:*
+
+NOTE: Verwenden Sie  `--storageclass-mapping` zur Zuordnung einzelner Quell-Speicherklassen zu Ziel-Speicherklassen. Ein oder mehrere  `source:destination`-Paare, durch Kommas getrennt (zum Beispiel  `"class-a:class-b,class-c:class-d"`), können angegeben werden. Verwenden Sie  `*:destination-class` als Platzhalter, um alle nicht zugeordneten PVCs einer einzigen Ziel-Speicherklasse zuzuordnen. Wenn  `--storageclass-mapping` festgelegt ist, wird  `--storage-class` ignoriert.
+
++
+*Beispiel mit einer einzelnen Zielspeicherklasse (`--storage-class`):*
 
 +
 [source, console]

@@ -25,7 +25,7 @@ Sie können den Trident-Operator manuell bereitstellen, um Trident zu installier
 ====
 []
 =====
-* Kubernetes 1.35 wird nun in Trident unterstützt. Aktualisieren Sie Trident, bevor Sie Kubernetes aktualisieren.
+* Kubernetes 1.36 wird jetzt in Trident unterstützt. Trident sollte vor Kubernetes aktualisiert werden.
 * Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
@@ -41,7 +41,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 Überprüfen Sie link:kubernetes-deploy.html["Die Übersicht über die Installation"], um sicherzustellen, dass Sie die Installationsvoraussetzungen erfüllt und die richtige Installationsoption für Ihre Umgebung ausgewählt haben.
 
 .Bevor Sie beginnen
-Melden Sie sich beim Linux-Host an, und überprüfen Sie, ob er einen funktionierenden und verwaltet link:requirements.html["Unterstützter Kubernetes-Cluster"^] Und dass Sie die erforderlichen Berechtigungen haben.
+Melden Sie sich am Linux-Host an und vergewissern Sie sich, dass er ein funktionierendes und link:../trident-get-started/requirements.html["Unterstützter Kubernetes-Cluster"] verwaltet und dass Sie über die erforderlichen Berechtigungen verfügen.
 
 
 NOTE: Mit OpenShift, verwenden `oc` Statt `kubectl` In allen folgenden Beispielen, und melden Sie sich als *System:admin* zuerst mit dem Ausführen an `oc login -u system:admin` Oder `oc login -u kube-admin`.

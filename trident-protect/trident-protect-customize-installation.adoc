@@ -136,7 +136,7 @@ Dadurch werden die Standardwerte durch die in der Datei angegebenen ersetzt `scc
 
 == Konfigurieren Sie zusätzliche Trident Protect Helm-Chart-Einstellungen
 
-Sie können die AutoSupport Einstellungen und die Namespace-Filterung an Ihre spezifischen Anforderungen anpassen.  In der folgenden Tabelle werden die verfügbaren Konfigurationsparameter beschrieben:
+Sie können die AutoSupport-Einstellungen, die Namensraumfilterung und die OpenShift-Webhook-Zertifikatverwaltung an Ihre spezifischen Anforderungen anpassen. Die folgende Tabelle beschreibt die verfügbaren Konfigurationsparameter:
 
 |===
 | Parameter | Typ | Beschreibung 
@@ -155,6 +155,9 @@ Sie können die AutoSupport Einstellungen und die Namespace-Filterung an Ihre sp
 
 
 | restoreSkipNamespaceLabels | Zeichenfolge | Durch Kommas getrennte Liste von Namespace-Bezeichnungen, die von Sicherungs- und Wiederherstellungsvorgängen ausgeschlossen werden sollen.  Ermöglicht Ihnen, Namespaces basierend auf Labels zu filtern. 
+
+
+| useOpenshiftServiceCA | boolesch | Ermöglicht die Integration mit OpenShifts nativem Service CA Operator für die automatische Erstellung und Einbindung von TLS-Zertifikaten für den Trident Protect Admission-Webhook. Wenn auf  `true` gesetzt, verwaltet der Service CA Operator die Webhook-TLS-Zertifikate automatisch. Nur auf OpenShift-Clustern verwenden. (Standard:  `false`) 
 |===
 Sie können diese Optionen entweder mithilfe einer YAML-Konfigurationsdatei oder mithilfe von Befehlszeilenflags konfigurieren:
 
@@ -174,6 +177,7 @@ autoSupport:
   insecure: true
 restoreSkipNamespaceAnnotations: "annotation1,annotation2"
 restoreSkipNamespaceLabels: "label1,label2"
+useOpenshiftServiceCA: true
 ----
 . Nachdem Sie die `values.yaml` Datei mit den richtigen Werten, wenden Sie die Konfigurationsdatei an:
 +
@@ -196,6 +200,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
   --set autoSupport.proxy=http://my.proxy.url \
   --set-string restoreSkipNamespaceAnnotations="{annotation1,annotation2}" \
   --set-string restoreSkipNamespaceLabels="{label1,label2}" \
+  --set useOpenshiftServiceCA=true \
   --reuse-values
 ----
 

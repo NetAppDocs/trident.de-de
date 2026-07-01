@@ -42,7 +42,7 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 
 * Anthos On-Premises (VMware) und Anthos auf Bare Metal 1.16
 * Kubernetes 1.27 - 1.36
-* OpenShift 4.12, 4.14 - 4.21 (Wenn Sie die iSCSI-Knotenvorbereitung mit OpenShift 4.19 verwenden möchten, ist die minimal unterstützte Trident-Version 25.06.1.)
+* OpenShift 4.12, 4.14 - 4.22 (Bei geplanter Verwendung der iSCSI-Knotenvorbereitung mit OpenShift 4.19 ist die minimal unterstützte Trident Version 25.06.1.)
 +
 
 NOTE: Trident unterstützt weiterhin ältere OpenShift-Versionen im Einklang mit derlink:https://access.redhat.com/support/policy/updates/openshift["Red Hat Extended Update Support (EUS) Release-Lebenszyklus"] , auch wenn sie auf Kubernetes-Versionen basieren, die vom Upstream nicht mehr offiziell unterstützt werden.  In solchen Fällen können Sie bei der Installation von Trident alle Warnmeldungen zur Kubernetes-Version getrost ignorieren.
@@ -96,6 +96,49 @@ Trident unterstützt die folgenden ONTAP-Treiber für die KubeVirt- und OpenShif
 
 
 
+
+
+
+== Trident Unterstützung für Kubernetes auf Kubernetes und OpenShift gehosteten Steuerungsebenen
+
+Ab Version 26.06 qualifiziert Trident die Kubernetes auf Kubernetes Topologie vollständig. Kubernetes-Cluster, deren Knoten als KubeVirt virtuelle Maschinen auf einem Infrastruktur- (Host-) Cluster ausgeführt werden. Diese Topologie bildet die Grundlage für gehostete Steuerungsebenen-Angebote wie OpenShift hosted control planes (HCP) auf OpenShift Virtualization.
+
+
+NOTE: Diese Konfiguration funktionierte in früheren Versionen, aber die vollständige Qualifizierung beginnt mit 26.06.
+
+Der Gastcluster (Mandantencluster) nutzt den KubeVirt CSI-Treiber (`kubevirt-csi` als Speicheranbieter. Wenn eine Arbeitslast im Gastcluster einen Speicher  `PersistentVolumeClaim` anfordert, erstellt der KubeVirt CSI-Treiber ein entsprechendes Volume im Infrastrukturcluster. Trident stellt das Volume aus ONTAP bereit, und das Volume wird im laufenden Betrieb in die VM des Gastknotens eingebunden. Trident läuft ausschließlich im Infrastrukturcluster. Der Gastcluster nutzt ONTAP Speicher indirekt über den KubeVirt CSI-Treiber.
+
+.Anforderungen:
+* Trident ist auf dem Infrastruktur-Cluster mit einem unterstützten ONTAP Backend installiert.
+* Im Infrastruktur-Cluster existiert eine Trident-Speicherklasse, auf die der KubeVirt CSI-Treiber Gast-Cluster-Volumes abbilden kann.
+* KubeVirt oder OpenShift Virtualisierung wird auf dem Infrastruktur-Cluster bereitgestellt, und der KubeVirt CSI-Treiber ist in jedem Gast-Cluster installiert.
+
+
+[cols="2,1"]
+|===
+| Komponente | Version 
+
+
+| Trident | 26,06 
+
+
+| Kubernetes (Infrastruktur und Gast-Cluster) | 1,36 
+
+
+| KubeVirt | 1.9.0-beta.0 
+
+
+| Containerisierter Datenimporteur (CDI) | 1,65 
+|===
+.Zu berücksichtigende Aspekte:
+* Im Gast-Cluster erscheinen die Volumes als Hot-Plug-Blockgeräte auf den Gastknoten-VMs.
+* Der KubeVirt CSI-Treiber-Workflow erfordert kein Trident im Gast-Cluster. Das ONTAP Backend und die Storage Class werden im Infrastruktur-Cluster konfiguriert.
+
+
+.Trident wird direkt im Gast-Cluster installiert:
+Trident kann auch direkt im Gast- (Mandanten-)Cluster installiert werden. Die Installation von Trident im Gast-Cluster ist dann sinnvoll, wenn der vollständige Funktionsumfang von Trident benötigt wird, wie zum Beispiel Snapshots, Klone, Volumengrößenänderung und Import, was  `kubevirt-csi` selbst nicht bereitstellt.
+
+Im Gast-Cluster werden IP-basierte Protokolle verwendet: NFS, iSCSI und NVMe/TCP. Der Gast-Cluster unterstützt kein Fibre Channel (FC), da die Gast-Knoten virtuelle Maschinen ohne direkte FC-Konnektivität sind.
 
 
 
@@ -223,7 +266,7 @@ Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz 
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.36.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.02.0
 * docker.io/netapp/trident-autosupport:26.02
 * registry.k8s.io/sig-storage/csi-provisioner:v6.1.0

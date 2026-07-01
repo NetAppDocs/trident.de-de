@@ -1,0 +1,187 @@
+---
+sidebar: sidebar 
+permalink: trident-use/vol-move.html 
+keywords: trident, volume move, move volume, ontap-san, iscsi, tridentvolumemove, non-disruptive, aggregate, node, relocate 
+summary: Ein iSCSI-Volume kann unterbrechungsfrei auf einen anderen ONTAP Knoten und ein anderes Aggregat innerhalb desselben Clusters verschoben werden, indem eine TridentVolumeMove Ressource verwendet wird. 
+---
+= Ein Volume verschieben
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ab Trident 26.06 kann ein Speicheradministrator ein iSCSI-Volume unterbrechungsfrei auf einen anderen ONTAP-Knoten und ein anderes Aggregat innerhalb desselben ONTAP Clusters verschieben, während die darauf basierende Arbeitslast weiterläuft. Die Verschiebung wird deklarativ mit einer `TridentVolumeMove` benutzerdefinierten Ressource oder dem `tridentctl` Äquivalent angefordert, und Trident koordiniert ONTAP und den Host, sodass die I/O niemals unterbrochen wird.
+
+
+
+== Anforderungen
+
+Volume Move gilt nur für den `ontap-san` Treiber für iSCSI-Volumes. NVMe und NAS Protokolle werden nicht unterstützt.
+
+Bevor Sie ein Volume verschieben, muss sichergestellt sein, dass die folgenden Voraussetzungen erfüllt sind:
+
+* Das Backend verwendet den  `ontap-san` Treiber mit der ONTAP REST API.
+* Der ONTAP Cluster verfügt über mindestens zwei Knoten.
+* Sie verfügen über einen der folgenden Berechtigungssätze:
++
+** ONTAP 9.19.1 oder höher, wenn die dedizierte benutzerdefinierte ONTAP Rolle verwendet wird.
+** Cluster-Administrator-Anmeldeinformationen in früheren ONTAP Releases.
+
+
+
+
+
+
+== So funktioniert es
+
+Trident verschiebt das Volume (LUN) zwischen zwei Standorten innerhalb desselben ONTAP Clusters. Bevor die Daten verschoben werden, fügt Trident dem Ziel neben den bestehenden Pfaden neue iSCSI-Pfade hinzu, sodass das Multipath-Gerät des Hosts jederzeit erreichbar bleibt. Nachdem ONTAP die Verschiebung abgeschlossen hat, entfernt Trident die veralteten Quellpfade.
+
+Trident steuert den Vorgang durch eine geordnete Reihe von Zuständen, die in der  `TridentVolumeMove` Ressource sichtbar sind, sodass der Fortschritt des Vorgangs verfolgt werden kann.
+
+
+
+== Ein Volume verschieben
+
+
+
+=== Das Volumen und die Standorte identifizieren
+
+. Den Namen des zu verschiebenden PV ermitteln. Der PV-Name ist auch der Name der Move-Ressource.
+. Im ONTAP Cluster den aktuellen (Quell-)Knoten und das Aggregat für dieses Volume notieren und den Zielknoten sowie das Ziel-Aggregat auswählen.
+
+
+
+
+=== Starten Sie den Umzug
+
+Beide Methoden können verwendet werden. Beide erstellen dieselbe  `TridentVolumeMove`Ressource, deren Name der PV-Name ist.
+
+[role="tabbed-block"]
+====
+.Verwendung von tridentctl
+--
+[source, console]
+----
+tridentctl create volume-move \
+  --volume      pvc-8a814d62-bd58-4253-b0d1-82f2885db671 \
+  --source-node ontap-node-01 \
+  --source-pool aggr1_node01 \
+  --target-node ontap-node-02 \
+  --target-pool aggr1_node02 \
+  -n trident
+----
+`tvm` ist ein Alias für  `volume-move`.  `--delete-after-success 10m` hinzufügen, damit die Ressource nach erfolgreichem Verschieben automatisch entfernt wird.
+
+--
+.Verwendung einer TridentVolumeMove Ressource
+--
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentVolumeMove
+metadata:
+  name: pvc-8a814d62-bd58-4253-b0d1-82f2885db671   # the PV to move
+  namespace: trident
+spec:
+  sourceNode: ontap-node-01
+  sourcePool: aggr1_node01
+  targetNode: ontap-node-02
+  targetPool: aggr1_node02
+  # deleteAfterSuccess: 10m   # optional
+----
+Ressource anwenden:
+
+[source, console]
+----
+kubectl apply -f tridentvolumemove.yaml
+----
+--
+====
+.Spezifikationsfelder
+`sourceNode` / `targetNode`:: ONTAP Knotennamen (nicht UUIDs).
+`sourcePool` / `targetPool`:: ONTAP Aggregatnamen.
+`deleteAfterSuccess`:: Optionale Dauer, wie  `30s` oder  `10m`. Auf  `0` setzen, um die Ressource sofort zu löschen, oder weglassen, um die Ressource beizubehalten.
+
+
+
+
+=== Die Verschiebung überwachen
+
+Der Fortschritt kann anhand des  `tvm`Kurznamens oder  `tridentvolumemove` verfolgt werden:
+
+[source, console]
+----
+kubectl get tridentvolumemove -n trident
+----
+Der aktuelle Status und der Fortschritt pro Knoten werden angezeigt, wenn die Ressource beschrieben wird:
+
+[source, console]
+----
+kubectl describe tridentvolumemove <pv-name> -n trident
+----
+Das Volume kann während des  `Moving`-Zustands mehrere gleichzeitige Anhänge haben, da ONTAP für die Verschiebung eines großen Volumes einige Zeit benötigen kann. Für eine reibungslose Verschiebung koordiniert Trident die Abläufe zwischen dem Trident Controller und dem Trident Node. Jeder Zustand führt die folgenden Schritte in der angegebenen Reihenfolge aus und endet entweder in  `Succeeded` oder  `Failed`.
+
+[cols="1,2"]
+|===
+| Status | Was geschieht 
+
+
+| `Pending` | Trident akzeptiert und validiert die Umzugsanfrage und sammelt die benötigten Informationen, bevor Änderungen am Speicher vorgenommen werden. 
+
+
+| `ControllerStaging` | Trident bereitet den Zielort vor. Es ordnet die Speicherschnittstellen des Zielknotens der LUN zu und aktualisiert Kubernetes, sodass ein zukünftiger Neustart des Knotens die Verbindung zum richtigen Standort wiederherstellt. 
+
+
+| `NodeStaging` | Auf jedem Host, auf dem das Volume eingebunden ist, fügt Trident die neuen Speicherpfade vom Zielknoten neben den bestehenden Pfaden hinzu, sodass die E/A des Pods über beide Pfadsätze hinweg fortgesetzt wird. 
+
+
+| `Moving` | ONTAP kopiert und überträgt die Volumendaten auf das Zielaggregat. Dies ist die längste Phase, und ONTAP übernimmt sie vollständig, während Trident den Vorgang abfragt, bis er abgeschlossen ist. Neue Veröffentlichungen sind während dieses Status zulässig. 
+
+
+| `ControllerUnstaging` | Die Datenübertragung ist abgeschlossen. Trident aktualisiert Kubernetes, um die Quellpfade aus dem gewünschten Zustand zu entfernen, und hebt anschließend die Zuordnung der Speicherschnittstellen des Quellknotens von der LUN auf. 
+
+
+| `NodeUnstaging` | Auf jedem Host entfernt Trident die veralteten Quellpfade. Dem Host verbleiben nur noch die Zielpfade, und das Multipath-Gerät verarbeitet weiterhin E/A ohne Unterbrechung. 
+
+
+| `Succeeded` | Das Volume ist vollständig verschoben und am Ziel online. Trident behält die `TridentVolumeMove` Ressource bei oder löscht sie automatisch, wenn Sie `deleteAfterSuccess` festlegen. 
+
+
+| `Failed` | Ein nicht behebbarer Fehler hat den Verschiebevorgang gestoppt oder dessen Start verhindert. Trident setzt den Volume-Status zurück, sodass der normale Betrieb fortgesetzt werden kann, und behält die Ressource mit einer Fehlermeldung. Die Meldung sollte überprüft, die Ursache behoben, die Ressource gelöscht und der Vorgang erneut versucht werden. 
+|===
+Die  `.status.attachments`Liste zeigt den Fortschritt jedes angeschlossenen Knotens in seinem  `state`Feld:
+
+[cols="1,2"]
+|===
+| Anhangsstatus | Bedeutung 
+
+
+| `Pending` | Knoten als verbunden identifiziert; die Arbeit hat noch nicht begonnen. 
+
+
+| `Bridged` | Neue Zielpfade werden neben den bestehenden Pfaden hinzugefügt. 
+
+
+| `Migrated` | Der Datenverkehr wird jetzt über die neuen Pfade bereitgestellt. 
+
+
+| `Cleaned` | Veraltete Quellpfade vom Knoten entfernt. 
+
+
+| `Detached` | Der Knoten wurde während der Bewegung abgetrennt und von der weiteren Betrachtung ausgeschlossen, während Trident prüft, ob die Verbindung bereit ist, mit dem nächsten Schritt fortzufahren. 
+
+
+| `Failed` | Terminalfehler auf diesem Knoten. Die Meldung anzeigen. 
+|===
+
+
+=== Die Umzugsressource bereinigen
+
+Wenn  `deleteAfterSuccess` festgelegt ist, entfernt Trident die Ressource automatisch. Andernfalls kann sie manuell gelöscht werden. Bevor eine weitere Verschiebung auf demselben Volume angefordert wird, ist sicherzustellen, dass für dieses Volume keine  `TridentVolumeMove` Ressource im  `Succeeded`- oder  `Failed`-Status vorhanden ist.
+
+[NOTE]
+====
+Trident löscht fehlgeschlagene Verschiebungen niemals automatisch. Trident speichert eine  `Failed` Ressource als Prüfprotokoll. Nachdem die Ursache behoben wurde, sollte die Ressource manuell gelöscht werden, bevor ein erneuter Versuch erfolgt.
+
+====

@@ -1,6 +1,6 @@
 ---
 indexpage:
-  title: Trident 26.02 Dokumentation
+  title: Trident 26.06 Dokumentation
   summary: Trident ist ein Open-Source-Tool zur Storage-bereitstellung und -Orchestrierung,
     das von NetApp verwaltet wird. Die Software ermöglicht die Erstellung von Storage
     Volumes für Container-Applikationen, die von Docker und Kubernetes gemanagt werden.

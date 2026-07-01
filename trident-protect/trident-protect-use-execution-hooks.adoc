@@ -93,6 +93,9 @@ NOTE: Wenn Sie einem Ausführungs-Hook einen Namespace-Filter hinzufügen, der n
 Besuchen Sie die https://github.com/NetApp/Verda["NetApp Verda GitHub Projekt"] , um echte Ausführungshaken für gängige Apps wie Apache Cassandra und Elasticsearch herunterzuladen. Sie können auch Beispiele sehen und Ideen für die Strukturierung Ihrer eigenen benutzerdefinierten Execution Hooks erhalten.
 
 
+NOTE: Die Skripte im Verda-Repository werden wie besehen bereitgestellt und sind nicht offiziell von NetApp unterstützt. NetApp-Support umfasst ausschließlich das Execution Hooks Framework innerhalb von Trident Protect.
+
+
 
 == Erstellen Sie einen Ausführungshaken
 

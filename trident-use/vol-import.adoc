@@ -39,13 +39,13 @@ WARNING: Dies ist besonders für Block-Volumes wichtig, da Kubernetes die vorher
 * Die vorhandene Volumegröße wird in der PVC ermittelt und festgelegt. Nachdem das Volumen vom Speichertreiber importiert wurde, wird das PV mit einem ClaimRef an die PVC erzeugt.
 +
 ** Die Rückgewinnungsrichtlinie ist zunächst auf festgelegt `retain` Im PV. Nachdem Kubernetes die PVC und das PV erfolgreich bindet, wird die Zurückgewinnungsrichtlinie aktualisiert und an die Zurückgewinnungsrichtlinie der Storage-Klasse angepasst.
-** Wenn die Richtlinie zur Zurückgewinnung der Storage-Klasse lautet `delete`, Das Speichervolumen wird gelöscht, wenn das PV gelöscht wird.
+** Wenn die Rückgewinnungsrichtlinie der Storage Class `delete` ist, löscht Trident das Speichervolume, wenn das PV gelöscht wird.
 
 
-* Standardmäßig verwaltet Trident die PVC und benennt das FlexVol volume und die LUN im Backend um. Du kannst die `--no-manage` Flag zum Importieren eines nicht verwalteten Volumes und die `--no-rename` Flagge, um den Datenträgernamen beizubehalten.
+* Standardmäßig verwaltet Trident die PVC und benennt das FlexVol Volume sowie die LUN oder den Qtree im Backend um. Es besteht die Möglichkeit, das  `--no-manage` Flag zu verwenden, um ein nicht verwaltetes Volume zu importieren, und das  `--no-rename` Flag, um den Volume-Namen beizubehalten.
 +
 **  `--no-manage`* - Wenn Sie die `--no-manage` Laut dieser Meldung führt Trident während des gesamten Lebenszyklus der Objekte keine zusätzlichen Operationen an der PVC oder PV durch. Das Speichervolume wird beim Löschen des PV nicht gelöscht, und auch andere Operationen wie das Klonen von Volumes und das Ändern der Volume-Größe werden ignoriert.
-**  `--no-rename`* - Wenn Sie die `--no-rename` Mit dieser Option behält Trident beim Importieren von Volumes den bestehenden Volume-Namen bei und verwaltet den Lebenszyklus der Volumes. Diese Option wird nur für die `ontap-nas` , `ontap-san` (einschließlich ASA r2-Systeme) und `ontap-san-economy` Fahrer.
+**  `--no-rename`* - Wenn das  `--no-rename` Flag verwendet wird, behält Trident beim Importieren von Volumes den vorhandenen Volume-Namen bei und verwaltet den Lebenszyklus der Volumes. Diese Option wird nur für die  `ontap-nas`,  `ontap-san` (einschließlich ASA r2-Systeme),  `ontap-san-economy` und  `ontap-nas-economy` (qtree import) Treiber unterstützt.
 +
 
 TIP: Diese Optionen sind nützlich, wenn Sie Kubernetes für containerisierte Workloads verwenden möchten, ansonsten aber den Lebenszyklus des Speichervolumens außerhalb von Kubernetes verwalten möchten.
@@ -164,7 +164,7 @@ Trident unterstützt den Import von Volumes mit den `ontap-nas` Treibern und `on
 
 [NOTE]
 ====
-* Trident unterstützt keinen Volumenimport mit dem `ontap-nas-economy` Treiber.
+* Der  `ontap-nas-economy`Treiber verwaltet Speicher auf Qtree-Ebene, daher wird das eigenständige Importieren eines FlexVol Volumes nicht unterstützt. Zum Importieren von Qtrees mit dem  `ontap-nas-economy`Treiber siehe <<import-qtrees,Qtrees importieren>> (Tech Preview). Wenn Trident einen Qtree importiert, wird auch das übergeordnete FlexVol als Bucket importiert, das den Qtree enthält.
 * Der `ontap-nas` Und `ontap-nas-flexgroup` Treiber erlauben keine doppelten Volume-Namen.
 
 
@@ -262,6 +262,68 @@ spec:
   storageClassName: <storage-class-name>
 ----
 --
+====
+
+
+=== Qtrees importieren
+
+[NOTE]
+====
+Qtree Import ist eine Tech Preview Funktion in Trident 26.06. Tech Preview Funktionen sind für den Produktiveinsatz nicht unterstützt.
+
+====
+Ab Trident 26.06 ist es möglich, bestehende ONTAP qtrees mithilfe des  `ontap-nas-economy` Treibers in Trident zu importieren. Der Qtree wird durch seinen FlexVol Volume- und Qtree-Namen im  `flexvol/qtree` Format sowie durch die UUID des Backends, das ihn enthält, identifiziert. Die allgemeinen Importüberlegungen in <<Überblick und Überlegungen>> gelten auch für den Qtree-Import.
+
+.Einen Qtree mit tridentctl importieren
+Geben Sie den Qtree im  `flexvol/qtree` Format als Volume-Namen an. Im folgenden Beispiel wird der Qtree  `qtree1` aus dem FlexVol Volume  `flexvol1` auf dem Backend  `ontap_nas_economy` importiert:
+
+[listing]
+----
+tridentctl import volume ontap_nas_economy flexvol1/qtree1 -f <path-to-pvc-file>
+----
+Um den Qtree zu importieren, ohne ihn umzubenennen, das  `--no-rename` Flag hinzufügen. Um den Qtree zu importieren, ohne dass Trident seinen Lebenszyklus verwaltet, das  `--no-manage` Flag hinzufügen.
+
+.Import eines Qtrees mithilfe von PVC-Annotationen
+Eine PVC mit den folgenden Annotationen erstellen:
+
+[source, yaml]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: <pvc-name>
+  namespace: <namespace>
+  annotations:
+    trident.netapp.io/importOriginalName: "flexvol1/qtree1"
+    trident.netapp.io/importBackendUUID: "<backend-uuid>"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: <size>
+  storageClassName: <storage-class-name>
+----
+Um die bestehenden FlexVol volume- und qtree-Namen beizubehalten, die  `trident.netapp.io/importNoRename: "true"` Annotation hinzufügen. Um den qtree als nicht verwaltet zu importieren, die  `trident.netapp.io/notManaged: "true"` Annotation hinzufügen.
+
+.Benennungs- und Managementverhalten
+Verwalteter Import (Standard):: Trident benennt den Qtree entsprechend dem PVC-Namen um und benennt das FlexVol volume gemäß der  `ontap-nas-economy` Namenskonvention um. Der Verbindungspfad bleibt unverändert.
+`--no-rename`:: Trident behält die bestehenden FlexVol volume- und qtree-Namen bei. Die Namen müssen bereits den Trident Namenskonventionen entsprechen, sonst kann Trident keine Lösch- oder Mount-Operationen für den qtree verwalten.
+`--no-manage`:: Trident referenziert den qtree, verwaltet aber nicht dessen Lebenszyklus. Die Namen müssen den Trident Namenskonventionen entsprechen, und Trident verwendet oder verwaltet keine Auto-Export-Richtlinien für den qtree.
+
+
+.Verhalten der Export-Policy
+Wenn das Backend automatische Exportrichtlinien verwendet, nutzt der importierte Qtree das Exportrichtlinienmodell pro Qtree, bei dem jeder Qtree seine eigene Exportrichtlinie besitzt. Trident weist dem Qtree beim Import eine leere Exportrichtlinie zu. Beim Veröffentlichen aktualisiert Trident das FlexVol volume auf die Exportrichtlinie pro Backend, falls der automatische Export aktiviert ist und die bestehende FlexVol Exportrichtlinie  `default` oder leer ist.
+
+[CAUTION]
+====
+Die Aktualisierung der Export-Richtlinie des FlexVol Volumes kann andere Qtrees im selben FlexVol Volume beeinträchtigen, die derzeit eingebunden sind. Qtrees sollten nur importiert werden, wenn die Qtrees im FlexVol Volume ausgehängt sind.
+
+====
+[WARNING]
+====
+Zwei Kubernetes-Cluster dürfen nicht auf dieselbe aktive SVM verweisen, und es darf kein Qtree importiert werden, der noch von einem anderen Cluster verwaltet wird. Wenn beide Cluster dasselbe Volume verwalten, können widersprüchliche Vorgänge die Daten beschädigen oder zerstören.
+
 ====
 
 

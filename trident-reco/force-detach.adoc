@@ -150,7 +150,7 @@ TNRs können sich in einem der folgenden Bundesstaaten befinden:
 
 
 
-NOTE: Sie können auch alternative Methoden zur Erkennung von Knotenausfällen verwenden, wie in der<<Integrating Custom Node Health Check Solutions>> Abschnitt unten.
+NOTE: Sie können auch alternative Methoden zur Erkennung von Knotenausfällen verwenden, wie im <<Integration kundenspezifischer Lösungen zur Überprüfung des Knotenzustands>> Abschnitt unten angegeben.
 
 Sehenlink:https://www.redhat.com/en/blog/node-health-check-operator["Knoten-Gesundheitsprüfungsoperator"^] für weitere Informationen.
 

@@ -25,7 +25,7 @@ Um sicherzustellen, dass Trident in einer Vielzahl von Umgebungen und Organisati
 ====
 []
 =====
-* Kubernetes 1.35 wird nun in Trident unterstützt. Aktualisieren Sie Trident, bevor Sie Kubernetes aktualisieren.
+* Kubernetes wird jetzt in Trident unterstützt. Trident sollte vor Kubernetes aktualisiert werden.
 * Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
@@ -40,7 +40,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 
 Unabhängig von Ihrem Installationspfad müssen Sie Folgendes haben:
 
-* Vollständige Berechtigungen für einen unterstützten Kubernetes-Cluster, auf dem eine unterstützte Version von Kubernetes und aktivierte Funktionsanforderungen ausgeführt werden. Überprüfen Sie die link:requirements.html["Anforderungen"] Entsprechende Details.
+* Vollständige Berechtigungen für einen unterstützten Kubernetes-Cluster, auf dem eine unterstützte Kubernetes-Version ausgeführt wird und die erforderlichen Funktionen aktiviert sind. Überprüfen Sie die link:../trident-get-started/requirements.html["Anforderungen"] für Details.
 * Zugriff auf ein unterstütztes NetApp Storage-System.
 * Kann Volumes von allen Kubernetes Worker-Nodes aus mounten
 * Einem Linux-Host mit `kubectl` (Oder `oc`, Falls Sie OpenShift nutzen) ist installiert und konfiguriert, um den Kubernetes-Cluster zu managen, den Sie verwenden möchten.
