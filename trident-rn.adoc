@@ -49,6 +49,7 @@ Erfahren Sie, was neu ist in NetApp Trident und Trident Protect, einschließlich
 ** Die Entfernung von Snapshots von Klonvolumes in ONTAP Backends nach dem Best-Effort-Prinzip wurde hinzugefügt, wenn der Quell-Snapshot eines Klonvolumes gelöscht wird.
 ** Die Erkennung von Backup-Klon-PVCs wurde hinzugefügt, um zu verhindern, dass temporäre PVCs, die von Veeam Kasten, Trilio und Cohesity erstellt wurden, in der ONTAP Volume Recovery Queue hängen bleiben.
 ** Erweiterte AWS-ARN-Verarbeitung zur Unterstützung spezieller Regionen.
+** Verhindern, dass Flexvols während der Größenänderungsoperation für den ONTAP SAN ECONOMY Treiber verkleinert werden.
 
 
 
@@ -123,7 +124,7 @@ NOTE: Nicht für den Einsatz in Produktionsumgebungen.
 * Die Kapazität des festen geschützten Speichers erhöht sich nach einer Wiederherstellung vor Ort einer virtuellen Maschine durch die Verwendung von Sparse Copy während des PersistentVolumeClaim-Kopiervorgangs deutlich.
 * Behoben: Trident Protect löschte das Kubernetes-Snapshot-Objekt, bevor die Löschung des zugrundeliegenden Snapshots in ONTAP bestätigt wurde; der Finalizer wartet nun auf  `VolumeSnapshot` Löschung.
 * Behoben wurde, dass Snapshots nicht fortgesetzt wurden, wenn ein Einfrieren der virtuellen Maschine fehlschlug; Einfrieren und Auftauen werden nun auch bei einem Fehler fortgesetzt.
-* Behoben wurde ein Fehler, bei dem KubeVirt-Virtuelle-Maschinen-Anwendungen PersistentVolumeClaims während AppMirrorRelationship-Reverse-, Reverse-Resync- und Resync-Operationen fälschlicherweise neu erstellt haben.
+* Behoben wurde ein Fehler, bei dem KubeVirt virtuelle Maschinenanwendungen PersistentVolumeClaims während AppMirrorRelationship Reverse-, Reverse-Resync- und Resync-Operationen fälschlicherweise neu erstellt haben.
 
 
 
