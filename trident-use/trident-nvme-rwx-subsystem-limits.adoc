@@ -16,6 +16,7 @@ ReadWriteMany (RWX)-Volumes, die das NVMe-Protokoll verwenden, haben eine Skalie
 
 
 
+[[understand-the-64-node-limit]]
 == Verstehen Sie das 64-Knoten-Limit
 
 Wenn Sie ReadWriteMany (RWX)-Volumes mit dem NVMe-Protokoll verwenden möchten, kann ein einzelnes RWX NVMe-Volume nicht von mehr als 64 Knoten in einem Kubernetes-Cluster eingebunden werden.
@@ -26,10 +27,12 @@ Diese Einschränkung gilt nur für RWX-Volumes, die das NVMe-Protokoll verwenden
 
 
 
+[[understand-nvme-subsystem-models]]
 == NVMe-Subsystemmodelle verstehen
 
 
 
+[[per-volume-subsystem-model-trident-releases-earlier-than-26-02]]
 === Subsystemmodell pro Volumen (Trident Releases früher als 26.02)
 
 In Trident-Versionen vor 26.02 werden RWX-NVMe-Volumes mithilfe eines Subsystemmodells pro Volume bereitgestellt. Jedes RWX-NVMe-Volume ist seinem eigenen dedizierten NVMe-Subsystem auf ONTAP zugeordnet.
@@ -38,6 +41,7 @@ Dieses Modell ist einfach, hat aber eine geringere Skalierbarkeitsgrenze. In gro
 
 
 
+[[super-subsystem-model-introduced-in-trident-26-02]]
 === Super-Subsystem-Modell (eingeführt in Trident 26.02)
 
 Ab Trident 26.02 verwenden RWX NVMe-Volumes ein gemeinsames Super-Subsystem-Modell. Mehrere RWX NVMe-Volumes teilen sich dasselbe NVMe-Subsystem.
@@ -48,6 +52,7 @@ Jedes RWX NVMe-Volume unterstützt bis zu 64 Knoten.
 
 
 
+[[identify-error-symptoms]]
 == Fehlersymptome identifizieren
 
 Wenn Sie RWX NVMe-Volumes in großem Umfang erstellen oder einbinden, können Fehler wie die folgenden auftreten:
@@ -60,12 +65,14 @@ Dieser Fehler weist darauf hin, dass das ONTAP NVMe-Subsystem-Controller-Limit e
 
 
 
+[[resolve-subsystem-limit-errors]]
 == Beheben Sie Subsystem-Limit-Fehler
 
 Um die Beschränkungen des Subsystems pro Volume zu überwinden und das Super-Subsystem-Modell nutzen zu können, aktualisieren Sie auf Trident 26.02 oder höher.
 
 
 
+[[upgrade-trident-to-apply-the-super-subsystem-model]]
 == Aktualisieren Sie Trident, um das Super-Subsystem-Modell anzuwenden
 
 Um das Super-Subsystem-Modell für RWX NVMe-Volumes anzuwenden:

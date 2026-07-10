@@ -19,6 +19,7 @@ NOTE: Um Hilfe mit Trident zu erhalten, erstellen Sie ein Support-Bundle mit `tr
 
 
 
+[[general-troubleshooting]]
 == Allgemeine Fehlerbehebung
 
 * Falls der Trident Pod nicht richtig angezeigt wird (z. B. wenn er im nicht mehr ordnungsgemäß funktioniert `ContainerCreating` Phase mit weniger als zwei einsatzbereiten Containern), Laufen `kubectl -n trident describe deployment trident` Und `kubectl -n trident describe pod trident-********-****` Dieser Service ermöglicht Ihnen Einblick. Abrufen von Kubelet-Protokollen (z. B. über) `journalctl -xeu kubelet`) Kann auch hilfreich sein.
@@ -71,6 +72,7 @@ Mit tridentctl installiert::
 
 
 
+[[unsuccessful-trident-deployment-using-the-operator]]
 == Die Bereitstellung von Trident mit dem Operator ist fehlgeschlagen
 
 Wenn Sie Trident über den Operator implementieren, lautet der Status von `TridentOrchestrator` Änderungen von `Installing` Bis `Installed`. Wenn Sie die beobachten `Failed` Der Status, und der Operator kann sich nicht selbst wiederherstellen. Sie sollten die Protokolle des Operators überprüfen, indem Sie folgenden Befehl ausführen:
@@ -138,6 +140,7 @@ Um das Problem zu beheben, sollten Sie die bearbeiten `TridentOrchestrator` CR. 
 
 
 
+[[unsuccessful-trident-deployment-using-tridentctl]]
 == Erfolglose Trident-Implementierung mit `tridentctl`
 
 Um herauszufinden, was schief gelaufen ist, können Sie den Installer mit dem erneut ausführen ``-d`` Argument, das den Debug-Modus aktiviert und Ihnen hilft zu verstehen, was das Problem ist:
@@ -160,6 +163,7 @@ INFO Trident uninstallation succeeded.
 ----
 
 
+[[completely-remove-trident-and-crds]]
 == Entfernen Sie Trident und CRDs vollständig
 
 Sie können Trident und alle erstellten CRDs und zugehörigen benutzerdefinierten Ressourcen vollständig entfernen.
@@ -199,12 +203,14 @@ tridentctl obliviate crd
 ====
 
 
+[[nvme-node-unstaging-failure-with-rwx-raw-block-namespaces-o-kubernetes-1-26]]
 == Fehler beim Entstopen des NVMe-Node bei den RWX-RAW-Block-Namespaces o Kubernetes 1.26
 
 Wenn Sie Kubernetes 1.26 ausführen, schlägt das Entstauen der Nodes möglicherweise fehl, wenn NVMe/TCP mit RWX-unformatierten Block-Namespaces verwendet wird. Die folgenden Szenarien bieten eine Behelfslösung für den Fehler. Alternativ können Sie ein Upgrade von Kubernetes auf 1.27 durchführen.
 
 
 
+[[deleted-the-namespace-and-pod]]
 === Namespace und Pod wurden gelöscht
 
 Stellen Sie sich ein Szenario vor, in dem ein über Trident verwalteter Namespace (persistentes Volume NVMe) mit einem Pod verbunden ist. Wenn Sie den Namespace direkt aus dem ONTAP-Backend löschen, bleibt der Entstempungsprozess hängen, nachdem Sie versucht haben, den Pod zu löschen. Dieses Szenario beeinträchtigt nicht das Kubernetes-Cluster oder andere Funktionen.
@@ -214,6 +220,7 @@ Heben Sie das persistente Volume (entsprechend dem Namespace) vom entsprechenden
 
 
 
+[[blocked-datalifs]]
 === Blockierte Daten-LIFs
 
  If you block (or bring down) all the dataLIFs of the NVMe Trident backend, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
@@ -222,6 +229,7 @@ Das DataLIFS wird zur Wiederherstellung der vollen Funktionalität angezeigt.
 
 
 
+[[deleted-namespace-mapping]]
 === Namespace-Zuordnung wurde gelöscht
 
  If you remove the `hostNQN` of the worker node from the corresponding subsystem, the unstaging process gets stuck when you attempt to delete the pod. In this scenario, you cannot run any NVMe CLI commands on the Kubernetes node.
@@ -230,6 +238,7 @@ Fügen Sie die hinzu `hostNQN` Zurück zum Subsystem.
 
 
 
+[[nfsv4-2-clients-report-invalid-argument-after-upgrading-ontap-when-when-expecting-v4-2-xattrs-being-enabled]]
 == NFSv4.2-Clients melden nach dem Upgrade von ONTAP „ungültiges Argument“, wenn erwartet wird, dass „v4.2-xattrs“ aktiviert ist
 
 Nach dem Upgrade von ONTAP melden NFSv4.2-Clients möglicherweise Fehler aufgrund „ungültiger Argumente“, wenn sie versuchen, NFSv4.2-Exporte zu mounten. Dieses Problem tritt auf, wenn die `v4.2-xattrs` Die Option ist auf der SVM nicht aktiviert. .Workaround Aktivieren Sie die `v4.2-xattrs` Option auf dem SVM oder Upgrade auf ONTAP 9.12.1 oder höher, wo diese Option standardmäßig aktiviert ist.

@@ -16,6 +16,7 @@ Kubernetes Volume Snapshots von Persistent Volumes (PVs) ermöglichen zeitpunktg
 
 
 
+[[overview]]
 == Überblick
 
 Volume-Snapshots werden unterstützt von `ontap-nas` , `ontap-nas-flexgroup` , `ontap-san` , `ontap-san-economy` , `solidfire-san` , `azure-netapp-files` , Und `google-cloud-netapp-volumes` Fahrer.
@@ -30,6 +31,7 @@ NOTE: Erstellen Sie keinen Snapshot Controller, wenn Sie On-Demand Volume Snapsh
 
 
 
+[[create-a-volume-snapshot]]
 == Erstellen eines Volume-Snapshots
 
 .Schritte
@@ -114,6 +116,7 @@ Status:
 
 
 
+[[create-a-pvc-from-a-volume-snapshot]]
 == Erstellen Sie eine PVC aus einem Volume-Snapshot
 
 Verwenden Sie können `dataSource` So erstellen Sie eine PVC mit einem VolumeSnapshot namens `<pvc-name>` Als Quelle der Daten. Nachdem die PVC erstellt wurde, kann sie an einem Pod befestigt und wie jedes andere PVC verwendet werden.
@@ -147,6 +150,7 @@ spec:
 ----
 
 
+[[import-a-volume-snapshot]]
 == Importieren Sie einen Volume-Snapshot
 
 Trident unterstützt das, damit der link:https://kubernetes.io/docs/concepts/storage/volume-snapshots/#static["Vorab bereitgestellter Snapshot-Prozess von Kubernetes"^]Clusteradministrator ein Objekt erstellen und Snapshots importieren kann `VolumeSnapshotContent`, die außerhalb von Trident erstellt wurden.
@@ -238,6 +242,7 @@ spec:
 
 
 
+[[recover-volume-data-using-snapshots]]
 == Stellen Sie Volume-Daten mithilfe von Snapshots wieder her
 
 Das Snapshot-Verzeichnis ist standardmäßig ausgeblendet, um die maximale Kompatibilität von Volumes zu ermöglichen, die über bereitgestellt werden `ontap-nas` Und `ontap-nas-economy` Treiber. Aktivieren Sie die `.snapshot` Verzeichnis, um Daten von Snapshots direkt wiederherzustellen.
@@ -253,6 +258,7 @@ NOTE: Wenn Sie eine Snapshot-Kopie wiederherstellen, wird die vorhandene Volume-
 
 
 
+[[in-place-volume-restoration-from-a-snapshot]]
 == In-Place-Volume-Wiederherstellung aus einem Snapshot
 
 Trident ermöglicht mithilfe des CR-Systems (TASR) eine schnelle Wiederherstellung von in-Place-Volumes aus einem Snapshot `TridentActionSnapshotRestore`. Dieser CR fungiert als eine zwingend notwendige Kubernetes-Aktion und bleibt nach Abschluss des Vorgangs nicht erhalten.
@@ -352,12 +358,14 @@ metadata:
 ====
 
 
+[[delete-a-pv-with-associated-snapshots]]
 == Löschen Sie ein PV mit den zugehörigen Snapshots
 
 Beim Löschen eines persistenten Volumes mit zugeordneten Snapshots wird das entsprechende Trident-Volume auf den „Löschstatus“ aktualisiert. Entfernen Sie die Volume-Snapshots, um das Trident-Volume zu löschen.
 
 
 
+[[deploy-a-volume-snapshot-controller]]
 == Stellen Sie einen Volume-Snapshot-Controller bereit
 
 Wenn Ihre Kubernetes-Distribution den Snapshot-Controller und CRDs nicht enthält, können Sie sie wie folgt bereitstellen.
@@ -397,6 +405,7 @@ NOTE: Öffnen Sie bei Bedarf `deploy/kubernetes/snapshot-controller/rbac-snapsho
 
 
 
+[[related-links]]
 == Weiterführende Links
 
 * link:../trident-concepts/snapshots.html["Volume Snapshots"]

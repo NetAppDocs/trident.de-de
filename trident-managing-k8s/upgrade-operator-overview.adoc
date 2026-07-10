@@ -16,6 +16,7 @@ Bevor Sie ein Upgrade von Trident mit dem Trident Operator durchführen, sollten
 
 
 
+[[trident-operator-upgrade-handling]]
 == Bearbeitung von Trident Upgrades für Betreiber
 
 Einer der vielen link:../trident-install/kubernetes-deploy.html["Vorteile der Verwendung des Trident-Bedieners"] Möglichkeiten, Trident zu installieren und zu aktualisieren, ist die automatische Verwaltung von Trident- und Kubernetes-Objekten, ohne bestehende eingebundene Volumes zu beeinträchtigen. Auf diese Weise kann Trident Upgrades ohne Ausfallzeiten oder link:https://kubernetes.io/docs/tutorials/kubernetes-basics/update/update-intro/["_Rollierende Updates_"^] unterstützen. Insbesondere kommuniziert der Trident-Operator mit dem Kubernetes-Cluster, um:
@@ -34,6 +35,7 @@ TIP: Weitere Informationen zur Trident-Architektur auf dem Kubernetes-Cluster fi
 
 
 
+[[operator-upgrade-workflow]]
 == Arbeitsablauf für die Benutzeraktualisierung
 
 Wenn Sie ein Upgrade mit dem Trident Operator initiieren:

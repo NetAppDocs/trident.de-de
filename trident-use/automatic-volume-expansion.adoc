@@ -21,6 +21,7 @@ NOTE: Volumes erhöhen sich automatisch, wenn der festgelegte Auslastungsschwell
 
 
 
+[[requirements]]
 == Anforderungen
 
 Bevor Sie die automatische Volumenerweiterung konfigurieren, stellen Sie sicher, dass die folgenden Voraussetzungen erfüllt sind:
@@ -40,6 +41,7 @@ Bevor Sie die automatische Volumenerweiterung konfigurieren, stellen Sie sicher,
 
 
 
+[[limitations]]
 == Einschränkungen
 
 * ONTAP Non-Volatile Memory Express Raw-Block-Volumes früher als ONTAP 9.16.1 unterstützen keine automatische Erweiterung.
@@ -58,6 +60,7 @@ Bevor Sie die automatische Volumenerweiterung konfigurieren, stellen Sie sicher,
 
 
 
+[[provision-volumes-with-autogrow-policy]]
 == Volumes mit Autogrow-Richtlinie bereitstellen
 
 Die Autogrow Policy kann auf zwei Ebenen konfiguriert werden:
@@ -68,6 +71,7 @@ Die Autogrow Policy kann auf zwei Ebenen konfiguriert werden:
 
 
 
+[[create-an-autogrow-policy]]
 == Erstellen Sie eine Autogrow-Richtlinie
 
 Autogrow-Richtlinien ermöglichen die automatische Volumenerweiterung, wenn Volumes einen definierten Kapazitätsschwellenwert erreichen.
@@ -92,6 +96,7 @@ Diese Flexibilität ermöglicht es Ihnen, eine automatische Erweiterung einzufü
 
 
 
+[[autogrow-policy-specifications]]
 === Spezifikationen der Autogrow Policy
 
 Autogrow Policies sind benutzerdefinierte Kubernetes-Ressourcen, die wie folgt definiert sind:
@@ -114,6 +119,7 @@ Autogrow Policies sind benutzerdefinierte Kubernetes-Ressourcen, die wie folgt d
 |===
 
 
+[[create-an-autogrow-policy]]
 == Erstellen Sie eine Autogrow-Richtlinie
 
 .Schritte
@@ -153,6 +159,7 @@ standard-autogrow   80%              10%             Success
 
 
 
+[[policy-states]]
 == Richtlinienstatus
 
 Nachdem Sie eine Richtlinie erstellt haben, validiert Trident die Spezifikation und weist einen der folgenden Zustände zu:
@@ -172,6 +179,7 @@ Nachdem Sie eine Richtlinie erstellt haben, validiert Trident die Spezifikation 
 |===
 
 
+[[associate-a-policy-with-a-storageclass]]
 == Ordnen Sie eine Richtlinie einer StorageClass zu
 
 Sie können eine Autogrow-Richtlinie mit einer StorageClass durch die  `trident.netapp.io/autogrowPolicy` Annotation verknüpfen. Alle Volumes, die aus dieser StorageClass bereitgestellt werden, erben die Richtlinie.
@@ -218,6 +226,7 @@ production-db-policy
 
 
 
+[[policy-precedence]]
 == Richtlinienvorrang
 
 Wenn Autogrow-Richtlinien-Annotationen sowohl für eine StorageClass als auch für ein PVC festgelegt sind, wendet Trident die folgenden Vorrangregeln an:
@@ -248,12 +257,14 @@ Wenn Autogrow-Richtlinien-Annotationen sowohl für eine StorageClass als auch f�
 |===
 
 
+[[configuration-examples]]
 == Konfigurationsbeispiele
 
 Die folgenden Beispiele zeigen gängige Autogrow Policy-Konfigurationen für verschiedene Anwendungsfälle.
 
 
 
+[[conservative-policy-for-production-databases]]
 === Konservative Richtlinie für Produktionsdatenbanken
 
 [source, yaml]
@@ -269,6 +280,7 @@ spec:
 ----
 
 
+[[log-storage-with-fixed-growth-increments]]
 === Protokollspeicherung mit festen Wachstumsschritten
 
 [source, yaml]
@@ -284,6 +296,7 @@ spec:
 ----
 
 
+[[minimal-policy-with-defaults]]
 === Minimalrichtlinie mit Standardeinstellungen
 
 Wenn Sie  `growthAmount` und  `maxSize` weglassen, verwendet Trident die Standardeinstellungen (`10%` Wachstum, unbegrenzte Größe):
@@ -299,6 +312,7 @@ spec:
 ----
 
 
+[[policy-with-a-custom-maxsize-and-default-growthamount]]
 === Richtlinie mit benutzerdefiniertem maxSize und standardmäßigem growthAmount
 
 [source, yaml]
@@ -313,6 +327,7 @@ spec:
 ----
 
 
+[[aggressive-growth-with-unlimited-maxsize]]
 === Aggressives Wachstum mit unbegrenztem maxSize
 
 [source, yaml]
@@ -327,6 +342,7 @@ spec:
 ----
 
 
+[[policy-with-fractional-percentages]]
 === Richtlinie mit Bruchteilprozenten
 
 [source, yaml]
@@ -345,6 +361,7 @@ NOTE: Bruchprozentsätze werden unterstützt. Wenn Sie mehr als drei Dezimalstel
 
 
 
+[[nas-storageclass-with-autogrow]]
 === NAS StorageClass mit Autogrow
 
 [source, yaml]
@@ -363,6 +380,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[san-storageclass-with-autogrow]]
 === SAN StorageClass mit Autogrow
 
 [source, yaml]

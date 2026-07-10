@@ -16,6 +16,7 @@ Informieren Sie sich über die Back-End-Konfigurationsoptionen für Google Cloud
 
 
 
+[[backend-configuration-options]]
 == Back-End-Konfigurationsoptionen
 
 Jedes Back-End stellt Volumes in einer einzigen Google Cloud-Region bereit. Um Volumes in anderen Regionen zu erstellen, können Sie zusätzliche Back-Ends definieren.
@@ -74,6 +75,7 @@ Jedes Back-End stellt Volumes in einer einzigen Google Cloud-Region bereit. Um V
 |===
 
 
+[[volume-provisioning-options]]
 == Optionen zur Volume-Bereitstellung
 
 Sie können die Standard-Volume-Bereitstellung im steuern `defaults` Abschnitt der Konfigurationsdatei.
@@ -96,6 +98,7 @@ Sie können die Standard-Volume-Bereitstellung im steuern `defaults` Abschnitt d
 |===
 
 
+[[example-configurations]]
 == Beispielkonfigurationen
 
 Die folgenden Beispiele zeigen grundlegende Konfigurationen, bei denen die meisten Parameter standardmäßig belassen werden. Dies ist der einfachste Weg, ein Backend zu definieren.
@@ -354,6 +357,7 @@ supportedTopologies:
 ====
 
 
+[[whats-next]]
 == Was kommt als Nächstes?
 
 Führen Sie nach dem Erstellen der Back-End-Konfigurationsdatei den folgenden Befehl aus:
@@ -381,6 +385,7 @@ Nachdem Sie das Problem mit der Konfigurationsdatei identifiziert und behoben ha
 
 
 
+[[storage-class-definitions]]
 == Definitionen der Storage-Klassen
 
 Im Folgenden finden Sie eine grundlegende `StorageClass` Definition, die sich auf das Backend oben bezieht.
@@ -434,6 +439,7 @@ Weitere Informationen zu Speicherklassen finden Sie unter link:../trident-use/cr
 
 
 
+[[example-definitions-for-smb-volumes]]
 === Beispieldefinitionen für SMB Volumes
 
 Mit `nasType`, `node-stage-secret-name` und  `node-stage-secret-namespace`können Sie ein SMB-Volume angeben und die erforderlichen Active Directory-Anmeldeinformationen eingeben. Jeder Active Directory-Benutzer/jedes Active Directory-Kennwort mit beliebigen oder keinen Berechtigungen kann für den Schlüssel der Knotenstufe verwendet werden.
@@ -494,6 +500,7 @@ NOTE: `nasType: smb` Filter für Pools, die SMB-Volumes unterstützen `nasType: 
 
 
 
+[[pvc-definition-example]]
 === Beispiel für eine PVC-Definition
 
 [source, yaml]

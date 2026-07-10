@@ -16,6 +16,7 @@ Während link:../trident-managing-k8s/tridentctl.html["Tridentctl-Befehle und -O
 
 
 
+[[when-to-use-the-rest-api]]
 == Wann die REST-API verwendet werden soll
 
 DIE REST-API ist nützlich für erweiterte Installationen, die Trident als Standalone-Binärdatei in Implementierungen ohne Kubernetes verwenden.
@@ -24,6 +25,7 @@ Zur Verbesserung der Sicherheit ist das Trident `REST API` standardmäßig auf l
 
 
 
+[[using-rest-api]]
 == REST-API wird verwendet
 
 Für Beispiele, wie diese APIs aufgerufen werden, übergeben Sie das (`-d`Flag debug ). Weitere Informationen finden Sie unter link:../trident-managing-k8s/tridentctl.html["Managen Sie Trident mit tridentctl"].
@@ -32,6 +34,7 @@ Die API funktioniert wie folgt:
 
 
 
+[[get]]
 === GET
 
 `GET <trident-address>/trident/v1/<object-type>`:: Listet alle Objekte dieses Typs auf.
@@ -40,6 +43,7 @@ Die API funktioniert wie folgt:
 
 
 
+[[post]]
 === POST
 
 `POST <trident-address>/trident/v1/<object-type>`:: Erstellt ein Objekt des angegebenen Typs.
@@ -54,6 +58,7 @@ Die API funktioniert wie folgt:
 
 
 
+[[delete]]
 === Löschen
 
 `DELETE <trident-address>/trident/v1/<object-type>/<object-name>`:: Löscht die benannte Ressource.

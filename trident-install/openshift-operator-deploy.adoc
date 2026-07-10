@@ -19,6 +19,7 @@ Bevor Sie mit der Installation beginnen, link:../trident-get-started/requirement
 
 
 
+[[find-and-install-the-trident-operator]]
 == Suchen und installieren Sie den Trident-Operator
 
 .Schritte
@@ -97,6 +98,7 @@ image::../media/openshift-operator-08.png[Installiert]
 
 
 
+[[uninstall-trident-operator]]
 == Deinstallieren Sie den Trident -Operator
 
 .Schritte

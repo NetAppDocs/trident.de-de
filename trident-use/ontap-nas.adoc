@@ -16,6 +16,7 @@ Erfahren Sie mehr über die Konfiguration eines ONTAP-Backend mit ONTAP- und Clo
 
 
 
+[[ontap-nas-driver-details]]
 == Details zum ONTAP NAS-Treiber
 
 Trident stellt die folgenden NAS-Speichertreiber für die Kommunikation mit dem ONTAP-Cluster bereit. Unterstützte Zugriffsmodi sind: _ReadWriteOnce_ (RWO), _ReadOnly Many_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
@@ -71,6 +72,7 @@ RWO, ROX, RWX, RWOP
 ====
 
 
+[[user-permissions]]
 == Benutzerberechtigungen
 
 Trident geht davon aus, dass es entweder als ONTAP- oder SVM-Administrator ausgeführt wird, wobei der Cluster-Benutzer oder ein `vsadmin` SVM-Benutzer oder ein Benutzer mit einem anderen Namen und derselben Rolle verwendet `admin` wird.

@@ -16,6 +16,7 @@ Mit dem Operator Trident können Sie die Trident-Installation mithilfe der Attri
 
 
 
+[[understanding-controller-pods-and-node-pods]]
 == Allgemeines zu Controller-Pods und Node-Pods
 
 Trident läuft als einzelner Controller-Pod und als Node-Pod auf jedem Worker-Knoten im Cluster. Der Node-Pod muss auf jedem Host ausgeführt werden, auf dem Sie möglicherweise ein Trident -Volume einbinden möchten.
@@ -28,6 +29,7 @@ Kubernetes link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-p
 
 
 
+[[configuration-options]]
 == Konfigurationsoptionen
 
 
@@ -90,7 +92,7 @@ Telemetrie | `"http://proxy.example.com:8888"`
 | `logFormat` | Verwendetes Trident-Protokollierungsformat [Text,json] | `"text"` 
 
 
-| `tridentImage` | Zu installierendes Trident-Image | `"netapp/trident:26.02"` 
+| `tridentImage` | Zu installierendes Trident-Image | `"netapp/trident:26.06"` 
 
 
 | `imageRegistry` | Pfad zur internen Registrierung des Formats
@@ -265,6 +267,7 @@ NOTE: Weitere Informationen zum Formatieren von Pod-Parametern finden Sie unter 
 
 
 
+[[sample-configurations]]
 == Beispielkonfigurationen
 
 Sie können die Attribute in verwenden<<Konfigurationsoptionen>> bei der Definition `TridentOrchestrator` um Ihre Installation individuell anzupassen.

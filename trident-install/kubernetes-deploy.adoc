@@ -16,7 +16,8 @@ Um sicherzustellen, dass Trident in einer Vielzahl von Umgebungen und Organisati
 
 
 
-== Wichtige Informationen zu Trident 26.02
+[[critical-information-about-trident-26-06]]
+== Wichtige Informationen zu Trident 26.06
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 
@@ -36,6 +37,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 ====
 
 
+[[before-you-begin]]
 == Bevor Sie beginnen
 
 Unabhängig von Ihrem Installationspfad müssen Sie Folgendes haben:
@@ -54,12 +56,14 @@ TIP: Wenn Sie sich nicht mit dem vertraut gemacht habenlink:../trident-get-start
 
 
 
+[[choose-your-installation-method]]
 == Wählen Sie Ihre Installationsmethode
 
 Wählen Sie die für Sie passende Installationsmethode. Sie sollten auch die Überlegungen zu link:kubernetes-deploy.html#moving-between-installation-methods["Bewegen zwischen Methoden"] prüfen, bevor Sie Ihre Entscheidung treffen.
 
 
 
+[[using-the-trident-operator]]
 === Verwenden des Betreibers von Trident
 
 Ob manuell oder mit Helm – der Trident-Operator ist eine großartige Möglichkeit, die Installation zu vereinfachen und Trident-Ressourcen dynamisch zu verwalten. Sie können sogar link:kubernetes-customize-deploy.html["Individuelle Anpassung der Trident Implementierung"] mithilfe der Attribute in der  `TridentOrchestrator` benutzerdefinierten Ressource (CR) vorgehen.
@@ -121,6 +125,7 @@ NOTE: Wenn das Cluster auf eine nicht unterstützte Version aktualisiert wird, v
 ====
 
 
+[[using-tridentctl]]
 === Wird Verwendet `tridentctl`
 
 Wenn Sie eine vorhandene Bereitstellung haben, die aktualisiert werden muss, oder wenn Sie Ihre Bereitstellung stark anpassen möchten, sollten Sie dies in Betracht ziehen. Dies ist die konventionelle Methode zur Bereitstellung von Trident.
@@ -132,6 +137,7 @@ NOTE: Ab der Version 22.04 werden AES-Schlüssel nicht mehr bei jeder Installati
 
 
 
+[[choose-your-installation-mode]]
 == Wählen Sie den Installationsmodus aus
 
 Bestimmen Sie Ihren Bereitstellungsprozess auf der Grundlage des von Ihrem Unternehmen benötigten _Installations-Modus_ (Standard, Offline oder Remote).
@@ -171,6 +177,7 @@ Hier finden Sie einen allgemeinen Überblick über den Remote-Installationsproze
 ====
 
 
+[[select-the-process-based-on-your-method-and-mode]]
 == Wählen Sie den Prozess basierend auf Methode und Modus aus
 
 Nachdem Sie Ihre Entscheidungen getroffen haben, wählen Sie den entsprechenden Prozess aus.
@@ -200,6 +207,7 @@ link:kubernetes-deploy-tridentctl.html["Standard- oder Offline-Installation"]
 |===
 
 
+[[moving-between-installation-methods]]
 == Wechseln zwischen den Installationsmethoden
 
 Sie können sich entscheiden, Ihre Installationsmethode zu ändern. Bevor Sie dies tun, sollten Sie folgendes bedenken:
@@ -212,6 +220,7 @@ Sie können sich entscheiden, Ihre Installationsmethode zu ändern. Bevor Sie di
 
 
 
+[[other-known-configuration-options]]
 == Andere bekannte Konfigurationsoptionen
 
 Bei der Installation von Trident auf VMware Tanzu Portfolio-Produkten:

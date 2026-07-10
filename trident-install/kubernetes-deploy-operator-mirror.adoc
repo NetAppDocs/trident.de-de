@@ -16,6 +16,7 @@ Sie können den Trident-Operator manuell bereitstellen, um Trident zu installier
 
 
 
+[[critical-information-about-trident]]
 == Wichtige Informationen über Trident
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
@@ -36,6 +37,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 ====
 
 
+[[manually-deploy-the-trident-operator-and-install-trident]]
 == Trident-Operator kann manuell implementiert und Trident installiert werden
 
 Überprüfen Sie link:kubernetes-deploy.html["Die Übersicht über die Installation"], um sicherzustellen, dass Sie die Installationsvoraussetzungen erfüllt und die richtige Installationsoption für Ihre Umgebung ausgewählt haben.
@@ -72,18 +74,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 === Schritt 1: Laden Sie das Trident Installer-Paket herunter
 
 Das Trident-Installationspaket enthält alles, was Sie für die Bereitstellung des Trident-Bedieners und die Installation von Trident benötigen. Laden Sie die neueste Version des Trident-Installers herunter und extrahieren Sie sie auslink:https://github.com/NetApp/trident/releases/latest["Die Sektion _Assets_ auf GitHub"^].
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v6.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-create-the-tridentorchestrator-crd]]
 === Schritt 2: Erstellen Sie die `TridentOrchestrator` CRD.
 
 Erstellen Sie die `TridentOrchestrator` Benutzerdefinierte Ressourcendefinition (CRD). Sie erstellen eine `TridentOrchestrator` Benutzerdefinierte Ressourcen später. Verwenden Sie die entsprechende CRD YAML-Version in `deploy/crds` zur Erstellung der `TridentOrchestrator` CRD:
@@ -94,16 +98,18 @@ kubectl create -f deploy/crds/<VERSION>.yaml
 ----
 
 
+[[step-3-update-the-registry-location-in-the-operator]]
 === Schritt 3: Aktualisieren Sie den Registrierungsort im Operator
 
-In `/deploy/operator.yaml`  `image: docker.io/netapp/trident-operator:26.02.0`aktualisieren Sie den Pfad, um den Speicherort Ihrer Image-Registry widerzuspiegeln. Ihre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident und CSI-Images"] können sich in einer Registry oder in verschiedenen Registrys befinden, aber alle CSI-Images müssen sich in derselben Registry befinden. Zum Beispiel:
+In `/deploy/operator.yaml`  `image: docker.io/netapp/trident-operator:26.06.0`aktualisieren Sie den Pfad, um den Speicherort Ihrer Image-Registry widerzuspiegeln. Ihre link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident und CSI-Images"] können sich in einer Registry oder in verschiedenen Registrys befinden, aber alle CSI-Images müssen sich in derselben Registry befinden. Beispiel:
 
-* `image: <your-registry>/trident-operator:26.02.0` wenn sich alle Ihre Images in einer einzigen Registry befinden.
-* `image: <your-registry>/netapp/trident-operator:26.02.0`wenn sich Ihr Trident-Image in einem anderen Registry als Ihre CSI-Images befindet.
-
-
+* `image: <your-registry>/trident-operator:26.06.0` wenn sich alle Ihre Images in einer einzigen Registry befinden.
+* `image: <your-registry>/netapp/trident-operator:26.06.0`wenn sich Ihr Trident-Image in einem anderen Registry als Ihre CSI-Images befindet.
 
 
+
+
+[[step-4-deploy-the-trident-operator]]
 === Schritt 4: Implementieren des Trident-Operators
 
 Das Trident-Installationsprogramm stellt eine Bundle-Datei zur Verfügung, mit der der Operator installiert und zugehörige Objekte erstellt werden können. Die Bundle-Datei ist eine einfache Möglichkeit, den Operator bereitzustellen und Trident mit einer Standardkonfiguration zu installieren.
@@ -157,6 +163,7 @@ IMPORTANT: Es sollte nur eine Instanz* des Operators in einem Kubernetes-Cluster
 
 
 
+[[step-5-update-the-image-registry-location-in-the-tridentorchestrator]]
 === Schritt 5: Aktualisieren Sie den Speicherort der Bildregistrierung im `TridentOrchestrator`
 
 Ihr link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident und CSI-Images"] Kann in einer Registrierung oder in verschiedenen Registern gefunden werden, aber alle CSI-Images müssen sich in derselben Registrierung befinden. Aktualisierung `deploy/crds/tridentorchestrator_cr.yaml` So fügen Sie zusätzliche Standortspezifikationen basierend auf Ihrer Registrierungskonfiguration hinzu.
@@ -168,8 +175,8 @@ Ihr link:../trident-get-started/requirements.html#container-images-and-correspon
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.02"
-tridentImage: "<your-registry>/trident:26.02.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.06"
+tridentImage: "<your-registry>/trident:26.06.0"
 ----
 --
 .Bilder in verschiedenen Registern
@@ -177,13 +184,14 @@ tridentImage: "<your-registry>/trident:26.02.0"
 [listing]
 ----
 imageRegistry: "<your-registry>"
-autosupportImage: "<your-registry>/trident-autosupport:26.02"
-tridentImage: "<your-registry>/trident:26.02.0"
+autosupportImage: "<your-registry>/trident-autosupport:26.06"
+tridentImage: "<your-registry>/trident:26.06.0"
 ----
 --
 ====
 
 
+[[step-6-create-the-tridentorchestrator-and-install-trident]]
 === Schritt 6: Erstellen Sie die `TridentOrchestrator` Und Trident installieren
 
 Sie können jetzt die Trident erstellen `TridentOrchestrator` und installieren. Optional können Sie die Attribute in der Spezifikation weiter link:kubernetes-customize-deploy.html["Anpassung der Trident Installation"] verwenden `TridentOrchestrator`. Das folgende Beispiel zeigt eine Installation, bei der sich Trident- und CSI-Bilder in verschiedenen Registern befinden.
@@ -203,16 +211,16 @@ API Version: trident.netapp.io/v1
 Kind:        TridentOrchestrator
 ...
 Spec:
-  Autosupport Image:  <your-registry>/trident-autosupport:26.02
+  Autosupport Image:  <your-registry>/trident-autosupport:26.06
   Debug:              true
   Image Registry:     <your-registry>
   Namespace:          trident
-  Trident Image:      <your-registry>/trident:26.02.0
+  Trident Image:      <your-registry>/trident:26.06.0
 Status:
   Current Installation Params:
     IPv6:                       false
     Autosupport Hostname:
-    Autosupport Image:          <your-registry>/trident-autosupport:26.02
+    Autosupport Image:          <your-registry>/trident-autosupport:26.06
     Autosupport Proxy:
     Autosupport Serial Number:
     Debug:                      true
@@ -224,11 +232,11 @@ Status:
     Log Format:           text
     Probe Port:           17546
     Silence Autosupport:  false
-    Trident Image:        <your-registry>/trident:26.02.0
+    Trident Image:        <your-registry>/trident:26.06.0
   Message:                Trident installed
   Namespace:              trident
   Status:                 Installed
-  Version:                v26.02.0
+  Version:                v26.06.0
 Events:
     Type Reason Age From Message ---- ------ ---- ---- -------Normal
     Installing 74s trident-operator.netapp.io Installing Trident Normal
@@ -236,12 +244,14 @@ Events:
 ----
 
 
+[[verify-the-installation]]
 == Überprüfen Sie die Installation
 
 Die Installation kann auf verschiedene Weise überprüft werden.
 
 
 
+[[using-tridentorchestrator-status]]
 === Wird Verwendet `TridentOrchestrator` Status
 
 Der Status von `TridentOrchestrator` Gibt an, ob die Installation erfolgreich war und zeigt die installierte Version von Trident an. Während der Installation den Status von `TridentOrchestrator` Änderungen von `Installing` Bis `Installed`. Wenn Sie die beobachten `Failed` Der Status und der Operator kann sich nicht selbst wiederherstellen. link:../troubleshooting.html["Prüfen Sie die Protokolle"].
@@ -274,6 +284,7 @@ Der Status von `TridentOrchestrator` Gibt an, ob die Installation erfolgreich wa
 |===
 
 
+[[using-pod-creation-status]]
 === Den Status der Pod-Erstellung verwenden
 
 Sie können überprüfen, ob die Trident-Installation abgeschlossen wurde, indem Sie den Status der erstellten Pods überprüfen:
@@ -291,6 +302,7 @@ trident-operator-766f7b8658-ldzsv          1/1     Running   0           3m
 ----
 
 
+[[using-tridentctl]]
 === Wird Verwendet `tridentctl`
 
 Mit können Sie `tridentctl` die installierte Version von Trident überprüfen.
@@ -302,6 +314,6 @@ Mit können Sie `tridentctl` die installierte Version von Trident überprüfen.
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----

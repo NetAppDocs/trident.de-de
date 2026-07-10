@@ -18,6 +18,7 @@ Sie können das Trident Protect-Befehlszeilen-Plugin verwenden, das eine Erweite
 
 
 
+[[install-the-trident-protect-cli-plugin]]
 == Installieren Sie das Trident Protect CLI-Plugin.
 
 Bevor Sie das Befehlszeilendienstprogramm verwenden, müssen Sie es auf dem Computer installieren, mit dem Sie auf das Cluster zugreifen. Befolgen Sie diese Schritte, je nachdem, ob Ihr Computer eine x64- oder ARM-CPU verwendet.
@@ -98,6 +99,7 @@ NOTE: Das Kopieren des Plugins an einen Ort in Ihrer PFADVARIABLE ermöglicht es
 
 
 
+[[view-trident-cli-plugin-help]]
 == Trident CLI Plug-in-Hilfe ansehen
 
 Sie können die integrierten Plug-in-Hilfefunktionen nutzen, um detaillierte Hilfe zu den Funktionen des Plug-ins zu erhalten:
@@ -113,6 +115,7 @@ tridentctl-protect help
 
 
 
+[[enable-command-auto-completion]]
 == Aktivieren Sie die automatische Vervollständigung von Befehlen
 
 Nach der Installation des Trident Protect CLI-Plugins können Sie die automatische Vervollständigung für bestimmte Befehle aktivieren.

@@ -16,6 +16,7 @@ Erfahren Sie mehr über die Konfiguration eines ONTAP Backend mit ONTAP- und Clo
 
 
 
+[[ontap-san-driver-details]]
 == Details zum ONTAP-SAN-Treiber
 
 Trident stellt die folgenden SAN-Speichertreiber für die Kommunikation mit dem ONTAP-Cluster bereit. Unterstützte Zugriffsmodi sind: _ReadWriteOnce_ (RWO), _ReadOnly Many_ (ROX), _ReadWriteMany_ (RWX), _ReadWriteOncePod_ (RWOP).
@@ -111,6 +112,7 @@ ROX und RWX sind im Filesystem-Volume-Modus nicht verfügbar.
 ====
 
 
+[[user-permissions]]
 == Benutzerberechtigungen
 
 Trident geht davon aus, dass es entweder als ONTAP- oder SVM-Administrator ausgeführt wird, wobei der Cluster-Benutzer oder ein `vsadmin` SVM-Benutzer oder ein Benutzer mit einem anderen Namen und derselben Rolle verwendet `admin` wird. Bei Implementierungen von Amazon FSX for NetApp ONTAP rechnet Trident damit, als ONTAP- oder SVM-Administrator ausgeführt zu werden. Dabei verwendet er den Cluster- `fsxadmin`Benutzer, einen `vsadmin` SVM-Benutzer oder einen Benutzer mit einem anderen Namen mit derselben Rolle. Der `fsxadmin` Benutzer ist ein eingeschränkter Ersatz für den Cluster-Admin-Benutzer.
@@ -122,6 +124,7 @@ Es ist zwar möglich, eine restriktivere Rolle in ONTAP zu erstellen, die ein Tr
 
 
 
+[[additional-considerations-for-nvmetcp]]
 == Weitere Überlegungen zu NVMe/TCP
 
 Trident unterstützt das NVMe-Protokoll (Non-Volatile Memory Express) unter Verwendung des `ontap-san` Treibers, einschließlich:

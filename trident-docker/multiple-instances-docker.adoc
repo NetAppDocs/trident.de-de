@@ -16,6 +16,7 @@ Wenn mehrere Storage-Konfigurationen gleichzeitig verfügbar sind, sind mehrere 
 
 
 
+[[steps-for-docker-managed-plugin-version-1-1317-03-or-later]]
 == Schritte für Docker Managed Plug-in (Version 1.13/17.03 oder höher)
 
 . Starten Sie die erste Instanz, die einen Alias und eine Konfigurationsdatei angibt.
@@ -51,6 +52,7 @@ docker volume create -d silver --name ntapSilver
 
 
 
+[[steps-for-traditional-version-1-12-or-earlier]]
 == Schritte für herkömmliche (Version 1.12 oder früher)
 
 . Starten Sie das Plug-in mit einer NFS-Konfiguration unter Verwendung einer benutzerdefinierten Treiber-ID:

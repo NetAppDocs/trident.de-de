@@ -31,6 +31,7 @@ Sie müssen der Storage Virtual Machine (SVM) für ONTAP-Backend-Speicher mindes
 
 
 
+[[supported-operations]]
 == Unterstützte Operationen
 
 * Bereitstellung persistenter Volumes (PVs)
@@ -43,6 +44,7 @@ Sie müssen der Storage Virtual Machine (SVM) für ONTAP-Backend-Speicher mindes
 
 
 
+[[unsupported-operations]]
 == Nicht unterstützte Operationen
 
 * LUKS-Verschlüsselung

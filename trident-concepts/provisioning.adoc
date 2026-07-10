@@ -16,12 +16,14 @@ Die Bereitstellung in Trident hat zwei primäre Phasen. In der ersten Phase wird
 
 
 
+[[storage-class-association]]
 == Storage-Klassen-Zuordnung
 
 Die Zuordnung von Back-End-Speicherpools zu einer Storage-Klasse basiert sowohl auf den angeforderten Attributen der Storage-Klasse als auch auf den entsprechenden `storagePools`, `additionalStoragePools` und `excludeStoragePools`-Listen. Wenn Sie eine Storage-Klasse erstellen, vergleicht Trident die von jedem seiner Back-Ends angebotenen Attribute und Pools mit den von der Storage-Klasse angeforderten Attributen. Stimmen Attribute und Name eines Storage-Pools mit allen angeforderten Attributen und Poolnamen überein, fügt Trident diesen Storage-Pool den entsprechenden Storage-Pools für diese Storage-Klasse hinzu. Darüber hinaus fügt Trident allen in der Liste aufgeführten Storage-Pools zu diesem Set hinzu `additionalStoragePools`, selbst wenn ihre Attribute nicht alle angeforderten Attribute der Storage-Klasse erfüllen. Sie sollten die Liste verwenden `excludeStoragePools`, um Speicherpools für eine Speicherklasse zu überschreiben und aus der Verwendung zu entfernen. Trident führt jedes Mal, wenn Sie ein neues Back-End hinzufügen, einen ähnlichen Prozess durch. Dabei wird überprüft, ob seine Storage-Pools die vorhandenen Storage-Klassen erfüllen, und alle als ausgeschlossen markierten werden entfernt.
 
 
 
+[[volume-creation]]
 == Volume-Erstellung
 
 Trident verwendet dann die Zuordnungen zwischen Storage-Klassen und Storage-Pools, um zu bestimmen, wo Volumes bereitgestellt werden sollen. Bei der Erstellung eines Volumes erhält Trident zunächst die Gruppe von Storage-Pools für die Storage-Klasse des Volumes. Wenn Sie ein Protokoll für das Volume angeben, entfernt Trident die Storage-Pools, die das angeforderte Protokoll nicht bereitstellen können (ein NetApp HCI/SolidFire-Backend kann z. B. kein dateibasiertes Volume bereitstellen, während ein ONTAP-NAS-Backend kein blockbasiertes Volume bereitstellen kann). Trident randomisiert die Reihenfolge dieses resultierenden Satzes, um eine gleichmäßige Verteilung der Volumes zu ermöglichen. Anschließend iteriert es durch und versucht, das Volume nacheinander auf den einzelnen Storage-Pools bereitzustellen. Wenn sie erfolgreich ist, wird sie erfolgreich zurückgegeben, und es werden alle Fehler protokolliert, die im Prozess aufgetreten sind. Trident gibt einen Fehler zurück *nur wenn* es nicht auf *allen* Speicherpools zur Verfügung stellt, die für die angeforderte Speicherklasse und das Protokoll verfügbar sind.

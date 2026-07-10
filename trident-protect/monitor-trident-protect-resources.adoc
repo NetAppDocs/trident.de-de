@@ -31,12 +31,14 @@ Die in diesen Schritten enthaltenen Konfigurationen und Anleitungen sind nur Bei
 ====
 
 
+[[step-1-install-the-monitoring-tools]]
 == Schritt 1: Installieren Sie die Überwachungstools
 
 Um die Ressourcenüberwachung in Trident Protect zu aktivieren, müssen Sie kube-state-metrics, Promethus und Alertmanager installieren und konfigurieren.
 
 
 
+[[install-kube-state-metrics]]
 === Installieren Sie kube-State-metrics
 
 Sie können kube-State-Metriken mit Helm installieren.
@@ -113,18 +115,21 @@ helm install custom-resource -f metrics-config.yaml prometheus-community/kube-st
 
 
 
+[[install-prometheus]]
 === Installation Von Prometheus
 
 Sie können Prometheus installieren, indem Sie die Anweisungen im https://prometheus.io/docs/prometheus/latest/installation/["Prometheus Dokumentation"^] .
 
 
 
+[[install-alertmanager]]
 === Installieren Sie Alertmanager
 
 Sie können Alertmanager installieren, indem Sie die Anweisungen im https://github.com/prometheus/alertmanager?tab=readme-ov-file#install["Alertmanager-Dokumentation"^].
 
 
 
+[[step-2-configure-the-monitoring-tools-to-work-together]]
 == Schritt 2: Konfigurieren Sie die Überwachungstools für die Zusammenarbeit
 
 Nachdem Sie die Überwachungstools installiert haben, müssen Sie sie für die Zusammenarbeit konfigurieren.
@@ -168,12 +173,14 @@ Prometheus kann jetzt Kennzahlen von den Zustandsmetriken von kube erfassen und 
 
 
 
+[[step-3-configure-alerts-and-alert-destinations]]
 == Schritt 3: Konfigurieren von Warnungen und Warnungszielen
 
 Nachdem Sie die Tools für eine Zusammenarbeit konfiguriert haben, müssen Sie konfigurieren, welche Art von Informationen Warnmeldungen auslöst und an welchen Orten die Meldungen gesendet werden sollen.
 
 
 
+[[alert-example-backup-failure]]
 === Warnbeispiel: Backup-Fehler
 
 Das folgende Beispiel definiert eine kritische Warnung, die ausgelöst wird, wenn der Status der benutzerdefinierten Backup-Ressource auf 5 Sekunden oder länger eingestellt `Error` ist. Sie können dieses Beispiel an Ihre Umgebung anpassen und dieses YAML-Snippet in Ihre Konfigurationsdatei aufnehmen `prometheus.yaml`:
@@ -196,6 +203,7 @@ rules.yaml: |
 ----
 
 
+[[configure-alertmanager-to-send-alerts-to-other-channels]]
 === Konfigurieren Sie Alertmanager so, dass Warnungen an andere Kanäle gesendet werden
 
 Sie können Alertmanager so konfigurieren, dass Benachrichtigungen an andere Kanäle wie E-Mail, PagerDuty, Microsoft Teams oder andere Benachrichtigungsdienste gesendet werden, indem Sie die entsprechende Konfiguration in der Datei angeben `alertmanager.yaml`.

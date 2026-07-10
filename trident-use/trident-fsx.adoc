@@ -16,6 +16,7 @@ https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon
 
 
 
+[[requirements]]
 == Anforderungen
 
 link:../trident-get-started/requirements.html["Trident-Anforderungen erfüllt"]Um FSX for ONTAP mit Trident zu integrieren, benötigen Sie zusätzlich:
@@ -31,6 +32,7 @@ NOTE: Achten Sie darauf, dass Sie die für Amazon Linux und Ubuntu erforderliche
 
 
 
+[[considerations]]
 == Überlegungen
 
 * SMB Volumes:
@@ -49,6 +51,7 @@ NOTE: Wenn Sie eine IAM-Rolle als Trident angeben, können Sie die Felder , `api
 
 
 
+[[simultaneous-usage-of-trident-saniscsi-and-ebs-csi-driver]]
 === Gleichzeitige Nutzung von Trident SAN/iSCSI und EBS-CSI-Treiber
 
 Wenn Sie Ontap-San-Treiber (z. B. iSCSI) mit AWS (EKS, ROSA, EC2 oder einer anderen Instanz) verwenden möchten, kann es bei der auf den Knoten erforderlichen Multipath-Konfiguration zu Konflikten mit dem CSI-Treiber von Amazon Elastic Block Store (EBS) kommen.  Um sicherzustellen, dass Multipathing funktioniert, ohne EBS-Festplatten auf demselben Knoten zu beeinträchtigen, müssen Sie EBS aus Ihrem Multipathing-Setup ausschließen.  Dieses Beispiel zeigt eine `multipath.conf` Datei, die die erforderlichen Trident Einstellungen enthält und gleichzeitig EBS-Festplatten vom Multipathing ausschließt:
@@ -67,6 +70,7 @@ blacklist {
 ----
 
 
+[[authentication]]
 == Authentifizierung
 
 Trident bietet zwei Authentifizierungsmodi.
@@ -87,6 +91,7 @@ Weitere Informationen zur Aktivierung der Authentifizierung finden Sie in der Au
 
 
 
+[[tested-amazon-machine-images-amis]]
 == Getestete Amazon Machine Images (Amis)
 
 Der EKS Cluster unterstützt zwar verschiedene Betriebssysteme, AWS hat jedoch bestimmte Amazon Machine Images (Amis) für Container und EKS optimiert. Die folgenden AMIs wurden mit NetApp Trident 25.02 getestet.
@@ -137,6 +142,7 @@ NOTE: Wenn Ihr gewünschtes AMI hier nicht aufgeführt ist, bedeutet dies nicht,
 
 
 
+[[find-more-information]]
 == Weitere Informationen
 
 * https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Dokumentation zu Amazon FSX für NetApp ONTAP"^]

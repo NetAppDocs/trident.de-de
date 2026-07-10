@@ -18,6 +18,7 @@ Trident Protect ermöglicht das Sichern und Wiederherstellen von KubeVirt virtue
 
 
 
+[[kubevirt-protection-modes]]
 == KubeVirt Schutzmodi
 
 Trident Protect unterstützt zwei Möglichkeiten, um festzulegen, welche KubeVirt VMs geschützt werden sollen. Ein Modus wird bei der Definition einer Anwendung ausgewählt:
@@ -45,6 +46,7 @@ NOTE: Trident Protect kann die KubeVirt VM-Dateisysteme während Datensicherungs
 
 
 
+[[resources-collected-during-backup-and-snapshot]]
 == Während der Sicherung und des Snapshots erfasste Ressourcen
 
 Wenn eine Sicherung oder ein Snapshot für eine Anwendung erstellt wird, die KubeVirt VMs umfasst, sammelt Trident Protect die ausgewählten VM-Ressourcen und erkennt automatisch deren abhängige Ressourcen.
@@ -57,6 +59,7 @@ Das Sammlungsverhalten gilt in zwei Fällen:
 
 
 
+[[vm-scoped-collection]]
 === VM-bezogene Sammlung
 
 Für VM-bezogene Anwendungen beginnt Trident Protect mit jeder `VirtualMachine` in `includedVirtualMachines` aufgeführten VM und ermittelt die abhängigen Ressourcen, die zur Wiederherstellung dieser VM benötigt werden.
@@ -115,6 +118,7 @@ NOTE: Nachdem alle VM-bezogenen Namespaced-Ressourcen erfasst wurden, wendet Tri
 
 
 
+[[namespace-based-collection]]
 === Namespace-basierte Sammlung
 
 Für Namespace-basierte Anwendungen scannt Trident Protect die ausgewählten Namespaces und erfasst alle übereinstimmenden Ressourcen. Wenn KubeVirt `VirtualMachine` Objekte gefunden werden, sammelt Trident Protect automatisch deren abhängige Ressourcen, einschließlich Instanztypen, Präferenzen und  `virt-launcher`Pods, wie es auch bei VM-basierten Anwendungen geschieht.
@@ -123,6 +127,7 @@ Dies bedeutet, dass VM-spezifische Ressourcen auch dann in Ihre Sicherung oder I
 
 
 
+[[protect-vms-using-namespace-based-application-definitions]]
 == VMs mit namespace-basierten Anwendungsdefinitionen schützen
 
 Wenn eine namespace-basierte Anwendung erstellt wird, scannt Trident Protect die ausgewählten Namespaces und erfasst alle Ressourcen, einschließlich aller KubeVirt VMs. Für jede gefundene virtuelle Maschine sammelt Trident Protect außerdem die abhängigen Ressourcen, die für das Sichern und Wiederherstellen dieser VM benötigt werden.
@@ -148,6 +153,7 @@ Nachdem Sie die Anwendung erstellt haben, werden die Standard Trident Protect Wo
 
 
 
+[[restore-behavior-for-namespace-based-vm-applications]]
 === Wiederherstellungsverhalten für namespace-basierte VM-Anwendungen
 
 Da namespace-basierte Anwendungen Ressourcen aus den ausgewählten Namespaces sammeln, kann das Backup oder der Snapshot KubeVirt-Laufzeitobjekte und von KubeVirt verwaltete Metadaten enthalten. Einige dieser Objekte sollten nicht direkt wiederhergestellt werden, da sie den Laufzeitstatus des Quell-Cluster repräsentieren.
@@ -181,6 +187,7 @@ NOTE: Trident Protect stellt KubeVirt-Ressourcen in einer definierten Reihenfolg
 
 
 
+[[dynamic-vm-protection-with-label-selectors]]
 == Dynamischer VM-Schutz mit Label-Selektoren
 
 Wenn Sie VMs dynamisch schützen möchten, ohne jeden VM-Namen aufzulisten, verwenden Sie namespace-basierte Anwendungsdefinitionen mit Label-Selektoren.
@@ -242,6 +249,7 @@ spec:
 ----
 
 
+[[protect-specific-vms-with-includedvirtualmachines]]
 == Bestimmte VMs mit includedVirtualMachines schützen
 
 Verwenden Sie  `includedVirtualMachines` diese Funktion, wenn eine benannte Gruppe von VirtualMachines über einen oder mehrere Namespaces hinweg geschützt und bestimmte VMs selektiv aus einem Archiv wiederhergestellt werden sollen.
@@ -306,6 +314,7 @@ spec:
 ----
 
 
+[[restore-specific-kubevirt-vms]]
 == Bestimmte KubeVirt VMs wiederherstellen
 
 Sie können  `includedVirtualMachines` auf Wiederherstellungs-CRs anwenden, um nur ausgewählte KubeVirt VMs aus einem Backup, Snapshot oder replizierten Snapshot-Archiv wiederherzustellen.
@@ -316,6 +325,7 @@ Wenn  `includedVirtualMachines` im Restore-CR nicht angegeben wird, stellt Tride
 
 
 
+[[supported-restore-crs-and-cli-commands]]
 === Unterstützte Wiederherstellungs-CRs und CLI-Befehle
 
 Die folgende Tabelle listet die Wiederherstellungs-CRs auf, die  `includedVirtualMachines` unterstützen, sowie die entsprechenden CLI-Befehle.
@@ -344,6 +354,7 @@ NOTE: Die `tridentctl-protect` CLI bietet keine Option für `includedVirtualMach
 
 
 
+[[vm-scoped-restore-behavior]]
 === VM-bezogenes Wiederherstellungsverhalten
 
 Das  `includedVirtualMachines`Feld in einem Wiederherstellungs-CR verwendet dasselbe Selektorformat wie das Anwendungs-CR:
@@ -362,6 +373,7 @@ Wenn Sie  `namespaceMapping`Trident verwenden, wählt Trident Protect zunächst 
 
 
 
+[[generate-restore-yaml-with-the-cli]]
 === Wiederherstellungs-YAML mit der Befehlszeile generieren
 
 Mit  `tridentctl-protect` lässt sich eine Basis-Restore-CR generieren, anschließend kann die YAML-Datei bearbeitet werden, um  `includedVirtualMachines` hinzuzufügen.
@@ -380,6 +392,7 @@ kubectl apply -f <restore_name>.yaml
 ----
 
 
+[[example-define-a-vm-based-application]]
 === Beispiel: Definition einer VM-basierten Anwendung
 
 Die folgende Anwendung schützt drei spezifische VMs in zwei Namensräumen.
@@ -406,6 +419,7 @@ spec:
 ----
 
 
+[[example-create-a-backup]]
 === Beispiel: Backup erstellen
 
 Für die Erstellung einer Sicherung einer VM-basierten Anwendung wird die Standard-Backup-CR verwendet. VM-spezifische Felder sind in der Backup-CR nicht erforderlich.
@@ -423,6 +437,7 @@ spec:
 ----
 
 
+[[example-restore-a-single-vm-from-a-backup]]
 === Beispiel: Wiederherstellung einer einzelnen VM aus einer Sicherung
 
 Das folgende Beispiel stellt nur  `database-server` aus dem Backup-Archiv wieder her. Die anderen VMs im Archiv, wie  `app-server` und  `prometheus-vm`, werden übersprungen.
@@ -453,6 +468,7 @@ Nur  `database-server` und die davon abhängigen Ressourcen wie DataVolumes, PVC
 
 
 
+[[example-restore-a-single-vm-in-place-from-a-backup]]
 === Beispiel: Wiederherstellung einer einzelnen VM vor Ort aus einer Sicherung
 
 Das folgende Beispiel stellt nur  `database-server` in seinen ursprünglichen Namensraum aus dem Sicherungsarchiv wieder her.
@@ -478,6 +494,7 @@ kubectl apply -f ipr-db-only.yaml
 ----
 
 
+[[example-restore-a-single-vm-from-a-snapshot]]
 === Beispiel: Wiederherstellung einer einzelnen VM aus einem Snapshot
 
 Das folgende Beispiel stellt nur  `ubuntu-vm-blue-a627be38` aus einem Snapshot-Archiv wieder her.
@@ -503,6 +520,7 @@ kubectl apply -f blue-vm-snap-restore.yaml
 ----
 
 
+[[combine-vm-restore-with-other-filters]]
 === VM-Wiederherstellung mit anderen Filtern kombinieren
 
 Sie können  `includedVirtualMachines` zusammen mit  `resourceFilter`,  `namespaceMapping` und  `storageClassMapping` im selben Wiederherstellungs-CR verwenden, um genau festzulegen, was wiederhergestellt wird.
@@ -528,6 +546,7 @@ Einzelheiten zum Wiederherstellungsverhalten sind unter link:trident-protect-res
 
 
 
+[[create-a-vm-scoped-application-using-the-cli]]
 == Eine VM-bezogene Anwendung mithilfe der Befehlszeilenschnittstelle erstellen
 
 Das  `--virtual-machines`Flag kann verwendet werden, um eine Anwendung auf bestimmte KubeVirt VMs anstatt auf ganze Namensräume zu beschränken. Das  `--virtual-machines`Flag schließt sich mit  `--namespaces` gegenseitig aus.
@@ -557,6 +576,7 @@ tridentctl-protect create application <application_name> \
 
 
 
+[[related-information]]
 == Verwandte Informationen
 
 * link:trident-protect-manage-applications.html["Definieren Sie eine Anwendung für die Verwaltung"]

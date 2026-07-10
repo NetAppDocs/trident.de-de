@@ -16,6 +16,7 @@ Informieren Sie sich über die Backend-Konfigurationsoptionen NFS und SMB für A
 
 
 
+[[backend-configuration-options]]
 == Back-End-Konfigurationsoptionen
 
 Trident verwendet Ihre Backend-Konfiguration (Subnetz, virtuelles Netzwerk, Servicelevel und Standort), um Azure NetApp Files Volumes auf Kapazitätspools zu erstellen, die am angeforderten Standort verfügbar sind und dem angeforderten Servicelevel und Subnetz entsprechen.
@@ -107,9 +108,10 @@ NOTE: Weitere Informationen zu den Netzwerkfunktionen finden Sie unter link:http
 
 
 
-== Berücksichtigen Sie Azure-Cloud-Umgebungen (26.02)
+[[consider-azure-cloud-environments-26-06]]
+== Berücksichtigen Sie Azure-Cloud-Umgebungen (26.06)
 
-Ab der Version 26.02 unterstützt Trident das Erstellen und Verwalten von Azure NetApp Files-Backends in mehreren Azure-Cloud-Umgebungen.
+Ab der Version 26.06 unterstützt Trident das Erstellen und Verwalten von Azure NetApp Files-Backends in mehreren Azure-Cloud-Umgebungen.
 
 Unterstützte Azure-Clouds umfassen:
 
@@ -121,6 +123,7 @@ Stellen Sie bei der Bereitstellung von Trident oder der Erstellung eines Azure N
 
 
 
+[[required-permissions-and-resources]]
 === Erforderliche Berechtigungen und Ressourcen
 
 Wenn beim Erstellen eines PVC die Fehlermeldung „Keine Kapazitätspools gefunden“ angezeigt wird, verfügt Ihre App-Registrierung wahrscheinlich nicht über die erforderlichen Berechtigungen und Ressourcen (Subnetz, virtuelles Netzwerk, Kapazitätspool), die zugeordnet sind. Wenn Debug aktiviert ist, protokolliert Trident die beim Erstellen des Backends ermittelten Azure-Ressourcen. Stellen Sie sicher, dass eine geeignete Rolle verwendet wird.
@@ -153,6 +156,7 @@ Die  `resourceGroups`, `netappAccounts`, und `capacityPools` Werte sind Filter, 
 |===
 
 
+[[volume-provisioning]]
 === Volume-Provisionierung
 
 Sie können die Standard-Volume-Bereitstellung steuern, indem Sie die folgenden Optionen in einem speziellen Abschnitt der Konfigurationsdatei angeben. Weitere Informationen finden Sie unter <<Beispielkonfigurationen>>.
@@ -176,6 +180,7 @@ Sie können die Standard-Volume-Bereitstellung steuern, indem Sie die folgenden 
 |===
 
 
+[[example-configurations]]
 == Beispielkonfigurationen
 
 Die folgenden Beispiele zeigen Basiskonfigurationen, bei denen die meisten Parameter auf Standardwerte eingestellt sind. Dies ist die einfachste Methode, ein Backend zu definieren.
@@ -415,12 +420,14 @@ supportedTopologies:
 ====
 
 
+[[storage-class-definitions]]
 == Definitionen der Storage-Klassen
 
 Im Folgenden `StorageClass` Definitionen beziehen sich auf die oben genannten Speicherpools.
 
 
 
+[[example-definitions-using-parameter-selector-field]]
 === Beispieldefinitionen mit `parameter.selector` Feld
 
 Mit  `parameter.selector` können Sie für jedes  `StorageClass` den virtuellen Pool angeben, der zum Hosten eines Volumes verwendet wird. Das Volume wird die im gewählten Pool definierten Aspekte aufweisen.
@@ -459,6 +466,7 @@ allowVolumeExpansion: true
 ----
 
 
+[[example-definitions-for-smb-volumes]]
 === Beispieldefinitionen für SMB Volumes
 
 Mit  `nasType`, `node-stage-secret-name` und  `node-stage-secret-namespace` können Sie ein SMB-Volume angeben und die erforderlichen Active Directory-Anmeldeinformationen bereitstellen.
@@ -520,6 +528,7 @@ NOTE: `nasType: smb`Filter für Pools, die SMB-Volumes unterstützen.
 
 
 
+[[create-the-backend]]
 == Erstellen Sie das Backend
 
 Führen Sie nach dem Erstellen der Back-End-Konfigurationsdatei den folgenden Befehl aus:

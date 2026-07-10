@@ -16,6 +16,7 @@ Sehen Sie sich die Konfigurationsoptionen an, die für Ihre Trident Konfiguratio
 
 
 
+[[global-configuration-options]]
 == Globale Konfigurationsoptionen
 
 Diese Konfigurationsoptionen sind für alle Trident-Konfigurationen anwendbar, unabhängig davon, welche Storage-Plattform genutzt wird.
@@ -71,6 +72,7 @@ Optionale Standardgröße für neue Volumes. Standard: `1G`
 |===
 
 
+[[ontap-configuration]]
 == ONTAP-Konfiguration
 
 Zusätzlich zu den oben genannten globalen Konfigurationswerten stehen bei Verwendung von ONTAP folgende Optionen auf oberster Ebene zur Verfügung.
@@ -276,6 +278,7 @@ Beim Löschen eines Volumes wird die Wiederherstellungswarteschlange im Speicher
 |===
 
 
+[[scaling-options]]
 === Skalierungsoptionen
 
 Die `ontap-nas` Treiber und `ontap-san` erstellen eine ONTAP FlexVol für jedes Docker Volume. ONTAP unterstützt bis zu 1000 FlexVols pro Cluster-Node mit einem Cluster von maximal 12,000 FlexVol Volumes. Wenn die Anforderungen Ihres Docker Volumes diese Einschränkung erfüllen, ist der Treiber aufgrund der zusätzlichen Funktionen von FlexVols `ontap-nas`, wie Snapshots auf Docker Volume-Ebene und Klonen, die bevorzugte NAS-Lösung.
@@ -304,6 +307,7 @@ Um erweiterte Funktionen und umfassende Skalierbarkeit in derselben Umgebung zu 
 
 
 
+[[custom-ontap-role-for-trident]]
 === Benutzerdefinierte ONTAP-Rolle für Trident
 
 Sie können eine ONTAP-Cluster-Rolle mit minimaler Privileges erstellen, sodass Sie nicht die ONTAP-Administratorrolle verwenden müssen, um Vorgänge in Trident auszuführen. Wenn Sie den Benutzernamen in eine Trident-Back-End-Konfiguration aufnehmen, verwendet Trident die ONTAP-Cluster-Rolle, die Sie für die Durchführung der Vorgänge erstellt haben.
@@ -364,6 +368,7 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
 
 
 
+[[example-ontap-configuration-files]]
 === Beispiel für ONTAP-Konfigurationsdateien
 
 .NFS-Beispiel für <code>ontap-nas</code> Treiber
@@ -500,6 +505,7 @@ Weitere Informationen finden Sie auf den folgenden Seiten:
 ====
 
 
+[[element-software-configuration]]
 == Konfiguration von Element Software
 
 Zusätzlich zu den Werten einer globalen Konfiguration sind bei Verwendung von Element Software (NetApp HCI/SolidFire) diese Optionen verfügbar.
@@ -554,6 +560,7 @@ Der `solidfire-san` Der Treiber unterstützt Docker Swarm nicht.
 
 
 
+[[example-element-software-configuration-file]]
 === Beispiel für eine Konfigurationsdatei für die Element Software
 
 [source, json]

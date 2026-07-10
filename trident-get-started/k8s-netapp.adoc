@@ -16,12 +16,14 @@ Das NetApp Portfolio an Storage-Produkten lässt sich in viele verschiedene Aspe
 
 
 
+[[trident]]
 == Trident
 
 https://docs.netapp.com/us-en/trident/["Trident"^] Unternehmen können ihre datenintensiven Container-Workloads, die auf Kubernetes innerhalb und über Public Clouds sowie lokal ausgeführt werden, leichter managen, schützen und verschieben. Trident stellt persistenten Container-Storage mithilfe von Trident aus dem bewährten und umfangreichen NetApp Storage-Portfolio für Public Clouds und On-Premises bereit. Außerdem bietet es umfangreiche erweiterte, applikationsspezifische Datenmanagementfunktionen, wie Snapshot, Backup und Wiederherstellung, Aktivitätsprotokolle und aktives Klonen für Datensicherung, Disaster/Daten-Recovery, Datenaudits und Migrationsanwendungsfälle für Kubernetes-Workloads.
 
 
 
+[[ontap]]
 == ONTAP
 
 ONTAP ist das Unified Storage-Betriebssystem für Multi-Protokoll-Unterstützung von NetApp und bietet für jede Applikation erweiterte Datenmanagement-Funktionen. ONTAP Systeme verfügen über rein Flash-basierte, hybride oder rein HDD-basierte Konfigurationen und bieten eine Vielzahl unterschiedlicher Implementierungsmodelle, darunter speziell entwickelte Hardware (FAS und AFF), White-Box (ONTAP Select) und rein Cloud-basierte Cloud Volumes ONTAP Systeme.
@@ -31,24 +33,28 @@ NOTE: Trident unterstützt alle oben genannten ONTAP Implementierungsmodelle.
 
 
 
+[[cloud-volumes-ontap]]
 == Cloud Volumes ONTAP
 
 Cloud Volumes ONTAP ist eine rein softwarebasierte Storage-Appliance, die die ONTAP Datenmanagement-Software in der Cloud ausführt. Cloud Volumes ONTAP kann für Produktions-Workloads, Notfallwiederherstellung, DevOps, Dateifreigaben und Datenbankverwaltung verwendet werden. Die Lösung erweitert Unternehmensspeicher in die Cloud, indem sie Speichereffizienz, Hochverfügbarkeit, Datenreplizierung, Daten-Tiering und Anwendungskonsistenz bietet.
 
 
 
+[[amazon-fsx-for-netapp-ontap]]
 == Amazon FSX für NetApp ONTAP
 
 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["Amazon FSX für NetApp ONTAP"^] Ist ein vollständig gemanagter AWS Service, mit dem Sie Dateisysteme mit dem NetApp ONTAP Storage-Betriebssystem starten und ausführen können. FSX for ONTAP ermöglicht Ihnen die Nutzung von NetApp-Funktionen, Performance und Administrationsfunktionen, mit denen Sie vertraut sind, und gleichzeitig die Einfachheit, Agilität, Sicherheit und Skalierbarkeit der Speicherung von Daten auf AWS zu nutzen. FSX für ONTAP unterstützt viele der ONTAP-Dateisystemfunktionen und Administrations-APIs.
 
 
 
+[[element-software]]
 == Element Software
 
 https://www.netapp.com/data-management/element-software/["Element"^] Storage-Administrator kann Workloads konsolidieren, indem die Performance garantiert und der Storage-Bedarf vereinfacht und optimiert wird. Kombiniert mit einer API zur Automatisierung aller Aspekte des Storage-Managements unterstützt Element Storage-Administratoren dabei, mit weniger Aufwand mehr zu erreichen.
 
 
 
+[[netapp-hci]]
 == NetApp HCI
 
 https://www.netapp.com/virtual-desktop-infrastructure/netapp-hci/["NetApp HCI"^] Vereinfacht das Management und die Skalierung des Datacenters durch Automatisierung von Routineaufgaben und ermöglicht es Infrastrukturadministratoren, sich auf wichtigere Funktionen zu konzentrieren.
@@ -57,12 +63,14 @@ NetApp HCI wird vollständig von Trident unterstützt. Trident kann Storage-Ger�
 
 
 
+[[azure-netapp-files]]
 == Azure NetApp Dateien
 
 https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Dateien"^] ist ein Azure-Dateifreigabedienst der Enterprise-Klasse, der von NetApp betrieben wird. Sie können Ihre anspruchsvollsten dateibasierten Workloads nativ in Azure ausführen, mit der Leistung und dem umfassenden Datenmanagement, das Sie von NetApp erwarten.
 
 
 
+[[google-cloud-netapp-volumes]]
 == Google Cloud NetApp Volumes
 
 https://www.netapp.com/google-cloud/netapp-volumes/["Google Cloud NetApp Volumes"^] ist ein Cloud-nativer Dateidienst, der NAS-Volumes über NFS mit All-Flash-Performance bereitstellt. Dieser Dienst ermöglicht die Ausführung beliebiger Workloads, einschließlich älterer Anwendungen, in der GCP Cloud. Er bietet einen vollständig verwalteten Dienst mit konstant hoher Leistung, sofortigem Klonen, Datensicherung und sicherem Zugriff auf Google Compute Engine (GCE) Instanzen.

@@ -16,6 +16,7 @@ Sie können vorhandene Storage-Klassen anzeigen, eine Standard-Storage-Klasse fe
 
 
 
+[[view-the-existing-storage-classes]]
 == Sehen Sie sich die vorhandenen Speicherklassen an
 
 * Um vorhandene Kubernetes-Storage-Klassen anzuzeigen, führen Sie den folgenden Befehl aus:
@@ -48,6 +49,7 @@ tridentctl get storageclass <storage-class> -o json
 ----
 
 
+[[set-a-default-storage-class]]
 == Legen Sie eine Standardspeicherklasse fest
 
 Mit Kubernetes 1.6 können Sie eine Standard-Storage-Klasse festlegen. Dies ist die Storage-Klasse, die zur Bereitstellung eines Persistent Volume verwendet wird, wenn ein Benutzer in einer Persistent Volume Claim (PVC) nicht eine Angabe vorgibt.
@@ -74,6 +76,7 @@ NOTE: Ihr Cluster sollte immer nur eine Standard-Storage-Klasse aufweisen. Kuber
 
 
 
+[[identify-the-backend-for-a-storage-class]]
 == Das Backend für eine Storage-Klasse ermitteln
 
 Dies ist ein Beispiel für die Art von Fragen, die Sie mit der JSON beantworten können, die `tridentctl` für Trident-Backend-Objekte ausgegeben wird. Hierbei wird das Dienstprogramm verwendet `jq`, das Sie möglicherweise zuerst installieren müssen.
@@ -84,6 +87,7 @@ tridentctl get storageclass -o json | jq  '[.items[] | {storageClass: .Config.na
 ----
 
 
+[[delete-a-storage-class]]
 == Löschen Sie eine Speicherklasse
 
 Führen Sie den folgenden Befehl aus, um eine Storage-Klasse aus Kubernetes zu löschen:

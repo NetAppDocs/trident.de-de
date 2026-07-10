@@ -16,6 +16,7 @@ Mit Trident können Sie ein Volume in einem primären Namespace erstellen und es
 
 
 
+[[features]]
 == Funktionen
 
 Mit dem TridentVolumeReference CR können Sie ReadWriteMany (RWX) NFS-Volumes sicher über einen oder mehrere Kubernetes-Namespaces freigeben. Diese native Kubernetes-Lösung bietet folgende Vorteile:
@@ -31,6 +32,7 @@ image::cross-namespace-sharing.png[Ein Konzeptdiagramm der Cross Namespace Shari
 
 
 
+[[quick-start]]
 == Schnellstart
 
 Sie können in nur wenigen Schritten NFS-Volume Sharing einrichten.
@@ -53,6 +55,7 @@ Der Eigentümer des Ziel-Namespace erstellt das untergeordnete PVC, um die Daten
 
 
 
+[[configure-the-source-and-destination-namespaces]]
 == Konfigurieren Sie die Namensräume für Quelle und Ziel
 
 Um die Sicherheit zu gewährleisten, erfordert die Namespace-übergreifende Freigabe Zusammenarbeit und Aktion durch den Eigentümer des Quell-Namespace, den Cluster-Administrator und den Ziel-Namespace-Eigentümer. In jedem Schritt wird die Benutzerrolle festgelegt.
@@ -133,12 +136,14 @@ Trident liest die `shareFromPVC` Annotation auf der Ziel-PVC und erstellt das Zi
 
 
 
+[[delete-a-shared-volume]]
 == Löschen eines freigegebenen Volumes
 
 Sie können ein Volume löschen, das über mehrere Namespaces hinweg gemeinsam genutzt wird. Trident entfernt den Zugriff auf das Volume im Quell-Namespace und hat auch Zugriff auf andere Namespaces, die das Volume gemeinsam nutzen. Wenn alle Namespaces, die auf das Volume verweisen, entfernt werden, löscht Trident das Volume.
 
 
 
+[[use-tridentctl-get-to-query-subordinate-volumes]]
 == Nutzung `tridentctl get` Zum Abfragen von untergeordneten Volumes
 
 Mit dem[`tridentctl` Dienstprogramm können Sie den `get` Befehl ausführen, um untergeordnete Volumes abzurufen. Weitere Informationen finden Sie unter link:../trident-reference/trident-cl.html[`tridentctl` commands and options].
@@ -157,6 +162,7 @@ Markierungen:
 
 
 
+[[limitations]]
 == Einschränkungen
 
 * Trident kann nicht verhindern, dass Zielnamepaces auf das gemeinsam genutzte Volume schreiben. Sie sollten Dateisperren oder andere Prozesse verwenden, um das Überschreiben von gemeinsam genutzten Volume-Daten zu verhindern.
@@ -166,6 +172,7 @@ Markierungen:
 
 
 
+[[for-more-information]]
 == Finden Sie weitere Informationen
 
 Weitere Informationen zum Namespace-übergreifenden Volume-Zugriff:

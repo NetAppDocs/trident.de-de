@@ -19,6 +19,7 @@ NOTE: PSS ersetzt Pod Security Policies (PSP). PSP war in Kubernetes v1.21 veral
 
 
 
+[[required-kubernetes-security-context-and-related-fields]]
 == Erforderlicher Kubernetes-Sicherheitskontext und zugehörige Felder
 
 [cols=","]
@@ -53,6 +54,7 @@ NOTE: PSS ersetzt Pod Security Policies (PSP). PSP war in Kubernetes v1.21 veral
 |===
 
 
+[[pod-security-standards-pss]]
 == Pod-Sicherheitsstandards (PSS)
 
 [cols=",,"]
@@ -71,6 +73,7 @@ WARNING: Das Ändern der Namespace-Labels kann dazu führen, dass Pods nicht gep
 
 
 
+[[pod-security-policies-psp]]
 == Pod-Sicherheitsrichtlinien (PSP)
 
 [cols=",,"]
@@ -151,6 +154,7 @@ WARNING: Das Ändern der Namespace-Labels kann dazu führen, dass Pods nicht gep
 |===
 
 
+[[security-context-constraints-scc]]
 == Sicherheitskontexteinschränkungen (SCC)
 
 [cols=",,"]

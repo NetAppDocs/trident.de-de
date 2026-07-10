@@ -16,6 +16,7 @@ Sie können das Trident-Installationsprogramm verwenden, um die Installation anz
 
 
 
+[[learn-about-the-installer]]
 == Erfahren Sie mehr über das Installationsprogramm
 
 Mit dem Trident-Installationsprogramm können Sie Attribute anpassen. Wenn Sie beispielsweise das Trident-Image in ein privates Repository kopiert haben, können Sie den Bildnamen mit angeben `--trident-image`. Wenn Sie das Trident-Image sowie die benötigten CSI-Sidcar-Images in ein privates Repository kopiert haben, ist es möglicherweise besser, den Speicherort dieses Repositorys mithilfe des Switch anzugeben, der das Formular `<registry FQDN>[:port]` verwendet `--image-registry`.

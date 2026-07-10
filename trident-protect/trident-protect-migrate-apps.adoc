@@ -21,12 +21,14 @@ NOTE: Wenn Sie eine Anwendung migrieren, werden alle für die Anwendung konfigur
 
 
 
+[[backup-and-restore-operations]]
 == Backup- und Restore-Vorgänge
 
 Um Backup- und Wiederherstellungsvorgänge für die folgenden Szenarien durchzuführen, können Sie bestimmte Backup- und Wiederherstellungsaufgaben automatisieren.
 
 
 
+[[clone-to-same-cluster]]
 === Klonen auf dasselbe Cluster
 
 Um eine Anwendung auf demselben Cluster zu klonen, erstellen Sie einen Snapshot oder ein Backup, und stellen Sie die Daten im selben Cluster wieder her.
@@ -48,6 +50,7 @@ Um eine Anwendung auf demselben Cluster zu klonen, erstellen Sie einen Snapshot 
 
 
 
+[[clone-to-different-cluster]]
 === Klonen auf anderes Cluster
 
 Um eine Anwendung auf einen anderen Cluster zu klonen (clusterübergreifendes Klonen), erstellen Sie eine Sicherung auf dem Quellcluster und stellen Sie diese Sicherung anschließend auf dem anderen Cluster wieder her. Stellen Sie sicher, dass Trident Protect auf dem Zielcluster installiert ist.
@@ -63,6 +66,7 @@ NOTE: Sie können eine Anwendung zwischen verschiedenen Clustern mit replizieren
 
 
 
+[[migrate-applications-from-one-storage-class-to-another-storage-class]]
 == Migrieren von Applikationen von einer Storage-Klasse zu einer anderen Storage-Klasse
 
 Sie können Anwendungen von einer Speicherklasse in eine andere Speicherklasse migrieren, indem Sie eine Sicherung in der Zielspeicherklasse wiederherstellen.

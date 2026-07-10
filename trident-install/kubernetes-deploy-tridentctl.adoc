@@ -16,6 +16,7 @@ Sie können Trident mit installieren `tridentctl`. Dieser Vorgang gilt für Inst
 
 
 
+[[critical-information-about-trident10]]
 == Wichtige Informationen zu Trident10
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
@@ -33,6 +34,7 @@ Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multi
 ====
 
 
+[[install-trident-using-tridentctl]]
 == Installieren Sie Trident mit `tridentctl`
 
 Überprüfen Sie link:kubernetes-deploy.html["Die Übersicht über die Installation"], um sicherzustellen, dass Sie die Installationsvoraussetzungen erfüllt und die richtige Installationsoption für Ihre Umgebung ausgewählt haben.
@@ -69,18 +71,20 @@ kubectl run -i --tty ping --image=busybox --restart=Never --rm -- \
 ====
 
 
+[[step-1-download-the-trident-installer-package]]
 == Schritt 1: Laden Sie das Trident Installer-Paket herunter
 
 Das Trident-Installationspaket erstellt einen Trident-Pod, konfiguriert die CRD-Objekte, die zur Aufrechterhaltung ihres Status verwendet werden, und initialisiert die CSI-Sidcars, um Aktionen wie das Bereitstellen und Verbinden von Volumes mit den Cluster-Hosts durchzuführen. Laden Sie die neueste Version des Trident-Installers herunter und extrahieren Sie sie auslink:https://github.com/NetApp/trident/releases/latest["Die Sektion _Assets_ auf GitHub"^]. Aktualisieren Sie _<Trident-Installer-XX.XX.X.tar.gz>_ im Beispiel mit Ihrer ausgewählten Trident-Version.
 
 [listing]
 ----
-wget https://github.com/NetApp/trident/releases/download/v26.02.0/trident-installer-26.02.0.tar.gz
-tar -xf trident-installer-26.02.0.tar.gz
+wget https://github.com/NetApp/trident/releases/download/v26.06.0/trident-installer-26.06.0.tar.gz
+tar -xf trident-installer-26.06.0.tar.gz
 cd trident-installer
 ----
 
 
+[[step-2-install-trident]]
 == Schritt 2: Installieren Sie Trident
 
 Installieren Sie Trident im gewünschten Namespace, indem Sie den Befehl ausführen `tridentctl install`. Sie können weitere Argumente hinzufügen, um den Speicherort der Bildregistrierung anzugeben.
@@ -98,14 +102,14 @@ Installieren Sie Trident im gewünschten Namespace, indem Sie den Befehl ausfüh
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.02 --trident-image <your-registry>/trident:26.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
 ----
 --
 .Bilder in verschiedenen Registern
 --
 [listing]
 ----
-./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.02 --trident-image <your-registry>/trident:26.02.0
+./tridentctl install -n trident --image-registry <your-registry> --autosupport-image <your-registry>/trident-autosupport:26.06 --trident-image <your-registry>/trident:26.06.0
 ----
 --
 ====
@@ -132,12 +136,14 @@ INFO Trident installation succeeded.
 ----
 
 
+[[verify-the-installation]]
 == Überprüfen Sie die Installation
 
 Sie können Ihre Installation mithilfe des POD-Erstellungsstatus oder überprüfen `tridentctl`.
 
 
 
+[[using-pod-creation-status]]
 === Den Status der Pod-Erstellung verwenden
 
 Sie können überprüfen, ob die Trident-Installation abgeschlossen wurde, indem Sie den Status der erstellten Pods überprüfen:
@@ -155,6 +161,7 @@ NOTE: Falls das Installationsprogramm nicht erfolgreich abgeschlossen wird oder 
 
 
 
+[[using-tridentctl]]
 === Wird Verwendet `tridentctl`
 
 Mit können Sie `tridentctl` die installierte Version von Trident überprüfen.
@@ -166,11 +173,12 @@ Mit können Sie `tridentctl` die installierte Version von Trident überprüfen.
 +----------------+----------------+
 | SERVER VERSION | CLIENT VERSION |
 +----------------+----------------+
-| 26.02.0        | 26.02.0        |
+| 26.06.0        | 26.06.0        |
 +----------------+----------------+
 ----
 
 
+[[sample-configurations]]
 == Beispielkonfigurationen
 
 Die folgenden Beispiele zeigen Beispielkonfigurationen für die Installation von Trident mit `tridentctl`.

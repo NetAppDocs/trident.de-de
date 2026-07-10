@@ -16,6 +16,7 @@ Bevor Sie Ihr Azure NetApp Files-Backend konfigurieren können, müssen Sie sich
 
 
 
+[[supported-azure-cloud-environments]]
 == Unterstützte Azure Cloud-Umgebungen
 
 Trident unterstützt Azure NetApp Files-Backends in mehreren Azure Cloud-Umgebungen.
@@ -30,6 +31,7 @@ Stellen Sie bei der Vorbereitung Ihrer Umgebung sicher, dass Ihr Azure-Abonnemen
 
 
 
+[[prerequisites-for-nfs-and-smb-volumes]]
 == Voraussetzungen für NFS und SMB Volumes
 
 Wenn Sie Azure NetApp Files zum ersten Mal oder an einem neuen Standort verwenden, ist eine anfängliche Konfiguration erforderlich, um Azure NetApp Files einzurichten und ein NFS-Volume zu erstellen. Siehe  https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["Azure: Azure NetApp Files einrichten und ein NFS Volume erstellen"^].
@@ -106,6 +108,7 @@ Um ein  https://azure.microsoft.com/en-us/products/netapp/["Azure NetApp Dateien
 
 
 
+[[additional-requirements-for-smb-volumes]]
 == Zusätzliche Anforderungen für SMB Volumes
 
 Zur Erstellung eines SMB-Volumes müssen folgende Voraussetzungen erfüllt sein:

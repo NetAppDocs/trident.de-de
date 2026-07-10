@@ -16,6 +16,7 @@ Sie können die Standardkonfiguration von Trident Protect an die spezifischen An
 
 
 
+[[specify-trident-protect-container-resource-limits]]
 == Legen Sie die Ressourcenbeschränkungen für Trident Protect-Container fest.
 
 Sie können nach der Installation von Trident Protect eine Konfigurationsdatei verwenden, um Ressourcenlimits für Trident Protect-Container festzulegen.  Durch das Festlegen von Ressourcenlimits können Sie steuern, wie viele der Clusterressourcen von Trident Protect-Operationen verbraucht werden.
@@ -87,6 +88,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 
 
 
+[[customize-security-context-constraints]]
 == Passen Sie die Einschränkungen des Sicherheitskontexts an
 
 Sie können eine Konfigurationsdatei verwenden, um die OpenShift-Sicherheitskontextbeschränkungen (SCCs) für Trident Protect-Container nach der Installation von Trident Protect zu ändern. Diese Einschränkungen definieren Sicherheitsbeschränkungen für Pods in einem Red Hat OpenShift-Cluster.
@@ -134,6 +136,7 @@ Dadurch werden die Standardwerte durch die in der Datei angegebenen ersetzt `scc
 
 
 
+[[configure-additional-trident-protect-helm-chart-settings]]
 == Konfigurieren Sie zusätzliche Trident Protect Helm-Chart-Einstellungen
 
 Sie können die AutoSupport-Einstellungen, die Namensraumfilterung und die OpenShift-Webhook-Zertifikatverwaltung an Ihre spezifischen Anforderungen anpassen. Die folgende Tabelle beschreibt die verfügbaren Konfigurationsparameter:
@@ -209,6 +212,7 @@ helm upgrade trident-protect -n trident-protect netapp-trident-protect/trident-p
 ====
 
 
+[[restrict-trident-protect-pods-to-specific-nodes]]
 == Trident Protect-Pods auf bestimmte Knoten beschränken
 
 Mithilfe der Kubernetes-Knotenauswahlbeschränkung nodeSelector können Sie anhand der Knotenbezeichnungen steuern, welche Ihrer Knoten für die Ausführung von Trident Protect-Pods geeignet sind.  Standardmäßig ist Trident Protect auf Knoten beschränkt, auf denen Linux ausgeführt wird. Sie können diese Einschränkungen je nach Ihren Bedürfnissen weiter anpassen.

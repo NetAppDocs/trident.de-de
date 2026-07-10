@@ -16,6 +16,7 @@ Verwenden Sie bei der Implementierung von Trident die hier aufgeführten Empfehl
 
 
 
+[[deploy-to-a-dedicated-namespace]]
 == Implementieren Sie diesen in einem dedizierten Namespace
 
 https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/["Namespaces"^] Trennung von Administratoren zwischen verschiedenen Applikationen und Barriere für die gemeinsame Nutzung von Ressourcen Beispielsweise kann eine PVC aus einem Namespace nicht von einem anderen genutzt werden. Trident stellt allen Namespaces im Kubernetes-Cluster PV-Ressourcen zur Verfügung und nutzt folglich ein Servicekonto mit erhöhten Privileges.
@@ -24,6 +25,7 @@ Außerdem kann der Zugriff auf den Trident Pod dazu führen, dass Benutzer auf d
 
 
 
+[[use-quotas-and-range-limits-to-control-storage-consumption]]
 == Verwenden Sie Kontingente und Bereichsgrenzen, um den Storage-Verbrauch zu kontrollieren
 
 Kubernetes bietet zusammen zwei Funktionen, die einen leistungsstarken Mechanismus zur Begrenzung des Ressourcenverbrauchs durch Applikationen bieten. Der https://kubernetes.io/docs/concepts/policy/resource-quotas/#storage-resource-quota["Mechanismus für Storage-Kontingente"^] Er ermöglicht dem Administrator, globale und Storage-klassenspezifische Verbrauchslimits für Kapazität und Objektanzahl pro Namespace zu implementieren. Außerdem mit A https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage["Bereichsgrenze"^] Gewährleistet, dass die PVC-Anforderungen sowohl den minimalen als auch den maximalen Wert haben, bevor die Anforderung an die provisionierung weitergeleitet wird.

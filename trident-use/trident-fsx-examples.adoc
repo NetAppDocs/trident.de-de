@@ -16,6 +16,7 @@ Erfahren Sie mehr über Back-End-Konfigurationsoptionen für Amazon FSX für ONT
 
 
 
+[[backend-configuration-options]]
 == Back-End-Konfigurationsoptionen
 
 Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
@@ -116,6 +117,7 @@ Verwenden Sie es nicht `debugTraceFlags` Es sei denn, Sie beheben Fehler und ben
 |===
 
 
+[[update-datalif-after-initial-configuration]]
 === Aktualisierung `dataLIF` Nach der Erstkonfiguration
 
 Sie können die dataLIF nach der Erstkonfiguration ändern, indem Sie den folgenden Befehl ausführen, um die neue Backend-JSON-Datei mit aktualisierter dataLIF bereitzustellen.
@@ -129,6 +131,7 @@ NOTE: Wenn PVCs an einen oder mehrere Pods angeschlossen sind, müssen Sie alle 
 
 
 
+[[backend-configuration-options-for-provisioning-volumes]]
 == Back-End-Konfigurationsoptionen für die Bereitstellung von Volumes
 
 Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults` Abschnitt der Konfiguration. Ein Beispiel finden Sie unten in den Konfigurationsbeispielen.
@@ -175,6 +178,7 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 |===
 
 
+[[example-configurations]]
 == Beispielkonfigurationen
 
 .Konfiguration der Storage-Klasse für SMB Volumes

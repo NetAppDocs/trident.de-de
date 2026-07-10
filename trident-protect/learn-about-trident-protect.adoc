@@ -17,6 +17,7 @@ Sie können Anwendungen mit Trident Protect schützen, indem Sie benutzerdefinie
 
 
 
+[[whats-next]]
 == Was kommt als Nächstes?
 
 Sie können sich vor der Installation über die Anforderungen von Trident Protect informieren:

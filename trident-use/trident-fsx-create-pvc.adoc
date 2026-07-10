@@ -16,6 +16,7 @@ Dieser Abschnitt enthält Anweisungen zum Erstellen eines PersistentVolumeClaim 
 
 
 
+[[create-the-pvc]]
 == Erstellen Sie die PVC
 
 Ein  https://kubernetes.io/docs/concepts/storage/persistent-volumes["_PersistentVolumeClaim_"^] (PVC) ist eine Anfrage für den Zugriff auf das PersistentVolume im Cluster. Die PVC kann so konfiguriert werden, dass sie Speicherplatz einer bestimmten Größe oder eines bestimmten Zugriffsmodus anfordert. Mithilfe der zugehörigen StorageClass kann der Clusteradministrator mehr als nur PersistentVolume-Größe und Zugriffsmodus steuern – zum Beispiel Leistung oder Servicelevel.
@@ -24,6 +25,7 @@ Nachdem Sie das Trident-Backend und die StorageClass erstellt haben, können Sie
 
 
 
+[[sample-manifests]]
 === Beispielmanifeste
 
 Die folgenden Beispiele zeigen grundlegende PVC-Konfigurationsoptionen.
@@ -64,6 +66,7 @@ spec:
 ----
 
 
+[[create-pvc]]
 === PVC erstellen
 
 .Schritte

@@ -15,6 +15,7 @@ Ab Trident 26.06 kann ein Speicheradministrator ein iSCSI-Volume unterbrechungsf
 
 
 
+[[requirements]]
 == Anforderungen
 
 Volume Move gilt nur für den `ontap-san` Treiber für iSCSI-Volumes. NVMe und NAS Protokolle werden nicht unterstützt.
@@ -33,6 +34,7 @@ Bevor Sie ein Volume verschieben, muss sichergestellt sein, dass die folgenden V
 
 
 
+[[how-it-works]]
 == So funktioniert es
 
 Trident verschiebt das Volume (LUN) zwischen zwei Standorten innerhalb desselben ONTAP Clusters. Bevor die Daten verschoben werden, fügt Trident dem Ziel neben den bestehenden Pfaden neue iSCSI-Pfade hinzu, sodass das Multipath-Gerät des Hosts jederzeit erreichbar bleibt. Nachdem ONTAP die Verschiebung abgeschlossen hat, entfernt Trident die veralteten Quellpfade.
@@ -41,10 +43,12 @@ Trident steuert den Vorgang durch eine geordnete Reihe von Zuständen, die in de
 
 
 
+[[move-a-volume]]
 == Ein Volume verschieben
 
 
 
+[[identify-the-volume-and-locations]]
 === Das Volumen und die Standorte identifizieren
 
 . Den Namen des zu verschiebenden PV ermitteln. Der PV-Name ist auch der Name der Move-Ressource.
@@ -53,6 +57,7 @@ Trident steuert den Vorgang durch eine geordnete Reihe von Zuständen, die in de
 
 
 
+[[start-the-move]]
 === Starten Sie den Umzug
 
 Beide Methoden können verwendet werden. Beide erstellen dieselbe  `TridentVolumeMove`Ressource, deren Name der PV-Name ist.
@@ -106,6 +111,7 @@ kubectl apply -f tridentvolumemove.yaml
 
 
 
+[[monitor-the-move]]
 === Die Verschiebung überwachen
 
 Der Fortschritt kann anhand des  `tvm`Kurznamens oder  `tridentvolumemove` verfolgt werden:
@@ -176,6 +182,7 @@ Die  `.status.attachments`Liste zeigt den Fortschritt jedes angeschlossenen Knot
 |===
 
 
+[[clean-up-the-move-resource]]
 === Die Umzugsressource bereinigen
 
 Wenn  `deleteAfterSuccess` festgelegt ist, entfernt Trident die Ressource automatisch. Andernfalls kann sie manuell gelöscht werden. Bevor eine weitere Verschiebung auf demselben Volume angefordert wird, ist sicherzustellen, dass für dieses Volume keine  `TridentVolumeMove` Ressource im  `Succeeded`- oder  `Failed`-Status vorhanden ist.

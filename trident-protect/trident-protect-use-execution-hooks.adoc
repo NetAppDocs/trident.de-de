@@ -18,6 +18,7 @@ Ein Execution Hook ist eine benutzerdefinierte Aktion, die Sie so konfigurieren 
 
 
 
+[[types-of-execution-hooks]]
 == Arten von Ausführungshaken
 
 Trident Protect unterstützt die folgenden Arten von Ausführungs-Hooks, je nachdem, wann sie ausgeführt werden können:
@@ -32,6 +33,7 @@ Trident Protect unterstützt die folgenden Arten von Ausführungs-Hooks, je nach
 
 
 
+[[order-of-execution]]
 === Ausführungsreihenfolge
 
 Wenn ein Datenschutzvorgang ausgeführt wird, finden Hakenereignisse in der folgenden Reihenfolge statt:
@@ -62,6 +64,7 @@ NOTE: Wenn ein Hook aus einer Phase vor der Snapshot-Ausführung Kubernetes-Ress
 
 
 
+[[important-notes-about-custom-execution-hooks]]
 == Wichtige Hinweise zu benutzerdefinierten Testausführungshaken
 
 Bei der Planung von Testausführungshooks für Ihre Apps sollten Sie Folgendes berücksichtigen:
@@ -77,6 +80,7 @@ NOTE: Da Testsuitehingel die Funktionalität der Anwendung, für die sie ausgef�
 
 
 
+[[execution-hook-filters]]
 == Filter für Testausführungshaken
 
 Wenn Sie einen Ausführungshaken für eine Anwendung hinzufügen oder bearbeiten, können Sie dem Ausführungshaken Filter hinzufügen, um zu verwalten, welche Container der Hook entsprechen soll. Filter sind für Applikationen nützlich, die in allen Containern dasselbe Container-Image nutzen. Jedes Image kann jedoch für einen anderen Zweck (wie Elasticsearch) verwendet werden. Mit Filtern können Sie Szenarien erstellen, in denen Ausführungshaken auf einigen, aber nicht unbedingt allen identischen Containern ausgeführt werden. Wenn Sie mehrere Filter für einen einzelnen Testausführungshaken erstellen, werden diese mit einem logischen UND einem Operator kombiniert. Pro Testsuite können Sie bis zu 10 aktive Filter haben.
@@ -88,6 +92,7 @@ NOTE: Wenn Sie einem Ausführungs-Hook einen Namespace-Filter hinzufügen, der n
 
 
 
+[[execution-hook-examples]]
 == Beispiele für Testausführungshaken
 
 Besuchen Sie die https://github.com/NetApp/Verda["NetApp Verda GitHub Projekt"] , um echte Ausführungshaken für gängige Apps wie Apache Cassandra und Elasticsearch herunterzuladen. Sie können auch Beispiele sehen und Ideen für die Strukturierung Ihrer eigenen benutzerdefinierten Execution Hooks erhalten.
@@ -97,6 +102,7 @@ NOTE: Die Skripte im Verda-Repository werden wie besehen bereitgestellt und sind
 
 
 
+[[create-an-execution-hook]]
 == Erstellen Sie einen Ausführungshaken
 
 Sie können mit Trident Protect einen benutzerdefinierten Ausführungs-Hook für eine App erstellen. Sie benötigen die Berechtigungen Eigentümer, Administrator oder Mitglied, um Ausführungs-Hooks zu erstellen.
@@ -205,6 +211,7 @@ tridentctl-protect create exechook <my_exec_hook_name> --action <action_type> --
 ====
 
 
+[[manually-run-an-execution-hook]]
 == Führen Sie manuell einen Ausführungshaken aus
 
 Sie können einen Ausführungshaken manuell zu Testzwecken ausführen oder den Hook nach einem Fehler manuell erneut ausführen. Sie müssen über die Berechtigungen Eigentümer, Administrator oder Mitglied verfügen, um Ausführungshaken manuell auszuführen.

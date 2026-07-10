@@ -17,24 +17,28 @@ Auto-Tiering wird über Trident-Backend-Parameter und PersistentVolumeClaim-Anno
 
 
 
+[[overview]]
 == Überblick
 
 Auto-Tiering ermöglicht es Trident, Volumes bereitzustellen, die inaktive Daten automatisch von einer Performance-Ebene auf eine Kapazitätsebene verschieben. Dadurch werden die Speicherkosten gesenkt, während die Leistung für häufig abgerufene Daten erhalten bleibt.
 
-Trident wendet die Einstellungen für das automatische Tiering nur bei der Volume-Erstellung an. Änderungen nach der Bereitstellung werden in Trident 26.02 nicht unterstützt.
+Trident wendet die Einstellungen für das automatische Tiering nur bei der Volume-Erstellung an. Änderungen nach der Bereitstellung werden in Trident 26.06 nicht unterstützt.
 
 
 
+[[concepts]]
 == Konzepte
 
 
 
+[[auto-tiering]]
 === Automatisches Tiering
 
 Auto-Tiering verschiebt selten genutzte Daten basierend auf den Zugriffsmustern von einer Performance-Tier auf eine Kapazitäts-Tier. Die Datenverschiebung erfolgt asynchron und ist nicht sofort.
 
 
 
+[[tiering-policy]]
 === Tiering-Richtlinie
 
 Die Tiering-Richtlinie legt fest, ob Auto-Tiering für ein Volume aktiviert ist.
@@ -43,16 +47,19 @@ Folgende Richtlinien werden unterstützt: * `auto`: Aktiviert die automatische S
 
 
 
+[[cooling-days]]
 === Kühltage
 
 Die Kühltage legen die Mindestanzahl an Tagen fest, die ein Datenblock inaktiv bleiben muss, bevor er für das Tiering in Frage kommt. Kühltage gelten nur, wenn die Tiering-Richtlinie auf  `auto` eingestellt ist.
 
 
 
+[[configuration-model]]
 == Konfigurationsmodell
 
 
 
+[[configuration-scopes]]
 === Konfigurationsbereiche
 
 Auto-Tiering kann auf mehreren Ebenen konfiguriert werden:
@@ -65,6 +72,7 @@ Trident ermittelt die effektive Konfiguration basierend darauf, wo jede Einstell
 
 
 
+[[configuration-precedence]]
 === Konfigurationspriorität
 
 Wenn dieselbe Einstellung in mehreren Bereichen definiert ist, wendet Trident die folgende Rangfolge an:
@@ -78,9 +86,10 @@ Einstellungen, die auf einer höheren Ebene definiert sind, überschreiben Werte
 
 
 
-== Unterstützte Funktionalität in Trident 26.02
+[[supported-functionality-in-trident-26-06]]
+== Unterstützte Funktionalität in Trident 26.06
 
-Trident 26.02 unterstützt die folgenden Auto-Tiering-Funktionen für Google Cloud NetApp Volumes:
+Trident 26.06 unterstützt die folgenden Auto-Tiering-Funktionen für Google Cloud NetApp Volumes:
 
 * Aktivieren oder Deaktivieren des automatischen Tierings während der Volume-Bereitstellung
 * Definieren einer Tiering-Richtlinie in der Trident Backend-Konfiguration
@@ -90,7 +99,8 @@ Trident 26.02 unterstützt die folgenden Auto-Tiering-Funktionen für Google Clo
 
 
 
-== Nicht unterstützte Funktionalität in Trident 26.02
+[[unsupported-functionality-in-trident-26-06]]
+== Nicht unterstützte Funktionalität in Trident 26.06
 
 Die folgenden Operationen werden nicht unterstützt:
 
@@ -101,6 +111,7 @@ Die folgenden Operationen werden nicht unterstützt:
 
 
 
+[[backend-configuration-parameters]]
 == Backend-Konfigurationsparameter
 
 Die folgenden Parameter steuern das Auto-Tiering-Verhalten, wenn sie in der Trident-Backend-Konfiguration definiert sind:
@@ -117,10 +128,12 @@ Die folgenden Parameter steuern das Auto-Tiering-Verhalten, wenn sie in der Trid
 |===
 
 
+[[volume-level-overrides-using-persistentvolumeclaim-annotations]]
 == Volume-Überschreibungen mithilfe von PersistentVolumeClaim-Annotationen
 
 
 
+[[supported-annotations]]
 === Unterstützte Anmerkungen
 
 PersistentVolumeClaim-Annotationen ermöglichen die individuelle Überschreibung der Auto-Tiering-Einstellungen für jedes Volume.
@@ -137,6 +150,7 @@ PersistentVolumeClaim-Annotationen ermöglichen die individuelle Überschreibung
 |===
 
 
+[[example-persistentvolumeclaim-with-auto-tiering-overrides]]
 === Beispiel: PersistentVolumeClaim mit automatischen Tiering-Überschreibungen
 
 [source, yaml]
@@ -158,10 +172,12 @@ spec:
 ----
 
 
+[[behavior-and-limitations]]
 == Verhalten und Einschränkungen
 
 
 
+[[provisioning-behavior]]
 === Bereitstellungsverhalten
 
 * Die Einstellungen für die automatische Tierierung werden nur zum Zeitpunkt der Volume-Erstellung ausgewertet und angewendet.
@@ -171,6 +187,7 @@ spec:
 
 
 
+[[platform-limitations]]
 === Plattformbeschränkungen
 
 * Auto-tiering wird nur für NAS-Volumes (NFS und SMB) unterstützt.
@@ -180,6 +197,7 @@ spec:
 
 
 
+[[supported-values]]
 === Unterstützte Werte
 
 * Gültiger Bereich für `tieringMinimumCoolingDays`: 2 bis 183

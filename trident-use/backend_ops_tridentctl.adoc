@@ -16,6 +16,7 @@ Erfahren Sie, wie Sie mit Backend-Management-Operationen durchführen `tridentct
 
 
 
+[[create-a-backend]]
 == Erstellen Sie ein Backend
 
 Nachdem Sie ein erstellt haben link:backends.html["Back-End-Konfigurationsdatei"^], Ausführen des folgenden Befehls:
@@ -34,6 +35,7 @@ Nachdem Sie das Problem mit der Konfigurationsdatei identifiziert und behoben ha
 
 
 
+[[delete-a-backend]]
 == Löschen Sie ein Back-End
 
 Gehen Sie folgendermaßen vor, um ein Backend aus Trident zu löschen:
@@ -57,6 +59,7 @@ NOTE: Wenn Trident Volumes und Snapshots von diesem Backend bereitgestellt hat, 
 
 
 
+[[view-the-existing-backends]]
 == Zeigen Sie die vorhandenen Back-Ends an
 
 Gehen Sie zum Anzeigen der von Trident verwendeten Back-Ends wie folgt vor:
@@ -77,6 +80,7 @@ tridentctl get backend -o json -n trident
 
 
 
+[[update-a-backend]]
 == Aktualisieren Sie ein Backend
 
 Führen Sie nach dem Erstellen einer neuen Backend-Konfigurationsdatei den folgenden Befehl aus:
@@ -95,6 +99,7 @@ Nachdem Sie das Problem mit der Konfigurationsdatei identifiziert und behoben ha
 
 
 
+[[identify-the-storage-classes-that-use-a-backend]]
 == Identifizieren Sie die Storage-Klassen, die ein Backend nutzen
 
 Dies ist ein Beispiel für die Art von Fragen, die Sie mit der JSON beantworten können `tridentctl` Ausgänge für Backend-Objekte. Dazu wird der verwendet `jq` Dienstprogramm, das Sie installieren müssen.

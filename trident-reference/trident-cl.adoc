@@ -16,6 +16,7 @@ Trident bietet mehrere Befehlszeilenoptionen für den Trident Orchestrator. Sie 
 
 
 
+[[logging]]
 == Protokollierung
 
 `-debug`:: Aktiviert die Debugging-Ausgabe.
@@ -24,6 +25,7 @@ Trident bietet mehrere Befehlszeilenoptionen für den Trident Orchestrator. Sie 
 
 
 
+[[kubernetes]]
 == Kubernetes
 
 `-k8s_pod`:: Verwenden Sie diese Option oder `-k8s_api_server` Um die Kubernetes-Unterstützung zu aktivieren. Durch diese Einstellung verwendet Trident die Zugangsdaten für das Kubernetes-Servicekonto eines Pods, um den API-Server zu kontaktieren. Dies funktioniert nur, wenn Trident als Pod in einem Kubernetes-Cluster mit aktivierten Service-Konten ausgeführt wird.
@@ -32,6 +34,7 @@ Trident bietet mehrere Befehlszeilenoptionen für den Trident Orchestrator. Sie 
 
 
 
+[[docker]]
 == Docker
 
 `-volume_driver <name>`:: Treibername, der bei der Registrierung des Docker-Plug-ins verwendet wird. Standardmäßig auf `netapp`.
@@ -41,6 +44,7 @@ Trident bietet mehrere Befehlszeilenoptionen für den Trident Orchestrator. Sie 
 
 
 
+[[rest]]
 == RUHE
 
 `-address <ip-or-host>`:: Gibt die Adresse an, auf der der REST-Server von Trident hören soll. Standardmäßig localhost. Wenn auf dem localhost zuhören und in einem Kubernetes Pod ausgeführt werden, ist der ZUGRIFF auf DIE REST-Schnittstelle nicht direkt von außerhalb des Pods möglich. Nutzung `-address ""` Damit die REST-Schnittstelle über die POD-IP-Adresse zugänglich ist.

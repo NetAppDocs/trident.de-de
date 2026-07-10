@@ -18,6 +18,7 @@ Ressourcentransformationen ermöglichen die Modifikation einer Ressource währen
 
 
 
+[[how-resource-modification-works]]
 == Wie Ressourcenmodifikation funktioniert
 
 Das `transformations` Feld in `SnapshotRestore`, `BackupRestore`, `AppMirrorRelationship` und anderen Wiederherstellungsressourcen ermöglicht die Anpassung von Kubernetes-Ressourcen während des Wiederherstellungsprozesses. Dies ist hilfreich, wenn die wiederhergestellte Anwendung anders als das Original konfiguriert werden soll, beispielsweise durch Änderungen an Hostnamen, Registry-URLs, Ressourcenlimits oder Umgebungsvariablen.
@@ -54,6 +55,7 @@ spec:
 ----
 
 
+[[supported-resources]]
 == Unterstützte Ressourcen
 
 Sie können Ressourcentransformationen mit Ressourcen verwenden, die den folgenden Kriterien entsprechen:
@@ -69,12 +71,14 @@ NOTE: Die Modifizierung von PersistentVolumeClaims und Namespaces wird derzeit n
 
 
 
+[[supported-operations]]
 == Unterstützte Operationen
 
 Die folgenden Operationen können zur Änderung von Ressourcen verwendet werden: `add`, `copy`, `move`, `remove`, `replace` und `test`.
 
 
 
+[[add-a-value-to-a-resource]]
 === Einer Ressource einen Wert hinzufügen
 
 Verwenden Sie die  `add`-Operation, um ein neues Feld oder einen neuen Wert am angegebenen Pfad hinzuzufügen. Sie können Daten zu Objekten oder Arrays hinzufügen.
@@ -113,6 +117,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[copy-a-value-within-a-resource]]
 === Einen Wert innerhalb einer Ressource kopieren
 
 Verwenden Sie die  `copy`Operation, um einen Wert innerhalb derselben Ressource von einem Pfad in einen anderen zu kopieren. Die Quelle bleibt unverändert.
@@ -149,6 +154,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[move-a-value-within-a-resource]]
 === Verschieben Sie einen Wert innerhalb einer Ressource
 
 Verwenden Sie die  `move`-Operation, um einen Wert innerhalb derselben Ressource von einem Pfad zu einem anderen zu verschieben. Die Quelle wird entfernt und der Wert am Zielort eingefügt.
@@ -185,6 +191,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[remove-a-value-from-a-resource]]
 === Einen Wert aus einer Ressource entfernen
 
 Verwenden Sie die  `remove` Operation, um ein Feld oder einen Wert am angegebenen Pfad zu entfernen.
@@ -223,6 +230,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[replace-a-value-within-a-resource]]
 === Ersetzen Sie einen Wert innerhalb einer Ressource
 
 Verwenden Sie die  `replace` Operation, um einen vorhandenen Wert innerhalb einer Ressource am angegebenen Pfad zu ersetzen. Der JSON-Pfad muss bereits existieren.
@@ -260,6 +268,7 @@ tridentctl-protect create snapshotrestore <restore_name> \
 ====
 
 
+[[test-the-resource-modification]]
 === Testen Sie die Ressourcenänderung
 
 Die  `test`Operation kann verwendet werden, um zu überprüfen, ob der Wert an einem Pfad dem erwarteten Wert entspricht, bevor die anderen Operationen angewendet werden. Wenn der Test fehlschlägt, wird die gesamte Änderung zurückgesetzt.

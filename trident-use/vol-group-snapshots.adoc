@@ -19,6 +19,7 @@ NOTE: VolumeGroupSnapshot ist eine Beta-Funktion in Kubernetes mit Beta-APIs. F�
 
 
 
+[[create-volume-group-snapshots]]
 == Erstellen von Volumegruppen-Snapshots
 
 Die Snapshot-Funktion für Volumengruppen wird von den folgenden Speichertreibern unterstützt:
@@ -104,6 +105,7 @@ spec:
 ----
 
 
+[[recover-volume-data-using-a-group-snapshot]]
 == Wiederherstellen von Volumedaten mithilfe eines Gruppen-Snapshots
 
 Sie können einzelne persistente Volumes mithilfe der einzelnen Snapshots wiederherstellen, die im Rahmen des Volume-Gruppen-Snapshots erstellt wurden. Der Volume-Gruppen-Snapshot kann nicht als Einheit wiederhergestellt werden.
@@ -119,6 +121,7 @@ NOTE: Wenn Sie eine Snapshot-Kopie wiederherstellen, wird die vorhandene Volume-
 
 
 
+[[in-place-volume-restoration-from-a-snapshot]]
 == In-Place-Volume-Wiederherstellung aus einem Snapshot
 
 Trident ermöglicht mithilfe des CR-Systems (TASR) eine schnelle Wiederherstellung von in-Place-Volumes aus einem Snapshot `TridentActionSnapshotRestore`. Dieser CR fungiert als eine zwingend notwendige Kubernetes-Aktion und bleibt nach Abschluss des Vorgangs nicht erhalten.
@@ -127,6 +130,7 @@ Weitere Informationen finden Sie unter link:../trident-use/vol-snapshots.html#in
 
 
 
+[[delete-a-pv-with-associated-group-snapshots]]
 == Löschen eines PV mit zugehörigen Gruppen-Snapshots
 
 Beim Löschen eines Gruppenvolume-Snapshots:
@@ -138,6 +142,7 @@ Beim Löschen eines Gruppenvolume-Snapshots:
 
 
 
+[[deploy-a-volume-snapshot-controller]]
 == Stellen Sie einen Volume-Snapshot-Controller bereit
 
 Wenn Ihre Kubernetes-Distribution den Snapshot-Controller und CRDs nicht enthält, können Sie sie wie folgt bereitstellen.
@@ -177,6 +182,7 @@ NOTE: Öffnen Sie bei Bedarf `deploy/kubernetes/snapshot-controller/rbac-snapsho
 
 
 
+[[related-links]]
 == Weiterführende Links
 
 * link:../trident-reference/objects.html#kubernetes-volumegroupsnapshotclass-objects["VolumeGroupSnapshotClass"]
