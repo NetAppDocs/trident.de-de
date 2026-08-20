@@ -25,7 +25,7 @@ Bevor Sie Volumes mit Trident bereitstellen können, müssen Sie Ihr Storage-Bac
 
 Es gibt zwei Möglichkeiten, das Trident-Backend für die Verwendung eines FSx for ONTAP-Dateisystems zu konfigurieren: * Erstellen Sie eine StorageClass, die die Automatic Backend-Funktion nutzt. * Erstellen Sie das Backend und die StorageClass separat.
 
-Die Schritte in diesem Abschnitt beschreiben, wie Sie das Backend separat erstellen. Informationen zur Verwendung der Funktion „Automatisches Backend“ finden Sie im link:trident-fsx-storageclass-pvc.html#configure-a-kubernetes-storageclass-object-with-automatic-backend-configuration-support-for-fsx-for-ontap["Konfigurieren StorageClass und PVC"] Abschnitt.
+Die Schritte in diesem Abschnitt beschreiben, wie Sie das Backend separat erstellen. Informationen zur Verwendung der Funktion „Automatisches Backend“ finden Sie im link:trident-fsx-storageclass-pvc.html#configure-a-storage-class-without-automatic-backend-configuration["Konfigurieren StorageClass und PVC"] Abschnitt.
 
 Um ein Storage-Backend zu erstellen, müssen Sie eine Konfigurationsdatei im JSON- oder YAML-Format erstellen. Die Datei muss den gewünschten Speichertyp (NAS oder SAN), das Dateisystem und die SVM angeben, von der sie abgerufen werden soll, und wie die Authentifizierung mit ihr durchgeführt werden soll. Im folgenden Beispiel wird gezeigt, wie NAS-basierter Storage definiert wird und wie ein AWS-Schlüssel zum Speichern der Zugangsdaten für die zu verwendende SVM verwendet wird:
 
@@ -296,4 +296,4 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 [[provision-smb-volumes]]
 == Bereitstellung von SMB-Volumina
 
-Sie können SMB-Volumes mithilfe des  `ontap-nas` Treibers bereitstellen. Bevor Sie link:trident-fsx-storage-backend.html#ontap-san-and-nas-driver-integration["ONTAP SAN- und NAS-Treiberintegration"] abschließen, führen Sie diese Schritte aus: link:worker-node-prep.html#prepare-to-provision-smb-volumes.html["Vorbereitung zur Bereitstellung von SMB Volumes"].
+Sie können SMB-Volumes mithilfe des  `ontap-nas` Treibers bereitstellen. Bevor Sie link:trident-fsx-storage-backend.html#fsx-for-ontap-driver-details["ONTAP SAN- und NAS-Treiberintegration"] abschließen, führen Sie diese Schritte aus: link:worker-node-prep.html#prepare-to-provision-smb-volumes["Vorbereitung zur Bereitstellung von SMB Volumes"].

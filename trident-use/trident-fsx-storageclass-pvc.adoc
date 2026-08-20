@@ -319,7 +319,7 @@ backend-tbc-ontap-nas        tbc-ontap-nas        933e0071-66ce-4324-b9ff-f96d91
 ----
 
 
-Weitere Informationen zu anderen Konfigurationsoptionen finden Sie im <<Backend-advanced-configuration-and-examples>> Abschnitt unten.
+Weitere Informationen zu anderen Konfigurationsoptionen finden Sie im <<first-link,Erweiterte Backend Konfiguration und Beispiele>> Abschnitt unten.
 
 
 
@@ -459,8 +459,8 @@ Sie können SMB-Volumes mithilfe des  `ontap-nas` Treibers bereitstellen. Dazu m
 
 
 
-[[backend-advanced-configuration-and-examples]]
-== Erweiterte Back-End-Konfiguration und Beispiele
+[[first-linkbackend-advanced-configuration-and-examples]]
+== [[first-link]]Erweiterte Backend-Konfiguration und Beispiele
 
 Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 

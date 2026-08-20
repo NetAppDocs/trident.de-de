@@ -1,0 +1,169 @@
+---
+sidebar: sidebar 
+permalink: trident-use/ontap-balanced-placement.html 
+keywords: trident backend, ontap, balanced placement, useBalancedPlacement, aggregates, afx, unified, provisioning, storage pools 
+summary: Trident unterstützt die ONTAP Balanced Placement-Funktion, bei der die Auswahl des Aggregats an ONTAP delegiert wird, wenn Trident Volumes auf ONTAP Backends bereitstellt. 
+---
+= Ausgewogene Platzierung mit ONTAP Backends verwenden
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:linkattrs: 
+:relative_path: ./
+:imagesdir: ../media/
+
+
+[role="lead"]
+Sie können die ONTAP Balanced Placement auf ONTAP Backends aktivieren. Mit Balanced Placement wählt ONTAP für jedes neue Volume das optimale Aggregat aus, sodass die Aggregatzuweisung in Trident nicht verwaltet werden muss.
+
+
+
+[[how-balanced-placement-works]]
+== Wie eine ausgewogene Platzierung funktioniert
+
+Standardmäßig erkennt Trident die einem SVM zugewiesenen Aggregate, behandelt jedes Aggregat als Speicherpool und wählt ein Aggregat aus, wenn ein Volume bereitgestellt wird.
+
+Wenn die ausgewogene Platzierung aktiviert ist:
+
+* Trident meldet die gesamte SVM als einen einzigen Speicherpool statt einzelner Aggregate.
+* ONTAP wählt für jedes neue Volume das Aggregat aus und gleicht die Volumes über die verfügbaren Aggregate aus.
+* Trident erstellt Volumes mithilfe der ONTAP `/application/containers` REST API.
+
+
+Balanced Placement ist für Unified ONTAP Systeme (AFF, FAS und ASA) und NetApp AFX Speichersysteme verfügbar.
+
+
+
+[[requirements]]
+== Anforderungen
+
+* Das Backend muss ONTAP 9.19.1 oder neuer verwenden.
+* Trident muss mit ONTAP über REST kommunizieren. Ausgewogene Platzierung ist mit ZAPI nicht verfügbar.
+* Die Backend-Konfiguration darf keine Aggregate angeben. Eine Kombination aus ausgeglichener Platzierung und expliziter Aggregatauswahl ist nicht möglich.
+
+
+
+
+[[default-values]]
+== Standardwerte
+
+Der Standardwert von `useBalancedPlacement` hängt vom Speichersystem ab:
+
+[cols="1,1,2"]
+|===
+| Speichersystem | Standard | Hinweise 
+
+
+| Unified ONTAP (AFF, FAS, ASA) | `false` | Trident wählt Aggregate aus, sofern die ausgewogene Platzierung nicht aktiviert ist. 
+
+
+| NetApp AFX (ONTAP 9.19.1 oder höher) | `true` | Eine ausgewogene Platzierung ist erforderlich. Das Setzen von  `useBalancedPlacement` auf  `false` führt dazu, dass die Backend-Validierung fehlschlägt. 
+
+
+| NetApp AFX (vor ONTAP 9.19.1) | `false` | Eine ausgewogene Platzierung ist nicht verfügbar. 
+|===
+
+
+[[configuration-option]]
+== Konfigurationsoption
+
+[cols="1,2,1"]
+|===
+| Parameter | Beschreibung | Standard 
+
+
+| `useBalancedPlacement` | Delegiert die Auswahl des Aggregats für neue Volumes an ONTAP. Diese Option wird im Stammverzeichnis der Backend-Konfiguration oder für einzelne virtuelle Pools festgelegt. | `false`; `true` für AFX auf ONTAP 9.19.1 oder höher 
+|===
+
+
+[[balanced-placement-with-virtual-pools]]
+== Ausgewogene Platzierung mit virtuellen Pools
+
+Ausgewogene Platzierung funktioniert mit oder ohne virtuelle Pools:
+
+* Ohne virtuelle Pools meldet Trident die SVM als einen einzigen Speicherpool und erstellt alle neuen Volumes mit ausgewogener Platzierung.
+* Mit virtuellen Pools meldet Trident die virtuellen Pools und ordnet ihnen wie gewohnt Volumes zu. Wenn für den entsprechenden virtuellen Pool die Balanced Placement aktiviert ist, wählt ONTAP das Aggregat für das Volume aus.
+
+
+Die Einstellung  `useBalancedPlacement`kann im Stammverzeichnis der Backend-Konfiguration gesetzt werden, um sie auf alle virtuellen Pools anzuwenden, oder auf einzelnen virtuellen Pools, um sie selektiv zu aktivieren.
+
+
+
+[[examples]]
+== Beispiele
+
+Das folgende Beispiel ermöglicht eine ausgewogene Platzierung auf einem einheitlichen ONTAP Backend:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-balanced-placement
+managementLIF: 10.0.0.1
+dataLIF: 10.0.0.2
+svm: trident_svm
+username: cluster-admin
+password: <password>
+useBalancedPlacement: true
+----
+Das folgende Beispiel ermöglicht eine ausgewogene Platzierung mithilfe von  `TridentBackendConfig`:
+
+[listing]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  backendName: nas-balanced-placement
+  managementLIF: 10.0.0.1
+  svm: trident_svm
+  useBalancedPlacement: true
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+Das folgende Beispiel ermöglicht die ausgewogene Platzierung nur im `gold` virtuellen Pool. Trident wählt weiterhin Aggregate für Volumes aus, die dem `bronze` virtuellen Pool entsprechen:
+
+[listing]
+----
+---
+version: 1
+storageDriverName: ontap-nas
+backendName: nas-virtual-pools
+managementLIF: 10.0.0.1
+svm: trident_svm
+username: cluster-admin
+password: <password>
+storage:
+- labels:
+    performance: gold
+  useBalancedPlacement: true
+- labels:
+    performance: bronze
+----
+
+
+[[backend-validation-errors]]
+== Backend-Validierungsfehler
+
+Die Erstellung oder Aktualisierung des Backends schlägt in folgenden Fällen fehl:
+
+[cols="2,2"]
+|===
+| Konfiguration | Ergebnis 
+
+
+| `useBalancedPlacement: true` auf ONTAP vor 9.19.1 | Die Validierung ist fehlgeschlagen. Ein Upgrade auf ONTAP 9.19.1 oder höher ist erforderlich. 
+
+
+| `useBalancedPlacement: true` auf einem Backend mit ZAPI | Die Validierung ist fehlgeschlagen. Das Backend ist für die Verwendung von REST zu konfigurieren. 
+
+
+| `useBalancedPlacement: true` kombiniert mit spezifischen Aggregaten | Die Validierung ist fehlgeschlagen. Die Aggregatkonfiguration muss entfernt oder die ausgeglichene Platzierung deaktiviert werden. 
+
+
+| `useBalancedPlacement: false` auf AFX mit ONTAP 9.19.1 oder höher | Die Validierung ist fehlgeschlagen. Für AFX auf ONTAP 9.19.1 oder höher ist eine ausgewogene Platzierung erforderlich. 
+|===

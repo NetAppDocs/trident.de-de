@@ -48,6 +48,8 @@ entries:
       url: "/trident-use/ontap-nas-prep.html"
     - title: Konfigurationsoptionen und Beispiele
       url: "/trident-use/ontap-nas-examples.html"
+  - title: Ausgewogene Platzierung mit ONTAP Backends verwenden
+    url: "/trident-use/ontap-balanced-placement.html"
   - title: Amazon FSX für NetApp ONTAP
     entries:
     - title: Überblick
