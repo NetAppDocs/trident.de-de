@@ -7319,4 +7319,11 @@ Sie können QoS-Richtliniengruppen im Backend oder im Storage-Pool festlegen und
   <block id="d25a42bf8872d5c2742f43937586ad40" category="inline-xref">Erweiterte Backend Konfiguration und Beispiele</block>
   <block id="f3bbb160e5770652e96a6a7ce5e4aaa9" category="paragraph">Weitere Informationen zu anderen Konfigurationsoptionen finden Sie im <block ref="24ff2177ac2d3277f1e79fe1615781ee" category="inline-xref-macro-rx"></block> Abschnitt unten.</block>
   <block id="3929c8e22750fae0b1b6ca0e82f82fd3" category="section-title">[[first-link]]Erweiterte Backend-Konfiguration und Beispiele</block>
+  <block id="c3bd78da5a8e8ae22bd50629327c0c26" category="section-title">Was ist neu in 26.06.1</block>
+  <block id="0063db86c3042093f4b48db59ca75d87" category="list-text">Ein Wettlaufproblem zwischen CSI-Veröffentlichung und Volume-Verschiebung wurde behoben, das dazu führen konnte, dass ein Volume mit veralteten Zugriffsinformationen angehängt wurde.</block>
+  <block id="99bc89ae140f34c4ef13f436b3578358" category="list-text">Es wurde ein Wettlaufproblem behoben, bei dem NodeGetInfo leere Topologiebezeichnungen zurückgegeben werden konnten, bevor die Knotenregistrierung abgeschlossen war, was zu Fehlern bei der topologiebasierten Bereitstellung führte.</block>
+  <block id="8141a9378a82f2d156fbd38ada6c3466" category="list-text">Ein seltener NVMe-Verbindungsabbruchfehler wurde behoben, der dazu führen konnte, dass ein gemeinsam genutztes Subsystem entfernt wurde, während ein anderer Pod noch verbunden wurde.</block>
+  <block id="13d49e861126c9f4e8187c3ed601942a" category="list-text">Fehler beim Veröffentlichen von NVMe PVC-Klonen (und eine fehlerhafte Zuordnung des übergeordneten Namespace) beim Erstellen von Klonen eines gemounteten Volume unter gleichzeitiger Ausführung wurden behoben.</block>
+  <block id="92908f9dc019fbc39650b0f44ecbe68d" category="list-text">Fehler bei der Erstellung von Snapshots für PVCs auf ONTAP SAN Economy Backends mit einem nameTemplate wurden behoben.</block>
+  <block id="241bcdc29e2aecc9374092674e96e3b7" category="list-text">Optionale Option <block ref="c187d606271268ec08cafc7fe2d89aba" prefix=" " category="inline-code"></block> (Sekunden) in der ONTAP Backend-Konfiguration hinzugefügt, um die REST- und ZAPI-API-Client-Timeouts pro Backend festzulegen.</block>
 </blocks>
