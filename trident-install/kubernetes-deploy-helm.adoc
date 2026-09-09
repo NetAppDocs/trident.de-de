@@ -248,10 +248,7 @@ WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. W
 
 
 | `enableConcurrency`  a| 
-Ermöglicht gleichzeitige Trident -Controller-Operationen für verbesserten Durchsatz.
-
-
-NOTE: *Technische Vorschau*: Diese Funktion ist experimentell und unterstützt derzeit eingeschränkte parallele Arbeitsabläufe mit den Treibern ONTAP-NAS (nur NFS) und ONTAP-SAN (NVMe für Unified ONTAP 9) sowie die bestehende technische Vorschau für den Treiber ONTAP-SAN (iSCSI- und FCP-Protokolle in Unified ONTAP 9).
+Ermöglicht gleichzeitige Trident Controller-Operationen für verbesserten Durchsatz. Weitere Informationen zu den unterstützten Treibern sind unter folgendem Link verfügbar: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | Falsch 
 
 

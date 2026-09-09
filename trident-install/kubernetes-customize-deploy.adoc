@@ -140,14 +140,11 @@ Das vom Controller bei der Kommunikation mit dem Kubernetes-API-Server verwendet
 
 
 | `enableConcurrency`  a| 
-Ermöglicht gleichzeitige Trident -Controller-Operationen für verbesserten Durchsatz.
+Ermöglicht gleichzeitige Trident Controller-Operationen für verbesserten Durchsatz. Weitere Informationen zu den unterstützten Treibern sind unter folgendem Link verfügbar: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+| `resources` 
 
 
-NOTE: *Technische Vorschau*: Diese Funktion ist experimentell und unterstützt derzeit eingeschränkte parallele Arbeitsabläufe mit den Treibern ONTAP-NAS (nur NFS) und ONTAP-SAN (NVMe für Unified ONTAP 9) sowie die bestehende technische Vorschau für den Treiber ONTAP-SAN (iSCSI- und FCP-Protokolle in Unified ONTAP 9).
-| Falsch 
-
-
-| `resources`  a| 
+ a| 
 Legt Kubernetes-Ressourcenlimits und -anforderungen für den Trident -Controller und die Node-Pods fest. Sie können CPU und Arbeitsspeicher für jeden Container und Sidecar konfigurieren, um die Ressourcenzuweisung in Kubernetes zu verwalten.
 
 Weitere Informationen zum Konfigurieren von Ressourcenanforderungen und -limits finden Sie unterlink:https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/["Ressourcenverwaltung für Pods und Container"^] Die
@@ -252,15 +249,10 @@ resources:
         limits:
           cpu:
           memory:
-----
+----| `httpsMetrics` 
 
 
-| `httpsMetrics` | Aktivieren Sie HTTPS für den Prometheus-Metrikendpunkt. | Falsch 
-
-
-| `hostNetwork`  a| 
-Ermöglicht die Host-Netzwerkverbindung für den Trident -Controller. Dies ist nützlich, wenn Sie den Frontend- und Backend-Datenverkehr in einem Netzwerk mit mehreren Heimnetzwerken trennen möchten.
-| Falsch 
+| Aktivieren Sie HTTPS für den Prometheus-Metrikendpunkt. | Falsch | `hostNetwork` 
 |===
 
 NOTE: Weitere Informationen zum Formatieren von Pod-Parametern finden Sie unter link:https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/["Pods werden Nodes zugewiesen"^].
