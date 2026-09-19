@@ -37,7 +37,9 @@ Die folgende Tabelle zeigt die Backend-Konfigurationsoptionen:
 
 
 | `storageDriverName`  a| 
-Name des Speichertreibers
+Name des Speichertreibers.
+
+Kann nach der Erstellung nicht mehr geändert werden. Um diesen Parameter zu aktualisieren, ist die Erstellung eines neuen Backends erforderlich.
 
 
 NOTE: Nur für NetApp AFX-Systeme `ontap-nas` wird unterstützt.

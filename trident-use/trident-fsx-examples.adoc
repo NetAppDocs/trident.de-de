@@ -29,7 +29,7 @@ Die Back-End-Konfigurationsoptionen finden Sie in der folgenden Tabelle:
 | `version` |  | Immer 1 
 
 
-| `storageDriverName` | Name des Speichertreibers | `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy` 
+| `storageDriverName` | Name des Speichertreibers. Kann nach der Erstellung nicht mehr geändert werden. Zum Aktualisieren dieses Parameters ist die Erstellung eines neuen Backends erforderlich. | `ontap-nas`, `ontap-nas-economy`, `ontap-nas-flexgroup`, `ontap-san`, `ontap-san-economy` 
 
 
 | `backendName` | Benutzerdefinierter Name oder das Storage-Backend | Treibername + „_“ + DatenLIF 

@@ -30,17 +30,17 @@ Self-Support:: Die Trident-Dokumentation ist ab Veröffentlichungsdatum für die
 |===
 
 
-| Version | Volle Unterstützung | Eingeschränkter Support | Self-Support 
+| Version | Ende der vollständigen Unterstützung | Ende der eingeschränkten Unterstützung | Ende des Self-Support 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident/index.html["26,06"^]
-| Juli 2026 | Juli 2027 | Juli 2028 
+| Juli 2027 | Juli 2028 | Juli 2029 
 
 
  a| 
 link:https://docs.netapp.com/us-en/trident/index.html["26,02"^]
-| Februar 2026 | Februar 2027 | Februar 2028 
+| Februar 2027 | Februar 2028 | Februar 2029 
 
 
  a| 
