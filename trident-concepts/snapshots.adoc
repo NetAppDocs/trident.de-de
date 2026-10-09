@@ -4,7 +4,7 @@ permalink: trident-concepts/snapshots.html
 keywords: provisioning, Trident 
 summary: Erfahren Sie mehr darüber, wie Trident mit der Erstellung von Volume-Snapshots für seine Treiber umgeht. 
 ---
-= Volume Snapshots
+= Erstellung eines Trident Volume-Snapshots
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

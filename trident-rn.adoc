@@ -19,6 +19,42 @@ WARNING: Der `tridentctl` Binary for Linux, die in der ZIP-Datei des Installatio
 
 
 
+[[whats-new-in-26-06-2]]
+== Was ist neu in 26.06.2
+
+Erfahren Sie, was neu ist in NetApp Trident und Trident Protect, einschließlich Verbesserungen, Fehlerbehebungen und veralteter Funktionen.
+
+
+
+[[trident]]
+=== Trident
+
+
+
+==== Vorgestellt Werden
+
+* *Kubernetes*:
++
+** Unterstützung für Kubernetes 1.37 hinzugefügt.
+
+
+
+
+
+
+==== Korrekturen
+
+* *Kubernetes*:
++
+** Es wurde ein Fehler behoben, durch den ONTAP-NAS-Exportrichtlinienregeln beim Neustart des Trident Controllers oder wenn  `TridentBackendConfig` aktualisiert wurde, stillschweigend gelöscht wurden, während  `enableConcurrency` auf  `true` gesetzt war. Dies konnte dazu führen, dass bereits eingebundene Volumes unzugänglich wurden (link:https://github.com/NetApp/trident/issues/1166["Problem #1166"], link:https://github.com/NetApp/trident/issues/1179["Problem #1179"]).
+** Ein Fehler bei Backend-Updates, die einen Scan nach verwaisten Volumes pro Volume für nicht wesentliche Änderungen wie Anmeldeinformationen und QoS durchführten, wurde behoben, da dies CSI-Operationen auf großen Backends stundenlang blockieren konnte. Der Scan wird nun nur noch ausgeführt, wenn sich die SVM oder das Storage-Präfix ändert.
+** Feste Anmeldeinformationen, die in Trident Debug-Protokollen erscheinen, einschließlich CSI gRPC-Anforderungs-Dumps, des Startumgebungs-Dumps und `TridentBackendConfig` der vom CRD Controller protokollierten Spezifikationen. Der Startumgebungs-Dump protokolliert jetzt Werte nur für Tridents eigene `TRIDENT_*` Variablen und führt andere Variablen nur nach Namen auf.
+
+
+
+
+
+
 [[whats-new-in-26-06-1]]
 == Was ist neu in 26.06.1
 

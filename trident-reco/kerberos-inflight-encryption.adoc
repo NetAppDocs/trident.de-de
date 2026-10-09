@@ -4,7 +4,7 @@ permalink: trident-reco/kerberos-inflight-encryption.html
 keywords: Trident, backend, storage, encryption, kerberos 
 summary: Sie können eine Verschlüsselung konfigurieren, um den Datenverkehr zwischen Trident und Ihrem Storage-Back-End zu schützen. 
 ---
-= Kerberos Verschlüsselung während der Übertragung
+= Trident Kerberos Verschlüsselung während der Übertragung
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

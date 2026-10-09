@@ -4,7 +4,7 @@ permalink: trident-use/vol-snapshots.html
 keywords: volumes, on-demand volume snapshots, create snapshots, backends, kubernetes, create PVCs, PVCs, snapshot, volume snapshot, import snapshot, recover data 
 summary: 'Kubernetes Volume Snapshots von Persistent Volumes (PVs) ermöglichen zeitpunktgenaue Kopien von Volumes. Sie können einen Snapshot eines mit Trident erstellten Volumes erstellen, einen außerhalb von Trident erstellten Snapshot importieren, ein neues Volume aus einem vorhandenen Snapshot erstellen und Volume-Daten aus Snapshots wiederherstellen.' 
 ---
-= Arbeiten Sie mit Snapshots
+= Arbeiten mit Trident Snapshots
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

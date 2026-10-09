@@ -4,7 +4,7 @@ permalink: trident-concepts/provisioning.html
 keywords: provisioning, Trident 
 summary: Die Bereitstellung in Trident hat zwei primäre Phasen. In der ersten Phase wird eine Speicherklasse mit einem Satz geeigneter Back-End-Speicherpools verknüpft. Diese werden vor der Bereitstellung als notwendig vorbereitet. Die zweite Phase umfasst die Volume-Erstellung selbst und erfordert die Auswahl eines Speicherpools aus denen, die mit der Storage-Klasse des ausstehenden Volumes verknüpft sind. 
 ---
-= Bereitstellung
+= Trident Volume Provisionierungsprozess
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-use/backend_ops_tridentctl.html
 keywords: backends, storage system, anf, element, hci, solidfire, ontap, aff, fas, ontap select, configure backends, tridentctl, create backends, delete backends, view backends, update backends 
 summary: 'Erfahren Sie, wie Sie mit Backend-Management-Operationen durchführen `tridentctl`.' 
 ---
-= Back-End-Management mit tridentctl
+= Trident Backends mit tridentctl verwalten
 :hardbreaks:
 :allow-uri-read: 
 :icons: font

@@ -4,7 +4,7 @@ permalink: trident-get-started/k8s-netapp.html
 keywords: kubernetes, netapp storage, ontap, cloud volumes ontap, santricity, element software, netapp hci, anf, azure netapp files, aws, amazon fsx 
 summary: Das NetApp Portfolio an Storage-Produkten lässt sich in viele verschiedene Aspekte eines Kubernetes Clusters integrieren und bietet erweiterte Datenmanagementfunktionen zur Verbesserung von Funktionen, Funktionen, Performance und Verfügbarkeit der Kubernetes-Implementierung. 
 ---
-= Kubernetes-Integration in NetApp Produkte
+= Trident und Kubernetes Integration mit NetApp Produkten
 :hardbreaks:
 :allow-uri-read: 
 :icons: font
