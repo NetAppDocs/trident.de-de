@@ -116,7 +116,7 @@ Trident kann keine SnapMirror-Replizierungsbeziehungen konfigurieren. Der Storag
 Sie können dann importieren Sie die wiederhergestellten Volumes in Trident mit link:../trident-use/vol-import.html["Tridentctl-Volumenimport"].
 
 
-NOTE: Import wird auf nicht unterstützt `ontap-nas-economy`,  `ontap-san-economy`, Oder `ontap-flexgroup-economy` Treiber.
+NOTE: Der Volume-Import wird mit dem  `ontap-san-economy` Treiber unterstützt. Der Qtree-Import mit dem  `ontap-nas-economy` Treiber ist eine Tech Preview-Funktion und wird für den Produktiveinsatz nicht unterstützt. Der Import wird mit dem  `ontap-flexgroup-economy` Treiber nicht unterstützt. Einzelheiten enthält link:../trident-use/vol-import.html["Importieren von Trident Volumes"].
 
 
 

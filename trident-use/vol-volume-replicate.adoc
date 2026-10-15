@@ -164,14 +164,24 @@ metadata:
   name: csi-nas
 spec:
   state: established
+  replicationPolicy: MirrorAllSnapshots
+  replicationSchedule: 5min
   volumeMappings:
   - localPVCName: csi-nas
     remoteVolumeHandle: "datavserver:trident_pvc_3bedd23c_46a8_4384_b12b_3c38b313c1e1"
 ----
 +
-Trident erstellt eine SnapMirror Beziehung mit dem Namen der konfigurierten Beziehungsrichtlinie (oder dem Standard für ONTAP) und initialisiert diesen.
+Das TMR `spec` verfügt über vier Felder der obersten Ebene: `state`, das den gewünschten Beziehungsstatus festlegt (siehe <<Volume-Replikationsstatus>>); `volumeMappings`, das lokale PVCs ihren Remote-Volume-Handles zuordnet; sowie die optionalen `replicationPolicy` und `replicationSchedule` Felder, die unten beschrieben sind.
 
-.. PVC mit zuvor erstellter StorageClass erstellen, um als sekundäres Ziel zu fungieren (SnapMirror Ziel).
+
+
+
+
+Die `replicationPolicy` und `replicationSchedule` Felder sind optional. Als Wert für `replicationPolicy` ist der Name einer asynchronen SnapMirror Richtlinie auf ONTAP und für `replicationSchedule` der Name eines ONTAP Zeitplans anzugeben. Wenn eines der Felder ausgelassen wird, verwendet Trident die entsprechende Replikationsrichtlinie bzw. den entsprechenden Zeitplan, die bzw. der im Backend konfiguriert ist. Diese Felder sind beim Erstellen der Beziehung festzulegen; die Richtlinie oder der Zeitplan können nach dem Einrichten der Beziehung nicht mehr geändert werden. Wenn andere Einstellungen verwendet werden sollen, ist die TMR zu löschen und neu zu erstellen.
+
+Trident erstellt und initialisiert eine SnapMirror Beziehung anhand der konfigurierten Replikationsrichtlinie und des Zeitplans.
+
+. PVC mit zuvor erstellter StorageClass erstellen, um als sekundäres Ziel zu fungieren (SnapMirror Ziel).
 +
 .Beispiel
 [source, yaml]
@@ -192,8 +202,6 @@ storageClassName: csi-nas
 ----
 +
 Trident überprüft die CRD der tridentMirrorRelationship und erstellt das Volume nicht, wenn die Beziehung nicht vorhanden ist. Wenn die Beziehung besteht, stellt Trident sicher, dass die neue FlexVol volume auf einer SVM platziert wird, die mit der Remote-SVM, die in MirrorRelation definiert ist, verbunden ist.
-
-
 
 
 
@@ -261,7 +269,7 @@ Wählen Sie vor dem Wiederherstellen einer Spiegelbeziehung die Seite aus, die S
 
 .Schritte
 . Stellen Sie auf dem sekundären Kubernetes-Cluster sicher, dass die Werte für das Feld _spec.remoteVolumeHandle_ auf dem TridentMirrorRelationship aktualisiert werden.
-. Aktualisieren Sie im sekundären Kubernetes-Cluster das Feld _spec.mirror_ von TridentMirrorRelationship auf `reestablished`.
+. Auf dem sekundären Kubernetes-Cluster muss das Feld _spec.state_ von TridentMirrorRelationship auf `reestablished` aktualisiert werden.
 
 
 
