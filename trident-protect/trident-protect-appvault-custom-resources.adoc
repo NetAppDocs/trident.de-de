@@ -40,6 +40,9 @@ Wenn Sie AppVault-Objekte mithilfe von CRs oder dem Trident Protect CLI-Plugin e
 
 
 
+NOTE: Zum Verschlüsseln von Snapshot- und Backup-Metadaten oder zum Ändern des Vault-Passworts dient das `spec.vaultPasswordSecretRef` Feld. Weitere Informationen finden sich in link:trident-protect-encrypt-appvault-metadata.html["Verschlüsselung von AppVault Metadaten für Trident Protect-Snapshots und -Backups"].
+
+
 
 ==== Erstellen Sie einen Kennwortschlüssel für das Data Mover Repository
 

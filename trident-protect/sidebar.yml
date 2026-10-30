@@ -28,10 +28,14 @@ entries:
   entries:
   - title: Verwenden Sie AppVault-Objekte zum Verwalten von Buckets
     url: "/trident-protect/trident-protect-appvault-custom-resources.html"
+  - title: AppVault Metadaten verschlüsseln
+    url: "/trident-protect/trident-protect-encrypt-appvault-metadata.html"
   - title: Definieren Sie eine Anwendung für die Verwaltung
     url: "/trident-protect/trident-protect-manage-applications.html"
   - title: Sichern von Applikationen
     url: "/trident-protect/trident-protect-protect-apps.html"
+  - title: Verwendung von Snapshots von Volumengruppen
+    url: "/trident-protect/trident-protect-volume-group-snapshots.html"
   - title: Wiederherstellung von Applikationen
     entries:
     - title: Anwendungen mit Trident Protect wiederherstellen
@@ -41,7 +45,11 @@ entries:
     - title: Ressourcen während der Wiederherstellung ändern
       url: "/trident-protect/trident-protect-resource-transformations.html"
   - title: Replizieren Sie Applikationen mit NetApp SnapMirror
-    url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    entries:
+    - title: Einrichten und Managen der Applikationsreplikation
+      url: "/trident-protect/trident-protect-use-snapmirror-replication.html"
+    - title: Auf einen älteren Snapshot zurückgreifen
+      url: "/trident-protect/trident-protect-failover-older-snapshot.html"
   - title: Migrieren Sie Applikationen
     url: "/trident-protect/trident-protect-migrate-apps.html"
   - title: Schutz von KubeVirt virtuellen Maschinen

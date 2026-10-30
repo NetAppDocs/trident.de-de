@@ -16,6 +16,8 @@ Die automatische Volumenerweiterung ermöglicht es, dass von Trident bereitgeste
 * Die maximale Größe, die das Volume erreichen kann
 
 
+Trident Autogrow Richtlinien erweitern das PVC. Dies unterscheidet sich von link:ontap-autosize.html["Automatische Größenanpassung von ONTAP Volumes"], wodurch das zugrunde liegende FlexVol wächst, ohne die Größe des PVC zu ändern.
+
 
 NOTE: Volumes erhöhen sich automatisch, wenn der festgelegte Auslastungsschwellenwert überschritten wird. Volumes werden niemals automatisch reduziert.
 

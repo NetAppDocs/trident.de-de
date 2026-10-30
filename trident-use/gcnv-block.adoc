@@ -9,30 +9,53 @@ summary: 'Konfigurieren Sie Trident, um Block-Volumes (iSCSI) aus Google Cloud N
 
 
 [role="lead"]
-Sie können Trident so konfigurieren, dass Block-Storage-Volumes über das iSCSI-Protokoll von Google Cloud NetApp Volumes bereitgestellt werden. SAN-Volumes werden mithilfe des  `google-cloud-netapp-volumes-san` Speichertreibers aus Flex Unified Storage Pools bereitgestellt.
+Mit dem  `google-cloud-netapp-volumes-san`Treiber lassen sich iSCSI-Block-Volumes aus Google Cloud NetApp Volumes Flex Unified Storage-Pools provisionieren.
 
 
-NOTE: Dieser Treiber ist für Block-Workloads ausgelegt und unterstützt keine NAS-Protokolle.
-
-
-NOTE: Das `google-cloud-netapp-volumes-san` Backend ist erforderlich, um iSCSI-Blockvolumes bereitzustellen. Das `google-cloud-netapp-volumes` Backend unterstützt nur NAS-Protokolle und kann nicht für SAN-Workloads verwendet werden.
+NOTE: Der SAN-Treiber unterstützt nur Block-Workloads. Der `google-cloud-netapp-volumes` Treiber dient zur Provisionierung von NAS Volumes.
 
 
 
 [[overview]]
 == Überblick
 
-Trident unterstützt Google Cloud NetApp Volumes SAN (iSCSI)-Workloads mithilfe des  `google-cloud-netapp-volumes-san` Treibers.
+Der Treiber provisioniert Volumes aus Flex Unified Storage-Pools und präsentiert sie den Kubernetes-Knoten als iSCSI-Blockgeräte.
 
-SAN-Volumes werden aus Flex Unified-Speicherpools bereitgestellt und den Kubernetes-Knoten als iSCSI-Blockgeräte präsentiert.
-
-Dies gilt für die folgenden Umgebungen:
+Der Treiber unterstützt die folgenden Umgebungen:
 
 * Trident 26.02 und später
-* Google Kubernetes Engine (GKE) oder Red Hat OpenShift
+* Google Kubernetes Engine (GKE), oder Red Hat OpenShift Cluster, die auf GCP ausgeführt werden
 * Google Cloud NetApp Volumes Flex – Einheitliche Speicherpools
 * iSCSI-basierte Workloads
 
+
+Ab Trident 26.10 unterstützt der SAN-Treiber Google Cloud Workload Identity Federation (WIF) auf selbstverwalteten OpenShift Container Platform (OCP, einschließlich IPI-Bereitstellungen) und OpenShift Dedicated (OSD) Clustern, die auf GCP ausgeführt werden. Informationen zu den WIF-Voraussetzungen und zur Backend-Konfiguration enthält link:gcnv.html#openshift-wif["Verwendung der Workload Identity Federation auf OpenShift"]. Für diese Seite gelten der SAN-Treibername und die Flex Unified Storage Einstellungen.
+
+
+
+[[configure-wif-for-san]]
+=== Konfiguration von WIF für SAN
+
+WIF tauscht ein projiziertes Kubernetes-Dienstkontotoken gegen kurzlebige Google Cloud-Anmeldeinformationen aus. Trident verwendet diese Anmeldeinformationen, um beim Aufruf der Google Cloud NetApp Volumes API die Identität eines Google Cloud-Dienstkontos anzunehmen.
+
+Für den OpenShift Cluster ist ein Google Cloud Workload Identity Pool und ein OIDC-Provider einzurichten. Der Provider-Issuer muss mit dem  `iss` Claim des Tokens übereinstimmen, seine Attributzuordnung muss  `assertion.sub` auf  `google.subject` abbilden, und die zulässige Audience muss mit dem  `aud` Claim des Tokens übereinstimmen.
+
+Dem WIF-Prinzipal für das Trident Controller-Dienstkonto ist die  `roles/iam.workloadIdentityUser` Rolle für das Google Cloud Dienstkonto zuzuweisen, dessen Identität Trident annimmt. Für das standardmäßige Trident Controller-Dienstkonto ist das Token-Subjekt  `system:serviceaccount:trident:trident-controller`; maßgeblich ist das für Ihre Installation konfigurierte Subjekt. Dem Dienstkonto, dessen Identität angenommen wird, sind  `roles/netapp.admin` oder gleichwertige Berechtigungen für das Projekt zu gewähren, das die Google Cloud NetApp Volumes Ressourcen enthält.
+
+Das projizierte Token muss dem Trident controller unter  `/var/run/secrets/wif-token/token` zur Verfügung stehen. Für  `wipCredentialConfig.audience` ist dieselbe Zielgruppe wie für das Token und die zulässige Zielgruppe des Anbieters festzulegen. In die  `spec` des unten gezeigten SAN-Backends ist der folgende Abschnitt einzufügen, wobei die Platzhalter durch Werte aus Ihrer Umgebung zu ersetzen sind:
+
+[source, yaml]
+----
+wipCredentialConfig:
+  type: external_account
+  audience: "//iam.googleapis.com/projects/<wif-pool-project-number>/locations/global/workloadIdentityPools/<pool-id>/providers/<provider-id>"
+  subject_token_type: urn:ietf:params:oauth:token-type:jwt
+  token_url: https://sts.googleapis.com/v1/token
+  credential_source:
+    file: /var/run/secrets/wif-token/token
+  service_account_impersonation_url: https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/<service-account-email>:generateAccessToken
+----
+Die WIF-Konfiguration ist für beide GCNV-Treiber identisch. Das SAN-Backend muss weiterhin `google-cloud-netapp-volumes-san` sowie einen unterstützten Flex Unified Storage-Pool verwenden.
 
 
 
@@ -45,6 +68,8 @@ Flex Unified-Speicherpools bieten Blockspeicher über das iSCSI-Protokoll und si
 * Flex Unified ZONAL-Pools werden ab Trident 26.02.1 unterstützt.
 * Für SAN-Workloads wird ausschließlich die Serviceebene *Flex* unterstützt.
 
+
+Das Backend `location` muss mit der Region des Flex Unified Pools übereinstimmen. Falls Trident den Pool nicht findet, ist eine Überprüfung der Region, des Netzwerks und des Ressourcenpfads des Pools erforderlich.
 
 
 
@@ -78,7 +103,7 @@ spec:
 
 Nach der Konfiguration des SAN-Backends erstellen Sie eine StorageClass, die auf den  `google-cloud-netapp-volumes-san` Treiber verweist.
 
-Der Dateisystemtyp wird in der StorageClass definiert, nicht im Backend.
+Die Angabe des Dateisystemtyps erfolgt in der StorageClass, nicht im Backend.
 
 [source, yaml]
 ----
@@ -92,7 +117,7 @@ parameters:
   fsType: "ext4"
 allowVolumeExpansion: true
 ----
-Unterstützte Dateisystemtypen:
+Der Treiber unterstützt die folgenden Dateisystemtypen:
 
 * `ext4` (Standard)
 * `ext3`
@@ -101,6 +126,34 @@ Unterstützte Dateisystemtypen:
 
 
 NOTE: Der SAN-Treiber unterstützt ausschließlich das Flex-Servicelevel und verwendet keine NAS-spezifischen Backend-Parameter wie  `exportRule`, `unixPermissions`, `nasType`, `snapshotDir`, `nfsMountOptions` oder tiering-bezogene Einstellungen.
+
+
+
+[[verify-wif-provisioning]]
+== Überprüfung der WIF Provisionierung
+
+Anwendung des Backends und Überprüfung, ob die TridentBackendConfig gebunden ist und der letzte Vorgang erfolgreich war:
+
+[source, console]
+----
+oc apply -f <backend-file>.yaml
+oc -n trident get tridentbackendconfig <backend-name> -o yaml
+----
+Zum Test wird mithilfe der  `gcnv-san` StorageClass auf dieser Seite eine PVC erstellt und überprüft, ob sie `Bound` erreicht. Dadurch werden der WIF-Austausch, die Dienstkonto-Impersonation, die Berechtigungen für Google Cloud NetApp Volumes und die Auswahl des SAN-Pools zusammen validiert. Nach Abschluss erfolgt das Löschen der Test-PVC.
+
+Falls der Backend-Abgleich fehlschlägt, ist eine Prüfung der Protokolle des Trident Controllers erforderlich:
+
+[source, console]
+----
+oc -n trident logs deploy/trident-controller -c trident-main --tail=400
+----
+Folgendes ist auf häufige Fehler zu prüfen:
+
+* Bei einem  `invalid_grant`Zielgruppenfehler ist der  `aud`Anspruch des Tokens mit den vom OIDC-Anbieter zugelassenen Zielgruppen  `wipCredentialConfig.audience` zu vergleichen.
+* Bei einem `iam.serviceAccounts.getAccessToken` Berechtigungsfehler ist zu überprüfen, ob der WIF Principal des Trident Controllers `roles/iam.workloadIdentityUser` über die erforderlichen Berechtigungen für das imitierte Dienstkonto verfügt.
+* Bei einem `netapp.storagePools.list` Berechtigungsfehler ist zu prüfen, ob das verwendete Dienstkonto im richtigen Projekt über die erforderlichen Berechtigungen für Google Cloud NetApp Volumes verfügt.
+* Wird der Pool nicht gefunden, ist zu prüfen, ob sein Standort und Typ unterstützt werden, ob die Backend-Region mit der Pool-Region übereinstimmt und ob das Backend auf das richtige Netzwerk und den richtigen Pool verweist.
+
 
 
 
@@ -247,28 +300,28 @@ Blockvolumes, die mithilfe des  `google-cloud-netapp-volumes-san` Treibers berei
 
 
 
-[[extra-gib-overprovisioning-behavior]]
-== Zusätzliches GiB-Überprovisionierungsverhalten
+[[volume-size-overhead]]
+== Overhead der Volume-Größe
 
-Google Cloud NetApp Volumes Blockvolumes beinhalten einen internen Metadaten-Overhead. Dieser Overhead reduziert die vom Kernel sichtbare Gerätegröße im Vergleich zur bereitgestellten Kapazität.
+Google Cloud NetApp Volumes Blockvolumes beinhalten internen Metadaten-Overhead. Daher ist die für den Kernel sichtbare Gerätegröße kleiner als die bereitgestellte Kapazität.
 
-Tests zeigen:
+Beobachteter Overhead:
 
-* Ungefähr 300 KiB Overhead bei der erstmaligen Erstellung
-* Bis zu ca. 107 MiB Overhead nach einer Größenänderung
+* Beim Erstellen eines Volumes werden etwa 300 KiB benötigt
+* Bis zu ca. 107 MiB nach einer Größenänderung
 
 
-Da Google Cloud NetApp Volumes nur ganze GiB-Zuweisungen akzeptiert, stellt Trident sicher, dass die nutzbare Gerätegröße die PVC-Anforderung immer erfüllt oder übertrifft, indem:
+Google Cloud NetApp Volumes akzeptiert Kapazitätszuweisungen in ganzen GiB. Um sicherzustellen, dass die nutzbare Gerätegröße die PVC-Anforderung erfüllt oder übersteigt, führt Trident Folgendes aus:
 
-* Aufrunden der angeforderten Größe auf das nächste ganze GiB
-* Hinzufügen eines zusätzlichen 1 GiB Puffers
+* Die angeforderte Größe wird auf das nächste ganze GiB aufgerundet.
+* Fügt einen 1 GiB großen Puffer hinzu.
 
 
 Beispiel:
 
-* PVC-Anfrage: 100 GiB
-* Bereitgestellte Größe in Google Cloud NetApp Volumes: 101 GiB
-* Für die Anwendung sichtbarer nutzbarer Speicherplatz: mindestens 100 GiB
+* PVC-Anforderung: 100 GiB.
+* Bereitgestellte Kapazität: 101 GiB.
+* Für die Applikation sichtbare nutzbare Kapazität: mindestens 100 GiB.
 
 
 

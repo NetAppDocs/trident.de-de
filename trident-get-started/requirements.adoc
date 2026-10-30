@@ -26,7 +26,7 @@ Vor der Installation von Trident sollten Sie die folgenden allgemeinen Systemanf
 ====
 []
 =====
-* Kubernetes 1.37 wird jetzt in Trident unterstützt. Vor dem Upgrade von Kubernetes ist ein Upgrade von Trident erforderlich.
+* Trident 26.10 unterstützt Kubernetes 1.27 bis 1.37. Vor einem Upgrade von Kubernetes empfiehlt sich die Prüfung der unten stehenden Liste der versionsspezifischen Images.
 * Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
@@ -50,6 +50,13 @@ Trident unterstützt diverse Container-Engines und -Orchestrierungslösungen, da
 NOTE: Trident unterstützt weiterhin ältere OpenShift-Versionen im Einklang mit derlink:https://access.redhat.com/support/policy/updates/openshift["Red Hat Extended Update Support (EUS) Release-Lebenszyklus"] , auch wenn sie auf Kubernetes-Versionen basieren, die vom Upstream nicht mehr offiziell unterstützt werden.  In solchen Fällen können Sie bei der Installation von Trident alle Warnmeldungen zur Kubernetes-Version getrost ignorieren.
 
 * Rancher Kubernetes Engine 2 (RKE2) v1.28.x - 1.37.x
+* Talos OS für NFSv4, iSCSI und NVMe/TCP. Für jedes Protokoll werden die folgenden Talos-Systemerweiterungen benötigt; eine Bestätigung dieser Anforderungen mit Sidero Labs ist erforderlich.
++
+** NFSv4: `siderolabs/nfs-utils`
+** iSCSI: `siderolabs/iscsi-tools`, `siderolabs/multipath-tools`, und `siderolabs/trident-iscsi-tools`
+** NVMe/TCP: `siderolabs/nvme-cli`, `siderolabs/util-linux-tools`, und `siderolabs/trident-iscsi-tools`
+
+
 
 
 Trident kann auch mit einer Vielzahl anderer, vollständig gemanagter und selbst gemanagter Kubernetes-Angebote eingesetzt werden, wie z. B. Google Kubernetes Engine (GKE), Amazon Elastic Kubernetes Services (EKS), Azure Kubernetes Service (AKS), Mirantis Kubernetes Engine (MKE) und VMware Tanzu Portfolio.
@@ -106,10 +113,10 @@ Trident unterstützt die folgenden ONTAP-Treiber für die KubeVirt- und OpenShif
 [[trident-support-for-kubernetes-on-kubernetes-and-openshift-hosted-control-planes]]
 == Trident Unterstützung für Kubernetes auf Kubernetes und OpenShift gehosteten Steuerungsebenen
 
-Ab Version 26.06 qualifiziert Trident die Kubernetes auf Kubernetes Topologie vollständig. Kubernetes-Cluster, deren Knoten als KubeVirt virtuelle Maschinen auf einem Infrastruktur- (Host-) Cluster ausgeführt werden. Diese Topologie bildet die Grundlage für gehostete Steuerungsebenen-Angebote wie OpenShift hosted control planes (HCP) auf OpenShift Virtualization.
+Trident qualifiziert die Kubernetes-auf-Kubernetes-Topologie vollständig. Kubernetes Cluster, deren Knoten als virtuelle Maschinen von KubeVirt auf einem Infrastrukturcluster (Host-Cluster) ausgeführt werden. Diese Topologie bildet die Grundlage für Angebote mit gehosteter Kontrollebene, wie OpenShift hosted control planes (HCP) auf OpenShift Virtualization.
 
 
-NOTE: Diese Konfiguration funktionierte in früheren Versionen, aber die vollständige Qualifizierung beginnt mit 26.06.
+NOTE: Diese Konfiguration funktionierte in früheren Versionen, die vollständige Qualifizierung begann jedoch erst mit Version 26.06.
 
 Der Gastcluster (Mandantencluster) nutzt den KubeVirt CSI-Treiber (`kubevirt-csi` als Speicheranbieter. Wenn eine Arbeitslast im Gastcluster einen Speicher  `PersistentVolumeClaim` anfordert, erstellt der KubeVirt CSI-Treiber ein entsprechendes Volume im Infrastrukturcluster. Trident stellt das Volume aus ONTAP bereit, und das Volume wird im laufenden Betrieb in die VM des Gastknotens eingebunden. Trident läuft ausschließlich im Infrastrukturcluster. Der Gastcluster nutzt ONTAP Speicher indirekt über den KubeVirt CSI-Treiber.
 
@@ -124,13 +131,13 @@ Der Gastcluster (Mandantencluster) nutzt den KubeVirt CSI-Treiber (`kubevirt-csi
 | Komponente | Version 
 
 
-| Trident | 26,06 
+| Trident | 26,10 
 
 
-| Kubernetes (Infrastruktur und Gast-Cluster) | 1,36 
+| Kubernetes (Infrastruktur und Gast-Cluster) | 1,37 
 
 
-| KubeVirt | 1.9.0-beta.0 
+| KubeVirt | 1.9.0 
 
 
 | Containerisierter Datenimporteur (CDI) | 1,65 
@@ -268,22 +275,22 @@ link:../trident-reference/ports.html["Trident-Ports"]
 
 Bei Installationen mit Air-Gap-Technologie ist die folgende Liste eine Referenz für Container-Images, die zur Installation von Trident erforderlich sind. Überprüfen Sie mit dem `tridentctl images` Befehl die Liste der erforderlichen Container-Images.
 
-Die Unterstützung für Kubernetes 1.37 ist ab Trident 26.06 verfügbar. Die unten stehende Liste der Images für 26.06.2 enthält die Images für Kubernetes 1.37.
+Die unten stehende Trident 26.10 Image-Liste enthält die Images für Kubernetes 1.37.
 
 
 
-[[container-images-required-for-trident-26-06-0]]
-=== Für Trident 26.06.0 erforderliche Container-Images
+[[container-images-required-for-trident-26-10-0]]
+=== Für Trident 26.10.0 erforderliche Container-Images
 
 [cols="2"]
 |===
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
-* docker.io/netapp/trident:26.06.0
-* docker.io/netapp/trident-autosupport:26.06
-* docker.io/netapp/trident-operator:26.06.0 (optional)
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0  a| 
+* docker.io/netapp/trident:26.10.0
+* docker.io/netapp/trident-autosupport:26.10
+* docker.io/netapp/trident-operator:26.10.0 (optional)
 * registry.k8s.io/sig-storage/csi-attacher:v4.11.0
 * registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.17.0
 * registry.k8s.io/sig-storage/csi-provisioner:v6.3.0
@@ -302,7 +309,7 @@ Die Unterstützung für Kubernetes 1.37 ist ab Trident 26.06 verfügbar. Die unt
 | Kubernetes-Versionen | Container-Image 
 
 
-| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0, v1.37.0  a| 
+| v1.27.0, v1.28.0, v1.29.0, v1.30.0, v1.31.0, v1.32.0, v1.33.0, v1.34.0, v1.35.0, v1.36.0  a| 
 * docker.io/netapp/trident:26.06.2
 * docker.io/netapp/trident-autosupport:26.06
 * docker.io/netapp/trident-operator:26.06.2 (optional)

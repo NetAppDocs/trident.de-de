@@ -16,8 +16,8 @@ Sie können den Trident-Operator bereitstellen und Trident mit Helm installieren
 
 
 
-[[critical-information-about-trident-26-06]]
-== Wichtige Informationen zu Trident 26.06
+[[critical-information-about-trident-26-10]]
+== Wichtige Informationen zu Trident 26.10
 
 *Sie müssen die folgenden wichtigen Informationen über Trident lesen.*
 
@@ -26,7 +26,7 @@ Sie können den Trident-Operator bereitstellen und Trident mit Helm installieren
 ====
 []
 =====
-* Kubernetes 1.37 wird jetzt in Trident unterstützt. Vor dem Upgrade von Kubernetes ist ein Upgrade von Trident erforderlich.
+* Trident 26.10 unterstützt Kubernetes 1.27 bis 1.37. Vor dem Upgrade von Kubernetes empfiehlt sich ein Blick in die versionsspezifische Image-Liste im link:../trident-get-started/requirements.html#container-images-and-corresponding-kubernetes-versions["Trident-Anforderungen erfüllt"].
 * Trident setzt die Verwendung der Multipathing-Konfiguration in SAN-Umgebungen strikt durch, wobei der empfohlene Wert `find_multipaths: no` in der Multipath.conf Datei verwendet wird.
 +
 Verwendung einer Konfiguration ohne Multipathing oder Verwendung von `find_multipaths: yes` Oder `find_multipaths: smart` Der Wert in der Multipath.conf-Datei führt zu Mount-Fehlern. Trident empfiehlt die Verwendung von `find_multipaths: no` Seit der Version 21.07.
@@ -54,11 +54,11 @@ Zusätzlich zu dem link:kubernetes-deploy.html#before-you-begin["Voraussetzungen
 ----
 helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
 ----
-. Verwenden Sie  `helm install` und geben Sie einen Namen für Ihre Bereitstellung an, wie im folgenden Beispiel, wobei  `100.2606.0` die Version von Trident ist, die Sie installieren.
+. Verwenden Sie  `helm install` und geben Sie einen Namen für Ihre Bereitstellung an, wie im folgenden Beispiel, wobei  `100.2610.0` die Version von Trident ist, die Sie installieren.
 +
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0 --create-namespace --namespace <trident-namespace>
+helm install <name> netapp-trident/trident-operator --version 100.2610.0 --create-namespace --namespace <trident-namespace>
 ----
 +
 
@@ -89,11 +89,11 @@ Geben Sie eine YAML-Datei mit Überschreibungen an. Dies kann mehrfach angegeben
 Geben Sie Überschreibungen in der Befehlszeile an.
 
 |===
-Um beispielsweise den Standardwert von  `debug` zu ändern, führen Sie den folgenden Befehl aus, wobei  `100.2606.0` die Version von Trident ist, die Sie installieren:
+Um beispielsweise den Standardwert von  `debug` zu ändern, führen Sie den folgenden Befehl aus, wobei  `100.2610.0` die Version von Trident ist, die Sie installieren:
 
 [listing]
 ----
-helm install <name> netapp-trident/trident-operator --version 100.2606.0  --create-namespace --namespace trident --set tridentDebug=true
+helm install <name> netapp-trident/trident-operator --version 100.2610.0  --create-namespace --namespace trident --set tridentDebug=true
 ----
 
 
@@ -190,6 +190,9 @@ WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. W
 | `tridentSilenceAutosupport` | Ermöglicht die Deaktivierung von regelmäßigen Trident AutoSupport-Berichten. | `false` 
 
 
+| `tridentExcludeAutosupport` | Wenn dies auf `true` gesetzt ist, richtet Trident den AutoSupport Container während der Installation nicht ein. | `false` 
+
+
 | `tridentAutosupportImageTag` | Ermöglicht das Überschreiben des Tags des Images für den Trident AutoSupport-Container. | `<version>` 
 
 
@@ -229,13 +232,19 @@ WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. W
 | `enableForceDetach` | Ermöglicht die Aktivierung der Funktion zum Abtrennen erzwingen. | `false` 
 
 
+| `enableDataLIFRefresh` | Aktualisiert NVMe-Daten-LIFs für veröffentlichte Volumes, wenn LIFs hinzugefügt, entfernt oder ihnen eine neue Adresse zugewiesen werden. Gilt für  `ontap-san` mit  `sanType: nvme` auf unified ONTAP und NVMe/TCP auf ASA r2. Weitere Informationen stehen in link:../trident-use/refresh-nvme-data-lifs.html["Aktualisierung von NVMe-Daten-LIFs"]. | `false` 
+
+
 | `excludePodSecurityPolicy` | Schließt die Sicherheitsrichtlinie des Operator POD von der Erstellung aus. | `false` 
 
 
-| `cloudProvider` | Auf einstellen `"Azure"` Bei Verwendung von verwalteten Identitäten oder einer Cloud-Identität auf einem AKS-Cluster. Bei Verwendung einer Cloud-Identität auf einem EKS Cluster auf „AWS“ einstellen. | `""` 
+| `cloudProvider` | Auf `"Azure"` festgelegt, wenn verwaltete Identitäten oder eine Cloud-Identität auf einem AKS-Cluster verwendet werden, `"AWS"` wenn eine Cloud-Identität auf einem EKS-Cluster verwendet wird oder `"GCP"` wenn eine Cloud-Identität auf GKE oder Workload Identity Federation auf OpenShift verwendet wird. | `""` 
 
 
-| `cloudIdentity` | Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identität („Azure.Workload.Identity/Client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxx“) einstellen. Bei Verwendung der Cloud-Identität auf einem EKS-Cluster auf AWS iam-Rolle (“'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/Trident-role') einstellen. | `""` 
+| `cloudIdentity` | Bei Verwendung von cloud identity auf einem AKS-Cluster lautet die Einstellung workload identity ("azure.workload.identity/client-id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"). Bei Verwendung von cloud identity auf einem EKS-Cluster lautet die Einstellung AWS IAM role ("'eks.amazonaws.com/role-arn: arn:aws:iam::123456:role/trident-role'"). Bei Verwendung von cloud identity auf GKE lautet die Einstellung die GKE cloud identity annotation. Für OpenShift Workload Identity Federation wird keine Einstellung festgelegt. | `""` 
+
+
+| `gcpWIFAudience` | Zielgruppe für das projizierte Dienstkontotoken, das mit Google Cloud Workload Identity Federation auf OpenShift verwendet wird. Zu verwenden ist der kanonische Ressourcenname des Anbieters. Weitere Informationen enthält link:../trident-use/gcnv.html#openshift-wif["Konfigurieren von Google Cloud NetApp Volumes mit Workload Identity Federation"]. | `""` 
 
 
 | `iscsiSelfHealingInterval` | Das Intervall, in dem die iSCSI-Selbstheilung aufgerufen wird. | `5m0s` 

@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: trident-use/refresh-nvme-data-lifs.html 
+keywords: Trident, NVMe, NVMe/TCP, data LIF, ONTAP SAN, ASA r2 
+summary: Die Konfiguration von Trident ermöglicht die Aktualisierung von NVMe-Daten-LIFs für veröffentlichte Volumes. 
+---
+= Aktualisierung von NVMe-Daten-LIFs
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Die NVMe-Daten-LIF-Aktualisierung wird aktiviert, damit veröffentlichte NVMe-Volumes LIFs verwenden können, die hinzugefügt, entfernt oder einer neuen Adresse zugewiesen werden, ohne das Backend neu zu erstellen oder Trident neu zu starten.
+
+
+
+[[overview]]
+== Überblick
+
+Wenn Sie ein ONTAP SAN Backend hinzufügen, erkennt Trident die NVMe-Daten-LIFs für die SVM. Standardmäßig behält Trident diesen Satz von LIFs bei, bis Sie das Backend erneut hinzufügen oder Trident neu starten.
+
+Durch Festlegen von  `enableDataLIFRefresh` auf  `true` werden NVMe-Daten-LIFs aktualisiert, während Trident ausgeführt wird. Veröffentlichte NVMe Volumes verwenden dann LIFs, die hinzugefügt, entfernt oder mit einer neuen Adresse versehen werden.
+
+Diese Option ist ein Installationsparameter, kein Backend-Konfigurationsparameter. Sie ist standardmäßig deaktiviert.
+
+Die NVMe-Daten-LIF-Aktualisierung ist ab Trident 26.10 verfügbar.
+
+Diese Funktion gilt für:
+
+* `ontap-san`mit  `sanType: nvme` auf einheitlichem ONTAP.
+* `ontap-san` Verwendung von NVMe/TCP auf ASA r2.
+
+
+[CAUTION]
+====
+Das gleichzeitige Entfernen oder Ersetzen aller Daten-LIFs führt zu Unterbrechungen. Wenn Sie planen, alle Daten-LIFs zu entfernen oder zu ersetzen, sollte zunächst eine Ersatz-LIF vorhanden sein, damit der Datenzugriff nicht unterbrochen wird.
+
+====
+
+
+[[enable-nvme-data-lif-refresh]]
+== Aktivierung der Aktualisierung von NVMe-Daten-LIFs
+
+
+
+[[trident-operator]]
+=== Betreiber von Trident
+
+Bei einer Neuinstallation erfolgt die Festlegung von  `enableDataLIFRefresh` in der  `TridentOrchestrator`Spezifikation:
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableDataLIFRefresh: true
+----
+Anwenden des Manifests:
+
+[source, console]
+----
+kubectl apply -f tridentorchestrator_cr.yaml
+----
+Bei einer bestehenden Installation ist Folgendes zu patchen `TridentOrchestrator`:
+
+[source, console]
+----
+kubectl patch torc trident --type=merge -p '{"spec":{"enableDataLIFRefresh":true}}'
+----
+Überprüfung des angewendeten Werts:
+
+[source, console]
+----
+kubectl get torc trident -o jsonpath='{.status.currentInstallationParams.enableDataLIFRefresh}'
+----
+
+
+[[helm]]
+=== Helm
+
+Bei einer Neuinstallation ist folgender Helm-Wert festzulegen:
+
+[source, console]
+----
+helm install trident netapp-trident/trident-operator \
+  --namespace trident --create-namespace \
+  --set enableDataLIFRefresh=true
+----
+Bei einer bestehenden Helm-Installation erfolgt die Aktualisierung des Release mit aktiviertem Wert:
+
+[source, console]
+----
+helm upgrade trident netapp-trident/trident-operator \
+  --namespace trident \
+  --reuse-values \
+  --set enableDataLIFRefresh=true
+----
+Sie können auch  `enableDataLIFRefresh: true` in einer Helm-Wertedatei festlegen und an `helm upgrade` mit `-f <values-file>` übergeben.
+
+
+
+[[tridentctl]]
+=== Tridentctl
+
+Für eine Neuinstallation wird das `--enable-datalif-refresh` Flag verwendet:
+
+[source, console]
+----
+tridentctl install --enable-datalif-refresh -n trident
+----
+Für die Aktivierung der Option in einer bestehenden  `tridentctl` Installation ist eine Deinstallation von Trident und anschließend eine erneute Installation mit dem entsprechenden Flag erforderlich. Vor der Deinstallation sind die Sicherheitshinweise in link:../trident-managing-k8s/uninstall-trident.html["Deinstallieren Sie Trident"] zu beachten.
+
+[source, console]
+----
+tridentctl uninstall -n trident
+tridentctl install --enable-datalif-refresh -n trident
+----
+
+NOTE: Das `--enable-datalif-refresh`Flag ist eine Installationsoption und wird in `tridentctl install --help`nicht angezeigt.

@@ -47,7 +47,7 @@ Sie müssen der Storage Virtual Machine (SVM) für ONTAP-Backend-Speicher mindes
 [[unsupported-operations]]
 == Nicht unterstützte Operationen
 
-* LUKS-Verschlüsselung
+* Linux Unified Key Setup (LUKS) Verschlüsselung
 * SnapMirror Volume-Replikation
 * Begrenzung der Aggregatnutzung
 * Platzreservierungsmodus

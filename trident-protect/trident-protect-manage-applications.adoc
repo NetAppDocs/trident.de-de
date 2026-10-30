@@ -51,6 +51,7 @@ NOTE: Um eine VM-bezogene Anwendung zu definieren, die bestimmte KubeVirt virtue
 **** *LabelSelector*: (_Optional_) filtert die Cluster-Ressourcen basierend auf ihren Bezeichnungen.
 
 
+*** *spec.volumeGroups*: (_Optional_) Mit diesem Attribut können zusammengehörige Volumes gemeinsam als absturzkonsistente Volume-Gruppen-Snapshots erfasst werden. Weitere Informationen finden Sie unter link:trident-protect-volume-group-snapshots.html["Verwendung von Volumengruppen-Snapshots mit Trident Protect"].
 *** *metadata.annotations.protect.trident.netapp.io/skip-vm-freeze*: (_Optional_) Diese Annotation ist nur für Anwendungen anwendbar, die von virtuellen Maschinen definiert werden, wie z. B. in KubeVirt-Umgebungen, wo Dateisystem-Freezes vor Snapshots auftreten. Legen Sie fest, ob diese Anwendung während einer Snapshot-Erstellung auf das Dateisystem schreiben darf. Wenn diese Option auf „true“ gesetzt ist, ignoriert die Anwendung die globale Einstellung und kann während eines Snapshots auf das Dateisystem schreiben. Wenn der Wert auf „false“ gesetzt ist, ignoriert die Anwendung die globale Einstellung und das Dateisystem wird während eines Snapshots eingefroren. Wird dies angegeben, die Anwendung aber keine virtuellen Maschinen in der Anwendungsdefinition aufweist, wird die Annotation ignoriert. Sofern nichts anderes angegeben ist, gilt die folgende Vorgehensweise:link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Globale Trident Protect-Einfrierungseinstellung"] .
 +
 [NOTE]

@@ -1,0 +1,136 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-failover-older-snapshot.html 
+keywords: trident protect, netapp, snapmirror, failover, older snapshot, recovery point, ransomware, AppMirrorRelationship, promotedSnapshot 
+summary: Das Failover einer replizierten Applikation auf einen früheren Snapshot ermöglicht die Wiederherstellung zu einem Zeitpunkt vor der Beschädigung oder Kompromittierung der Daten. 
+---
+= Failover auf einen älteren Snapshot mit Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit Trident Protect können Sie für eine replizierte Applikation ein Failover auf einen früheren Snapshot durchführen und so die Wiederherstellung zu einem Zeitpunkt vor der Beschädigung oder Kompromittierung der Daten ermöglichen. Standardmäßig wird beim Failover der zuletzt übertragene Snapshot verwendet.
+
+
+CAUTION: Ein Failover auf einen älteren Snapshot führt dazu, dass ONTAP SnapMirror die Snapshots auf dem Ziel-Cluster löscht, die neuer als der ausgewählte Snapshot sind, da sie nicht mehr gültig sind. Die Annotation sollte in diesem Verfahren nur hinzugefügt werden, wenn dieser Datenverlust akzeptabel ist.
+
+.Bevor Sie beginnen
+* Eine AppMirrorRelationship ist vorhanden und befindet sich im Zustand  `Established`. Informationen zum Erstellen einer solchen Beziehung finden sich unter link:trident-protect-use-snapmirror-replication.html#set-up-a-replication-relationship["Richten Sie eine Replikationsbeziehung ein"]. Der Status lässt sich mit  `kubectl get amr -n <namespace> <relationship_name> -o=jsonpath='{.status}'` überprüfen.
+* Die Quell- und Ziel-Cluster verwenden ONTAP Storage Backends mit SnapMirror Replikation. Azure NetApp Files und andere nicht-ONTAP-Backends werden nicht unterstützt. Weitere Informationen finden Sie unter link:trident-protect-requirements.html#requirements-for-snapmirror-replication["Anforderungen für die SnapMirror-Replizierung"].
+* Auf der Quellapplikation ist ein Snapshot-Zeitplan vorhanden (mit  `snapshotRetention` größer als 1).
+
+
+
+
+[[identify-the-snapshot]]
+== Den Snapshot identifizieren
+
+Jeder Snapshot hat eine Fertigstellungszeit, sodass Sie den gewünschten Zeitpunkt auswählen können.
+
+.Schritte
+. Auf dem Quell-Cluster die Snapshots auflisten:
++
+[source, console]
+----
+kubectl get snapshots -n my-app-namespace
+----
+. Der Snapshot für das Failover ist auszuwählen. Der  `completionTimestamp`Wert dient zur Auswahl des Zeitpunkts.
+. Der Archivpfad dieses Snapshots kann wie folgt ermittelt werden:
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
+----
+. Zu erfassen ist der letzte Teil des Pfads, also alles nach dem letzten Schrägstrich. Dieser Teil ist der _basename_. Zum Beispiel:
++
+[listing]
+----
+20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
+----
++
+
+NOTE: Maßgeblich ist der Basisname, nicht der Name der benutzerdefinierten Snapshot-Ressource.
+
+
+
+.Ergebnis
+Der Basisname des ausgewählten Snapshots wird erfasst.
+
+
+
+[[fail-over-to-the-selected-snapshot]]
+== Failover auf den ausgewählten Snapshot
+
+Der heraufzustufende Snapshot ist anzugeben, und der Datenverlust ist durch Hinzufügen einer Anmerkung zu bestätigen.
+
+.Schritte
+. Auf dem Ziel-Cluster können Sie die Annotation zur AppMirrorRelationship hinzufügen. Ohne die Annotation kann ein Failover nur den zuletzt übertragenen Snapshot verwenden.
++
+[source, console]
+----
+kubectl annotate appmirrorrelationship <relationship_name> -n my-app-namespace protect.trident.netapp.io/allow-promotion-with-older-snapshots="true"
+----
+. Bearbeiten der AppMirrorRelationship CR-Datei (zum Beispiel, `trident-protect-relationship.yaml`):
++
+** Die Einstellung für *spec.desiredState* lautet `Promoted`.
+** *spec.promotedSnapshot* wird auf den Basisnamen gesetzt, den Sie in <<Den Snapshot identifizieren>> aufgezeichnet haben.
++
+Beispiel:
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: AppMirrorRelationship
+metadata:
+  name: <relationship_name>
+  namespace: <namespace>
+  annotations:
+    protect.trident.netapp.io/allow-promotion-with-older-snapshots: "true"
+spec:
+  desiredState: Promoted
+  promotedSnapshot: <basename>
+----
+
+
+. CR anwenden:
++
+[source, console]
+----
+kubectl apply -f trident-protect-relationship.yaml -n my-app-namespace
+----
+. Status der Beziehung prüfen:
++
+[source, console]
+----
+kubectl get amr -n my-app-namespace <relationship_name> -o=jsonpath='{.status}' | jq
+----
+
+
+.Ergebnis
+Die Beziehung wechselt in den `Promoted`Status, und die Applikation läuft auf dem Ziel-Cluster mit den Daten aus dem ausgewählten Snapshot.
+
+Wenn die Beziehung im  `Promoting` Status verbleibt und  `status.error` `The snapshot provided is invalid or older than the most recently transferred snapshot` anzeigt, fehlt die Annotation oder ist nicht auf  `true` gesetzt. Nach dem Hinzufügen der Annotation kann der Vorgang erneut versucht werden.
+
+.Was kommt als Nächstes?
+Die Rückkehr zum ursprünglichen Cluster erfolgt zunächst mit link:trident-protect-use-snapmirror-replication.html#reverse-resync-a-failed-over-replication-relationship["umgekehrte Resynchronisierung"] und anschließend mit link:trident-protect-use-snapmirror-replication.html#reverse-application-replication-direction["die Replikationsrichtung umkehren"].
+
+
+CAUTION: Für die Rückkehr zum ursprünglichen Cluster darf keine normale Resynchronisierung erfolgen. Eine normale Resynchronisierung verwirft die per Failover umgeschaltete Applikation und stellt die Beziehung zum neuesten Quell-Snapshot wieder her.
+
+
+
+[[related-information]]
+== Verwandte Informationen
+
+* link:trident-protect-use-snapmirror-replication.html["Einrichten und Managen der Applikationsreplizierung mit Trident Protect"]
+* link:trident-protect-use-snapmirror-replication.html#fail-over-to-destination-cluster["Failover zum Ziel-Cluster"]
+* link:trident-protect-use-snapmirror-replication.html#resync-a-failed-over-replication-relationship["Neusynchronisierung einer fehlgeschlagenen Replikationsbeziehung"]
+* link:trident-protect-use-snapmirror-replication.html#fail-back-applications-to-the-original-source-cluster["Führen Sie ein Failback von Anwendungen auf das ursprüngliche Quellcluster durch"]
+* link:trident-protect-protect-apps.html#create-a-data-protection-schedule["Erstellen Sie einen Zeitplan für die Datensicherung"]
+

@@ -16,9 +16,13 @@ summary: Alle Applikationen werden gesichert, indem Snapshots und Backups über 
 [role="lead"]
 Sie können alle von Trident Protect verwalteten Apps schützen, indem Sie mithilfe einer automatisierten Schutzrichtlinie oder ad hoc Snapshots und Backups erstellen.
 
+[NOTE]
+====
+* Sie können Trident Protect so konfigurieren, dass Dateisysteme während Datensicherungsvorgängen eingefroren und wieder freigegeben werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über die Konfiguration des Einfrierens von Dateisystemen mit Trident Protect."].
+* Für einen zeitgleichen Snapshot der zugehörigen Volumes einer Applikation sind in der Applikation Volume-Gruppen zu definieren. Informationen hierzu enthält link:trident-protect-volume-group-snapshots.html["Verwendung von Volumengruppen-Snapshots mit Trident Protect"].
 
-NOTE: Sie können Trident Protect so konfigurieren, dass Dateisysteme während Datensicherungsvorgängen eingefroren und wieder freigegeben werden. link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Erfahren Sie mehr über die Konfiguration des Einfrierens von Dateisystemen mit Trident Protect."].
 
+====
 
 
 [[create-an-on-demand-snapshot]]

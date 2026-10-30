@@ -384,7 +384,7 @@ Der PVC-Schutz ist für Kubernetes ab Version 1.10 automatisch aktiviert.
 [[can-i-grow-nfs-pvcs-that-were-created-by-trident]]
 === Kann ich NFS-VES erweitern, die von Trident erstellt wurden?
 
-Ja. Sie können eine PVC erweitern, die von Trident erstellt wurde. Beachten Sie, dass Volume Autogrow eine ONTAP-Funktion ist, die nicht für Trident geeignet ist.
+Ja. Ein mit Trident erstelltes NFS PVC kann erweitert werden. Trident Autogrow Policies können PVCs automatisch auf der Grundlage von Kapazitätsschwellenwerten erweitern. Die automatische Größenanpassung von ONTAP Volumes ist separat und gilt für unterstützte ONTAP SAN-Treiber: Sie vergrößert das zugrunde liegende FlexVol, ohne die PVC-Größe zu ändern. Weitere Informationen sind unter link:trident-use/ontap-autosize.html["Automatische Größenanpassung von ONTAP Volumes"^] zu finden.
 
 
 

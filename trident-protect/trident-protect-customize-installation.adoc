@@ -162,6 +162,8 @@ Sie können die AutoSupport-Einstellungen, die Namensraumfilterung und die OpenS
 
 | useOpenshiftServiceCA | boolesch | Ermöglicht die Integration mit OpenShifts nativem Service CA Operator für die automatische Erstellung und Einbindung von TLS-Zertifikaten für den Trident Protect Admission-Webhook. Wenn auf  `true` gesetzt, verwaltet der Service CA Operator die Webhook-TLS-Zertifikate automatisch. Nur auf OpenShift-Clustern verwenden. (Standard:  `false`) 
 |===
+Informationen zur Verschlüsselung von Snapshot- und Backup-Metadaten sind unter link:trident-protect-encrypt-appvault-metadata.html["Verschlüsselung von AppVault Metadaten für Trident Protect-Snapshots und -Backups"] verfügbar.
+
 Sie können diese Optionen entweder mithilfe einer YAML-Konfigurationsdatei oder mithilfe von Befehlszeilenflags konfigurieren:
 
 [role="tabbed-block"]

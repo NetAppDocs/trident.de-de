@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: trident-use/controller-scalability.html 
-keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, asa-r2 
+keywords: trident, controller scalability, concurrency, san, nas, san-nvme, gcnv, ontap-nas-economy, ontap-san-economy, ontap-nas-flexgroup, asa-r2 
 summary: Verstehen Sie die Skalierbarkeit des Controllers, das Verhalten bei gleichzeitiger Ausführung und den Reifegrad der Funktionen. 
 ---
 = Controller-Skalierbarkeit
@@ -14,7 +14,7 @@ summary: Verstehen Sie die Skalierbarkeit des Controllers, das Verhalten bei gle
 [role="lead"]
 Trident verbessert die Controller Skalierbarkeit durch erhöhte Parallelität über mehrere Speichertreiber hinweg. Bei aktivierter Controller Skalierbarkeit verarbeitet der Trident Controller Speicheroperationen parallel statt sie zu serialisieren, was den Durchsatz in Kubernetes-Umgebungen mit vielen gleichzeitigen Operationen erhöht.
 
-Vor der Bereitstellung sollte ermittelt werden, welche Trident-Treiber die Controller Skalierbarkeit bei allgemeiner Verfügbarkeit unterstützen und welche Treiber in Trident 26.06 als technische Vorschau verfügbar sind. Dies unterstützt fundierte Entscheidungen zur Bereitstellung und ein effektives Risikomanagement. Die Controller Skalierbarkeit ist standardmäßig deaktiviert.
+Vor der Bereitstellung sollte ermittelt werden, welche Trident-Treiber die Controller Skalierbarkeit bei allgemeiner Verfügbarkeit unterstützen und welche Treiber in Trident 26.10 als technische Vorschau verfügbar sind. Dies unterstützt fundierte Entscheidungen zur Bereitstellung und ein effektives Risikomanagement. Die Controller Skalierbarkeit ist standardmäßig deaktiviert.
 
 
 
@@ -51,11 +51,12 @@ Trident unterstützt die Skalierbarkeit des Controllers auf unterschiedlichen Re
 [[general-availability]]
 === Allgemeine Verfügbarkeit
 
-Die folgenden Treiber unterstützen die Controller-Skalierbarkeit bei allgemeiner Verfügbarkeit in Trident 26.06:
+Die folgenden Treiber unterstützen die Controller-Skalierbarkeit bei allgemeiner Verfügbarkeit in Trident 26.10:
 
 * `ontap-san`
 * `ontap-nas`
 * `ontap-nas-economy`
+* `ontap-nas-flexgroup`
 * `ontap-san-economy`
 * `google-cloud-netapp-volumes`
 * `azure-netapp-files`
@@ -72,7 +73,7 @@ Die  `google-cloud-netapp-volumes` und  `google-cloud-netapp-volumes-san` Treibe
 [[technical-preview]]
 === Technische Vorschau
 
-Der folgende Treiber unterstützt die Controller Skalierbarkeit als technische Vorschaufunktion in Trident 26.06:
+Der folgende Treiber unterstützt die Controller Skalierbarkeit als technische Vorschaufunktion in Trident 26.10:
 
 * `asa-r2` (SAN und NVMe)
 
@@ -266,7 +267,7 @@ Wenn die Controller-Skalierbarkeit aktiviert ist, wendet der Trident-Controller 
 [[caveats-and-limitations]]
 == Vorbehalte und Einschränkungen
 
-Für die Skalierbarkeit von Controllern in Trident 26.06 gelten folgende Überlegungen:
+Für die Skalierbarkeit von Controllern in Trident 26.10 gelten folgende Überlegungen:
 
 * Die Controller Skalierbarkeit unterstützt nur die Treiber, die in den Listen für allgemeine Verfügbarkeit und technische Vorschau aufgeführt sind. Weitere Informationen finden sich unter <<before-you-enable,Bevor Sie aktivieren>>.
 * Der Trident Controller verwaltet die Parallelverarbeitung intern. Diese Version bietet keine vom Benutzer konfigurierbaren Parallelitätsgrenzen.

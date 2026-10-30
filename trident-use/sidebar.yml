@@ -4,6 +4,8 @@ title: Verwenden Sie Trident
 entries:
 - title: Bereiten Sie den Knoten „Worker“ vor
   url: "/trident-use/worker-node-prep.html"
+- title: Bereitstellung von Objektspeicher mit COSI
+  url: "/trident-use/cosi.html"
 - title: Konfiguration und Management von Back-Ends
   entries:
   - title: Überblick
@@ -40,6 +42,8 @@ entries:
       url: "/trident-use/ontap-san-prep.html"
     - title: Konfigurationsoptionen und Beispiele
       url: "/trident-use/ontap-san-examples.html"
+    - title: Aktualisierung von NVMe-Daten-LIFs
+      url: "/trident-use/refresh-nvme-data-lifs.html"
   - title: ONTAP-NAS-Treiber
     entries:
     - title: Überblick
@@ -96,6 +100,8 @@ entries:
     url: "/trident-use/controller-scalability.html"
   - title: Automatische Volumenerweiterung
     url: "/trident-use/automatic-volume-expansion.html"
+  - title: Konfiguration der automatischen Größenanpassung für ONTAP Volume
+    url: "/trident-use/ontap-autosize.html"
   - title: Automatische Volumenerweiterung verwalten
     url: "/trident-use/manage-autogrow-policies.html"
   - title: Volumes importieren

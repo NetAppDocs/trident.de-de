@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: trident-reco/rwx-luks-stuck-lease.html 
+keywords: LUKS, RWX, Lease, cryptsetup, troubleshooting, remediation 
+summary: 'Identifizierung und sichere Behebung eines blockierten Kubernetes Lease für ein ReadWriteMany (RWX) Linux Unified Key Setup (LUKS) Volume.' 
+---
+= Behebung eines blockierten Lease für RWX Linux Unified Key Setup (LUKS) Volumes
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Ein ReadWriteMany (RWX) Linux Unified Key Setup (LUKS) Volume kann blockiert werden, wenn ein Knoten ausfällt, während er seine Kubernetes Lease hält. Vor dem Löschen der Lease muss feststehen, dass keine `cryptsetup` Operation mehr ausgeführt wird; das Löschen während einer Operation kann den LUKS Header gefährden.
+
+
+
+[[understand-the-lease]]
+== Lease verstehen
+
+Trident verwendet ein Kubernetes Lease, um sicherzustellen, dass jeweils nur ein Knoten  `cryptsetup`Befehle auf einem RWX LUKS Volume ausführt. Leases werden im Trident Namespace erstellt, und der Lease-Name ist der Name des PersistentVolume (PV). Die Holder-Identität identifiziert den Knoten, der den Vorgang ausführt.
+
+Trident löscht die Lease nach einem erfolgreichen Vorgang. Wenn ein Vorgang fehlschlägt, behält Trident die Lease, sodass nur derselbe Knoten den Vorgang erneut versuchen kann. Leases laufen nicht automatisch ab und werden auch nicht automatisch verlängert. Ein Warnereignis mit der Begründung  `LeaseRetained` enthält Details zu einem fehlgeschlagenen Vorgang.
+
+
+
+[[identify-a-potentially-stuck-lease]]
+== Identifizierung eines potenziell blockierten Lease
+
+Zu den Symptomen können Pods gehören, die in  `ContainerCreating` oder  `Terminating` festhängen, fehlgeschlagene Volume-Erweiterungen oder vorübergehende Sperrfehler.
+
+. Das von einem betroffenen Pod verwendete PVC:
++
+[source, console]
+----
+kubectl get pod -n <app-namespace> <pod-name> \
+  -o jsonpath='{.spec.volumes[*].persistentVolumeClaim.claimName}'
+----
+. Das an das PVC gebundene PV:
++
+[source, console]
+----
+kubectl get pvc -n <app-namespace> <pvc-name> \
+  -o jsonpath='{.spec.volumeName}'
+----
+. Auflisten der Leases im Trident Namespace und Identifizieren der Lease anhand des PV-Namens:
++
+[source, console]
+----
+kubectl get lease -n <trident-namespace>
+----
+. Der entsprechende Lease, einschließlich Holder, Alter und Ereignissen, ist zu prüfen:
++
+[source, console]
+----
+kubectl describe lease -n <trident-namespace> <pv-name>
+----
+
+
+`cryptsetup` Vorgänge schließen normalerweise innerhalb von Sekunden ab. Eine Lease, die älter als 5 bis 10 Minuten ist, kann auf einen Deadlock hindeuten. Dabei sollten die `LeaseRetained`Ereignisse auf wiederholte Fehler geprüft, der haltende Knoten identifiziert und der Systemstatus des Knotens geprüft werden:
+
+[source, console]
+----
+kubectl get nodes
+kubectl get pods -A -o wide --field-selector spec.nodeName=<lease-holder-node>
+----
+Wenn der Knoten fehlerfrei ist und die Lease keine Warnereignisse aufweist, ist vor dem Schluss, dass die Lease blockiert ist, eine Prüfung der Trident Node Pod Logs auf dem Holder-Knoten erforderlich:
+
+[source, console]
+----
+kubectl get pods -n <trident-namespace> -o wide \
+  --field-selector spec.nodeName=<lease-holder-node>
+kubectl logs -n <trident-namespace> <trident-node-pod> -c trident-main
+----
+Falls das zugrunde liegende Knoten- oder Netzwerkproblem behoben werden kann, sollte dies zuerst erfolgen. Die Lease kann aufgelöst werden, sobald Trident den Vorgang erfolgreich abgeschlossen hat.
+
+
+
+[[safely-resolve-the-stuck-lease]]
+== Das festhängende Lease sicher beheben
+
+[IMPORTANT]
+====
+Eine Lease sollte nicht gelöscht werden, solange ihr Inhaber möglicherweise noch einen `cryptsetup` Vorgang ausführt. Gleichzeitige `cryptsetup` Befehle von verschiedenen Knoten, die nicht durch die Lease koordiniert werden, können den LUKS-Header beschädigen.
+
+====
+Verwenden Sie die Abhilfemaßnahme entsprechend dem Knotenzustand:
+
+* **Holder-Knoten ist ausgefallen und ausgeschaltet:** Die von diesem Knoten gehaltenen Leases müssen ermittelt und die betroffene Lease muss gelöscht werden. Falls der Knoten wiederhergestellt wird, bevor seine Workloads neu geplant werden, sollte Trident den Vorgang abschließen und die Lease freigeben können. Falls Workloads bereits verschoben wurden, ist zu warten, bis deren Pods auf dem wiederhergestellten Knoten vollständig beendet sind, zu bestätigen, dass die Deadlock-Situation weiterhin besteht, und anschließend die veraltete Lease zu entfernen.
+* **Der Holder-Node hat die Verbindung zur Control Plane verloren:** Auf dem Node werden möglicherweise noch Workloads ausgeführt. Das Herunterfahren des Node ist vor dem Löschen der Lease vorzuziehen. Falls der Node weiterhin erreichbar ist, sollte der Trident Node Container auf diesem Node gestoppt oder anhand seiner Protokolle überprüft werden, dass er die Lease nicht anfordern oder löschen kann und nicht ausgeführt wird `cryptsetup`. Trident benötigt Zugriff auf die Kubernetes API, um die Lease vor jedem Vorgang anzufordern; nach dem Verbindungsverlust kann kein weiterer Vorgang gestartet werden. Vor dem Erwägen einer Löschung sollten ab der Erstellung der Lease mindestens fünf Minuten abgewartet werden, damit ein eventuell laufender Befehl abgeschlossen werden kann.
+* **Holder Node und Netzwerk sind fehlerfrei:** Zur Identifizierung des fehlerhaften Vorgangs sind die Lease-Warnereignisse und die Trident Knotenprotokolle zu prüfen. Falls die betroffene Workload auf einen anderen Knoten verschoben werden muss, ist der Holder Node zu cordon, die betroffenen Applikation Pods sind ohne erzwungene Löschung zu löschen, ihr Beenden ist abzuwarten, und anschließend ist die Cordon des Knotens wieder aufzuheben. Die Lease sollte erst gelöscht werden, nachdem bestätigt wurde, dass der ursprüngliche Vorgang nicht mehr ausgeführt wird.
+
+
+Das Löschen der Lease sollte erst erfolgen, nachdem bestätigt wurde, dass dies gefahrlos möglich ist:
+
+[source, console]
+----
+kubectl delete lease -n <trident-namespace> <pv-name>
+----
+Nach der Problembehebung empfiehlt sich eine Überwachung der betroffenen Pods und Volume-Operationen. Wenn die Lease erneut bestehen bleibt, sollte der in den Lease-Ereignissen gemeldete cryptsetup-Fehler untersucht und die zugrunde liegende Ursache behoben werden.

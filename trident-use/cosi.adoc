@@ -1,0 +1,236 @@
+---
+sidebar: sidebar 
+permalink: trident-use/cosi.html 
+keywords: COSI, object storage, StorageGRID, ONTAP S3, BucketClaim, BucketAccess 
+summary: S3-Buckets provisionieren und mithilfe von Trident und der Container Object Storage Interface darauf zugreifen. 
+---
+= Bereitstellung von Objektspeicher mit COSI
+:hardbreaks:
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit der Container Object Storage Interface (COSI) lassen sich S3-Buckets für Kubernetes-Workloads über von Trident verwaltete Kubernetes-Ressourcen provisionieren.
+
+
+
+[[overview]]
+== Überblick
+
+COSI verbindet Objektspeicheranbieter mit Kubernetes-Workloads. Trident stellt die folgenden Ressourcen bereit:
+
+* `TridentObjectStore`: Verbindet Trident mit einem Objektspeicher und dessen Zugangsdaten. Die Erstellung dieser Ressource erfolgt im Trident Namespace.
+* `BucketClass`: Definiert die Auswahl des Objektspeichers und die Richtlinie zum Löschen von Buckets.
+* `BucketClaim`: Fordert einen Bucket an.
+* `BucketAccessClass`: Definiert, wie der Zugriff auf Buckets provisioniert wird.
+* `BucketAccess`: Fordert Zugangsdaten für einen oder mehrere Buckets an.
+
+
+Trident unterstützt COSI mit den folgenden Objektspeicher-Treibern:
+
+* StorageGRID: Allgemein verfügbar.
+* ONTAP S3: Technische Vorschau.
+
+
+Trident unterstützt das S3-Protokoll. In der ersten Version unterstützt Trident nur die S3-Adressierung im Pfadstil.
+
+
+
+[[requirements-and-limitations]]
+== Anforderungen und Einschränkungen
+
+* Sowohl `enableConcurrency` als auch `enableCOSI` müssen in der `TridentOrchestrator` benutzerdefinierten Ressource (TORC) aktiviert sein. COSI ist standardmäßig nicht aktiviert.
+* Voraussetzung für das Aktivieren der gleichzeitigen Verarbeitung des Controllers ist, dass alle konfigurierten Trident Backends unterstützte Treiber verwenden. Ein nicht unterstützter Backend-Treiber verhindert, dass Trident startet; siehe link:controller-scalability.html#before-you-enable["Bevor Sie die Controller-Skalierbarkeit aktivieren"].
+* Der gleichzeitige Betrieb von Trident COSI mit dem Community COSI-Controller ist nicht zulässig.
+* Die erste Version verwendet die  `objectstorage.k8s.io/v1alpha2` COSI API.
+* StorageGRID `TridentObjectStore` Ressourcen verwenden langlebige Tenant-Root-Anmeldeinformationen. Jede `TridentObjectStore` Ressource verbindet sich mit einem StorageGRID Tenant; mehrere Ressourcen können sich mit demselben Tenant verbinden. Für die Anmeldeinformationen empfiehlt sich die Speicherung in einem Kubernetes Secret im Trident Namespace sowie ihr Schutz gemäß Ihren Sicherheitsanforderungen.
+* Ein StorageGRID `BucketAccess` unterstützt bis zu acht Buckets.
+
+
+Allgemeine Informationen zu gleichzeitigen Controller-Vorgängen finden Sie unter link:controller-scalability.html["Controller-Skalierbarkeit"].
+
+
+
+[[enable-cosi]]
+== COSI aktivieren
+
+Die Festlegung beider Optionen erfolgt in der `TridentOrchestrator`Spezifikation:
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentOrchestrator
+metadata:
+  name: trident
+spec:
+  namespace: trident
+  enableConcurrency: true
+  enableCOSI: true
+----
+Sie können den TORC anwenden oder Ihre vorhandene Ressource mithilfe Ihres üblichen Operator-Workflows aktualisieren. Weitere Informationen zur Konfiguration des TORC finden Sie unter link:../trident-install/kubernetes-customize-deploy.html["Anpassen der Trident Operator-Installation"].
+
+
+
+[[configure-a-storagegrid-object-store]]
+== Konfiguration eines StorageGRID Objektspeichers
+
+Ein Kubernetes Secret mit StorageGRID Tenant-Anmeldeinformationen im Trident Namespace erstellen:
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tenant3
+  namespace: trident
+type: Opaque
+stringData:
+  username: <tenant-root-username>
+  password: <tenant-root-password>
+----
+Sie erstellen eine  `TridentObjectStore` , die auf das Secret verweist. Sie ersetzen die Beispielendpunkte und die Konto-ID durch die Werte für Ihre StorageGRID Umgebung:
+
+[source, yaml]
+----
+apiVersion: trident.netapp.io/v1
+kind: TridentObjectStore
+metadata:
+  name: trident-tenant3
+  namespace: trident
+spec:
+  accountId: "<account-id>"
+  credentials:
+    secretName: tenant3
+  labels:
+    tenantInstance: three
+  managementEndpoint: https://<storagegrid-management-endpoint>
+  objectStoreDriver: storage-grid
+  s3Endpoint: https://<storagegrid-s3-endpoint>
+----
+Beide Ressourcen anwenden:
+
+[source, console]
+----
+kubectl apply -f tenant-secret.yaml
+kubectl apply -f trident-object-store.yaml
+----
+
+
+[[configure-an-ontap-s3-object-store]]
+== Konfiguration eines ONTAP S3 Objektspeichers
+
+[NOTE]
+====
+ONTAP S3-Unterstützung über COSI ist in Trident 26.10 eine technische Vorschau und wird nicht für den Produktiveinsatz unterstützt. Konfigurationsfelder und Verhalten können sich bis zur allgemeinen Verfügbarkeit ändern.
+
+====
+Ein Kubernetes Secret mit den ONTAP S3-Benutzeranmeldeinformationen wird im Trident Namespace erstellt; anschließend wird ein `TridentObjectStore` erstellt, das auf das Secret verweist. Die Platzhalter sind durch Werte für Ihre ONTAP S3-Umgebung zu ersetzen:
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ontap-s3-credentials
+  namespace: trident
+type: Opaque
+stringData:
+  username: "<user>"
+  password: "<password>"
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentObjectStore
+metadata:
+  name: ontap-s3
+  namespace: trident
+spec:
+  objectStoreDriver: ontap-s3
+  objectStoreName: ontap-object-store
+  managementEndpoint: "<management-endpoint>"
+  svmName: "<svm-name>"
+  storagePrefix: trident
+  credentials:
+    secretName: ontap-s3-credentials
+----
+Das `storagePrefix` ist optional und wird bei Auslassung standardmäßig auf `trident` gesetzt. Anwenden des Secret und `TridentObjectStore`:
+
+[source, console]
+----
+kubectl apply -f ontap-s3-object-store.yaml
+----
+
+
+[[create-a-bucketclass-and-request-a-bucket]]
+== Erstellung einer BucketClass und Anforderung eines Buckets
+
+A `BucketClass` kann einen Objektspeicher mithilfe eines Label-Selektors, eines Objektspeichertyps oder beidem auswählen. Ohne Auswahlparameter kann Trident aus allen konfigurierten Objektspeichern auswählen.
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketClass
+metadata:
+  name: sg-delete
+spec:
+  driverName: cosi.trident.netapp.io
+  deletionPolicy: Delete
+  parameters:
+    selector: tenantInstance=three
+    objectStoreType: storage-grid
+----
+Erstellung eines  `BucketClaim`Objekts, das die Klasse verwendet:
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketClaim
+metadata:
+  name: claim-a1
+  namespace: default
+spec:
+  bucketClassName: sg-delete
+  protocols:
+    - S3
+----
+Wenn Trident einen Claim verarbeitet, wählt es einen passenden Objektspeicher aus. Wenn mehrere Speicher übereinstimmen, wählt Trident zufällig einen aus, um die Buckets auf die passenden Speicher zu verteilen.
+
+
+
+[[grant-workload-access-to-a-bucket]]
+== Workload-Zugriff auf einen Bucket gewähren
+
+Erstellen einer `BucketAccessClass` zum Definieren der Zugriffs-Provisionierung:
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketAccessClass
+metadata:
+  name: sg-access
+spec:
+  authenticationType: Key
+  driverName: cosi.trident.netapp.io
+  multiBucketAccess: MultipleBuckets
+----
+Erstellung eines `BucketAccess`, der auf den Bucket-Claim verweist:
+
+[source, yaml]
+----
+apiVersion: objectstorage.k8s.io/v1alpha2
+kind: BucketAccess
+metadata:
+  name: sg-claim-a1
+  namespace: default
+spec:
+  bucketAccessClassName: sg-access
+  bucketClaims:
+    - accessMode: ReadWrite
+      accessSecretName: sg-claim-a1
+      bucketClaimName: claim-a1
+  protocol: S3
+----
+Trident erstellt ein Kubernetes Secret, das die Zugriffsinformationen für den Bucket enthält. Eine Workload kann dieses Secret mithilfe der Standardmechanismen für Kubernetes Secrets verwenden. Das generierte Secret enthält S3-Verbindungsdetails wie die Bucket-ID, den Endpunkt, die Region und die Zugriffsschlüssel. Nicht autorisierte Benutzer oder Workloads dürfen keinen Zugriff auf das generierte Secret erhalten.
+
+Das generierte Secret enthält Schlüssel wie `COSI_S3_ACCESS_KEY_ID`, `COSI_S3_ACCESS_SECRET_KEY`, `COSI_S3_ADDRESSING_STYLE`, `COSI_S3_BUCKET_ID`, `COSI_S3_ENDPOINT`, und `COSI_S3_REGION`.

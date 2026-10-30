@@ -106,7 +106,7 @@ ROX und RWX sind im Filesystem-Volume-Modus nicht verfügbar.
 * Nutzung `ontap-san-economy` Nur wenn die Nutzungszahl für persistente Volumes voraussichtlich höher ist als link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["Unterstützte ONTAP-Volume-Größen"^].
 * Nutzung `ontap-nas-economy` Nur wenn die Nutzungszahl für persistente Volumes voraussichtlich höher ist als link:https://docs.netapp.com/us-en/ontap/volumes/storage-limits-reference.html["Unterstützte ONTAP-Volume-Größen"^] Und das `ontap-san-economy` Treiber kann nicht verwendet werden.
 * Verwenden Sie ihn nicht `ontap-nas-economy` Wenn Sie die Notwendigkeit von Datensicherung, Disaster Recovery oder Mobilität erwarten.
-* NetApp empfiehlt nicht die Verwendung von FlexVol Autogrow in allen ONTAP-Treibern außer ONTAP-san. Als Workaround unterstützt Trident die Verwendung von Snapshot-Reserve und skaliert FlexVol-Volumen entsprechend.
+* Die automatische Größenanpassung von ONTAP Volumes wird mit `ontap-san` und `ontap-san-economy` unterstützt. Sie wird nicht mit ONTAP NAS Treibern unterstützt. Einzelheiten und Einschränkungen sind in link:ontap-autosize.html["Konfiguration der automatischen Größenanpassung für ONTAP Volume"] beschrieben.
 
 
 ====
@@ -141,7 +141,7 @@ Trident unterstützt Folgendes nicht:
 
 * DH-HMAC-CHAP, das nativ von NVMe unterstützt wird
 * Multipathing für Device Mapper (DM
-* LUKS-Verschlüsselung
+* Linux Unified Key Setup (LUKS) Verschlüsselung
 
 
 

@@ -1,0 +1,203 @@
+---
+sidebar: sidebar 
+permalink: trident-protect/trident-protect-volume-group-snapshots.html 
+keywords: trident protect, volume group snapshot, consistency group, volumeGroups, multi-volume, kubevirt, ontap-san 
+summary: Mit Trident Protect lassen sich mithilfe von Volume Group Snapshots mehrere Persistent Volume Claims einer Applikation zum selben Zeitpunkt erfassen. 
+---
+= Verwendung von Volumengruppen-Snapshots mit Trident Protect
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Mit Snapshots von Volumengruppen lassen sich zugehörige Persistent Volume Claims (PVCs) zum selben Zeitpunkt erfassen. Dies ist nützlich für Applikationen, die auf mehr als ein Volume schreiben, einschließlich virtueller Maschinen (VMs) mit mehreren Festplatten.
+
+.Über diese Aufgabe
+Sie definieren Volumengruppen im  `spec.volumeGroups`Feld der  `Application`benutzerdefinierten Ressource (CR). Beim Erstellen eines Snapshots der Applikation verwendet Trident Protect eine ONTAP Konsistenzgruppe, um alle PVCs in einer Volumengruppe gleichzeitig als Snapshot zu erfassen. Für jeden Namespace in der Volumengruppe erstellt es eine Konsistenzgruppe. Jedes Volumen in der Gruppe erhält außerdem einen eigenen Snapshot, sodass Sie Volumen einzeln wiederherstellen können.
+
+Trident Protect erstellt einzelne Snapshots der PVCs, die keiner Volume-Gruppe angehören. Da diese Snapshots nacheinander erstellt werden, ist nicht gewährleistet, dass sie denselben Zeitpunkt widerspiegeln.
+
+Volume-Gruppen-Snapshots gelten für bedarfsgesteuerte Snapshots, geplante Snapshots und den Snapshot, den Trident Protect im Rahmen eines Backups erstellt. Wenn Sie einen vorhandenen Snapshot sichern, verwendet Trident Protect diesen Snapshot und erstellt keinen neuen Gruppen-Snapshot. Auch die Replikation erstellt keinen weiteren Gruppen-Snapshot. Dabei werden die Snapshots pro Volume verwendet, die der Gruppen-Snapshot bereits erstellt hat.
+
+Trident Protect erfasst Volumes nur dann zum selben Zeitpunkt, wenn sie alle folgenden Bedingungen erfüllen:
+
+* Sie gehören zur selben Volumengruppe.
+* Diese befinden sich im selben Namespace.
+* Sie befinden sich auf derselben Storage Virtual Machine (SVM).
+* Die Volumengruppe enthält in diesem Namespace nicht mehr als 80 Volumes.
+
+
+Wenn Trident Protect keinen Gruppen-Snapshot erstellen kann, beispielsweise weil eine Voraussetzung nicht erfüllt ist, fügt es `status.warnings` eine Warnung hinzu und erstellt einzelne Snapshots der PVCs dieser Gruppe. Diese Snapshots werden nacheinander erstellt, sodass sie möglicherweise nicht denselben Zeitpunkt widerspiegeln. Der Snapshot der Applikation wird dennoch abgeschlossen.
+
+Die folgende Tabelle beschreibt, was in typischen Situationen passiert.
+
+[cols="1,2"]
+|===
+| Situation | Ergebnis 
+
+
+| Die Volumengruppe wählt PVCs in mehr als einem Namespace | Ein Gruppen-Snapshot gehört zu einem Namespace, daher erstellt Trident Protect in jedem Namespace einen separaten Gruppen-Snapshot. Diese Gruppen-Snapshots werden nicht im selben Moment erstellt. Einer kann erfolgreich sein, während ein anderer noch läuft, fehlschlägt oder auf einzelne Snapshots zurückfällt. Beispielsweise werden PVCs mit der Kennzeichnung `app: payments-db` in `payments-a` und `payments-b` zu zwei separaten Gruppen-Snapshots. Gruppen-Snapshots aus verschiedenen Namespaces gelten nicht als ein gemeinsamer Wiederherstellungspunkt. 
+
+
+| Die PVCs in einem Namespace befinden sich auf mehr als einer SVM | Trident Protect teilt Volumes nicht nach SVM oder nach Trident Backend auf. Eine ONTAP Konsistenzgruppe kann keine Volumes aus mehr als einer SVM enthalten, daher schlägt der Gruppen-Snapshot für den gesamten Namespace fehl, einschließlich der Volumes, die sich eine SVM teilen. Trident Protect fügt eine Warnung hinzu, entfernt den Gruppen-Snapshot und erstellt einen separaten Snapshot für jedes Volume. Volumes lassen sich gemeinsam erfassen, wenn sie auf derselben SVM liegen. 
+
+
+| Ein Namespace hat mehr als 80 übereinstimmende PVCs | Trident Protect überspringt lediglich diesen Namespace und erstellt einzelne Snapshots seiner PVCs. Andere Namespaces in derselben Volume-Gruppe erhalten weiterhin einen Gruppen-Snapshot. 
+
+
+| Ein PVC stimmt mit mehr als einem `volumeGroups` Eintrag überein | Trident Protect fügt die PVC zu beiden Volume-Gruppen hinzu, und einer der Gruppen-Snapshots kann fehlschlagen. Der Gruppen-Snapshot, der fehlschlägt, greift auf einzelne Snapshots zurück. Jede PVC sollte nur einem Eintrag entsprechen. 
+
+
+| Eine Volumengruppe enthält PVCs, die einen Treiber oder ein Protokoll verwenden, das keine Volumengruppen-Snapshots unterstützt | Der Gruppen-Snapshot schlägt fehl, und Trident Protect erstellt einzelne Snapshots dieser PVCs. 
+|===
+.Bevor Sie beginnen
+* Ihre PVCs müssen einen Storage-Treiber und ein Protokoll verwenden, die Volume-Group-Snapshots unterstützen. Die unterstützten Treiber und Protokolle sind unter link:../trident-use/vol-group-snapshots.html["Arbeiten mit Trident Volume-Gruppen-Snapshots"] aufgeführt.
+* Auf Ihrem Cluster muss Kubernetes 1.36 oder höher laufen.
+* Der Kubernetes snapshot controller muss Version 8.5.0 oder höher aufweisen, mit aktiviertem `CSIVolumeGroupSnapshot` Feature Gate.
+* Die `v1` CRDs für `VolumeGroupSnapshot`, `VolumeGroupSnapshotClass` und `VolumeGroupSnapshotContent` müssen installiert sein.
+* Für ein Online-Backend ist Trident 26.10 oder höher erforderlich. Das `CSIVolumeGroupSnapshot` Feature-Gate muss außerdem im Trident `csi-snapshotter` Container aktiviert sein.
+* Eine `VolumeGroupSnapshotClass` , die den `csi.trident.netapp.io` Treiber verwendet, muss definiert sein. Wenn nur eine Klasse definiert ist, verwendet Trident Protect diese. Wenn mehrere Klassen definiert sind, sollte die Klasse, die Trident Protect verwenden soll, mit `snapshot.storage.kubernetes.io/is-default-class: "true"` annotiert werden. Andernfalls verwendet Trident Protect die erste Klasse in alphabetischer Reihenfolge. Die Klasse kann nicht im `Application` oder `Snapshot` CR ausgewählt werden. Weitere Informationen finden sich in link:../trident-reference/objects.html#kubernetes-volumegroupsnapshotclass-objects["VolumeGroupSnapshotClass"].
+* Das ONTAP Konto im Trident Backend muss berechtigt sein, Konsistenzgruppen zu erstellen, abzurufen und zu löschen sowie Snapshots davon zu erstellen. Weitere Informationen finden Sie unter link:https://docs.netapp.com/us-en/ontap-restapi/application_consistency-groups_endpoint_overview.html["Verwalten von Applikations-Konsistenzgruppen"^] und link:https://docs.netapp.com/us-en/ontap-restapi/application_consistency-groups_consistency_group.uuid_snapshots_endpoint_overview.html["Verwaltung von Snapshots der Applikation Konsistenzgruppe"^]. Die standardmäßige SVM Administratorrolle (`vsadmin`) umfasst diese Berechtigungen nicht.
+
+
+
+
+[[define-a-volume-group]]
+== Definition einer Volumengruppe
+
+Trident Protect erstellt Gruppen-Snapshots nur für Volumes, die zu einer Volume-Gruppe gehören. Zum Definieren der Gruppen wird  `spec.volumeGroups` der  `Application` CR hinzugefügt. Jeder Eintrag entspricht einer separaten Gruppe. Die Auswahl der Volumes kann anhand von Labels, der VM oder beidem erfolgen.
+
+.Über diese Aufgabe
+* Volumengruppen können nur in der  `Application`CR definiert werden. Die  `tridentctl-protect`CLI bietet keine Option für Volumengruppen.
+* Trident Protect schließt in eine Volume-Gruppe nur gebundene PVCs ein und erstellt einzelne Snapshots von PVCs, die nicht gebunden sind. Wenn für einen Eintrag keine gebundenen PVCs ausgewählt sind, erstellt Trident Protect für diesen Eintrag keinen Gruppensnapshot.
+* Es ist sicherzustellen, dass jede PVC nur einem Eintrag entspricht.
+
+
+.Bevor Sie beginnen
+Definition der Applikation, die geschützt werden soll. Weitere Informationen finden Sie unter link:trident-protect-manage-applications.html["Definieren Sie eine Anwendung für die Verwaltung mit Trident Protect."].
+
+.Schritte
+. Wenn Sie Volumes nach Label auswählen, versehen Sie die PVCs, die Sie gruppieren möchten, mit Labels. Sie können beliebige Label-Schlüssel und -Werte verwenden. Die Beispiele auf dieser Seite verwenden `volume-group=my-volume-group`.
++
+[source, console]
+----
+kubectl label pvc <pvc_name_1> <pvc_name_2> volume-group=my-volume-group -n <application_namespace>
+----
+. Fügen Sie `spec.volumeGroups` zu Ihrer bestehenden `Application` CR-Datei hinzu. Jeder Eintrag muss `labelSelector`, `vmSelector` oder beides enthalten. Wenn ein Eintrag beide Felder enthält, umfasst die Volume-Gruppe jedes Volume, das von einem der beiden Felder ausgewählt wird.
++
+** *spec.volumeGroups[].labelSelector*: Ein Kubernetes-Label-Selektor (`matchLabels` oder `matchExpressions`), der PVCs in der Applikation auswählt. Ein leerer Selektor ist ungültig.
+** *spec.volumeGroups[].vmSelector*: Eine Liste von KubeVirt VMs, jeweils mit einem `namespace` und `name`. Trident Protect enthält die PVCs, die jede VM einbindet.
++
+Das folgende Beispiel definiert zwei Volumengruppen. Die erste Gruppe umfasst die mit  `volume-group: my-volume-group` gekennzeichneten PVCs. Die zweite Gruppe umfasst die PVCs, die  `my-vm-1` und  `my-vm-2` einhängen.
+
++
+[source, yaml]
+----
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  name: my-app-name
+  namespace: my-namespace
+spec:
+  includedNamespaces:
+    - namespace: my-namespace
+  volumeGroups:
+    - labelSelector:
+        matchLabels:
+          volume-group: my-volume-group
+    - vmSelector:
+        - namespace: my-namespace
+          name: my-vm-1
+        - namespace: my-namespace
+          name: my-vm-2
+----
++
+
+NOTE: Die anderen Felder, die Ihr `Application` CR bereits enthält, wie z. B. `spec.resourceFilter`, bleiben erhalten. Wenn in der Datei, die Sie anwenden, ein Feld fehlt, `kubectl apply` wird es aus dem CR gelöscht.
+
+
+
+. Anwendung der aktualisierten CR:
++
+[source, console]
+----
+kubectl apply -f <application_cr_file>.yaml
+----
+
+
+.Ergebnis
+Die `Application` CR enthält die Volumengruppen. Der nächste Snapshot der Applikation verwendet sie.
+
+
+
+[[create-a-snapshot]]
+== Erstellen Sie einen Snapshot
+
+Für die Applikation lässt sich ein bedarfsgesteuerter Snapshot, eine bedarfsgesteuerte Sicherung oder ein Datensicherungsplan erstellen. Sie müssen keine Felder hinzufügen. Trident Protect verwendet die Volumengruppen, die Sie im  `Application` CR definiert haben. Anweisungen finden Sie unter link:trident-protect-protect-apps.html["Schützen Sie Ihre Anwendungen mit Trident Protect."].
+
+
+NOTE: Standardmäßig erstellt Trident Protect den Gruppen-Snapshot, bevor die VM-Dateisysteme eingefroren werden. Die Volumes in einer Volume-Gruppe werden ohne Einfrieren erfasst, sodass Daten, die eine VM noch nicht auf die Festplatte geschrieben hat, nicht enthalten sind. Festplatten, die sich nicht in der Volume-Gruppe befinden, werden später erfasst, wenn Trident Protect nach dem Einfrieren der VM einzelne Snapshots erstellt. Damit alle Festplatten einer VM im selben Moment erfasst werden, muss jede Festplatte in die Volume-Gruppe aufgenommen werden. Weitere Informationen zum Einfrieren von VM-Dateisystemen sind unter link:trident-protect-requirements.html#protecting-data-with-kubevirt-vms["Datensicherung mit KubeVirt VMs"] verfügbar.
+
+
+
+[[review-the-result]]
+== Überprüfung des Ergebnisses
+
+Nach Abschluss des Snapshots empfiehlt sich eine Prüfung des Status, um zu bestätigen, dass Trident Protect die Gruppen-Snapshots erstellt hat.
+
+
+NOTE: Ein abgeschlossener Applikationssnapshot bedeutet nicht, dass die zugehörigen Gruppensnapshots erfolgreich waren. Dieser `VolumeGroupSnapshotsCreated` Zustand tritt `true` auch dann ein, wenn alle Gruppensnapshots übersprungen werden oder fehlschlagen und Trident Protect kein Kubernetes-Ereignis und keine Metrik erstellt. Zur Erkennung empfiehlt sich die Überwachung von  `status.warnings` sowie der Felder  `skipped` und  `failed`.
+
+.Schritte
+. Den Namen des Snapshots ermitteln. Zum Auflisten der Snapshots der Applikation dient der folgende Befehl:
++
+[source, console]
+----
+kubectl get snapshots -n <application_namespace>
+----
+. Status des Snapshots prüfen:
++
+[source, console]
+----
+kubectl get snapshots <snapshot_name> -n <application_namespace> -o yaml
+----
+
+
+.Ergebnis
+Das `status.volumeGroupSnapshots` Feld enthält einen Eintrag für jeden Gruppen-Snapshot. Trident Protect erstellt für jeden Namespace in einer Volume-Gruppe einen separaten Gruppen-Snapshot. Das folgende Beispiel ist verkürzt:
+
+[source, yaml]
+----
+status:
+  volumeGroupSnapshots:
+    - name: vgs-<snapshot_uid_prefix>-<group_index>-<namespace>
+      namespace: <namespace>
+      ready: true
+      memberPVCs:
+        - pvcName: <pvc_name_1>
+          pvcNamespace: <namespace>
+        - pvcName: <pvc_name_2>
+          pvcNamespace: <namespace>
+----
+Der Gruppen-Snapshot-Name enthält die ersten acht Zeichen der `Snapshot` UID, den Index des `spec.volumeGroups` Eintrags (beginnend bei `0`), und den Namespace, auf 12 Zeichen gekürzt.
+
+* `ready: true`Das bedeutet, dass der Gruppen-Snapshot erfolgreich erstellt wurde. Die Snapshots, aus denen die Gruppe besteht, sind ebenfalls unter `status.volumeSnapshots` aufgeführt. Dabei handelt es sich um die Mitglied-Snapshots der Gruppe, nicht um zusätzliche Snapshots derselben Volumes.
+* `skipped: true` bedeutet, dass Trident Protect nicht versucht hat, den Gruppen-Snapshot zu erstellen, da die Volume-Gruppe in diesem Namespace mehr als 80 PVCs hat. Stattdessen erstellt Trident Protect einzelne Snapshots der Volumes der Gruppe und fügt den `skipReason` Text zu `status.warnings` hinzu.
+* `failed: true` bedeutet, dass Trident Protect versucht hat, den Gruppen-Snapshot zu erstellen, dies aber fehlgeschlagen ist. Stattdessen erstellt Trident Protect einzelne Snapshots der Volumes der Gruppe und fügt den `error` Text zu `status.warnings` hinzu.
+
+
+.Temporäre PVC-Kennzeichnungen und Bereinigung
+Trident Protect fügt jedem PVC in einem Gruppen-Snapshot eine Bezeichnung hinzu, zum Beispiel `protect.trident.netapp.io/vgs-group-673c0189-0=true`. Ihre eigenen Bezeichnungen bleiben unverändert. Die Bezeichnung bleibt auf dem PVC, bis der Applikations-Snapshot gelöscht wird. Wenn der Applikations-Snapshot gelöscht wird, löscht Trident Protect auch die zugehörigen Volume-Gruppen-Snapshots und Member-Snapshots und entfernt die Bezeichnungen von den PVCs. Dies geschieht unabhängig davon, ob der `reclaimPolicy`des Snapshots `Delete`oder `Retain`ist.
+
+.Was kommt als Nächstes?
+Die Wiederherstellung der Applikation aus dem Snapshot erfolgt auf dieselbe Weise wie bei jedem anderen Snapshot. Für Volume-Gruppen-Snapshots gibt es keine separate Wiederherstellung. Trident Protect stellt aus den Mitglieds-Snapshots wieder her, sodass einzelne PVCs oder VMs wiederhergestellt werden können, ohne dass alle PVCs in der Gruppe wiederhergestellt werden müssen. Weitere Informationen finden sich unter link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-a-different-namespace["Wiederherstellung von einem Snapshot in einem anderen Namespace"] oder link:trident-protect-restore-apps.html#restore-from-a-snapshot-to-the-original-namespace["Wiederherstellung von einem Snapshot im ursprünglichen Namespace"].
+
+.Verwandte Informationen
+* link:trident-protect-manage-applications.html["Definieren Sie eine Anwendung für die Verwaltung mit Trident Protect."]
+* link:trident-protect-protect-apps.html["Schützen Sie Ihre Anwendungen mit Trident Protect."]
+* link:trident-protect-kubevirt-vms.html["Schutz von KubeVirt virtuellen Maschinen mit Trident Protect"]
+

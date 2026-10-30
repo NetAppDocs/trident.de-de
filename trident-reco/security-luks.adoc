@@ -12,7 +12,7 @@ summary: 'Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN un
 
 
 [role="lead"]
-Sie können Linux Unified Key Setup (LUKS) aktivieren, um ONTAP SAN und ONTAP SAN ECONOMY Volumes auf Trident zu verschlüsseln. Trident unterstützt die Rotation der Passphrase und die Volume-Erweiterung für LUKS-verschlüsselte Volumes.
+Linux Unified Key Setup (LUKS) ist eine Spezifikation für die Festplattenverschlüsselung. Trident verwendet LUKS, um eine hostseitige Verschlüsselung pro Volume für ONTAP SAN und ONTAP SAN ECONOMY Volumes bereitzustellen, einschließlich Unterstützung für die Rotation von Passphrasen und die Volume-Erweiterung.
 
 In Trident verwenden LUKS-verschlüsselte Volumes den aes-xts-plain64-Cypher und -Modus, wie von empfohlenlink:https://csrc.nist.gov/publications/detail/sp/800-38e/final["NIST"^].
 
@@ -95,6 +95,48 @@ stringData:
   luks-passphrase: secretA
 ----
 
+
+
+
+[[use-luks-with-rwx-raw-block-volumes]]
+== Verwendung von LUKS mit RWX Raw-Block-Volumes
+
+Ab Trident 26.10 können Sie LUKS-Verschlüsselung mit iSCSI-basierten Raw-Block-Volumes verwenden, die im `ReadWriteMany` (RWX)-Zugriffsmodus an mehrere Kubernetes-Knoten angebunden sind. Dies ist nützlich für Workloads wie KubeVirt virtuelle Maschinen, die während einer Live-Migration dasselbe verschlüsselte Volume an einem Zielknoten anbinden müssen, während es noch am Quellknoten angebunden ist.
+
+Die RWX LUKS-Unterstützung ist auf Raw Block Volumes beschränkt. RWX LUKS Volumes im Dateisystemmodus werden nicht unterstützt. Die Applikation ist für die Koordination des gleichzeitigen Zugriffs auf die entschlüsselten Daten verantwortlich; Trident koordiniert ausschließlich LUKS-Operationen.
+
+Die Konfiguration von LUKS im Backend, der StorageClass und des Passphrase-Secret erfolgt wie in <<Aktivieren Sie die LUKS-Verschlüsselung>> beschrieben. Anschließend lässt sich ein PVC mit `volumeMode: Block` und `ReadWriteMany` erstellen:
+
+[source, yaml]
+----
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-rwx-pvc
+  namespace: my-app
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Block
+  storageClassName: san-luks-rwx
+  resources:
+    requests:
+      storage: 10Gi
+----
+Pods auf mehreren Knoten können dieses PVC als Rohblockgerät einbinden. Trident formatiert das Gerät beim ersten Einbinden mit LUKS2 und öffnet das bestehende verschlüsselte Volume auf nachfolgenden Knoten. Bestehende LUKS-Operationen, einschließlich Passphrase-Rotation und Volume-Erweiterung, werden unterstützt.
+
+
+
+[[why-trident-serializes-luks-operations]]
+=== Warum Trident LUKS-Operationen serialisiert
+
+LUKS2 speichert redundante Kopien seines Verschlüsselungsheaders am Anfang des Blockgeräts. `cryptsetup` Es kann einen Header reparieren, wenn es erkennt, dass sich die Kopien unterscheiden, auch während Befehlen, die scheinbar schreibgeschützt sind. Die Sperrung ist lokal auf einen Knoten beschränkt und kann Operationen auf anderen Knoten nicht koordinieren. Wenn ein Knoten den Header aktualisiert, während ein anderer `cryptsetup` ausführt, könnte der zweite Knoten eine Header-Reparatur auslösen und die Aktualisierung unterbrechen, wodurch der Header möglicherweise beschädigt wird.
+
+Um gleichzeitigen Zugriff auf Header zu verhindern, verwendet Trident für jedes RWX LUKS Volume eine Kubernetes Lease. Bevor ein Knoten einen `cryptsetup` Befehl für das Volume ausführt, muss er die Lease besitzen. Trident gibt die Lease nach einer erfolgreichen Operation frei. Wenn ein anderer Knoten eine Operation anfordert, während die Lease gehalten wird, gibt Trident einen Fehler zurück, bei dem ein erneuter Versuch möglich ist, und Kubernetes versucht es später erneut. Operationen auf verschiedenen Volumes sind unabhängig.
+
+Schlägt ein  `cryptsetup` Vorgang fehl, behält Trident die Lease absichtlich bei, sodass nur derselbe Knoten einen erneuten Versuch unternehmen kann. Ein Warnereignis mit Grund  `LeaseRetained` protokolliert den Fehler. Leases laufen nicht automatisch ab; ein Administrator sollte eine Lease erst entfernen, nachdem sichergestellt wurde, dass auf dem Knoten, der die Lease hält, kein  `cryptsetup` Vorgang ausgeführt wird. Informationen zu den Wiederherstellungsschritten enthält <<rwx-luks-stuck-lease,Behebung eines blockierten Lease für RWX Linux Unified Key Setup (LUKS) Volumes>>.
+
+Da die Knoten das Volume nacheinander öffnen, kann das Starten von Workloads auf vielen verschiedenen Knoten länger dauern als bei einem unverschlüsselten Volume. Kubernetes wiederholt bei vorübergehenden Sperrfehlern den Versuch, nachdem der aktuelle Vorgang abgeschlossen ist. Pods können bei umfangreichen Scale-outs länger in `ContainerCreating` verbleiben; Workloads auf demselben Knoten können sich eine einzige offene Gerätezuordnung teilen.
 
 
 
