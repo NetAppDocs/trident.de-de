@@ -110,6 +110,11 @@ Ab Trident 26.10 ist es möglich, Google Cloud Workload Identity Federation (WIF
 
 WIF tauscht ein projiziertes Kubernetes-Dienstkontotoken gegen kurzlebige Google Cloud-Anmeldeinformationen aus. Trident verwendet diese Anmeldeinformationen, um sich als Google Cloud-Dienstkonto auszugeben; die IAM-Rollen dieses Dienstkontos autorisieren dessen API-Aufrufe an Google Cloud NetApp Volumes. Dadurch entfällt die Speicherung eines langlebigen Dienstkontoschlüssels in der Backend-Konfiguration.
 
+[IMPORTANT]
+====
+Auf OpenShift Dedicated kann der OIDC-Provider mit anderen OpenShift Komponenten gemeinsam genutzt werden. Wenn die Provider `allowedAudiences`Liste leer ist, akzeptiert Google den kanonischen Ressourcennamen des Providers mit oder ohne das `https://` Präfix, sodass für die Trident Zielgruppe keine Änderung des Providers erforderlich ist. Für Trident sollte keine explizite Zielgruppenliste festgelegt werden. Wenn der Provider bereits explizite Zielgruppen hat, wird die Trident Zielgruppe angehängt, wobei alle vorhandenen Werte erhalten bleiben. Das Ersetzen der Liste kann andere OpenShift Komponenten daran hindern, Token auszutauschen.
+
+====
 
 
 ==== Vorbereitung des OpenShift Clusters
@@ -197,11 +202,6 @@ oc -n trident get deploy trident-controller -o yaml
 
 Für den Cluster werden ein Google Cloud Workload Identity Pool und ein OIDC-Provider konfiguriert. Der Aussteller des Providers muss mit dem Claim  `iss` des Tokens übereinstimmen, und seine Attributzuordnung muss  `assertion.sub` auf  `google.subject` erfassen. Die zulässige Zielgruppe des Providers muss mit dem Claim  `aud` des projizierten Tokens übereinstimmen.
 
-[CAUTION]
-====
-Für OSD darf die Zielgruppenliste eines gemeinsam genutzten Providers weder ersetzt noch eingeschränkt werden. Wenn die  `allowedAudiences`Liste leer ist, akzeptiert Google den kanonischen Ressourcennamen des Providers mit oder ohne das Präfix  `https://`. Das Festlegen von  `--allowed-audiences` ersetzt diese Standardliste und kann verhindern, dass andere OSD-Komponenten Token austauschen. Eine Zielgruppe sollte nur hinzugefügt werden, wenn der Provider bereits eine explizite Liste besitzt, und alle vorhandenen Werte sollten beibehalten werden. Dem gemeinsam genutzten Provider von OSD darf keine Attributbedingung hinzugefügt werden. Informationen dazu enthält die Google Cloud link:https://docs.cloud.google.com/iam/docs/reference/rest/v1/projects.locations.workloadIdentityPools.providers#Oidc["OIDC Anbieterreferenz"^].
-
-====
 Öffentliche `.well-known/openid-configuration` und JWKS-Endpunkte sind nur bei Verwendung der OIDC-Erkennung erforderlich. Google unterstützt auch das direkte Hochladen der JWKS-Datei über `jwksJson` oder `--jwk-json-path`.
 
 Dem WIF-Prinzipal wird die `roles/iam.workloadIdentityUser`Rolle für das Google Cloud-Dienstkonto zugewiesen, dessen Identität Trident annimmt. Für ein Token-Subjekt vom Typ `system:serviceaccount:trident:trident-controller` hat der Prinzipal die folgende Form:

@@ -21,6 +21,11 @@ Ab Version 24.02 folgt Trident einem viermonatigen Release-Intervall und liefert
 
 Beachten Sie beim Upgrade auf die neueste Version von Trident Folgendes:
 
+[WARNING]
+====
+Von Trident 25.10 oder einer früheren Version sollte kein Upgrade auf Trident 26.10.0 durchgeführt werden. Beim Start von Trident können Trident Node Pods Volumes trennen, die noch verwendet werden. Betroffene Pods können mit dem Fehler `volume ... is not staged` fehlschlagen. Dieses Problem tritt auch dann auf, wenn das Upgrade ansonsten innerhalb des unterstützten Fensters mit vier Releases erfolgt. Ein Upgrade sollte erst erfolgen, wenn ein Release mit der Fehlerbehebung verfügbar ist. Weitere Informationen enthält die link:../known-issues.html["bekannte Probleme"].
+
+====
 * In allen Namespaces in einem Kubernetes-Cluster sollte nur eine Trident Instanz installiert werden.
 * Trident 23.07 und höher erfordert v1-Volumen-Snapshots und unterstützt keine Alpha- oder Beta-Snapshots mehr.
 * Beim Upgrade ist es wichtig, dass Sie `StorageClasses` von Trident verwendet angeben `parameter.fsType`. Sie können löschen und neu erstellen `StorageClasses`, ohne bereits vorhandene Volumes zu unterbrechen.
