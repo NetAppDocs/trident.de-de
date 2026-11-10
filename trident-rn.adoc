@@ -49,7 +49,7 @@ Erfahren Sie, was neu ist in NetApp Trident und Trident Protect, einschließlich
 
 [WARNING]
 ====
-Von einem Upgrade auf Trident 26.10.1 ist abzusehen. Beim Start können Trident Node Pods Volumes trennen, die noch verwendet werden. Betroffene Pods können mit dem Fehler `volume ... is not staged` fehlschlagen. Dieses Problem ist in Trident 26.10.1 behoben. Stattdessen empfiehlt sich ein Upgrade auf Trident 26.10.1 oder höher.
+Von einem Upgrade auf Trident 26.10.0 ist abzusehen. Beim Start können Trident Node Pods Volumes trennen, die noch verwendet werden. Betroffene Pods können mit dem Fehler `volume ... is not staged` fehlschlagen. Dieses Problem ist in Trident 26.10.1 behoben. Stattdessen empfiehlt sich ein Upgrade auf Trident 26.10.1 oder höher.
 
 ====
 
