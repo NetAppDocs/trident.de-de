@@ -30,33 +30,56 @@ CAUTION: Ein Failover auf einen älteren Snapshot führt dazu, dass ONTAP SnapMi
 [[identify-the-snapshot]]
 == Den Snapshot identifizieren
 
-Jeder Snapshot hat eine Fertigstellungszeit, sodass Sie den gewünschten Zeitpunkt auswählen können.
+Jeder Snapshot hat einen Abschlusszeitpunkt. Den zugehörigen Archivpfad erhalten Sie mit `kubectl` auf dem Quell-Cluster oder mit der CLI.
 
-.Schritte
-. Auf dem Quell-Cluster die Snapshots auflisten:
+
+NOTE: Die CLI kommt zum Einsatz, wenn der Quell-Cluster ausgefallen ist oder die benutzerdefinierte Snapshot-Ressource nicht verfügbar ist. Die Ausführung des Befehls erfolgt auf dem Ziel-Cluster oder auf einem beliebigen Cluster, das über das AppVault der Quelle verfügt.
+
+[role="tabbed-block"]
+====
+.kubectl verwenden
+--
+Der Archivpfad lässt sich auf dem Quell-Cluster mit  `kubectl` ermitteln.
+
+. Auf dem Quell-Cluster die Snapshots auflisten und die `completionTimestamp` des gewünschten Snapshots notieren:
 +
 [source, console]
 ----
 kubectl get snapshots -n my-app-namespace
 ----
-. Der Snapshot für das Failover ist auszuwählen. Der  `completionTimestamp`Wert dient zur Auswahl des Zeitpunkts.
-. Der Archivpfad dieses Snapshots kann wie folgt ermittelt werden:
+. So wird der Archivpfad ermittelt:
 +
 [source, console]
 ----
 kubectl get snapshots <snapshot_name> -n my-app-namespace -o jsonpath='{.status.appArchivePath}'
 ----
-. Zu erfassen ist der letzte Teil des Pfads, also alles nach dem letzten Schrägstrich. Dieser Teil ist der _basename_. Zum Beispiel:
-+
+
+
+--
+.Verwenden Sie die CLI
+--
+Mit der Trident Protect CLI lässt sich der Archivpfad ermitteln. Auf dem Ziel-Cluster oder auf einem beliebigen Cluster, das die Quelle AppVault enthält, werden die Snapshots aufgelistet. `TIMESTAMP` ist der Abschlusszeitpunkt und  `PATH` ist der Archivpfad.
+
+[source, console]
+----
+tridentctl-protect get appvaultcontent <source_appvault_name> \
+--app <app_name> \
+--show-resources snapshot \
+--show-paths
+----
+
+NOTE: Die AppVault CR der Quell-Applikation muss auf dem Cluster vorhanden sein, auf dem Sie den Befehl ausführen, und Ihre Umgebung muss eine Verbindung mit dem in der AppVault CR definierten Objektspeicher-Bucket herstellen können. Wenn Netzwerkbeschränkungen den Zugriff verhindern, empfiehlt sich die Ausführung der CLI innerhalb eines Pods auf dem Cluster.
+
+--
+====
+Der Basisname umfasst alles nach dem letzten Schrägstrich im Pfad. Zum Beispiel:
+
 [listing]
 ----
 20231114173500_schedule-20231114173500_f8df8bd3-a727-4a14-b954-9666aa618b55
 ----
-+
 
 NOTE: Maßgeblich ist der Basisname, nicht der Name der benutzerdefinierten Snapshot-Ressource.
-
-
 
 .Ergebnis
 Der Basisname des ausgewählten Snapshots wird erfasst.
