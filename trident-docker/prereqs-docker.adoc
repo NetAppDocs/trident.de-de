@@ -201,7 +201,7 @@ sudo modprobe nvme-tcp
 
 Installieren Sie die FC-Tools unter Verwendung der Befehle für Ihr Betriebssystem.
 
-* Geben Sie bei der Verwendung von Worker-Nodes, die RHEL/Red hat Enterprise Linux CoreOS (RHCOS) mit FC PVs ausführen, die Option mountOption in der StorageClass an `discard`, um Inline-Speicherplatz zurückzunehmen. Siehe https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat Dokumentation"^].
+* Bei Verwendung von Worker-Knoten, auf denen RHEL/Red Hat Enterprise Linux CoreOS (RHCOS) mit FC-PVs ausgeführt werden, geben Sie die  `discard` mountOption in der StorageClass an, um die Inline-Speicherplatzfreigabe durchzuführen. Weitere Informationen finden Sie unter https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/managing_file_systems/discarding-unused-blocks_managing-file-systems["Red hat Dokumentation"^].
 
 
 [role="tabbed-block"]
