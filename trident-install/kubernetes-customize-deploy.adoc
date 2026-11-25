@@ -76,11 +76,11 @@ Bei Verwendung der Cloud-Identität auf einem AKS-Cluster auf Workload-Identitä
 
 
 | `k8sTimeout`  a| 
-Zeitüberschreitung für Kubernetes-Operationen.
+Timeout für Kubernetes Operationen, angegeben als ganze Zahl in Sekunden.
 
 
 NOTE: Der `k8sTimeout` Der Parameter ist nur für die Trident -Installation anwendbar.
-| `180sec` 
+| `180` 
 
 
 | `silenceAutosupport` | Senden Sie keine AutoSupport Bundles an NetApp
@@ -148,7 +148,12 @@ Das vom Controller bei der Kommunikation mit dem Kubernetes-API-Server verwendet
 
 
 | `enableConcurrency`  a| 
-Ermöglicht gleichzeitige Trident Controller-Operationen für verbesserten Durchsatz. Weitere Informationen zu den unterstützten Treibern sind unter folgendem Link verfügbar: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+Ermöglicht gleichzeitige Trident Controller-Operationen für verbesserten Durchsatz.
+
+
+WARNING: Diese Option muss während der Trident Installation oder bei der Aktualisierung einer bestehenden Bereitstellung explizit aktiviert werden.
+
+Weitere Informationen zu unterstützten Treibern sind unter folgendem Link zu finden: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | `enableCOSI` 
 
 

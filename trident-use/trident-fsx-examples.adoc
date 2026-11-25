@@ -162,6 +162,9 @@ Sie können die Standardbereitstellung mit diesen Optionen im steuern `defaults`
 | `splitOnClone` | Teilen Sie einen Klon bei der Erstellung von seinem übergeordneten Objekt auf | `false` 
 
 
+| `cloneSplitDelay` | Sekunden, die gewartet werden, bevor Trident mit dem Aufteilen eines Klons beginnt, der während der Snapshot-Löschung einen Snapshot belegt hält. Der Standardwert beträgt `86400` Sekunden (24 Stunden). Ab dem Standardwert oder darüber verwendet Trident einen exponentiellen Backoff, beginnend bei 5 Minuten und mit einer Obergrenze von 1 Stunde, wenn ONTAP einen „snapshot busy“-Fehler zurückgibt; Wiederholungsversuche innerhalb eines Intervalls rufen ONTAP nicht auf. Unterhalb `86400` ruft Trident ONTAP bei jedem CSI-Wiederholungsversuch auf und verwendet keinen Backoff. | `86400` 
+
+
 | `encryption` | Aktivieren Sie NetApp Volume Encryption (NVE) auf dem neuen Volume, Standardeinstellung ist `false`. NVE muss im Cluster lizenziert und aktiviert sein, damit diese Option verwendet werden kann. Wenn auf dem Backend NAE aktiviert ist, wird jedes in Trident bereitgestellte Volume NAE aktiviert. Weitere Informationen finden Sie unter link:../trident-reco/security-reco.html["Funktionsweise von Trident mit NVE und NAE"]. | `false` 
 
 

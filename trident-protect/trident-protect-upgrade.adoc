@@ -34,7 +34,7 @@ Um mögliche Fehler zu vermeiden, können Sie alle Snapshot-Zeitpläne vor dem U
 Trident Protect-Versionen folgen einer datumsbasierten `YY.MM` Namenskonvention, wobei „YY“ die letzten beiden Ziffern des Jahres und „MM“ der Monat sind. Dot-Releases folgen einer `YY.MM.X` Konvention, wobei „X“ das Patch-Level ist. Sie wählen die Version aus, auf die Sie aktualisieren möchten, basierend auf der Version, von der Sie aktualisieren.
 
 * Sie können ein direktes Upgrade auf jede Zielversion durchführen, die innerhalb eines Vier-Versions-Fensters Ihrer installierten Version liegt. Beispielsweise können Sie direkt von 24.10 (oder jeder 24.10 dot release) auf 25.10 aktualisieren.
-* Bei einer Aktualisierung von einer Version außerhalb des Vier-Versions-Fensters ist ein mehrstufiges Upgrade erforderlich. Maßgeblich für das Upgrade auf die neueste Version innerhalb des Vier-Versions-Fensters sind die Upgrade-Anweisungen für die link:../earlier-versions.html["Frühere Version"] Version, von der aus die Aktualisierung erfolgt. Beispiel: Wenn Sie Version 24.10 verwenden und auf 26.10 aktualisieren möchten:
+* Bei einer Aktualisierung von einer Version außerhalb des Vier-Versions-Fensters ist ein mehrstufiges Upgrade erforderlich. Verwenden Sie die Upgrade-Anweisungen für die frühere Version, von der Sie aktualisieren, um auf die neueste Version innerhalb des Vier-Versions-Fensters zu aktualisieren. Beispiel: Wenn Sie Version 24.10 verwenden und auf 26.10 aktualisieren möchten:
 +
 .. Erstes Upgrade von 24.10 auf 25.06.
 .. Führen Sie dann ein Upgrade von 25.06 auf 26.10 durch.

@@ -40,48 +40,18 @@ NOTE: Stellen Sie sicher, dass Sie die aktuellste Operator-Version auswählen.
 +
 image::../media/openshift-operator-03.png[Installieren]
 
-. Klicken Sie auf *Operator anzeigen*, um die Details des Operators anzuzeigen.
+. Mit *View Operator* lassen sich die Operator-Details anzeigen. Anschließend können Sie die Registerkarte *Trident Orchestrator* auswählen und auf *Create instance* klicken.
+. Im Erstellungsformular ist *YAML-Ansicht* auszuwählen und das  `TridentOrchestrator` von der Benutzeroberfläche bereitgestellte Beispiel zu bearbeiten. Es sollte nicht durch eine separate vollständige Konfiguration ersetzt werden.
 +
-image::../media/openshift-operator-07.png[Installiert]
+Zum Aktivieren der gleichzeitigen Verarbeitung ist Folgendes  `enableConcurrency: true` unter dem vorhandenen  `spec:` Abschnitt hinzuzufügen:
 
-. Klicken Sie auf *YAML-Ansicht* und fügen Sie Folgendes in das Formular ein:
 +
 [source, yaml]
 ----
-apiVersion: trident.netapp.io/v1
-kind: TridentOrchestrator
-metadata:
-  name: trident
-  namespace: openshift-operators
-spec:
-  IPv6: false
-  debug: false
-  nodePrep:
-  - iscsi
-  imageRegistry: ''
-  k8sTimeout: 180s
-  namespace: trident
-  silenceAutosupport: false
+  enableConcurrency: true
 ----
-+
-[NOTE]
-====
-Die Benutzeroberfläche bietet ein Standardbeispiel. Sie können dieses direkt bearbeiten, anstatt eine vollständige Konfiguration zu kopieren.
-
-====
 
 
-[NOTE]
-====
-Optional: Gleichzeitigkeit aktivieren
-
-Um Parallelverarbeitung zu ermöglichen, fügen Sie der Spezifikation das folgende Feld hinzu:
-
-[source, yaml]
-----
-enableConcurrency: true
-----
-====
 [NOTE]
 ====
 * Red Hat Enterprise Linux CoreOS (RHCOS) hat iSCSI nicht aktiviert und konfiguriert.

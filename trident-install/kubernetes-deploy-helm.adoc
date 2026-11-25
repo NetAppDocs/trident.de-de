@@ -257,7 +257,12 @@ WARNING: Entfernen Sie nicht die Standardaffinität aus der Datei values.yaml. W
 
 
 | `enableConcurrency`  a| 
-Ermöglicht gleichzeitige Trident Controller-Operationen für verbesserten Durchsatz. Weitere Informationen zu den unterstützten Treibern sind unter folgendem Link verfügbar: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
+Ermöglicht gleichzeitige Trident Controller-Operationen für verbesserten Durchsatz.
+
+
+WARNING: Diese Option muss während der Trident Installation oder bei der Aktualisierung einer bestehenden Bereitstellung explizit aktiviert werden.
+
+Weitere Informationen zu unterstützten Treibern sind unter folgendem Link zu finden: https://docs.netapp.com/us-en/trident/trident-use/controller-scalability.html#controller-scalability[Controller Scalability documentation].
 | Falsch 
 
 

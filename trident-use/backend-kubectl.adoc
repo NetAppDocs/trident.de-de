@@ -144,7 +144,9 @@ Passwort für die Verbindung mit dem Cluster/SVM Wird für die Anmeldeinformatio
 | ONTAP  a| 
 KundenPrivateKey
  a| 
-Base64-kodierte Wert des privaten Client-Schlüssels. Wird für die zertifikatbasierte Authentifizierung verwendet
+Base64-kodierter Wert des privaten Client-Schlüssels. Wird für zertifikatbasierte Authentifizierung verwendet.
+
+Bei Verwendung der zertifikatbasierten Authentifizierung ist auch der Parameter  `clientCertificate` in die Spezifikation  `TridentBackendConfig` aufzunehmen, zusätzlich zur Referenzierung dieses Secret über  `spec.credentials`. Bei Verwendung einer vertrauenswürdigen CA ist  `trustedCACertificate` ebenfalls in die Backend-Spezifikation aufzunehmen. Einzelheiten sind unter link:ontap-san-prep.html#enable-certificate-based-authentication["Zertifikatbasierte Authentifizierung aktivieren"] zu finden.
 
 
 
